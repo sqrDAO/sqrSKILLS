@@ -1,0 +1,734 @@
+{
+  "_meta": {
+    "document_type": "structured_immigration_policy_research",
+    "country": "Vietnam",
+    "iso_alpha2": "VN",
+    "iso_alpha3": "VNM",
+    "last_updated": "2026-04-09",
+    "data_freshness": "Reflects policies as of April 2026; key reforms from Aug 2023, Jan 2025, Aug 2025, Dec 2025",
+    "sources": [
+      "https://en.wikipedia.org/wiki/Visa_policy_of_Vietnam",
+      "https://evisa.gov.vn/",
+      "https://vietnam.travel/things-to-do/new-visa-exemption-policies-effective-15-august-2025",
+      "https://www.vietnam-briefing.com/news/vietnam-visa-policy-2025-reforms.html/",
+      "https://www.myvietnamvisa.com/vietnam-visa-policy-updates-news.html"
+    ],
+    "agent_usage_notes": [
+      "All durations are in calendar days unless noted.",
+      "TIER is a classification field added for agent logic: use it to quickly branch on policy category.",
+      "All fees are in USD unless noted.",
+      "Fields marked nullable may be null if data is not applicable.",
+      "Policies change frequently; always cross-check with evisa.gov.vn for live data."
+    ]
+  },
+
+  "policy_framework": {
+    "governing_law": "Law on Entry, Exit, Transit, and Residence of Foreigners in Vietnam (No. 47/2014/QH13, amended 2019)",
+    "administering_body": "Vietnam Immigration Department, Ministry of Public Security",
+    "official_portal": "https://evisa.gov.vn/",
+    "entry_requirement_summary": "All foreign nationals require a valid entry permission to enter Vietnam. This is satisfied by one of: (1) visa exemption by nationality, (2) e-Visa, (3) visa on arrival (VOA) with pre-approval letter, or (4) embassy/consulate visa. Phu Quoc Island has a standalone special exemption for all nationalities.",
+    "passport_validity_minimum_days": 180,
+    "proof_of_onward_travel": "May be requested at immigration at discretion of officer; recommended to carry.",
+    "entry_modes": ["air", "land", "sea"]
+  },
+
+  "entry_categories": {
+    "VISA_FREE": {
+      "code": "VISA_FREE",
+      "label": "Visa Exemption",
+      "description": "Nationals of qualifying countries may enter without any visa document for tourism, transit, or short visits.",
+      "entry_modes_allowed": ["air", "land", "sea"],
+      "re_entry_restriction": "No minimum wait time between re-entries under the standard exemption.",
+      "overstay_consequences": "Fines and potential deportation or future entry ban."
+    },
+    "EVISA": {
+      "code": "EVISA",
+      "label": "Electronic Visa (e-Visa)",
+      "description": "Available to ALL nationalities. Applied online via evisa.gov.vn. Valid for single or multiple entry, up to 90 days.",
+      "fee_usd": { "single_entry": 25, "multiple_entry": 50 },
+      "processing_days": "2-3 business days (expedited options available at higher cost)",
+      "application_window_days": { "min": 1, "max": 180 },
+      "max_stay_days": 90,
+      "entry_modes_allowed": ["air", "land", "sea"],
+      "approved_ports_count": 83,
+      "entry_port_restriction": "e-Visa does NOT restrict entry to a single nominated port. Holder may use any of the 83 approved ports (expanded from 42 to 83 via Resolution 389/NQ-CP, effective Dec 2, 2025).",
+      "eligible_nationalities": "ALL countries and territories (since 15 Aug 2023)"
+    },
+    "VISA_ON_ARRIVAL": {
+      "code": "VOA",
+      "label": "Visa on Arrival (with pre-approval letter)",
+      "description": "Requires a pre-approval letter obtained through a licensed Vietnamese travel agency BEFORE travel. Visa is stamped at designated international airports on arrival.",
+      "entry_modes_allowed": ["air"],
+      "airports_supporting_voa": [
+        "Noi Bai International Airport (HAN) - Hanoi",
+        "Tan Son Nhat International Airport (SGN) - Ho Chi Minh City",
+        "Da Nang International Airport (DAD)",
+        "Cam Ranh International Airport (CXR) - Nha Trang"
+      ],
+      "stamp_fees_usd": {
+        "single_entry_30days": 25,
+        "multiple_entry_90days": 50,
+        "multiple_entry_180days": 95,
+        "multiple_entry_365days": 135
+      },
+      "notes": "Chinese nationals CANNOT use VOA; must obtain visa from Vietnamese embassy in China before travel. VOA has largely been superseded by the e-Visa system."
+    },
+    "EMBASSY_VISA": {
+      "code": "EMBASSY",
+      "label": "Embassy / Consulate Visa",
+      "description": "Traditional visa obtained at Vietnamese diplomatic missions abroad. Used for special visa types (work, study, long-term residence) or where e-Visa is insufficient.",
+      "types": ["DL (diplomatic)", "NG (official)", "LV (work)", "DT (investment)", "HN (conference)", "GD (education)", "LD (labor)", "TT (family/relative visit)", "VR (tourist)", "SQ (permanent residence)"]
+    },
+    "SPECIAL_ZONE_EXEMPTION": {
+      "code": "PHU_QUOC",
+      "label": "Phu Quoc Island Special Exemption",
+      "description": "ALL foreign nationals arriving directly to Phu Quoc by air or sea from outside Vietnam may stay on the island for up to 30 days without any visa.",
+      "max_stay_days": 30,
+      "restriction": "Visitor must remain on Phu Quoc Island; travel to mainland Vietnam voids exemption and requires a separate visa.",
+      "passport_validity_required_days": 180,
+      "entry_modes_allowed": ["air", "sea"]
+    }
+  },
+
+  "visa_exemption_by_country": {
+    "_schema": {
+      "country": "string - full English name",
+      "iso_alpha2": "string - ISO 3166-1 alpha-2 code",
+      "tier": "string - VISA_FREE_90 | VISA_FREE_45 | VISA_FREE_30 | VISA_FREE_21 | VISA_FREE_14",
+      "max_stay_days": "integer",
+      "agreement_type": "UNILATERAL | BILATERAL",
+      "valid_from": "YYYY-MM-DD or null",
+      "valid_until": "YYYY-MM-DD or null (null = indefinite)",
+      "conditions": "string or null - any special conditions"
+    },
+    "entries": [
+      {
+        "country": "Cambodia",
+        "iso_alpha2": "KH",
+        "tier": "VISA_FREE_30",
+        "max_stay_days": 30,
+        "agreement_type": "BILATERAL",
+        "valid_from": null,
+        "valid_until": null,
+        "conditions": null
+      },
+      {
+        "country": "Indonesia",
+        "iso_alpha2": "ID",
+        "tier": "VISA_FREE_30",
+        "max_stay_days": 30,
+        "agreement_type": "BILATERAL",
+        "valid_from": null,
+        "valid_until": null,
+        "conditions": null
+      },
+      {
+        "country": "Laos",
+        "iso_alpha2": "LA",
+        "tier": "VISA_FREE_30",
+        "max_stay_days": 30,
+        "agreement_type": "BILATERAL",
+        "valid_from": null,
+        "valid_until": null,
+        "conditions": null
+      },
+      {
+        "country": "Malaysia",
+        "iso_alpha2": "MY",
+        "tier": "VISA_FREE_30",
+        "max_stay_days": 30,
+        "agreement_type": "BILATERAL",
+        "valid_from": null,
+        "valid_until": null,
+        "conditions": null
+      },
+      {
+        "country": "Singapore",
+        "iso_alpha2": "SG",
+        "tier": "VISA_FREE_30",
+        "max_stay_days": 30,
+        "agreement_type": "BILATERAL",
+        "valid_from": null,
+        "valid_until": null,
+        "conditions": null
+      },
+      {
+        "country": "Thailand",
+        "iso_alpha2": "TH",
+        "tier": "VISA_FREE_30",
+        "max_stay_days": 30,
+        "agreement_type": "BILATERAL",
+        "valid_from": null,
+        "valid_until": null,
+        "conditions": null
+      },
+      {
+        "country": "Myanmar",
+        "iso_alpha2": "MM",
+        "tier": "VISA_FREE_14",
+        "max_stay_days": 14,
+        "agreement_type": "BILATERAL",
+        "valid_from": null,
+        "valid_until": null,
+        "conditions": null
+      },
+      {
+        "country": "Philippines",
+        "iso_alpha2": "PH",
+        "tier": "VISA_FREE_21",
+        "max_stay_days": 21,
+        "agreement_type": "BILATERAL",
+        "valid_from": "2000-04-01",
+        "valid_until": null,
+        "conditions": null
+      },
+      {
+        "country": "Brunei",
+        "iso_alpha2": "BN",
+        "tier": "VISA_FREE_14",
+        "max_stay_days": 14,
+        "agreement_type": "BILATERAL",
+        "valid_from": null,
+        "valid_until": null,
+        "conditions": null
+      },
+      {
+        "country": "Germany",
+        "iso_alpha2": "DE",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2023-08-15",
+        "valid_until": "2028-03-05",
+        "conditions": "Extended until 2028 per March 2025 announcement"
+      },
+      {
+        "country": "France",
+        "iso_alpha2": "FR",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2023-08-15",
+        "valid_until": "2028-03-05",
+        "conditions": "Extended until 2028 per March 2025 announcement"
+      },
+      {
+        "country": "Italy",
+        "iso_alpha2": "IT",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2023-08-15",
+        "valid_until": "2028-03-05",
+        "conditions": "Extended until 2028 per March 2025 announcement"
+      },
+      {
+        "country": "Spain",
+        "iso_alpha2": "ES",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2023-08-15",
+        "valid_until": "2028-03-05",
+        "conditions": "Extended until 2028 per March 2025 announcement"
+      },
+      {
+        "country": "United Kingdom",
+        "iso_alpha2": "GB",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2023-08-15",
+        "valid_until": "2028-03-05",
+        "conditions": "Extended until 2028 per March 2025 announcement"
+      },
+      {
+        "country": "Russia",
+        "iso_alpha2": "RU",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2023-08-15",
+        "valid_until": "2028-03-05",
+        "conditions": "Extended until 2028 per March 2025 announcement"
+      },
+      {
+        "country": "Japan",
+        "iso_alpha2": "JP",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2023-08-15",
+        "valid_until": "2028-03-05",
+        "conditions": "Extended until 2028 per March 2025 announcement"
+      },
+      {
+        "country": "South Korea",
+        "iso_alpha2": "KR",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2023-08-15",
+        "valid_until": "2028-03-05",
+        "conditions": "Extended until 2028 per March 2025 announcement"
+      },
+      {
+        "country": "Denmark",
+        "iso_alpha2": "DK",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2023-08-15",
+        "valid_until": "2028-03-05",
+        "conditions": "Extended until 2028 per March 2025 announcement"
+      },
+      {
+        "country": "Sweden",
+        "iso_alpha2": "SE",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2023-08-15",
+        "valid_until": "2028-03-05",
+        "conditions": "Extended until 2028 per March 2025 announcement"
+      },
+      {
+        "country": "Norway",
+        "iso_alpha2": "NO",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2023-08-15",
+        "valid_until": "2028-03-05",
+        "conditions": "Extended until 2028 per March 2025 announcement"
+      },
+      {
+        "country": "Finland",
+        "iso_alpha2": "FI",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2023-08-15",
+        "valid_until": "2028-03-05",
+        "conditions": "Extended until 2028 per March 2025 announcement"
+      },
+      {
+        "country": "Belarus",
+        "iso_alpha2": "BY",
+        "tier": "VISA_FREE_30",
+        "max_stay_days": 30,
+        "agreement_type": "BILATERAL",
+        "valid_from": "2025-01-30",
+        "valid_until": null,
+        "conditions": "Mutual visa exemption agreement effective Jan 30, 2025. Max 30 days per entry; total stay not to exceed 90 days within a calendar year."
+      },
+      {
+        "country": "Belgium",
+        "iso_alpha2": "BE",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2025-08-15",
+        "valid_until": "2028-08-14",
+        "conditions": "Added via Resolution 229/NQ-CP; tourism stimulus program"
+      },
+      {
+        "country": "Bulgaria",
+        "iso_alpha2": "BG",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2025-08-15",
+        "valid_until": "2028-08-14",
+        "conditions": "Added via Resolution 229/NQ-CP"
+      },
+      {
+        "country": "Croatia",
+        "iso_alpha2": "HR",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2025-08-15",
+        "valid_until": "2028-08-14",
+        "conditions": "Added via Resolution 229/NQ-CP"
+      },
+      {
+        "country": "Czech Republic",
+        "iso_alpha2": "CZ",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2025-08-15",
+        "valid_until": "2028-08-14",
+        "conditions": "Added via Resolution 229/NQ-CP. Previously had conditional 45-day exemption for tour package travelers (Mar-Dec 2025)"
+      },
+      {
+        "country": "Switzerland",
+        "iso_alpha2": "CH",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2025-08-15",
+        "valid_until": "2028-08-14",
+        "conditions": "Added via Resolution 229/NQ-CP"
+      },
+      {
+        "country": "Luxembourg",
+        "iso_alpha2": "LU",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2025-08-15",
+        "valid_until": "2028-08-14",
+        "conditions": "Added via Resolution 229/NQ-CP"
+      },
+      {
+        "country": "Hungary",
+        "iso_alpha2": "HU",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2025-08-15",
+        "valid_until": "2028-08-14",
+        "conditions": "Added via Resolution 229/NQ-CP"
+      },
+      {
+        "country": "Netherlands",
+        "iso_alpha2": "NL",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2025-08-15",
+        "valid_until": "2028-08-14",
+        "conditions": "Added via Resolution 229/NQ-CP"
+      },
+      {
+        "country": "Poland",
+        "iso_alpha2": "PL",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2025-08-15",
+        "valid_until": "2028-08-14",
+        "conditions": "Added via Resolution 229/NQ-CP"
+      },
+      {
+        "country": "Romania",
+        "iso_alpha2": "RO",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2025-08-15",
+        "valid_until": "2028-08-14",
+        "conditions": "Added via Resolution 229/NQ-CP"
+      },
+      {
+        "country": "Slovakia",
+        "iso_alpha2": "SK",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2025-08-15",
+        "valid_until": "2028-08-14",
+        "conditions": "Added via Resolution 229/NQ-CP"
+      },
+      {
+        "country": "Slovenia",
+        "iso_alpha2": "SI",
+        "tier": "VISA_FREE_45",
+        "max_stay_days": 45,
+        "agreement_type": "UNILATERAL",
+        "valid_from": "2025-08-15",
+        "valid_until": "2028-08-14",
+        "conditions": "Added via Resolution 229/NQ-CP"
+      },
+      {
+        "country": "Chile",
+        "iso_alpha2": "CL",
+        "tier": "VISA_FREE_90",
+        "max_stay_days": 90,
+        "agreement_type": "BILATERAL",
+        "valid_from": null,
+        "valid_until": null,
+        "conditions": null
+      },
+      {
+        "country": "Panama",
+        "iso_alpha2": "PA",
+        "tier": "VISA_FREE_90",
+        "max_stay_days": 90,
+        "agreement_type": "BILATERAL",
+        "valid_from": null,
+        "valid_until": null,
+        "conditions": null
+      },
+      {
+        "country": "Kazakhstan",
+        "iso_alpha2": "KZ",
+        "tier": "VISA_FREE_30",
+        "max_stay_days": 30,
+        "agreement_type": "BILATERAL",
+        "valid_from": null,
+        "valid_until": null,
+        "conditions": null
+      },
+      {
+        "country": "Kyrgyzstan",
+        "iso_alpha2": "KG",
+        "tier": "VISA_FREE_30",
+        "max_stay_days": 30,
+        "agreement_type": "BILATERAL",
+        "valid_from": "1985-07-15",
+        "valid_until": null,
+        "conditions": "Signed as USSR"
+      },
+      {
+        "country": "Mongolia",
+        "iso_alpha2": "MN",
+        "tier": "VISA_FREE_30",
+        "max_stay_days": 30,
+        "agreement_type": "BILATERAL",
+        "valid_from": null,
+        "valid_until": null,
+        "conditions": null
+      },
+      {
+        "country": "Seychelles",
+        "iso_alpha2": "SC",
+        "tier": "VISA_FREE_14",
+        "max_stay_days": 14,
+        "agreement_type": "UNILATERAL",
+        "valid_from": null,
+        "valid_until": null,
+        "conditions": null
+      }
+    ]
+  },
+
+  "special_passport_exemptions": {
+    "abtc_holders": {
+      "description": "APEC Business Travel Card (ABTC) holders with 'VNM' on the card back may enter visa-free for business for up to 60 days.",
+      "max_stay_days": 60,
+      "purpose": "business_only",
+      "eligible_issuing_economies": [
+        "Australia", "Brunei", "Canada", "Chile", "China", "Hong Kong", "Indonesia",
+        "Japan", "Malaysia", "Mexico", "New Zealand", "Papua New Guinea", "Peru",
+        "Philippines", "Russia", "Singapore", "South Korea", "Taiwan", "Thailand",
+        "United States", "Vietnam"
+      ]
+    },
+    "certificate_of_visa_exemption": {
+      "description": "Special certificate for overseas Vietnamese (Viet Kieu), their spouses, and children under 18.",
+      "validity_years": 5,
+      "max_stay_per_period_days": 180,
+      "re_entry_restriction": "None - unlimited entries; no minimum wait time between 180-day periods.",
+      "eligible_persons": [
+        "Vietnamese citizens residing abroad",
+        "Spouses of Vietnamese citizens",
+        "Children under 18 of Vietnamese citizens",
+        "Spouses of overseas Vietnamese",
+        "Children under 18 of overseas Vietnamese"
+      ]
+    },
+    "diplomatic_service_passports": {
+      "description": "Holders of diplomatic or official/service passports receive separate, often longer, visa-free periods.",
+      "note": "Varies by bilateral agreement; up to 90 days for many countries. Consult the full diplomatic table at the Vietnam MFA."
+    },
+    "china_cuba_north_korea_public_affairs": {
+      "description": "Citizens of China, Cuba, and North Korea holding passports endorsed 'for public affairs' or official public affairs passports may enter visa-free.",
+      "conditions": "Passport must be specifically endorsed for public affairs"
+    }
+  },
+
+  "long_term_visa_categories": {
+    "_note": "Vietnam does not yet have a formal 'golden visa' but reforms are in progress as of 2025-2026.",
+    "existing_long_term_visas": [
+      {
+        "code": "DT",
+        "label": "Investment Visa",
+        "max_validity": "12 months, renewable",
+        "eligible": "Foreign investors with registered capital in Vietnam"
+      },
+      {
+        "code": "LV",
+        "label": "Work Permit Visa",
+        "max_validity": "24 months, tied to work permit duration",
+        "eligible": "Foreign workers with Vietnamese work permit"
+      },
+      {
+        "code": "GD",
+        "label": "Education Visa",
+        "max_validity": "12 months, renewable",
+        "eligible": "Students enrolled at accredited Vietnamese institutions"
+      },
+      {
+        "code": "TT",
+        "label": "Family/Relative Visit Visa",
+        "max_validity": "12 months",
+        "eligible": "Relatives of Vietnamese citizens or legal foreign residents"
+      },
+      {
+        "code": "SQ",
+        "label": "Permanent Residence",
+        "max_validity": "Indefinite (requires application to Immigration Dept)",
+        "eligible": "Long-term residents meeting criteria: 5+ years continuous residence, financial stability, etc."
+      }
+    ],
+    "upcoming_reforms_2026": {
+      "source": "Effective July 1, 2026",
+      "new_categories": [
+        {
+          "code": "UD1",
+          "label": "High-Quality Digital Technology & Special Talent Visa",
+          "max_validity": "5 years",
+          "eligible_profiles": [
+            "Executives and investors from globally top-100 companies by market cap",
+            "STEM experts and economists with doctoral qualifications from OECD countries",
+            "Medical scientists affiliated with high-level hospitals or universities",
+            "Tech professionals in national priority sectors (semiconductors, AI)",
+            "Artists and athletes with internationally recognized awards",
+            "Social media creators with 1M+ followers (with official endorsement)"
+          ]
+        },
+        {
+          "code": "UD2",
+          "label": "Dependent Visa for UD1 Holders",
+          "max_validity": "5 years (tied to UD1 holder)",
+          "eligible_profiles": ["Spouse of UD1 holder", "Children under 18 of UD1 holder"]
+        }
+      ],
+      "proposed_golden_visa": {
+        "status": "Under review by Ministry of Public Security as of mid-2025",
+        "proposed_validity": "Up to 10 years",
+        "proposed_eligible": "High-value investors and residents meeting criteria TBD"
+      }
+    }
+  },
+
+  "evisa_entry_ports": {
+    "airports": [
+      { "name": "Noi Bai International Airport", "iata": "HAN", "city": "Hanoi" },
+      { "name": "Tan Son Nhat International Airport", "iata": "SGN", "city": "Ho Chi Minh City" },
+      { "name": "Cam Ranh International Airport", "iata": "CXR", "city": "Nha Trang / Khanh Hoa" },
+      { "name": "Da Nang International Airport", "iata": "DAD", "city": "Da Nang" },
+      { "name": "Cat Bi International Airport", "iata": "HPH", "city": "Hai Phong" },
+      { "name": "Can Tho International Airport", "iata": "VCA", "city": "Can Tho" },
+      { "name": "Phu Quoc International Airport", "iata": "PQC", "city": "Phu Quoc" },
+      { "name": "Phu Bai International Airport", "iata": "HUI", "city": "Hue" },
+      { "name": "Van Don International Airport", "iata": "VDO", "city": "Quang Ninh" },
+      { "name": "Lien Khuong International Airport", "iata": "DLI", "city": "Da Lat" },
+      { "name": "Tho Xuan Airport", "iata": "THD", "city": "Thanh Hoa" },
+      { "name": "Dong Hoi Airport", "iata": "VDH", "city": "Quang Binh" },
+      { "name": "Phu Cat Airport", "iata": "UIH", "city": "Binh Dinh" },
+      { "name": "Vinh International Airport", "iata": "VII", "city": "Nghe An" },
+      { "name": "Chu Lai International Airport", "iata": "VCL", "city": "Quang Nam" }
+    ],
+    "land_border_crossings_by_neighbor": {
+      "China": [
+        "Mong Cai (Quang Ninh)", "Dong Dang (Lang Son)", "Huu Nghi (Lang Son)",
+        "Lao Cai (Lao Cai)", "Tra Linh (Cao Bang)", "Thanh Thuy (Tuyen Quang)"
+      ],
+      "Laos": [
+        "Tay Trang (Dien Bien)", "Na Meo (Thanh Hoa)", "Nam Can (Nghe An)",
+        "Cau Treo (Ha Tinh)", "Cha Lo (Quang Binh)", "La Lay (Quang Tri)",
+        "Lao Bao (Quang Tri)", "Bo Y (Kon Tum)", "Long Sap (Son La)", "Nam Giang (Da Nang)"
+      ],
+      "Cambodia": [
+        "Moc Bai (Tay Ninh)", "Xa Mat (Tay Ninh)", "Binh Hiep (Tay Ninh)",
+        "Tan Nam (Tay Ninh)", "Tinh Bien (An Giang)", "Vinh Xuong (An Giang)",
+        "Ha Tien (Kien Giang)", "Le Thanh (Gia Lai)", "Thuong Phuoc (Dong Thap)", "Dinh Ba (Dong Thap)"
+      ]
+    },
+    "sea_ports": [
+      "Hon Gai Port (Quang Ninh)", "Cam Pha Port (Quang Ninh)", "Hai Phong Port",
+      "Nghi Son Port (Thanh Hoa)", "Vung Ang Port (Ha Tinh)", "Chan May Port (Thua Thien Hue)",
+      "Da Nang Port", "Ky Ha Port (Quang Nam)", "Dung Quat Port (Quang Ngai)",
+      "Qui Nhon Port (Binh Dinh)", "Nha Trang Port (Khanh Hoa)", "Ba Ngoi Port (Khanh Hoa)",
+      "Van Phong Port (Khanh Hoa)", "Vung Tau Port", "Ho Chi Minh City Port",
+      "My Tho Port (Tien Giang)", "Can Tho Port", "An Thoi Port (Phu Quoc)"
+    ]
+  },
+
+  "decision_logic": {
+    "description": "Pseudocode for AI agents to determine a traveler's entry pathway given nationality and purpose.",
+    "pseudocode": [
+      "FUNCTION determine_entry_pathway(nationality_iso2, purpose, duration_days, has_abtc):",
+      "  IF nationality_iso2 IN certificate_of_visa_exemption.eligible_nationalities:",
+      "    RETURN 'CERTIFICATE_VISA_EXEMPTION' // Applies to Viet Kieu and family",
+      "",
+      "  IF has_abtc AND purpose == 'BUSINESS' AND duration_days <= 60:",
+      "    RETURN 'ABTC_VISA_FREE'",
+      "",
+      "  FOR entry IN visa_exemption_by_country.entries:",
+      "    IF entry.iso_alpha2 == nationality_iso2:",
+      "      IF entry.valid_until IS NOT NULL AND TODAY > entry.valid_until:",
+      "        CONTINUE // Expired exemption",
+      "      IF duration_days <= entry.max_stay_days:",
+      "        RETURN 'VISA_FREE' WITH max_stay=entry.max_stay_days",
+      "      ELSE:",
+      "        BREAK // Nationality qualifies for exemption but trip too long -> needs e-Visa",
+      "",
+      "  // Default: e-Visa (available to ALL nationalities)",
+      "  IF duration_days <= 90:",
+      "    RETURN 'EVISA' WITH max_stay=90, cost_usd=50 // multiple-entry recommended",
+      "  ELSE:",
+      "    RETURN 'EMBASSY_VISA' // Long-stay requires appropriate visa category"
+    ]
+  },
+
+  "no_visa_exemption_notable_countries": {
+    "_note": "These high-traffic nationalities do NOT have visa-free access to Vietnam. Always route them to EVISA. This list exists to prevent LLM hallucination of visa-free status.",
+    "entries": [
+      { "country": "United States", "iso_alpha2": "US", "required_pathway": "EVISA", "note": "No bilateral or unilateral exemption exists. US citizens need an e-Visa ($25 single / $50 multiple, up to 90 days)." },
+      { "country": "Canada", "iso_alpha2": "CA", "required_pathway": "EVISA", "note": "No visa exemption. Canadians need an e-Visa." },
+      { "country": "Australia", "iso_alpha2": "AU", "required_pathway": "EVISA", "note": "No visa exemption. Australians need an e-Visa." },
+      { "country": "New Zealand", "iso_alpha2": "NZ", "required_pathway": "EVISA", "note": "No visa exemption. New Zealanders need an e-Visa." },
+      { "country": "India", "iso_alpha2": "IN", "required_pathway": "EVISA", "note": "No visa exemption. Indian nationals need an e-Visa." },
+      { "country": "China", "iso_alpha2": "CN", "required_pathway": "EMBASSY_VISA", "note": "Chinese nationals cannot use VOA or e-Visa via certain channels — must obtain visa from Vietnamese embassy in China before travel." }
+    ]
+  },
+
+  "frequently_asked_questions_for_agents": {
+    "can_US_citizens_enter_visa_free": {
+      "answer": false,
+      "reason": "The United States is NOT on Vietnam's visa exemption list. US nationals must obtain an e-Visa ($25 single entry / $50 multiple entry, up to 90 days) or a consular visa. Do NOT state that Americans get 45-day visa-free entry — this is false.",
+      "recommended_pathway": "EVISA"
+    },
+    "can_Chinese_nationals_use_VOA": {
+      "answer": false,
+      "reason": "Chinese nationals are explicitly excluded from the visa on arrival process. They must obtain a visa from a Vietnamese embassy in China before travel.",
+      "recommended_pathway": "EMBASSY_VISA"
+    },
+    "is_there_a_minimum_wait_between_re_entries_for_visa_free": {
+      "answer": false,
+      "reason": "Vietnam does not impose a minimum waiting period between re-entries for visa-exempt travelers. They may exit and immediately re-enter within their permitted stay duration."
+    },
+    "can_evisa_holders_enter_by_land": {
+      "answer": true,
+      "reason": "e-Visa holders may enter via any of the 42 approved ports, including land borders."
+    },
+    "does_evisa_require_single_entry_port": {
+      "answer": false,
+      "reason": "As of 2025, the e-Visa does not restrict the holder to a single nominated entry port."
+    },
+    "what_is_the_phu_quoc_exemption": {
+      "answer": "ALL nationalities may enter Phu Quoc Island directly (by air or sea from outside Vietnam) and stay up to 30 days without any visa. Traveling to mainland Vietnam requires a visa.",
+      "recommended_pathway": "SPECIAL_ZONE_EXEMPTION"
+    },
+    "what_visa_do_web3_founders_or_investors_need": {
+      "answer": "Short stays under 90 days: e-Visa (USD 50, multiple entry). For longer residency: DT (Investment) visa or the upcoming UD1 visa (effective July 2026). Investors from top-100 global firms by market cap may qualify for the UD1 or the proposed Golden Visa under current draft legislation.",
+      "recommended_pathway": "EVISA for short stays; EMBASSY_VISA (DT category) or UD1 from July 2026 for long-term"
+    }
+  },
+
+  "key_policy_timeline": [
+    { "date": "2023-08-15", "event": "e-Visa expanded to ALL nationalities; max stay extended from 30 to 90 days; visa-free extended to 45 days for 13 key markets" },
+    { "date": "2025-01-15", "event": "Resolution 11/NQ-CP: 45-day conditional exemption for Poland, Czech Republic, Switzerland (tour packages only)" },
+    { "date": "2025-01-30", "event": "Vietnam-Belarus bilateral mutual visa exemption effective: 30 days per entry, max 90 days/year for ordinary passport holders" },
+    { "date": "2025-03-05", "event": "Visa-free extensions confirmed until 2028 for Germany, France, Italy, Spain, UK, Russia, Japan, South Korea, Denmark, Sweden, Norway, Finland" },
+    { "date": "2025-08-15", "event": "Resolution 229/NQ-CP: 45-day visa-free for 12 additional European countries (Belgium, Bulgaria, Croatia, Czech Republic, Switzerland, Luxembourg, Hungary, Netherlands, Poland, Romania, Slovakia, Slovenia) until Aug 14, 2028" },
+    { "date": "2025-12-02", "event": "Resolution 389/NQ-CP: 41 new international border gates added for e-Visa entry/exit, expanding total approved ports from 42 to 83 (4 airports, 11 land borders, 26 seaports)" },
+    { "date": "2026-02-10", "event": "Announcement: UD1 and UD2 visa categories for high-skill professionals and dependents (valid up to 5 years) to launch July 1, 2026" },
+    { "date": "2026-07-01", "event": "UD1 and UD2 visa categories go into effect" }
+  ]
+}
