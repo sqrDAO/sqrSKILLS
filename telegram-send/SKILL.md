@@ -1,3 +1,11 @@
+---
+name: telegram-send
+description: |
+  Send a message to a Telegram group or channel the twin is a member of. Use this skill whenever the owner asks to send, post, or broadcast a message to a Telegram group or channel. Trigger phrases: "send a message to [group]", "post to Telegram", "broadcast to [channel]", "message the [group name] Telegram group". Requires TELEGRAM_BOT_TOKEN, YOUAI_API_URL, and YOUAI_TWIN_ID.
+allowed-tools:
+  - Bash(python3 *)
+---
+
 # telegram-send
 
 Send messages to Telegram groups and channels that this twin is a member of.

@@ -18,11 +18,11 @@ Each skill is a self-contained directory with a `SKILL.md` (the skill prompt) an
 
 ### Via skills.sh
 ```bash
-skills install sqrdao/list-telegram-chats
-skills install sqrdao/nearby-places-search
-skills install sqrdao/llm-wiki
-skills install sqrdao/telegram-send
-skills install sqrdao/vietnam-visa-check
+npx skills add sqrdao/sqrSKILLS@list-telegram-chats
+npx skills add sqrdao/sqrSKILLS@nearby-places-search
+npx skills add sqrdao/sqrSKILLS@llm-wiki
+npx skills add sqrdao/sqrSKILLS@telegram-send
+npx skills add sqrdao/sqrSKILLS@vietnam-visa-check
 ```
 
 ### Manual
