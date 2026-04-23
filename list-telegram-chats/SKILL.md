@@ -1,6 +1,7 @@
 ---
 name: list-telegram-chats
-description: Lists Telegram chat IDs (groups and private chats) that have interacted with this twin. Use this skill whenever the owner asks to see who has messaged the twin, list active chats, show connected groups, or view chat history participants. Execute via Bash: `python3 "$SKILL_DIR/scripts/list_chats.py"`. Do NOT use Telegram API tools — this skill works by reading the local session state.
+description: |
+  List Telegram groups and private chats that have interacted with this twin. Use this skill whenever the owner asks to see who has messaged the twin, list active chats, show connected groups, or view chat history participants. Trigger phrases: "list my Telegram chats", "who has messaged me on Telegram", "show connected groups", "what Telegram groups am I in". Do NOT use Telegram API tools — this skill reads local session state directly.
 allowed-tools:
   - Bash(python3 *)
 ---
