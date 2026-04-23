@@ -49,7 +49,7 @@ Here are [type] near [location]:
 2. **Name** — Address (price) ⭐ rating — [Maps](googleMapsUrl)
 ```
 
-- Price levels: PRICE_LEVEL_INEXPENSIVE = $, PRICE_LEVEL_MODERATE = $$, PRICE_LEVEL_EXPENSIVE = $$$, PRICE_LEVEL_VERY_EXPENSIVE = $$$$. Omit if not present.
+- Price levels: PRICE_LEVEL_FREE = free, PRICE_LEVEL_INEXPENSIVE = $, PRICE_LEVEL_MODERATE = $$, PRICE_LEVEL_EXPENSIVE = $$$, PRICE_LEVEL_VERY_EXPENSIVE = $$$$. Omit if not present.
 - Omit rating if not present.
 - **Always include the Google Maps link** — every place has a `googleMapsUrl` field.
 

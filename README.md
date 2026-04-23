@@ -8,6 +8,7 @@ Each skill is a self-contained directory with a `SKILL.md` (the skill prompt) an
 
 | Skill | Description |
 |-------|-------------|
+| [list-telegram-chats](./list-telegram-chats/) | List Telegram groups and private chats that have interacted with the twin |
 | [nearby-places-search](./nearby-places-search/) | Real-time place search via Google Places API |
 | [llm-wiki](./llm-wiki/) | Personal compounding knowledge base (Karpathy's LLM Wiki pattern) |
 | [telegram-send](./telegram-send/) | Send messages to Telegram groups via a bot |
@@ -17,6 +18,7 @@ Each skill is a self-contained directory with a `SKILL.md` (the skill prompt) an
 
 ### Via skills.sh
 ```bash
+skills install sqrdao/list-telegram-chats
 skills install sqrdao/nearby-places-search
 skills install sqrdao/llm-wiki
 skills install sqrdao/telegram-send
