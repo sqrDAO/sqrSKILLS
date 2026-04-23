@@ -1,25 +1,17 @@
----
-name: telegram-send
-description: |
-  Send messages to Telegram groups and channels that a bot is a member of. Use this skill when the user asks to broadcast, notify, or send a message to a Telegram group or channel. Trigger phrases: "send to telegram", "message the group", "broadcast to", "notify the channel", "post to telegram". Requires TELEGRAM_BOT_TOKEN.
-allowed-tools:
-  - Bash(python3 *)
----
+# telegram-send
 
-# Telegram Send
+Send messages to Telegram groups and channels that this twin is a member of.
 
-Send messages to Telegram groups and channels the bot is a member of.
+## Overview
+
+This skill lets the twin's owner instruct the twin to proactively broadcast a message
+to any Telegram group or channel the bot has previously interacted with.
 
 ## Required Environment Variables
 
-- `TELEGRAM_BOT_TOKEN` — Telegram bot token
-
-## Optional Environment Variables (for group discovery)
-
-- `YOUAI_API_URL` — YouAI backend URL (for listing known groups via the YouAI platform)
-- `YOUAI_TWIN_ID` — Twin ID (for YouAI platform group discovery)
-
-> **Note**: Without `YOUAI_API_URL` / `YOUAI_TWIN_ID`, group listing returns an empty array. You can still send directly if you know the `chat_id`.
+- `TELEGRAM_BOT_TOKEN` — Telegram bot token (auto-injected for Telegram twins)
+- `YOUAI_API_URL` — YouAI backend URL (auto-injected, e.g. https://api.tryyouai.me)
+- `YOUAI_TWIN_ID` — This twin's ID (auto-injected)
 
 ## Commands
 
@@ -29,7 +21,7 @@ Send messages to Telegram groups and channels the bot is a member of.
 python3 "$SKILL_DIR/scripts/list_groups.py"
 ```
 
-Returns a JSON array of group chats the bot has interacted with:
+Returns a JSON array of group chats the twin has interacted with:
 
 ```json
 [
@@ -38,7 +30,7 @@ Returns a JSON array of group chats the bot has interacted with:
 ]
 ```
 
-Returns `[]` if no groups are known or the backend is unreachable.
+Returns `[]` if no groups are known yet or the backend is unreachable.
 
 ### Send a message
 
@@ -56,13 +48,17 @@ Exits 0 on success, 1 on failure (error written to stderr).
 
 ## Usage Instructions
 
-1. When the owner asks to send a message to a group, first run `list_groups.py` to discover available groups and resolve the target group name to a `chat_id`.
-2. If the requested group is not in the list, inform the owner that the bot has not received any messages from that group yet.
+1. When the owner asks to send a message to a group, first run `list_groups.py` to
+   discover available groups and resolve the target group name to a `chat_id`.
+2. If the requested group is not in the list, inform the owner that the bot has not
+   received any messages from that group yet (the bot must be added and have received
+   at least one message for it to appear).
 3. Run `send.py` with the resolved `chat_id` and the message text.
 4. Never guess or fabricate a `chat_id`.
 
 ## Notes
 
-- Only groups that have sent at least one message to the bot are discoverable via `list_groups.py`.
-- The bot must be a member of the group for the send to succeed.
+- Only groups that have sent at least one message to this twin are discoverable.
+- `name` is resolved via the Telegram Bot API (`getChat`) using `TELEGRAM_BOT_TOKEN`. If the bot has been removed from a group, `name` will be `null` — the `chat_id` is still valid for sending if the bot is re-added.
+- The bot must still be a member of the group for the send to succeed.
 - Messages support Markdown formatting (bold, italic, code blocks).
