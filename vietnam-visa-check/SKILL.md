@@ -5,7 +5,7 @@ description: |
   user asks: "can [nationality] enter Vietnam?", "do I need a visa for Vietnam?",
   "Vietnam visa requirements", "how long can [nationality] stay in Vietnam?",
   "Vietnam e-Visa cost", "Phu Quoc exemption", "visa on arrival Vietnam",
-  "Vietnam immigration policy". Do NOT use web-search for these queries —
+  "Vietnam immigration policy". Do NOT search the web for these queries —
   this skill has current policy data (as of April 2026).
 allowed-tools:
   - Bash(python3 *)
@@ -17,7 +17,7 @@ Answers Vietnam entry and visa questions for any nationality. Uses a bundled pol
 
 ## When to Use
 
-Use this skill — **not web-search** — whenever the user asks:
+Use this skill — **not a web search** — whenever the user asks:
 - "Can [nationality] visit Vietnam visa-free?"
 - "What visa do I need for Vietnam?"
 - "How long can [nationality] stay in Vietnam?"

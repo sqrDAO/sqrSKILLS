@@ -25,8 +25,19 @@ npx skills add sqrdao/sqrSKILLS@telegram-send
 npx skills add sqrdao/sqrSKILLS@vietnam-visa-check
 ```
 
-### Manual
-Copy the skill directory into your Claude Code skills path. The skill scripts use `SKILL_DIR` (automatically set to the skill's installed directory) so no path adjustment is needed.
+### Manual (Claude Code)
+Copy a skill directory into `~/.claude/skills/`:
+```bash
+cp -r vietnam-visa-check ~/.claude/skills/
+```
+
+### Other agents (OpenClaw, Nanobot, Codex, Gemini CLI, etc.)
+Skills that support the SKILL.md standard look in `~/.agents/skills/`. Copy any skill there:
+```bash
+cp -r vietnam-visa-check ~/.agents/skills/
+```
+
+`npx skills add` (above) handles all 45+ supported agents automatically — it's the recommended approach.
 
 ## Requirements
 

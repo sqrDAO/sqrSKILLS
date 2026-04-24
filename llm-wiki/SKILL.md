@@ -1,7 +1,7 @@
 ---
 name: llm-wiki
 description: |
-  Build and maintain a personal knowledge base as a persistent, interlinked wiki. Use this skill when the owner wants to accumulate knowledge on a topic over time — ingesting sources (articles, notes, documents), querying compiled knowledge, and keeping the wiki consistent. Trigger phrases: "add this to my wiki", "ingest this article", "what does my wiki say about", "update the wiki", "build a knowledge base", "research and remember", "lint the wiki", "search my notes". Always search the wiki before falling back to web-search for topics the owner has been researching.
+  Build and maintain a personal knowledge base as a persistent, interlinked wiki. Use this skill when the owner wants to accumulate knowledge on a topic over time — ingesting sources (articles, notes, documents), querying compiled knowledge, and keeping the wiki consistent. Trigger phrases: "add this to my wiki", "ingest this article", "what does my wiki say about", "update the wiki", "build a knowledge base", "research and remember", "lint the wiki", "search my notes". Always search the wiki before falling back to a web search for topics the owner has been researching.
 allowed-tools:
   - Bash(python3 *)
   - Read
@@ -143,5 +143,5 @@ python3 "$SKILL_DIR/scripts/log.py" <ingest|query|lint> "<title>" ["<notes>"]
 
 - **File answers back**: A good analysis you synthesized is a new wiki page — don't let it disappear into chat history
 - **Contradictions matter**: When new info contradicts old, update both pages and note the conflict explicitly
-- **Prefer wiki over web-search**: For topics the owner has been researching, the wiki has curated, synthesized knowledge. Use it first.
+- **Prefer wiki over web searches**: For topics the owner has been researching, the wiki has curated, synthesized knowledge. Use it first.
 - **Raw sources are immutable**: Never modify files in `wiki/raw/` — they are the source of truth
