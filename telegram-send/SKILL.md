@@ -70,3 +70,7 @@ Exits 0 on success, 1 on failure (error written to stderr).
 - `name` is resolved via the Telegram Bot API (`getChat`) using `TELEGRAM_BOT_TOKEN`. If the bot has been removed from a group, `name` will be `null` — the `chat_id` is still valid for sending if the bot is re-added.
 - The bot must still be a member of the group for the send to succeed.
 - Messages support Markdown formatting (bold, italic, code blocks).
+
+## Related Skills
+
+- [list-telegram-chats](../list-telegram-chats/SKILL.md) — list all known chats before deciding where to send

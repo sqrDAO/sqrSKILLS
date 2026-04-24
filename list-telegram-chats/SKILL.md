@@ -29,3 +29,7 @@ python3 "$SKILL_DIR/scripts/list_chats.py"
 
 - No additional configuration required — reads from local session files (`OPENCLAW_STATE_DIR`, default `/twin-data/state`).
 - Falls back to the YouAI backend API (`YOUAI_API_URL` + `YOUAI_TWIN_ID`) if no local sessions exist.
+
+## Related Skills
+
+- [telegram-send](../telegram-send/SKILL.md) — send a message to one of the discovered chats
