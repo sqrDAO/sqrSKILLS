@@ -77,7 +77,7 @@ def main():
         print(f"Error: chat_id must be an integer, got: {sys.argv[1]!r}", file=sys.stderr)
         sys.exit(1)
 
-    message = sys.argv[2]
+    message = sys.argv[2].replace('\\n', '\n')
     if not message.strip():
         print("Error: message cannot be empty", file=sys.stderr)
         sys.exit(1)
