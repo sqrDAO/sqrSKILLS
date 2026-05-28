@@ -40,7 +40,7 @@ Returns a JSON array of group chats the twin has interacted with:
 
 Returns `[]` if no groups are known yet or the backend is unreachable.
 
-### Send a message
+### Send a message to a specific chat
 
 ```bash
 python3 "$SKILL_DIR/scripts/send.py" <chat_id> "<message>"
@@ -54,15 +54,34 @@ python3 "$SKILL_DIR/scripts/send.py" -1001234567890 "Meeting at 3pm today!"
 
 Exits 0 on success, 1 on failure (error written to stderr).
 
+### Send to all groups matching a keyword
+
+```bash
+python3 "$SKILL_DIR/scripts/send.py" --keyword <substr> "<message>"
+```
+
+Fetches all known groups, filters by name (case-insensitive substring match), and sends to every match.
+
+Example:
+
+```bash
+python3 "$SKILL_DIR/scripts/send.py" --keyword crypto "Market update: BTC up 5%!"
+```
+
+Exits 0 if all sends succeeded, 1 if any failed. Per-group results are printed to stdout; errors go to stderr.
+
 ## Usage Instructions
 
-1. When the owner asks to send a message to a group, first run `list_groups.py` to
-   discover available groups and resolve the target group name to a `chat_id`.
+1. When the owner asks to send a message to a specific group, first run `list_groups.py`
+   to discover available groups and resolve the target group name to a `chat_id`.
 2. If the requested group is not in the list, inform the owner that the bot has not
    received any messages from that group yet (the bot must be added and have received
    at least one message for it to appear).
 3. Run `send.py` with the resolved `chat_id` and the message text.
 4. Never guess or fabricate a `chat_id`.
+5. When the owner asks to send to multiple groups matching a keyword (e.g. "send to all
+   crypto groups"), use `send.py --keyword <substr> "<message>"` — it handles the lookup
+   and fan-out internally.
 
 ## Notes
 

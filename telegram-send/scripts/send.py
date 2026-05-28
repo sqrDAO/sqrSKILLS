@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """
-Send a message to a Telegram chat using the bot's token.
+Send a message to one or more Telegram chats.
 
 Usage:
-    python send.py <chat_id> <message>
+    python send.py <chat_id> "<message>"
+    python send.py --keyword <substr> "<message>"
 
 Exit codes:
-    0 — message sent successfully
-    1 — failed to send (error on stderr)
+    0 — all messages sent successfully
+    1 — one or more sends failed (errors on stderr)
 """
+import argparse
 import json
 import os
 import sys
@@ -51,7 +53,6 @@ def send_message(bot_token: str, chat_id: int, text: str) -> None:
         try:
             err_data = json.loads(body)
             description = err_data.get("description", str(e))
-            # Markdown parse error — retry as plain text
             if "parse" in description.lower() or "entities" in description.lower():
                 result = _post()
                 if result.get("ok"):
@@ -62,32 +63,78 @@ def send_message(bot_token: str, chat_id: int, text: str) -> None:
 
 
 def main():
-    if len(sys.argv) < 3:
-        print("Usage: send.py <chat_id> <message>", file=sys.stderr)
-        sys.exit(1)
+    parser = argparse.ArgumentParser(
+        description="Send a Telegram message to one or more chats",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=(
+            "Examples:\n"
+            "  send.py -1001234567890 'Hello!'\n"
+            "  send.py --keyword crypto 'Market update!'\n"
+        ),
+    )
+    parser.add_argument(
+        "--keyword",
+        metavar="SUBSTR",
+        help="send to all groups whose name contains SUBSTR (case-insensitive)",
+    )
+    parser.add_argument("args", nargs="+", metavar="ARG")
+    parsed = parser.parse_args()
 
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
     if not bot_token:
         print("Error: TELEGRAM_BOT_TOKEN environment variable is not set", file=sys.stderr)
         sys.exit(1)
 
-    try:
-        chat_id = int(sys.argv[1])
-    except ValueError:
-        print(f"Error: chat_id must be an integer, got: {sys.argv[1]!r}", file=sys.stderr)
-        sys.exit(1)
+    if parsed.keyword:
+        if len(parsed.args) != 1:
+            parser.error("--keyword mode expects exactly: --keyword <substr> <message>")
+        message = parsed.args[0].replace("\\n", "\n")
+        if not message.strip():
+            print("Error: message cannot be empty", file=sys.stderr)
+            sys.exit(1)
 
-    message = sys.argv[2].replace('\\n', '\n')
-    if not message.strip():
-        print("Error: message cannot be empty", file=sys.stderr)
-        sys.exit(1)
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from list_groups import list_groups
 
-    try:
-        send_message(bot_token, chat_id, message)
-        print(f"Message sent to chat {chat_id}")
-    except Exception as e:
-        print(f"Error: {e}", file=sys.stderr)
-        sys.exit(1)
+        groups = list_groups()
+        keyword_lower = parsed.keyword.lower()
+        matches = [g for g in groups if g.get("name") and keyword_lower in g["name"].lower()]
+
+        if not matches:
+            print(f"No groups found matching keyword: {parsed.keyword!r}", file=sys.stderr)
+            sys.exit(1)
+
+        print(f"Sending to {len(matches)} group(s) matching {parsed.keyword!r}...")
+        failed = False
+        for g in matches:
+            try:
+                send_message(bot_token, g["chat_id"], message)
+                print(f"  Sent to {g['name']!r} ({g['chat_id']})")
+            except Exception as e:
+                print(f"  Error sending to {g['name']!r} ({g['chat_id']}): {e}", file=sys.stderr)
+                failed = True
+
+        sys.exit(1 if failed else 0)
+
+    else:
+        if len(parsed.args) != 2:
+            parser.error("expects: <chat_id> <message>")
+        try:
+            chat_id = int(parsed.args[0])
+        except ValueError:
+            print(f"Error: chat_id must be an integer, got: {parsed.args[0]!r}", file=sys.stderr)
+            sys.exit(1)
+        message = parsed.args[1].replace("\\n", "\n")
+        if not message.strip():
+            print("Error: message cannot be empty", file=sys.stderr)
+            sys.exit(1)
+
+        try:
+            send_message(bot_token, chat_id, message)
+            print(f"Message sent to chat {chat_id}")
+        except Exception as e:
+            print(f"Error: {e}", file=sys.stderr)
+            sys.exit(1)
 
 
 if __name__ == "__main__":
