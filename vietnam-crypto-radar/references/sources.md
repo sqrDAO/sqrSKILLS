@@ -1,0 +1,71 @@
+# Source Registry — Vietnam Crypto Radar
+
+Sweep in tier order: Tier 1 (primary government) → Tier 2 (legal/analyst) → Tier 3
+(crypto-native). Bias every query to material dated after the baseline's `LAST VERIFIED`.
+
+**Verification rule (restated):** report a finding as fact only if it cites a specific
+instrument number confirmed by a Tier-1 source or a named law firm, OR if two independent
+Tier-2 sources corroborate it. Otherwise label DRAFT / PROPOSED / RUMORED. Primary beats
+crypto-native on every conflict. Always carry the instrument number.
+
+---
+
+## Tier 1 — Primary government (authoritative; slow but definitive)
+
+| Source | URL | Covers | Cadence |
+|---|---|---|---|
+| Government legal documents DB | vanban.chinhphu.vn | Decrees, resolutions, decisions — full text + status | Per run |
+| Government News (EN) | en.baochinhphu.vn | Official announcements, minister statements | Per run |
+| Government News (VN) | baochinhphu.vn | Same, fuller/earlier in Vietnamese | Per run |
+| Ministry of Finance | mof.gov.vn | Asset market, circulars, tax policy, pilot | Per run |
+| State Bank of Vietnam | sbv.gov.vn | Payments, AML, monetary, the payment-ban line | Monthly |
+| General Department of Taxation | gdt.gov.vn | Tax declaration/withholding, guidance | Monthly |
+| State Securities Commission | ssc.gov.vn | Market-conduct supervision (watch for crypto-market remit) | Monthly |
+| National Assembly | quochoi.vn | Primary laws, legislative agenda | Quarterly / on news |
+| Legal text database | thuvienphapluat.vn | Searchable instrument lookup, status, effective dates (partly paywalled but best for confirming a number/status) | Per run when confirming an instrument |
+| Official Gazette (Công báo) | congbao.chinhphu.vn | Authoritative publication of issued instruments | When confirming issuance |
+
+> Tip: the fastest way to *confirm* a rumored circular is real is to search its number on
+> thuvienphapluat.vn or find it on vanban.chinhphu.vn / congbao. No number on a primary site = treat as DRAFT/RUMORED.
+
+---
+
+## Tier 2 — Legal & analyst trackers (high signal, English, instrument-anchored)
+
+These firms publish client alerts that cite instrument numbers and effective dates — ideal for the tracker.
+
+- **Vietnam Briefing (Dezan Shira)** — vietnam-briefing.com — practical regulatory + tax explainers.
+- **Baker McKenzie / BMVN** — bakermckenzie.com (insights) — detailed tax & market alerts (authored Circular 32/41 analysis).
+- **Tilleke & Gibbins** — tilleke.com — fintech/digital-asset notes.
+- **Allens, VILAF, YKVN, Frasers, Russin & Vecchi** — client alerts (often surfaced via Lexology).
+- **Lexology** — lexology.com — aggregates the above firm alerts; good single search surface.
+- **RMIT Vietnam** — rmit.edu.vn/news — academic/policy commentary.
+- **Global Legal Insights / Chambers / Mondaq** — annual or periodic VN crypto-regulation chapters (good for structured baselines, less for breaking news).
+
+---
+
+## Tier 3 — Crypto-native & market (fast, broad, NOISY — verify before reporting)
+
+Use for early signal and market color (entrants, license shortlists, sentiment). Never the
+sole basis for a stated fact.
+
+- **Coin68** — coin68.com — leading Vietnamese crypto outlet.
+- Local VN tech/business press — VnExpress (vnexpress.net), Tuoi Tre, VietnamNet — pick up minister statements and forum remarks early.
+- **CoinDesk / Cointelegraph / The Block** — regional/SEA desks for international framing.
+- **Chainalysis** — chainalysis.com — Global Crypto Adoption Index, on-chain reports.
+- Exchange research/help centers (e.g. tax guides) — useful for *how rules are being operationalized*, but they are interpretations, not law.
+
+---
+
+## Suggested run cadence
+- **Lightweight "what's new" check:** Tier 1 government news + Lexology + Coin68, filtered to last 2–4 weeks.
+- **Full briefing:** all of Tier 1 + Tier 2, with Tier 3 for market/licensing color.
+- **Confirming a specific instrument:** thuvienphapluat.vn / vanban.chinhphu.vn / congbao for the number and status, then one firm alert for plain-English interpretation.
+
+## Query patterns that work
+- `Vietnam crypto regulation [current month year]`
+- `[instrument number] TT-BTC` or `Nghị định crypto Vietnam`
+- `Vietnam VASP license pilot exchange [year]`
+- `Vietnam crypto tax circular [year]`
+- `tài sản mã hóa Việt Nam` (Vietnamese: "crypto assets Vietnam" — surfaces local/primary results earlier)
+- `tài sản số nghị định` (Vietnamese: "digital assets decree")

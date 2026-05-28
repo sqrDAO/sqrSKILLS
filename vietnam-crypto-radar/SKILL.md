@@ -1,0 +1,93 @@
+---
+name: vietnam-crypto-radar
+description: Produce up-to-date intelligence briefings on Vietnam's crypto/digital-asset landscape — laws, decrees, circulars, licensing, tax, the pilot exchange market, and enforcement. Use this skill WHENEVER the user asks "what's new with Vietnam crypto," wants a regulatory update, asks about a specific instrument (e.g. the DTI Law, Resolution 05, a TT-BTC circular), wants to know the status of the pilot/VASP licensing, asks about crypto tax in Vietnam, or needs a briefing for a partner/investor/founder on the VN digital-asset regime. Trigger even when the user doesn't say the word "skill" — phrases like "VN crypto reg," "is X legal in Vietnam now," "Vietnam exchange license," "any movement on the sandbox," or "catch me up on Vietnam digital assets" all apply. Prefer this over answering from memory, because the regime is moving fast and stale answers are worse than no answer.
+allowed-tools:
+  - Read
+  - Write
+  - WebFetch
+  - WebSearch
+---
+
+# Vietnam Crypto Radar
+
+Generate accurate, current, builder-grade briefings on Vietnam's crypto and digital-asset regulation. The audience is founders, investors, and operators (default register: sharp, crypto-native, precise). The regime went from gray-zone to a comprehensive framework on 1 Jan 2026 and is still issuing implementing rules monthly — so **freshness and the enacted-vs-draft distinction are the whole game.**
+
+This skill is not legal advice. It produces intelligence; compliance decisions need licensed Vietnamese counsel. Say so once, briefly, when the output could be read as advice.
+
+## Core method: diff live findings against a dated baseline
+
+"Getting updated" is a diff operation, not a from-scratch research dump. Run it like this:
+
+1. **Load the baseline.** Read `references/baseline.md`. It holds the last-verified snapshot of the regime and a `LAST VERIFIED` date. Everything you report as "new" is new *relative to that date*.
+2. **Sweep the sources.** Read `references/sources.md` and pull from sources in tier order — Tier 1 (primary government) first, then Tier 2 (law-firm/analyst trackers), then Tier 3 (crypto-native, fast but noisy). Bias queries to material dated after the baseline's `LAST VERIFIED`.
+3. **Diff.** For each finding, ask: is this already in the baseline? If yes, skip. If no or changed, it's a candidate update.
+4. **Verify before promoting a candidate to fact.** Apply the verification discipline below. Crypto media routinely reports drafts, rumors, and "officials say" as if enacted. Do not repeat that mistake.
+5. **Classify status** for every instrument: `ENACTED` / `EFFECTIVE` / `DRAFT` / `PROPOSED` / `EXPECTED` / `RUMORED`. This single column is the most valuable thing in the briefing.
+6. **Write the briefing** using the output template below.
+7. **Offer to update the baseline.** If you confirmed real changes, offer to rewrite `references/baseline.md` with the new state and a fresh `LAST VERIFIED` date, so the next run starts from a better diff point. This is what keeps the skill compounding instead of decaying.
+
+## Verification discipline (do not skip)
+
+Vietnam's process emits a lot of *draft* circulars and ministerial soundbites that never land as written. A finding may be reported as fact in the briefing only if it meets ONE of:
+
+- It cites a **specific instrument number** (e.g. Law 71/2025/QH15, Resolution 05/2025/NQ-CP, Circular 32/2026/TT-BTC, Decision 96/QĐ-BTC) AND a Tier-1 primary source or a named law firm confirms it is signed/issued, **or**
+- At least **two independent Tier-2** sources (different firms/outlets) corroborate it.
+
+Everything else is labeled `DRAFT`, `PROPOSED`, or `RUMORED` and clearly flagged. When primary and crypto-native sources conflict, the primary source wins. Always prefer the instrument number over a paraphrase — "Circular 32/2026/TT-BTC" beats "the new tax rule." If you cannot find the instrument number, say the number is unconfirmed.
+
+Distinguish three things that get sloppily merged:
+- **Property/asset recognition** (crypto is legally ownable, transferable, inheritable — YES since the DTI Law).
+- **Means of payment** (using crypto to pay for goods — still NOT lawful; SBV position persists).
+- **Tradable on a licensed market** (only via the pilot's licensed providers; offshore-exchange use sits outside the protected perimeter).
+
+## Output template
+
+Use this structure. Scale length to the request — a quick "what's new" gets TL;DR + What's New + Sources; a partner briefing gets the full set.
+
+```
+# Vietnam Crypto Radar — [Month YYYY]
+_Baseline diff since [LAST VERIFIED date]. Not legal advice._
+
+## TL;DR
+3–5 bullets. Lead with anything ENACTED or newly EFFECTIVE since the baseline.
+
+## What's new since [date]
+Each item: [STATUS] — headline — instrument number — what it changes — source.
+If nothing material changed, say so plainly (that is a valid, useful answer).
+
+## Instrument tracker
+A compact status table: Instrument | What it governs | Status | Effective date.
+Pull the standing rows from baseline.md, update statuses, add new rows.
+
+## Market & licensing
+Pilot exchange progress, VASP licensing shortlist/approvals, capital thresholds,
+notable entrants/exits, settlement (VND) rules.
+
+## Tax corner
+CIT / PIT / VAT treatment, withholding mechanics, effective dates, open questions.
+
+## Watch list
+What's expected next and roughly when (drafts in flight, promised decrees,
+stated official timelines). Mark each EXPECTED/DRAFT/RUMORED.
+
+## Sources
+Primary instruments and Tier-1 links first; analyst/crypto-native after.
+```
+
+## Tone
+
+Builder-facing and direct. Crypto-native register is fine and expected (GM, BUIDL, VASP, ser) — but never at the expense of precision on a legal point. A founder reading this should be able to act on it or take it to counsel without re-checking the basics. A light "GM" open or sign-off is fine; the substance must be exact.
+
+## Reference files
+
+- `references/baseline.md` — current regime snapshot + anchor facts + the `LAST VERIFIED` date you diff against. **Read first, every run.** Offer to update it after confirming changes.
+- `references/sources.md` — the tiered source registry: where to look, what each covers, suggested cadence, and the verification rule restated. Read when sweeping for updates.
+- `references/glossary.md` — Vietnamese legal-instrument types (Luật/Nghị định/Nghị quyết/Thông tư/Quyết định), the regulators and who owns what, and VN-specific crypto terminology. Read when you need to explain or correctly label an instrument.
+
+## Quick triggers → what to do
+
+- "What's new with VN crypto?" → full diff run, output briefing.
+- "Is [X] legal in Vietnam now?" → load baseline, answer with the property/payment/tradable distinction, verify currency of the point, cite the instrument.
+- "Status of the pilot / exchange licenses?" → sweep Tier-1 + Tier-2, fill Market & licensing section.
+- "Vietnam crypto tax?" → Tax corner; cite Circular 32/2026 & 41/2026/TT-BTC and current effective dates; flag the individual-PIT mechanism status.
+- "Brief a partner/investor on VN digital assets" → full template, lead with the asset-recognition + pilot story, keep it tight.

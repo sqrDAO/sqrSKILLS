@@ -18,6 +18,7 @@ npx skills add sqrdao/sqrSKILLS@list-telegram-chats
 npx skills add sqrdao/sqrSKILLS@nearby-places-search
 npx skills add sqrdao/sqrSKILLS@llm-wiki
 npx skills add sqrdao/sqrSKILLS@vietnam-visa-check
+npx skills add sqrdao/sqrSKILLS@vietnam-crypto-radar
 ```
 
 `npx skills add` installs to all 45+ supported agents automatically (Claude Code, Codex, Gemini CLI, OpenClaw, Nanobot, and others).
@@ -29,6 +30,7 @@ npx skills add sqrdao/sqrSKILLS@vietnam-visa-check
 - [**nearby-places-search**](./nearby-places-search/) — Real-time place search via Google Places API. Returns results with addresses, ratings, and Maps links. Requires `GOOGLE_PLACES_API_KEY`.
 - [**llm-wiki**](./llm-wiki/) — Personal compounding knowledge base. Ingest sources, query compiled knowledge, and keep pages consistent. Based on [Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f).
 - [**vietnam-visa-check**](./vietnam-visa-check/) — Vietnam visa and entry requirements for any nationality. Fully offline — policy data is bundled (as of April 2026).
+- [**vietnam-crypto-radar**](./vietnam-crypto-radar/) — Up-to-date intelligence briefings on Vietnam's crypto/digital-asset regulation: laws, decrees, tax, the pilot exchange market, and enforcement. Diffs against a dated baseline so you always know what's new.
 
 ## Requirements
 
