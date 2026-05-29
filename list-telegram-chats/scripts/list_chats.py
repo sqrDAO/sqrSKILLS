@@ -61,6 +61,47 @@ def _chats_from_openclaw_sessions() -> dict:
     return {"groups": groups, "private_chats": private_chats}
 
 
+def _resolve_names(chats: list) -> list:
+    """Enrich each chat entry with its name from the Telegram Bot API (getChat).
+
+    For groups: uses title. For private chats: uses first_name + last_name or username.
+    Chats the bot can no longer access are returned with name=null.
+    """
+    bot_token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+    if not bot_token:
+        return chats
+
+    enriched = []
+    for c in chats:
+        chat_id = c["chat_id"]
+        try:
+            url = (
+                f"https://api.telegram.org/bot{bot_token}/getChat"
+                f"?chat_id={urllib.parse.quote(str(chat_id))}"
+            )
+            with urllib.request.urlopen(url, timeout=5) as resp:
+                data = json.loads(resp.read())
+            if data.get("ok"):
+                result = data["result"]
+                first = result.get("first_name", "")
+                last = result.get("last_name", "")
+                full_name = (first + (" " + last if last else "")).strip()
+                name = (
+                    result.get("title")
+                    or full_name
+                    or result.get("username")
+                )
+                chat_type = result.get("type", c.get("type", "unknown"))
+                enriched.append({"chat_id": chat_id, "name": name, "type": chat_type})
+            else:
+                enriched.append({**c, "name": None})
+        except Exception as e:
+            print(f"Warning: could not resolve name for chat {chat_id}: {e}", file=sys.stderr)
+            enriched.append({**c, "name": None})
+
+    return enriched
+
+
 def _chats_from_backend() -> dict:
     """Fallback: query the YouAI backend API."""
     api_url = os.environ.get("YOUAI_API_URL", "").rstrip("/")
@@ -87,9 +128,12 @@ def _chats_from_backend() -> dict:
 
 def list_chats() -> dict:
     result = _chats_from_openclaw_sessions()
-    if result["groups"] or result["private_chats"]:
-        return result
-    return _chats_from_backend()
+    if not (result["groups"] or result["private_chats"]):
+        result = _chats_from_backend()
+    return {
+        "groups": _resolve_names(result["groups"]),
+        "private_chats": _resolve_names(result["private_chats"]),
+    }
 
 
 if __name__ == "__main__":

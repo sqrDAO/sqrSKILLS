@@ -20,15 +20,18 @@ python3 "$SKILL_DIR/scripts/list_chats.py"
 
 ```json
 {
-  "groups": [{"chat_id": -1001234567890, "type": "group"}],
-  "private_chats": [{"chat_id": 502391728, "type": "direct"}]
+  "groups": [{"chat_id": -1001234567890, "name": "My Group", "type": "supergroup"}],
+  "private_chats": [{"chat_id": 502391728, "name": "Alice Smith", "type": "private"}]
 }
 ```
 
+`name` is `null` when the bot can no longer access the chat.
+
 ## Prerequisites
 
-- No additional configuration required — reads from local session files (`OPENCLAW_STATE_DIR`, default `/twin-data/state`).
+- Reads from local session files (`OPENCLAW_STATE_DIR`, default `/twin-data/state`).
 - Falls back to the YouAI backend API (`YOUAI_API_URL` + `YOUAI_TWIN_ID`) if no local sessions exist.
+- `TELEGRAM_BOT_TOKEN` — required to resolve chat names via the Telegram Bot API. Auto-injected in OpenClaw containers. Without it, `name` is omitted from all entries.
 
 ## Related Skills
 
