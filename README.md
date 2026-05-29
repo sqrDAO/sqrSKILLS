@@ -20,6 +20,7 @@ npx skills add sqrdao/sqrSKILLS@llm-wiki
 npx skills add sqrdao/sqrSKILLS@vietnam-visa-check
 npx skills add sqrdao/sqrSKILLS@vietnam-crypto-radar
 npx skills add sqrdao/sqrSKILLS@telegram-group-summary
+npx skills add sqrdao/sqrSKILLS@luma-calendar
 ```
 
 `npx skills add` installs to all 45+ supported agents automatically (Claude Code, Codex, Gemini CLI, OpenClaw, Hermes, Nanobot, and others).
@@ -33,6 +34,7 @@ npx skills add sqrdao/sqrSKILLS@telegram-group-summary
 - [**vietnam-visa-check**](./vietnam-visa-check/) — Vietnam visa and entry requirements for any nationality. Fully offline — policy data is bundled (as of April 2026).
 - [**vietnam-crypto-radar**](./vietnam-crypto-radar/) — Up-to-date intelligence briefings on Vietnam's crypto/digital-asset regulation: laws, decrees, tax, the pilot exchange market, and enforcement. Diffs against a dated baseline so you always know what's new.
 - [**telegram-group-summary**](./telegram-group-summary/) — Fetch messages from a Telegram group and produce a structured summary: topics, decisions, action items, and tone. Requires `TELEGRAM_BOT_TOKEN`.
+- [**luma-calendar**](./luma-calendar/) — Manage Luma events and guests via the Luma API: list events, create events, view registrants, and add guests. Requires `LUMA_API_KEY`.
 
 ## Requirements
 
@@ -48,6 +50,7 @@ npx skills add sqrdao/sqrSKILLS@telegram-group-summary
 | vietnam-visa-check | — | — |
 | vietnam-crypto-radar | — | — |
 | telegram-group-summary | `TELEGRAM_BOT_TOKEN` | `OPENCLAW_STATE_DIR` |
+| luma-calendar | `LUMA_API_KEY` | — |
 
 Set these through your agent's configuration mechanism (e.g. `~/.claude/.env` for Claude Code, or your agent's equivalent env file).
 
