@@ -59,18 +59,39 @@ For agents that don't use `npx skills add`, copy the skill directory to the appr
 # Claude Code
 cp -r <skill-name> ~/.claude/skills/
 
-# OpenClaw, Hermes, Nanobot, Codex, Gemini CLI, and others
+# OpenClaw
+cp -r <skill-name> ~/.openclaw/skills/
+
+# Hermes
+cp -r <skill-name> ~/.hermes/skills/
+
+# Nanobot, Codex, Gemini CLI, and others
 cp -r <skill-name> ~/.agents/skills/
 ```
 
-| Agent | Skills directory |
-|-------|-----------------|
+| Agent | Global skills directory |
+|-------|------------------------|
 | Claude Code | `~/.claude/skills/` |
-| OpenClaw | `~/.agents/skills/` |
-| Hermes | `~/.agents/skills/` |
+| OpenClaw | `~/.openclaw/skills/` |
+| Hermes | `~/.hermes/skills/` |
 | Nanobot | `~/.agents/skills/` |
 | Codex | `~/.agents/skills/` |
 | Gemini CLI | `~/.agents/skills/` |
+
+## Installing via chat
+
+Most agents can install and invoke skills without leaving the conversation:
+
+| Agent | Install | Invoke |
+|-------|---------|--------|
+| Claude Code | Ask: *"install the sqrdao telegram-send skill"* | `/<skill-name>` or describe what you need — auto-activates on description match |
+| OpenClaw | Paste the GitHub URL in chat and ask the agent to install it | `/skill <name>` or describe what you need — auto-activates on description match |
+| Hermes | Type `/skills` or `/` to browse and install from the Skills Hub | `/skill <name>` or describe what you need — auto-activates on description match |
+
+For OpenClaw, the GitHub URL for any skill in this repo follows this pattern:
+```
+https://github.com/sqrdao/sqrSKILLS/tree/main/<skill-name>
+```
 
 ## Skill Format
 
