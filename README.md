@@ -22,7 +22,7 @@ npx skills add sqrdao/sqrSKILLS@vietnam-crypto-radar
 npx skills add sqrdao/sqrSKILLS@telegram-group-summary
 ```
 
-`npx skills add` installs to all 45+ supported agents automatically (Claude Code, Codex, Gemini CLI, OpenClaw, Nanobot, and others).
+`npx skills add` installs to all 45+ supported agents automatically (Claude Code, Codex, Gemini CLI, OpenClaw, Hermes, Nanobot, and others).
 
 ## Available Skills
 
@@ -37,19 +37,61 @@ npx skills add sqrdao/sqrSKILLS@telegram-group-summary
 ## Requirements
 
 - Python 3.10+
-- Per-skill environment variables — see each skill's `SKILL.md` for details
+- Per-skill environment variables:
+
+| Skill | Required | Optional |
+|-------|----------|----------|
+| telegram-send | `TELEGRAM_BOT_TOKEN`, `YOUAI_API_URL`, `YOUAI_TWIN_ID` | — |
+| list-telegram-chats | `TELEGRAM_BOT_TOKEN` | `OPENCLAW_STATE_DIR` (reads local session state when set) |
+| nearby-places-search | `GOOGLE_PLACES_API_KEY` | — |
+| llm-wiki | — | `WIKI_DIR` (defaults to `./wiki/`) |
+| vietnam-visa-check | — | — |
+| vietnam-crypto-radar | — | — |
+| telegram-group-summary | `TELEGRAM_BOT_TOKEN` | `OPENCLAW_STATE_DIR` |
+
+Set these through your agent's configuration mechanism (e.g. `~/.claude/.env` for Claude Code, or your agent's equivalent env file).
 
 ## Manual Installation
 
-For agents that look in a specific skills directory:
+For agents that don't use `npx skills add`, copy the skill directory to the appropriate location:
 
 ```bash
 # Claude Code
 cp -r <skill-name> ~/.claude/skills/
 
-# OpenClaw, Nanobot, Codex, Gemini CLI, and others
+# OpenClaw, Hermes, Nanobot, Codex, Gemini CLI, and others
 cp -r <skill-name> ~/.agents/skills/
 ```
+
+| Agent | Skills directory |
+|-------|-----------------|
+| Claude Code | `~/.claude/skills/` |
+| OpenClaw | `~/.agents/skills/` |
+| Hermes | `~/.agents/skills/` |
+| Nanobot | `~/.agents/skills/` |
+| Codex | `~/.agents/skills/` |
+| Gemini CLI | `~/.agents/skills/` |
+
+## Skill Format
+
+Each skill is a directory containing a `SKILL.md` file with YAML frontmatter:
+
+```yaml
+---
+name: skill-name
+description: |
+  One-paragraph trigger description. The agent's skill picker reads this
+  to decide when to activate the skill.
+allowed-tools:
+  - Bash(python3 *)   # shell commands the skill may run
+  - Read              # file reads (if needed)
+  - Write             # file writes (if needed)
+---
+
+[skill prompt / instructions follow here]
+```
+
+`allowed-tools` maps to the agent's tool permission system. Agents that don't use this field can ignore it — the skill body below the frontmatter is plain natural-language instructions.
 
 ## Support
 
