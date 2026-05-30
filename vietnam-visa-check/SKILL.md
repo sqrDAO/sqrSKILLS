@@ -9,6 +9,9 @@ description: |
   this skill has current policy data (as of April 2026).
 allowed-tools:
   - Bash(python3 *)
+metadata:
+  nanobot:
+    always: true
 ---
 
 # Vietnam Visa Check

@@ -82,7 +82,14 @@ def main():
 
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
     if not bot_token:
-        print("Error: TELEGRAM_BOT_TOKEN environment variable is not set", file=sys.stderr)
+        _cfg = os.path.expanduser(os.environ.get("NANOBOT_CONFIG", "~/.nanobot/config.json"))
+        try:
+            with open(_cfg) as _f:
+                bot_token = json.load(_f).get("channels", {}).get("telegram", {}).get("token", "")
+        except Exception:
+            pass
+    if not bot_token:
+        print("Error: TELEGRAM_BOT_TOKEN is not set", file=sys.stderr)
         sys.exit(1)
 
     if parsed.keyword:

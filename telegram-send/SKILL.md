@@ -1,9 +1,12 @@
 ---
 name: telegram-send
 description: |
-  Send a message to a Telegram group or channel the twin is a member of. Use this skill whenever the owner asks to send, post, or broadcast a message to a Telegram group or channel. Trigger phrases: "send a message to [group]", "post to Telegram", "broadcast to [channel]", "message the [group name] Telegram group". Requires TELEGRAM_BOT_TOKEN, YOUAI_API_URL, and YOUAI_TWIN_ID.
+  Send a message to a Telegram group or channel this agent is a member of. Use this skill whenever the owner asks to send, post, or broadcast a message to a Telegram group or channel. Trigger phrases: "send a message to [group]", "post to Telegram", "broadcast to [channel]", "message the [group name] Telegram group". Requires TELEGRAM_BOT_TOKEN.
 allowed-tools:
   - Bash(python3 *)
+metadata:
+  nanobot:
+    always: true
 ---
 
 # telegram-send
@@ -17,9 +20,12 @@ to any Telegram group or channel the bot has previously interacted with.
 
 ## Required Environment Variables
 
-- `TELEGRAM_BOT_TOKEN` — Telegram bot token (auto-injected for Telegram twins)
-- `YOUAI_API_URL` — YouAI backend URL (auto-injected, e.g. https://api.tryyouai.me)
-- `YOUAI_TWIN_ID` — This twin's ID (auto-injected)
+- `TELEGRAM_BOT_TOKEN` — Telegram bot token. Auto-discovered from `channels.telegram.token` in `~/.nanobot/config.json` (override path with `NANOBOT_CONFIG`) if not set in the environment.
+
+## Optional (YouAI runtime)
+
+- `YOUAI_API_URL` — YouAI backend URL (fallback group discovery when no local sessions exist)
+- `YOUAI_TWIN_ID` — Twin ID (required together with `YOUAI_API_URL`)
 
 ## Commands
 

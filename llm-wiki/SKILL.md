@@ -7,6 +7,9 @@ allowed-tools:
   - Read
   - Write
   - Edit
+metadata:
+  nanobot:
+    always: true
 ---
 
 # LLM Wiki

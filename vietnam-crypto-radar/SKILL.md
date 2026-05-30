@@ -6,6 +6,9 @@ allowed-tools:
   - Write
   - WebFetch
   - WebSearch
+metadata:
+  nanobot:
+    always: true
 ---
 
 # Vietnam Crypto Radar

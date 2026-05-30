@@ -10,6 +10,9 @@ description: |
   Requires LUMA_API_KEY environment variable.
 allowed-tools:
   - Bash(python3 *)
+metadata:
+  nanobot:
+    always: true
 ---
 
 # Luma Calendar

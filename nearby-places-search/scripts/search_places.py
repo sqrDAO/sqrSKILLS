@@ -15,7 +15,10 @@ import urllib.request
 PLACES_NEARBY_URL = "https://places.googleapis.com/v1/places:searchNearby"
 PLACES_TEXT_URL   = "https://places.googleapis.com/v1/places:searchText"
 
-WORKSPACE_DIR = os.environ.get("OPENCLAW_WORKSPACE_DIR", "/twin-data/workspace")
+WORKSPACE_DIR = (
+    os.environ.get("OPENCLAW_WORKSPACE_DIR")
+    or os.environ.get("NANOBOT_WORKSPACE", os.path.expanduser("~/.nanobot/workspace"))
+)
 
 # Load API key from env, falling back to workspace .google-places.env file
 GOOGLE_PLACES_API_KEY = os.environ.get("GOOGLE_PLACES_API_KEY", "")

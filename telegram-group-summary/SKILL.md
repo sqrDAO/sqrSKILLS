@@ -8,6 +8,9 @@ description: |
   "weekly summary of [group] Telegram". Requires TELEGRAM_BOT_TOKEN.
 allowed-tools:
   - Bash(python3 *)
+metadata:
+  nanobot:
+    always: true
 ---
 
 # telegram-group-summary

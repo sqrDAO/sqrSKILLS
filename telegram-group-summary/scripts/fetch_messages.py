@@ -74,7 +74,7 @@ def _extract_from_value(value, target_chat_id: int, since_ts: "float | None") ->
 
 def _messages_from_openclaw_state(target_chat_id: int, limit: int, since_ts: "float | None") -> list:
     """Walk OpenClaw's state directory looking for stored Telegram messages."""
-    state_dir = os.environ.get("OPENCLAW_STATE_DIR", "/twin-data/state")
+    state_dir = os.environ.get("OPENCLAW_STATE_DIR", "")
     if not os.path.isdir(state_dir):
         return []
 
