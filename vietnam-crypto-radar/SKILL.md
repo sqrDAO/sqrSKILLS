@@ -1,5 +1,6 @@
 ---
 name: vietnam-crypto-radar
+version: 0.1.0
 description: Produce up-to-date intelligence briefings on Vietnam's crypto/digital-asset landscape — laws, decrees, circulars, licensing, tax, the pilot exchange market, and enforcement. Use this skill WHENEVER the user asks "what's new with Vietnam crypto," wants a regulatory update, asks about a specific instrument (e.g. the DTI Law, Resolution 05, a TT-BTC circular), wants to know the status of the pilot/VASP licensing, asks about crypto tax in Vietnam, or needs a briefing for a partner/investor/founder on the VN digital-asset regime. Trigger even when the user doesn't say the word "skill" — phrases like "VN crypto reg," "is X legal in Vietnam now," "Vietnam exchange license," "any movement on the sandbox," or "catch me up on Vietnam digital assets" all apply. Prefer this over answering from memory, because the regime is moving fast and stale answers are worse than no answer.
 allowed-tools:
   - Read

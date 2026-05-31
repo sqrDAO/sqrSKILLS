@@ -1,5 +1,6 @@
 ---
 name: list-telegram-chats
+version: 0.1.0
 description: |
   List Telegram groups and private chats that have interacted with this agent. Use this skill whenever you need to see who has messaged the agent, list active Telegram chats, show connected groups, or view chat history participants. Trigger phrases: "list my Telegram chats", "who has messaged me on Telegram", "show connected groups", "what Telegram groups am I in", "list telegram chats".
 

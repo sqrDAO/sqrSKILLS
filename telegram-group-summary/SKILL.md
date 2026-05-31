@@ -1,5 +1,6 @@
 ---
 name: telegram-group-summary
+version: 0.1.0
 description: |
   Summarize recent activity in a Telegram group. Use this skill when the owner asks to
   summarize a Telegram group, recap what's been discussed, get a digest of a channel,

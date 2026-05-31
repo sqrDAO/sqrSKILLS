@@ -1,5 +1,6 @@
 ---
 name: luma-calendar
+version: 0.1.0
 description: |
   Manage Luma events and guests via the Luma public API. Use this skill whenever
   the user asks to list, create, or view Luma events; check who registered for an
