@@ -94,7 +94,7 @@ Exits 0 if all sends succeeded, 1 if any failed. Per-group results are printed t
 - Only groups that have sent at least one message to this twin are discoverable.
 - `name` is resolved via the Telegram Bot API (`getChat`) using `TELEGRAM_BOT_TOKEN`. If the bot has been removed from a group, `name` will be `null` — the `chat_id` is still valid for sending if the bot is re-added.
 - The bot must still be a member of the group for the send to succeed.
-- Messages support Markdown formatting (bold, italic, code blocks).
+- Messages support standard Markdown formatting: `**bold**`, `*italic*`, `_italic_`, `` `code` ``, ` ```code blocks``` `, `~~strikethrough~~`. These are converted to Telegram HTML before sending.
 
 ## Related Skills
 

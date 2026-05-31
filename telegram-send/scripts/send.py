@@ -13,17 +13,49 @@ Exit codes:
 import argparse
 import json
 import os
+import re
 import sys
 import urllib.error
 import urllib.parse
 import urllib.request
 
 
+def markdown_to_html(text: str) -> str:
+    """Convert standard markdown to Telegram HTML format."""
+    # Escape HTML special characters first
+    text = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+    # Fenced code blocks (``` ... ```) — must run before inline code
+    text = re.sub(
+        r"```(?:\w+\n)?(.*?)```",
+        lambda m: f"<pre><code>{m.group(1)}</code></pre>",
+        text,
+        flags=re.DOTALL,
+    )
+
+    # Inline code
+    text = re.sub(r"`([^`]+)`", r"<code>\1</code>", text)
+
+    # Bold: **text** or __text__
+    text = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", text, flags=re.DOTALL)
+    text = re.sub(r"__(.+?)__", r"<b>\1</b>", text, flags=re.DOTALL)
+
+    # Italic: *text* or _text_  (after bold so ** is already consumed)
+    text = re.sub(r"\*(.+?)\*", r"<i>\1</i>", text, flags=re.DOTALL)
+    text = re.sub(r"_(.+?)_", r"<i>\1</i>", text, flags=re.DOTALL)
+
+    # Strikethrough: ~~text~~
+    text = re.sub(r"~~(.+?)~~", r"<s>\1</s>", text, flags=re.DOTALL)
+
+    return text
+
+
 def send_message(bot_token: str, chat_id: int, text: str) -> None:
     base_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+    html_text = markdown_to_html(text)
 
-    def _post(parse_mode=None):
-        payload = {"chat_id": chat_id, "text": text}
+    def _post(parse_mode=None, body_text=None):
+        payload = {"chat_id": chat_id, "text": body_text if body_text is not None else text}
         if parse_mode:
             payload["parse_mode"] = parse_mode
         data = json.dumps(payload).encode()
@@ -36,9 +68,9 @@ def send_message(bot_token: str, chat_id: int, text: str) -> None:
         with urllib.request.urlopen(req, timeout=15) as resp:
             return json.loads(resp.read())
 
-    # Try Markdown first; fall back to plain text if parsing fails
+    # Try HTML (converted from markdown); fall back to plain text if parsing fails
     try:
-        result = _post(parse_mode="Markdown")
+        result = _post(parse_mode="HTML", body_text=html_text)
         if result.get("ok"):
             return
         error = result.get("description", "Unknown error")
