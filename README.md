@@ -2,7 +2,7 @@
 
 [![Install via skills.sh](https://img.shields.io/badge/skills.sh-install-green)](https://skills.sh/sqrdao/sqrSKILLS)
 
-Open-source [Agent Skills](https://agentskills.io/home) published by [sqrDAO](https://sqrdao.com). Covers Telegram integration, location search, and personal knowledge management.
+Open-source [Agent Skills](https://agentskills.io/home) published by [sqrDAO](https://sqrdao.com). Covers Telegram integration, location search, personal knowledge management, Luma events, Vietnam visa checks, and Vietnam crypto regulation briefings.
 
 ## Installation
 
@@ -23,12 +23,12 @@ npx skills add sqrdao/sqrSKILLS@telegram-group-summary
 npx skills add sqrdao/sqrSKILLS@luma-calendar
 ```
 
-`npx skills add` installs to all 45+ supported agents automatically (Claude Code, Codex, Gemini CLI, OpenClaw, Hermes, Nanobot, and others).
+`npx skills add` installs to all supported agents automatically where the skills installer has an adapter (Claude Code, Codex, Gemini CLI, OpenClaw, Hermes, Nanobot, and others).
 
 ## Available Skills
 
-- [**telegram-send**](./telegram-send/) — Send messages to Telegram groups and channels the twin is a member of. Requires `TELEGRAM_BOT_TOKEN`.
-- [**list-telegram-chats**](./list-telegram-chats/) — List Telegram groups and private chats that have interacted with this twin. Reads local session state — no API call required.
+- [**telegram-send**](./telegram-send/) — Send messages to Telegram groups and channels the agent's Telegram bot can access. Requires `TELEGRAM_BOT_TOKEN`.
+- [**list-telegram-chats**](./list-telegram-chats/) — List Telegram groups and private chats that have interacted with the agent's Telegram bot. Reads local session state first.
 - [**nearby-places-search**](./nearby-places-search/) — Real-time place search via Google Places API. Returns results with addresses, ratings, and Maps links. Requires `GOOGLE_PLACES_API_KEY`.
 - [**llm-wiki**](./llm-wiki/) — Personal compounding knowledge base. Ingest sources, query compiled knowledge, and keep pages consistent. Based on [Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f).
 - [**vietnam-visa-check**](./vietnam-visa-check/) — Vietnam visa and entry requirements for any nationality. Fully offline — policy data is bundled (as of April 2026).
@@ -52,7 +52,7 @@ npx skills add sqrdao/sqrSKILLS@luma-calendar
 | telegram-group-summary | `TELEGRAM_BOT_TOKEN` | `OPENCLAW_STATE_DIR` |
 | luma-calendar | `LUMA_API_KEY` | — |
 
-Set these through your agent's configuration mechanism (e.g. `~/.claude/.env` for Claude Code, or your agent's equivalent env file).
+Set these through your agent's environment/configuration mechanism (for example a shell profile, project `.env`, Claude Code env file, Codex environment, Hermes/OpenClaw config, or your runtime's equivalent).
 
 ## Manual Installation
 
@@ -68,7 +68,7 @@ cp -r <skill-name> ~/.openclaw/skills/
 # Hermes
 cp -r <skill-name> ~/.hermes/skills/
 
-# Nanobot, Codex, Gemini CLI, and others
+# Nanobot, Codex, Gemini CLI, Antigravity, and other Agent Skills-compatible runtimes
 cp -r <skill-name> ~/.agents/skills/
 ```
 
@@ -80,16 +80,19 @@ cp -r <skill-name> ~/.agents/skills/
 | Nanobot | `~/.agents/skills/` |
 | Codex | `~/.agents/skills/` |
 | Gemini CLI | `~/.agents/skills/` |
+| Antigravity | `~/.agents/skills/` or the skills directory configured by the runtime |
+| Other Agent Skills runtimes | Use the runtime's configured skills directory |
 
 ## Installing via chat
 
-Most agents can install and invoke skills without leaving the conversation:
+Many agents can install and invoke skills without leaving the conversation:
 
 | Agent | Install | Invoke |
 |-------|---------|--------|
 | Claude Code | Ask: *"install the sqrdao telegram-send skill"* | `/<skill-name>` or describe what you need — auto-activates on description match |
 | OpenClaw | Paste the GitHub URL in chat and ask the agent to install it | `/skill <name>` or describe what you need — auto-activates on description match |
 | Hermes | Type `/skills` or `/` to browse and install from the Skills Hub | `/skill <name>` or describe what you need — auto-activates on description match |
+| Codex / Antigravity / others | Install via the runtime's skills mechanism or copy the folder manually | Describe what you need; agents with skill selection should auto-activate on description match |
 
 For OpenClaw, the GitHub URL for any skill in this repo follows this pattern:
 ```
@@ -107,15 +110,21 @@ description: |
   One-paragraph trigger description. The agent's skill picker reads this
   to decide when to activate the skill.
 allowed-tools:
-  - Bash(python3 *)   # shell commands the skill may run
-  - Read              # file reads (if needed)
-  - Write             # file writes (if needed)
+  - Bash(python3 *)   # shell/terminal commands the skill may run
+  - Read              # file reads, if needed
+  - Write             # file writes, if needed
 ---
 
 [skill prompt / instructions follow here]
 ```
 
-`allowed-tools` maps to the agent's tool permission system. Agents that don't use this field can ignore it — the skill body below the frontmatter is plain natural-language instructions.
+`allowed-tools` maps to the agent's tool permission system. Agents with different tool names should map these capabilities to their local equivalents (shell/terminal, file read, file write/edit, web search/fetch). Agents that don't use this field can ignore it — the skill body below the frontmatter is plain natural-language instructions.
+
+### Runtime conventions
+
+- Commands use `$SKILL_DIR` for the installed skill directory. If your agent does not set it automatically, resolve it to the directory containing the active `SKILL.md` before running examples.
+- Skill bodies should refer to "the user" and "the agent" instead of assuming a specific product identity.
+- Helper scripts use Python 3.10+ and stdlib-only dependencies unless a skill explicitly says otherwise.
 
 ## Support
 
@@ -127,7 +136,7 @@ Contributions are welcome. To add a skill or fix an existing one:
 
 1. Fork this repository
 2. Create a new directory: `<skill-name>/SKILL.md` + `<skill-name>/scripts/*.py`
-3. Follow the structure in [CLAUDE.md](./CLAUDE.md) — stdlib-only Python, JSON to stdout
+3. Follow the structure in [AGENTS.md](./AGENTS.md) — portable wording, stdlib-only Python, JSON to stdout
 4. Open a pull request
 
 ## License

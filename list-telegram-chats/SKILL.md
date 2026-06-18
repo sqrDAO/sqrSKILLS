@@ -1,10 +1,10 @@
 ---
 name: list-telegram-chats
-version: 0.1.0
+version: 0.1.1
 description: |
   List Telegram groups and private chats that have interacted with this agent. Use this skill whenever you need to see who has messaged the agent, list active Telegram chats, show connected groups, or view chat history participants. Trigger phrases: "list my Telegram chats", "who has messaged me on Telegram", "show connected groups", "what Telegram groups am I in", "list telegram chats".
 
-  IMPORTANT: This is NOT a tool — invoke via the Bash tool: python3 "$SKILL_DIR/scripts/list_chats.py"
+  IMPORTANT: This is a skill with a helper script, not a direct MCP/function tool. Invoke it through the agent's shell/terminal capability: python3 "$SKILL_DIR/scripts/list_chats.py"
 allowed-tools:
   - Bash(python3 *)
 metadata:
@@ -23,6 +23,8 @@ python3 "$SKILL_DIR/scripts/list_chats.py"
 # Skip name resolution (no bot token required, faster):
 python3 "$SKILL_DIR/scripts/list_chats.py" --no-names
 ```
+
+`$SKILL_DIR` means this skill's installed directory. If your agent does not set it automatically, replace it with the path to this `list-telegram-chats` directory before running the command.
 
 ## Output
 

@@ -1,8 +1,8 @@
 ---
 name: llm-wiki
-version: 0.1.0
+version: 0.1.1
 description: |
-  Build and maintain a personal knowledge base as a persistent, interlinked wiki. Use this skill when the owner wants to accumulate knowledge on a topic over time — ingesting sources (articles, notes, documents), querying compiled knowledge, and keeping the wiki consistent. Trigger phrases: "add this to my wiki", "ingest this article", "what does my wiki say about", "update the wiki", "build a knowledge base", "research and remember", "lint the wiki", "search my notes". Always search the wiki before falling back to a web search for topics the owner has been researching.
+  Build and maintain a personal knowledge base as a persistent, interlinked wiki. Use this skill when the user wants to accumulate knowledge on a topic over time — ingesting sources (articles, notes, documents), querying compiled knowledge, and keeping the wiki consistent. Trigger phrases: "add this to my wiki", "ingest this article", "what does my wiki say about", "update the wiki", "build a knowledge base", "research and remember", "lint the wiki", "search my notes". Always search the wiki before falling back to a web search for topics the user has been researching.
 allowed-tools:
   - Bash(python3 *)
   - Read
@@ -32,6 +32,8 @@ wiki/
 ```
 
 On first use, create this structure if it doesn't exist.
+
+`$SKILL_DIR` in script commands means this skill's installed directory. If your agent does not set it automatically, replace it with the path to this `llm-wiki` directory before running commands.
 
 ## Page Conventions
 
@@ -63,10 +65,10 @@ last-updated: YYYY-MM-DD
 
 ### Ingest a source
 
-When the owner asks you to ingest or process a source document:
+When the user asks you to ingest or process a source document:
 
-1. Read the source from `wiki/raw/<filename>` (or from a URL/path the owner provides)
-2. Discuss key takeaways with the owner if needed
+1. Read the source from `wiki/raw/<filename>` (or from a URL/path the user provides)
+2. Discuss key takeaways with the user if needed
 3. Write a summary page: `wiki/pages/<slug>-source.md`
 4. Update `wiki/index.md` — add the new page entry
 5. Identify related existing pages and update them (cross-references, new info, contradictions)
@@ -76,7 +78,7 @@ When the owner asks you to ingest or process a source document:
 
 ### Query the wiki
 
-When the owner asks about a topic you've been researching:
+When the user asks about a topic you've been researching:
 
 1. Search for relevant pages: `python3 "$SKILL_DIR/scripts/search.py" "<query>"`
 2. Read the returned pages (highest-score first)
@@ -87,7 +89,7 @@ When the owner asks about a topic you've been researching:
 
 ### Lint the wiki
 
-When the owner asks you to health-check or lint the wiki:
+When the user asks you to health-check or lint the wiki:
 
 1. Run: `python3 "$SKILL_DIR/scripts/lint.py"`
 2. For each issue reported:
@@ -147,5 +149,5 @@ python3 "$SKILL_DIR/scripts/log.py" <ingest|query|lint> "<title>" ["<notes>"]
 
 - **File answers back**: A good analysis you synthesized is a new wiki page — don't let it disappear into chat history
 - **Contradictions matter**: When new info contradicts old, update both pages and note the conflict explicitly
-- **Prefer wiki over web searches**: For topics the owner has been researching, the wiki has curated, synthesized knowledge. Use it first.
+- **Prefer wiki over web searches**: For topics the user has been researching, the wiki has curated, synthesized knowledge. Use it first.
 - **Raw sources are immutable**: Never modify files in `wiki/raw/` — they are the source of truth

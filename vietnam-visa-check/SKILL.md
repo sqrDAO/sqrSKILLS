@@ -1,6 +1,6 @@
 ---
 name: vietnam-visa-check
-version: 0.1.0
+version: 0.1.1
 description: |
   Check Vietnam visa and entry requirements for any nationality. Use this skill whenever the
   user asks: "can [nationality] enter Vietnam?", "do I need a visa for Vietnam?",
@@ -38,6 +38,8 @@ python3 "$SKILL_DIR/scripts/query_visa.py" \
   --duration_days <N> \
   [--phu_quoc_only]
 ```
+
+`$SKILL_DIR` means this skill's installed directory. If your agent does not set it automatically, replace it with the path to this `vietnam-visa-check` directory before running the command.
 
 ### Parameters
 

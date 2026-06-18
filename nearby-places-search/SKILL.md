@@ -1,6 +1,6 @@
 ---
 name: nearby-places-search
-version: 0.1.0
+version: 0.1.1
 description: |
   Real-time place search using Google Places API. Use this skill — instead of web search — whenever the user asks to find a physical place, business, or venue near a location. Trigger phrases: "find cafes near", "coffee shops near", "restaurants near", "ATMs near", "within walking distance", "nearby", "near [place/address]", "close to", "around [location]". Returns live results with addresses, ratings, and direct Maps links. Requires GOOGLE_PLACES_API_KEY. Always prefer this over a web search for any location-based place discovery query.
 allowed-tools:
@@ -25,6 +25,8 @@ Run the script with positional arguments:
 ```bash
 python3 "$SKILL_DIR/scripts/search_places.py" "<query>" "<location>" [--radius_meters <int>]
 ```
+
+`$SKILL_DIR` means this skill's installed directory. If your agent does not set it automatically, replace it with the path to this `nearby-places-search` directory before running the command.
 
 ### Parameters
 

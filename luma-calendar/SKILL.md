@@ -1,6 +1,6 @@
 ---
 name: luma-calendar
-version: 0.1.0
+version: 0.1.1
 description: |
   Manage Luma events and guests via the Luma public API. Use this skill whenever
   the user asks to list, create, or view Luma events; check who registered for an
@@ -34,6 +34,8 @@ Use this skill whenever the user wants to:
 ```bash
 python3 "$SKILL_DIR/scripts/luma_calendar.py" <subcommand> [options]
 ```
+
+`$SKILL_DIR` means this skill's installed directory. If your agent does not set it automatically, replace it with the path to this `luma-calendar` directory before running the command.
 
 ### Subcommands
 
