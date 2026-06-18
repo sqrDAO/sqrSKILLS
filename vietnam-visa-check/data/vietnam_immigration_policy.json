@@ -4,21 +4,60 @@
     "country": "Vietnam",
     "iso_alpha2": "VN",
     "iso_alpha3": "VNM",
-    "last_updated": "2026-04-09",
-    "data_freshness": "Reflects policies as of April 2026; key reforms from Aug 2023, Jan 2025, Aug 2025, Dec 2025",
+    "last_updated": "2026-06-18",
+    "data_freshness": "Core e-Visa and visa-exemption facts verified through June 2026; future-dated or implementation-specific items should be rechecked against evisa.gov.vn and primary legal sources before legal/compliance use.",
     "sources": [
-      "https://en.wikipedia.org/wiki/Visa_policy_of_Vietnam",
       "https://evisa.gov.vn/",
       "https://vietnam.travel/things-to-do/new-visa-exemption-policies-effective-15-august-2025",
+      "https://vietnam.travel/plan-your-trip/official-vietnam-evisa-application",
+      "https://vietnam.travel/things-to-do/vietnam-issues-e-visas-citizens-all-countriesterritories",
+      "https://vietnam.travel/things-to-do/big-news-vietnam-approves-extending-e-visas-90-days",
       "https://www.vietnam-briefing.com/news/vietnam-visa-policy-2025-reforms.html/",
-      "https://www.myvietnamvisa.com/vietnam-visa-policy-updates-news.html"
+      "https://en.wikipedia.org/wiki/Visa_policy_of_Vietnam"
     ],
+    "source_registry": {
+      "official_evisa_portal": {
+        "url": "https://evisa.gov.vn/",
+        "tier": 1,
+        "use_for": ["live e-Visa application", "fees", "current application requirements"]
+      },
+      "vnta_evisa_guide": {
+        "url": "https://vietnam.travel/plan-your-trip/official-vietnam-evisa-application",
+        "tier": 1,
+        "verified_facts": [
+          "From 15 Aug 2023, citizens of all countries and territories can apply for Vietnam e-visas.",
+          "Vietnam e-visas are valid up to 90 days and may be multiple-entry.",
+          "VNTA listed 13 airports, 16 land gates, and 13 sea gates in its 2023 guide; newer port expansions should be verified at evisa.gov.vn."
+        ]
+      },
+      "vnta_resolution_229": {
+        "url": "https://vietnam.travel/things-to-do/new-visa-exemption-policies-effective-15-august-2025",
+        "tier": 1,
+        "verified_facts": [
+          "Resolution 229/NQ-CP dated 11 Aug 2025 grants a tourism-purpose visa exemption to citizens of 12 countries.",
+          "Eligible visitors may stay up to 45 days from entry.",
+          "The program runs from 15 Aug 2025 through 14 Aug 2028.",
+          "Resolution 11/NQ-CP for Poland, Czech Republic, and Switzerland ceased to apply from 15 Aug 2025."
+        ]
+      },
+      "vietnam_briefing": {
+        "url": "https://www.vietnam-briefing.com/news/vietnam-visa-policy-2025-reforms.html/",
+        "tier": 2,
+        "use_for": ["business traveler interpretation", "long-stay visa reform monitoring"]
+      },
+      "wikipedia_visa_policy": {
+        "url": "https://en.wikipedia.org/wiki/Visa_policy_of_Vietnam",
+        "tier": 3,
+        "use_for": ["cross-check country tables only; do not treat as primary authority"]
+      }
+    },
     "agent_usage_notes": [
       "All durations are in calendar days unless noted.",
       "TIER is a classification field added for agent logic: use it to quickly branch on policy category.",
       "All fees are in USD unless noted.",
       "Fields marked nullable may be null if data is not applicable.",
-      "Policies change frequently; always cross-check with evisa.gov.vn for live data."
+      "Policies change frequently; always cross-check with evisa.gov.vn for live data.",
+      "Do not infer that a country is visa-exempt merely because it is high-traffic or in ASEAN-adjacent travel discourse; only the visa_exemption_by_country table grants visa-free ordinary-passport access."
     ]
   },
 
@@ -51,7 +90,7 @@
       "max_stay_days": 90,
       "entry_modes_allowed": ["air", "land", "sea"],
       "approved_ports_count": 83,
-      "entry_port_restriction": "e-Visa does NOT restrict entry to a single nominated port. Holder may use any of the 83 approved ports (expanded from 42 to 83 via Resolution 389/NQ-CP, effective Dec 2, 2025).",
+      "entry_port_restriction": "e-Visa does NOT restrict entry to a single nominated port. Holder may use any approved e-Visa port listed by the official portal. This dataset tracks an 83-port expansion claim; verify the live port list at evisa.gov.vn before travel.",
       "eligible_nationalities": "ALL countries and territories (since 15 Aug 2023)"
     },
     "VISA_ON_ARRIVAL": {
@@ -330,7 +369,8 @@
         "agreement_type": "UNILATERAL",
         "valid_from": "2025-08-15",
         "valid_until": "2028-08-14",
-        "conditions": "Added via Resolution 229/NQ-CP; tourism stimulus program"
+        "conditions": "Added via Resolution 229/NQ-CP; tourism stimulus program; tourism purpose; valid through 2028-08-14",
+        "source_refs": ["vnta_resolution_229"]
       },
       {
         "country": "Bulgaria",
@@ -340,7 +380,8 @@
         "agreement_type": "UNILATERAL",
         "valid_from": "2025-08-15",
         "valid_until": "2028-08-14",
-        "conditions": "Added via Resolution 229/NQ-CP"
+        "conditions": "Added via Resolution 229/NQ-CP; tourism purpose; valid through 2028-08-14",
+        "source_refs": ["vnta_resolution_229"]
       },
       {
         "country": "Croatia",
@@ -350,7 +391,8 @@
         "agreement_type": "UNILATERAL",
         "valid_from": "2025-08-15",
         "valid_until": "2028-08-14",
-        "conditions": "Added via Resolution 229/NQ-CP"
+        "conditions": "Added via Resolution 229/NQ-CP; tourism purpose; valid through 2028-08-14",
+        "source_refs": ["vnta_resolution_229"]
       },
       {
         "country": "Czech Republic",
@@ -360,7 +402,8 @@
         "agreement_type": "UNILATERAL",
         "valid_from": "2025-08-15",
         "valid_until": "2028-08-14",
-        "conditions": "Added via Resolution 229/NQ-CP. Previously had conditional 45-day exemption for tour package travelers (Mar-Dec 2025)"
+        "conditions": "Added via Resolution 229/NQ-CP; tourism purpose; valid through 2028-08-14. Resolution 11/NQ-CP ceased from 2025-08-15.",
+        "source_refs": ["vnta_resolution_229"]
       },
       {
         "country": "Switzerland",
@@ -370,7 +413,8 @@
         "agreement_type": "UNILATERAL",
         "valid_from": "2025-08-15",
         "valid_until": "2028-08-14",
-        "conditions": "Added via Resolution 229/NQ-CP"
+        "conditions": "Added via Resolution 229/NQ-CP; tourism purpose; valid through 2028-08-14. Resolution 11/NQ-CP ceased from 2025-08-15.",
+        "source_refs": ["vnta_resolution_229"]
       },
       {
         "country": "Luxembourg",
@@ -380,7 +424,8 @@
         "agreement_type": "UNILATERAL",
         "valid_from": "2025-08-15",
         "valid_until": "2028-08-14",
-        "conditions": "Added via Resolution 229/NQ-CP"
+        "conditions": "Added via Resolution 229/NQ-CP; tourism purpose; valid through 2028-08-14",
+        "source_refs": ["vnta_resolution_229"]
       },
       {
         "country": "Hungary",
@@ -390,7 +435,8 @@
         "agreement_type": "UNILATERAL",
         "valid_from": "2025-08-15",
         "valid_until": "2028-08-14",
-        "conditions": "Added via Resolution 229/NQ-CP"
+        "conditions": "Added via Resolution 229/NQ-CP; tourism purpose; valid through 2028-08-14",
+        "source_refs": ["vnta_resolution_229"]
       },
       {
         "country": "Netherlands",
@@ -400,7 +446,8 @@
         "agreement_type": "UNILATERAL",
         "valid_from": "2025-08-15",
         "valid_until": "2028-08-14",
-        "conditions": "Added via Resolution 229/NQ-CP"
+        "conditions": "Added via Resolution 229/NQ-CP; tourism purpose; valid through 2028-08-14",
+        "source_refs": ["vnta_resolution_229"]
       },
       {
         "country": "Poland",
@@ -410,7 +457,8 @@
         "agreement_type": "UNILATERAL",
         "valid_from": "2025-08-15",
         "valid_until": "2028-08-14",
-        "conditions": "Added via Resolution 229/NQ-CP"
+        "conditions": "Added via Resolution 229/NQ-CP; tourism purpose; valid through 2028-08-14. Resolution 11/NQ-CP ceased from 2025-08-15.",
+        "source_refs": ["vnta_resolution_229"]
       },
       {
         "country": "Romania",
@@ -420,7 +468,8 @@
         "agreement_type": "UNILATERAL",
         "valid_from": "2025-08-15",
         "valid_until": "2028-08-14",
-        "conditions": "Added via Resolution 229/NQ-CP"
+        "conditions": "Added via Resolution 229/NQ-CP; tourism purpose; valid through 2028-08-14",
+        "source_refs": ["vnta_resolution_229"]
       },
       {
         "country": "Slovakia",
@@ -430,7 +479,8 @@
         "agreement_type": "UNILATERAL",
         "valid_from": "2025-08-15",
         "valid_until": "2028-08-14",
-        "conditions": "Added via Resolution 229/NQ-CP"
+        "conditions": "Added via Resolution 229/NQ-CP; tourism purpose; valid through 2028-08-14",
+        "source_refs": ["vnta_resolution_229"]
       },
       {
         "country": "Slovenia",
@@ -440,7 +490,8 @@
         "agreement_type": "UNILATERAL",
         "valid_from": "2025-08-15",
         "valid_until": "2028-08-14",
-        "conditions": "Added via Resolution 229/NQ-CP"
+        "conditions": "Added via Resolution 229/NQ-CP; tourism purpose; valid through 2028-08-14",
+        "source_refs": ["vnta_resolution_229"]
       },
       {
         "country": "Chile",
@@ -537,6 +588,21 @@
     "china_cuba_north_korea_public_affairs": {
       "description": "Citizens of China, Cuba, and North Korea holding passports endorsed 'for public affairs' or official public affairs passports may enter visa-free.",
       "conditions": "Passport must be specifically endorsed for public affairs"
+    },
+    "priority_foreign_visitor_card": {
+      "description": "Special visa exemption card for foreign nationals in categories prioritized for Vietnam's socio-economic development under Decree 221/2025/ND-CP, effective 15 Aug 2025.",
+      "max_validity_years": 5,
+      "validity_condition": "Validity must be at least 30 days shorter than the passport's remaining validity.",
+      "eligible_groups": [
+        "Official guests of top Vietnamese leaders",
+        "Academics, experts, scientists, professors, chief architects, and highly skilled digital technology professionals",
+        "Investors, corporate leaders, and executives of major global enterprises",
+        "Figures in culture, arts, sports, and tourism with positive public influence",
+        "Vietnam honorary consuls abroad",
+        "Invited guests of recognized research institutes, universities, and large enterprises approved by competent agencies",
+        "Other special cases decided by the Minister of Public Security on recommendation from relevant agencies or organizations"
+      ],
+      "source_refs": ["vnta_resolution_229"]
     }
   },
 
@@ -684,7 +750,11 @@
       { "country": "Australia", "iso_alpha2": "AU", "required_pathway": "EVISA", "note": "No visa exemption. Australians need an e-Visa." },
       { "country": "New Zealand", "iso_alpha2": "NZ", "required_pathway": "EVISA", "note": "No visa exemption. New Zealanders need an e-Visa." },
       { "country": "India", "iso_alpha2": "IN", "required_pathway": "EVISA", "note": "No visa exemption. Indian nationals need an e-Visa." },
-      { "country": "China", "iso_alpha2": "CN", "required_pathway": "EMBASSY_VISA", "note": "Chinese nationals cannot use VOA or e-Visa via certain channels — must obtain visa from Vietnamese embassy in China before travel." }
+      { "country": "China", "iso_alpha2": "CN", "required_pathway": "EVISA", "note": "No ordinary-passport visa exemption. Chinese nationals cannot use VOA, but the official e-Visa policy is all-nationalities; use e-Visa for eligible short stays or a consular visa for other purposes." },
+      { "country": "United Arab Emirates", "iso_alpha2": "AE", "required_pathway": "EVISA", "note": "No ordinary-passport visa exemption. UAE nationals need an e-Visa unless they qualify under a special passport or priority-visitor exemption." },
+      { "country": "South Africa", "iso_alpha2": "ZA", "required_pathway": "EVISA", "note": "No ordinary-passport visa exemption. South African nationals need an e-Visa." },
+      { "country": "Mexico", "iso_alpha2": "MX", "required_pathway": "EVISA", "note": "No ordinary-passport visa exemption. Mexican nationals need an e-Visa." },
+      { "country": "Brazil", "iso_alpha2": "BR", "required_pathway": "EVISA", "note": "No ordinary-passport visa exemption. Brazilian nationals need an e-Visa." }
     ]
   },
 
@@ -696,8 +766,8 @@
     },
     "can_Chinese_nationals_use_VOA": {
       "answer": false,
-      "reason": "Chinese nationals are explicitly excluded from the visa on arrival process. They must obtain a visa from a Vietnamese embassy in China before travel.",
-      "recommended_pathway": "EMBASSY_VISA"
+      "reason": "Chinese nationals are excluded from the visa on arrival process. This does not remove the general all-nationalities e-Visa pathway for short stays; use a consular visa when e-Visa is insufficient for the purpose or duration.",
+      "recommended_pathway": "EVISA for eligible short stays; EMBASSY_VISA where e-Visa is insufficient"
     },
     "is_there_a_minimum_wait_between_re_entries_for_visa_free": {
       "answer": false,
@@ -705,7 +775,7 @@
     },
     "can_evisa_holders_enter_by_land": {
       "answer": true,
-      "reason": "e-Visa holders may enter via any of the 42 approved ports, including land borders."
+      "reason": "e-Visa holders may enter via approved land borders listed by the official e-Visa portal. This dataset tracks an 83-port expansion claim; verify the live port list before travel."
     },
     "does_evisa_require_single_entry_port": {
       "answer": false,
@@ -718,6 +788,10 @@
     "what_visa_do_web3_founders_or_investors_need": {
       "answer": "Short stays under 90 days: e-Visa (USD 50, multiple entry). For longer residency: DT (Investment) visa or the upcoming UD1 visa (effective July 2026). Investors from top-100 global firms by market cap may qualify for the UD1 or the proposed Golden Visa under current draft legislation.",
       "recommended_pathway": "EVISA for short stays; EMBASSY_VISA (DT category) or UD1 from July 2026 for long-term"
+    },
+    "what_is_the_priority_foreign_visitor_card": {
+      "answer": "A special visa exemption card under Decree 221/2025/ND-CP for official guests, selected experts, high-skill digital technology professionals, investors/executives, and other approved priority visitors. It can allow multiple entries for up to five years, subject to approval and passport-validity limits.",
+      "recommended_pathway": "SPECIAL_PASSPORT_OR_PRIORITY_EXEMPTION"
     }
   },
 

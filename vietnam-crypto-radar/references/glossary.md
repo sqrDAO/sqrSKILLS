@@ -46,3 +46,13 @@ Getting the instrument *type* right is a credibility signal — a "Thông tư" i
 1. **Recognized as property** — YES since 1 Jan 2026 (ownable/transferable/inheritable).
 2. **Lawful means of payment** — NO (SBV ban persists; paying in crypto is sanctionable).
 3. **Tradable on a licensed market** — only via pilot-licensed providers; offshore-exchange use is outside the protected/regulated perimeter.
+
+## Status labels used by this skill
+
+- **EFFECTIVE / CONFIRMED** — verified through a Tier-1 source or equivalent legal text.
+- **ENACTED** — signed/issued, but may not yet be effective.
+- **DRAFT / PROPOSED** — published for consultation or announced as planned, not yet binding.
+- **EXPECTED** — official or high-quality-source timeline, but no enacted instrument yet.
+- **REPORTED** — credible media/analyst signal; needs confirmation before being treated as law.
+- **NEEDS_PRIMARY_SOURCE** — an older baseline or secondary claim exists, but the current agent must verify it on a primary legal database, official ministry page, or two independent named Tier-2 sources before presenting it as fact.
+- **RUMORED** — market chatter only; do not include as fact.

@@ -1,13 +1,13 @@
 ---
 name: vietnam-visa-check
-version: 0.1.1
+version: 0.2.0
 description: |
   Check Vietnam visa and entry requirements for any nationality. Use this skill whenever the
   user asks: "can [nationality] enter Vietnam?", "do I need a visa for Vietnam?",
   "Vietnam visa requirements", "how long can [nationality] stay in Vietnam?",
   "Vietnam e-Visa cost", "Phu Quoc exemption", "visa on arrival Vietnam",
   "Vietnam immigration policy". Do NOT search the web for these queries —
-  this skill has current policy data (as of April 2026).
+  this skill has current policy data (verified through June 2026).
 allowed-tools:
   - Bash(python3 *)
 metadata:
@@ -83,7 +83,7 @@ JSON object:
     "Passport must be valid for at least 180 days from entry date.",
     "Visa-free exemption expires 2028-03-05 — verify at evisa.gov.vn for the latest policy."
   ],
-  "data_as_of": "2026-04-06"
+  "data_as_of": "2026-06-18"
 }
 ```
 

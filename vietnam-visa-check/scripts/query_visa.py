@@ -50,6 +50,10 @@ def build_country_index(policy: dict) -> dict[str, str]:
         iso2 = entry["iso_alpha2"].upper()
         index[iso2.lower()] = iso2
         index[entry["country"].lower()] = iso2
+    for entry in policy.get("no_visa_exemption_notable_countries", {}).get("entries", []):
+        iso2 = entry["iso_alpha2"].upper()
+        index[iso2.lower()] = iso2
+        index[entry["country"].lower()] = iso2
     # Merge hardcoded aliases (they win on conflict)
     for alias, iso2 in _ALIASES.items():
         index[alias] = iso2.upper()
@@ -106,6 +110,10 @@ def build_evisa_option(policy: dict) -> dict:
         "fee_usd": evisa["fee_usd"],
         "apply_at": policy["policy_framework"]["official_portal"],
         "processing_days": evisa["processing_days"],
+        "entry_modes_allowed": evisa["entry_modes_allowed"],
+        "approved_ports_count": evisa["approved_ports_count"],
+        "entry_port_restriction": evisa["entry_port_restriction"],
+        "eligible_nationalities": evisa["eligible_nationalities"],
     }
 
 
@@ -186,6 +194,7 @@ def main():
             "agreement_type": exemption["agreement_type"],
             "valid_until": exemption.get("valid_until"),
             "conditions": exemption.get("conditions"),
+            "source_refs": exemption.get("source_refs", []),
         }
         if duration <= exemption["max_stay_days"]:
             recommended_pathway = "VISA_FREE"
@@ -207,15 +216,12 @@ def main():
                 "category (e.g. LV work visa, DT investment visa, GD education visa)."
             )
 
-    # Special case: Chinese nationals cannot use VOA
+    # Special case: Chinese nationals cannot use VOA, but the e-Visa rule remains all-nationalities.
     if iso2 == "CN":
         notes.append(
             "Chinese nationals cannot use Visa on Arrival (VOA). "
-            "A visa must be obtained from a Vietnamese embassy in China before travel."
+            "Use the official e-Visa portal for short stays, unless a consular visa is needed for the trip purpose."
         )
-        if recommended_pathway == "EVISA":
-            # Override: embassy visa is the standard path for CN nationals
-            recommended_pathway = "EMBASSY_VISA"
 
     # Expiry warning
     if visa_free_block and visa_free_block.get("valid_until"):

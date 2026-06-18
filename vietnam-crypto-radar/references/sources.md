@@ -28,6 +28,12 @@ crypto-native on every conflict. Always carry the instrument number.
 > Tip: the fastest way to *confirm* a rumored circular is real is to search its number on
 > thuvienphapluat.vn or find it on vanban.chinhphu.vn / congbao. No number on a primary site = treat as DRAFT/RUMORED.
 
+### Known primary anchors
+
+- DTI Law passage/effective date: `https://en.baochinhphu.vn/law-on-digital-technology-industry-approved-111250614143640329.htm`
+- National Assembly legal text search: `https://quochoi.vn` and legal databases for the law number/title.
+- When checking payment legality, search SBV for both English and Vietnamese terms: `tiền ảo`, `tài sản ảo`, `tài sản mã hóa`, `phương tiện thanh toán`, `NHNN-PC`.
+
 ---
 
 ## Tier 2 — Legal & analyst trackers (high signal, English, instrument-anchored)
@@ -41,6 +47,12 @@ These firms publish client alerts that cite instrument numbers and effective dat
 - **Lexology** — lexology.com — aggregates the above firm alerts; good single search surface.
 - **RMIT Vietnam** — rmit.edu.vn/news — academic/policy commentary.
 - **Global Legal Insights / Chambers / Mondaq** — annual or periodic VN crypto-regulation chapters (good for structured baselines, less for breaking news).
+
+### Known Tier-2 anchors
+
+- DTI Law overview: `https://www.vietnam-briefing.com/news/vietnam-passes-first-ever-law-on-digital-technology-industry.html/`
+- Vietnam Briefing search pattern: `site:vietnam-briefing.com Vietnam digital assets crypto Law on Digital Technology Industry`
+- Lexology search pattern: `site:lexology.com Vietnam crypto assets circular tax TT-BTC`
 
 ---
 
@@ -69,3 +81,10 @@ sole basis for a stated fact.
 - `Vietnam crypto tax circular [year]`
 - `tài sản mã hóa Việt Nam` (Vietnamese: "crypto assets Vietnam" — surfaces local/primary results earlier)
 - `tài sản số nghị định` (Vietnamese: "digital assets decree")
+- `"Law on Digital Technology Industry" "digital assets" Vietnam`
+- `"Resolution 05/2025/NQ-CP" "crypto" Vietnam`
+- `"05/2025/NQ-CP" "tài sản mã hóa"`
+- `"Decision 96/QĐ-BTC" "tài sản mã hóa"`
+- `"Circular 32/2026/TT-BTC" crypto`
+- `"Circular 41/2026/TT-BTC" crypto`
+- `"thuế" "tài sản mã hóa" "TT-BTC"`

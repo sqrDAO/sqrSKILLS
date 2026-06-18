@@ -1,6 +1,6 @@
 ---
 name: vietnam-crypto-radar
-version: 0.1.1
+version: 0.2.0
 description: Produce up-to-date intelligence briefings on Vietnam's crypto/digital-asset landscape — laws, decrees, circulars, licensing, tax, the pilot exchange market, and enforcement. Use this skill WHENEVER the user asks "what's new with Vietnam crypto," wants a regulatory update, asks about a specific instrument (e.g. the DTI Law, Resolution 05, a TT-BTC circular), wants to know the status of the pilot/VASP licensing, asks about crypto tax in Vietnam, or needs a briefing for a partner/investor/founder on the VN digital-asset regime. Trigger even when the user doesn't say the word "skill" — phrases like "VN crypto reg," "is X legal in Vietnam now," "Vietnam exchange license," "any movement on the sandbox," or "catch me up on Vietnam digital assets" all apply. Prefer this over answering from memory, because the regime is moving fast and stale answers are worse than no answer.
 allowed-tools:
   - Read
@@ -25,10 +25,10 @@ This skill is not legal advice. It produces intelligence; compliance decisions n
 "Getting updated" is a diff operation, not a from-scratch research dump. Run it like this:
 
 1. **Load the baseline.** Read `references/baseline.md`. It holds the last-verified snapshot of the regime and a `LAST VERIFIED` date. Everything you report as "new" is new *relative to that date*.
-2. **Sweep the sources.** Read `references/sources.md` and pull from sources in tier order — Tier 1 (primary government) first, then Tier 2 (law-firm/analyst trackers), then Tier 3 (crypto-native, fast but noisy). Bias queries to material dated after the baseline's `LAST VERIFIED`.
+2. **Sweep the sources.** Read `references/sources.md` and pull from sources in tier order — Tier 1 (primary government) first, then Tier 2 (law-firm/analyst trackers), then Tier 3 (crypto-native, fast but noisy). Bias queries to material dated after the baseline's `LAST VERIFIED`. Use the prebuilt query bank in `sources.md` before improvising.
 3. **Diff.** For each finding, ask: is this already in the baseline? If yes, skip. If no or changed, it's a candidate update.
 4. **Verify before promoting a candidate to fact.** Apply the verification discipline below. Crypto media routinely reports drafts, rumors, and "officials say" as if enacted. Do not repeat that mistake.
-5. **Classify status** for every instrument: `ENACTED` / `EFFECTIVE` / `DRAFT` / `PROPOSED` / `EXPECTED` / `RUMORED`. This single column is the most valuable thing in the briefing.
+5. **Classify status** for every instrument: `EFFECTIVE` / `ENACTED` / `DRAFT` / `PROPOSED` / `EXPECTED` / `REPORTED` / `NEEDS_PRIMARY_SOURCE` / `RUMORED`. This single column is the most valuable thing in the briefing.
 6. **Write the briefing** using the output template below.
 7. **Offer to update the baseline.** If you confirmed real changes, offer to rewrite `references/baseline.md` with the new state and a fresh `LAST VERIFIED` date, so the next run starts from a better diff point. This is what keeps the skill compounding instead of decaying.
 
