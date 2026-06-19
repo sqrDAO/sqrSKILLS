@@ -2,7 +2,7 @@
 
 [![Install via skills.sh](https://img.shields.io/badge/skills.sh-install-green)](https://skills.sh/sqrdao/sqrSKILLS)
 
-Open-source [Agent Skills](https://agentskills.io/home) published by [sqrDAO](https://sqrdao.com). Covers Telegram integration, location search, personal knowledge management, Luma events, Vietnam visa checks, and Vietnam crypto regulation briefings.
+Open-source [Agent Skills](https://agentskills.io/home) published by [sqrDAO](https://sqrdao.com). Covers Telegram integration, location search, personal knowledge management, Luma events, Vietnam visa checks, Vietnam crypto regulation briefings, and Web3 builder opportunities.
 
 ## Installation
 
@@ -21,6 +21,7 @@ npx skills add sqrdao/sqrSKILLS@vietnam-visa-check
 npx skills add sqrdao/sqrSKILLS@vietnam-crypto-radar
 npx skills add sqrdao/sqrSKILLS@telegram-group-summary
 npx skills add sqrdao/sqrSKILLS@luma-calendar
+npx skills add sqrdao/sqrSKILLS@web3-opportunities
 ```
 
 `npx skills add` installs to all supported agents automatically where the skills installer has an adapter (Claude Code, Codex, Gemini CLI, OpenClaw, Hermes, Nanobot, and others).
@@ -35,6 +36,7 @@ npx skills add sqrdao/sqrSKILLS@luma-calendar
 - [**vietnam-crypto-radar**](./vietnam-crypto-radar/) — Up-to-date intelligence briefings on Vietnam's crypto/digital-asset regulation: laws, decrees, tax, the pilot exchange market, and enforcement. Diffs against a dated baseline so you always know what's new.
 - [**telegram-group-summary**](./telegram-group-summary/) — Fetch messages from a Telegram group and produce a structured summary: topics, decisions, action items, and tone. Requires `TELEGRAM_BOT_TOKEN`.
 - [**luma-calendar**](./luma-calendar/) — Manage Luma events and guests via the Luma API: list events, create events, view registrants, and add guests. Requires `LUMA_API_KEY`.
+- [**web3-opportunities**](./web3-opportunities/) — Curated, filterable catalog of Web3 builder/founder opportunities (accelerators, incubators, grants, hackathons, bounties, retroactive funding, fellowships) split by type, stage/dilution, chain/ecosystem, and geography, with a SEA/Vietnam highlight. Bundled offline roster + optional live enrichment of deadlines and cohort status.
 
 ## Requirements
 
@@ -51,6 +53,7 @@ npx skills add sqrdao/sqrSKILLS@luma-calendar
 | vietnam-crypto-radar | — | — |
 | telegram-group-summary | `TELEGRAM_BOT_TOKEN` | `OPENCLAW_STATE_DIR` |
 | luma-calendar | `LUMA_API_KEY` | — |
+| web3-opportunities | — | — |
 
 Set these through your agent's environment/configuration mechanism (for example a shell profile, project `.env`, Claude Code env file, Codex environment, Hermes/OpenClaw config, or your runtime's equivalent).
 
