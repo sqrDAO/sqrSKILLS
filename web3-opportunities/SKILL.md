@@ -1,10 +1,11 @@
 ---
 name: web3-opportunities
-version: 0.1.0
+version: 0.2.0
 description: |
   Catalog and surface funding and launch opportunities for Web3 builders and founders —
-  accelerators, incubators, grants, hackathons, bounties, retroactive funding, and
-  fellowships — filterable by TYPE, STAGE & DILUTION (idea/pre-seed/mvp/growth; dilutive
+  accelerators, incubators, grants, hackathons, bounties, retroactive funding,
+  fellowships, and education programs (bootcamps/academies) — filterable by TYPE, STAGE &
+  DILUTION (idea/pre-seed/mvp/growth; dilutive
   vs non-dilutive), CHAIN/ECOSYSTEM (Ethereum & L2s, Solana, Polkadot, Cosmos, NEAR, Sui,
   multi-chain), and GEOGRAPHY (global, us, europe, india, sea, latam, africa, remote).
   Coverage is global with an explicit Southeast Asia / Vietnam highlight. Use this skill
@@ -123,11 +124,12 @@ _Bundled baseline as of <data_as_of>. Verify time-sensitive fields (*) live befo
 ## Accelerators (dilutive)
 - ...
 
-## Hackathons / Bounties / Retroactive funding / Fellowships
+## Hackathons / Bounties / Retroactive funding / Fellowships / Education
 - ...
 
 ## SEA / Vietnam highlight
-- <entries where sea_relevant = true>
+- <entries where sea_relevant = true; includes VN student/education programs
+  (Corelia Academy, UniHackfest, VBI Academy) and community ramps (Superteam Vietnam)>
 
 ## Next steps
 - The 2-3 best fits to verify live now (deadline / open cohort), and which source to check.

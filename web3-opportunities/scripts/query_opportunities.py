@@ -63,7 +63,7 @@ def intersects(entry_values: list[str], requested: list[str]) -> bool:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Filter Web3 builder opportunities")
-    parser.add_argument("--type", action="append", help="accelerator, incubator, grant, hackathon, bounty, retroactive_funding, fellowship")
+    parser.add_argument("--type", action="append", help="accelerator, incubator, grant, hackathon, bounty, retroactive_funding, fellowship, education")
     parser.add_argument("--stage", action="append", help="idea, pre-seed, mvp, growth")
     parser.add_argument("--dilution", action="append", help="dilutive, non-dilutive, mixed (exact match)")
     parser.add_argument("--chain", action="append", help="ethereum, l2, solana, polkadot, cosmos, near, sui, multi-chain")
