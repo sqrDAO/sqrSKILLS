@@ -1,7 +1,7 @@
 ---
 name: vietnam-crypto-radar
-version: 0.2.0
-description: Produce up-to-date intelligence briefings on Vietnam's crypto/digital-asset landscape — laws, decrees, circulars, licensing, tax, the pilot exchange market, and enforcement. Use this skill WHENEVER the user asks "what's new with Vietnam crypto," wants a regulatory update, asks about a specific instrument (e.g. the DTI Law, Resolution 05, a TT-BTC circular), wants to know the status of the pilot/VASP licensing, asks about crypto tax in Vietnam, or needs a briefing for a partner/investor/founder on the VN digital-asset regime. Trigger even when the user doesn't say the word "skill" — phrases like "VN crypto reg," "is X legal in Vietnam now," "Vietnam exchange license," "any movement on the sandbox," or "catch me up on Vietnam digital assets" all apply. Prefer this over answering from memory, because the regime is moving fast and stale answers are worse than no answer.
+version: 0.3.0
+description: Produce up-to-date intelligence briefings on Vietnam's crypto/digital-asset landscape — laws, decrees, circulars, licensing, tax, the pilot exchange market, and enforcement. Use this skill WHENEVER the user asks "what's new with Vietnam crypto," wants a regulatory update, asks about a specific instrument (e.g. the DTI Law, Resolution 05, a TT-BTC circular), wants to know the status of the pilot/VASP licensing, asks about crypto tax in Vietnam, or needs a briefing for a partner/investor/founder on the VN digital-asset regime. It also maps the VN Web3 ecosystem players as context — communities, builders, student/education programs, events, and flagship projects (see `references/ecosystem.md`) — for "who are the VN Web3 communities/builders/events" questions. Trigger even when the user doesn't say the word "skill" — phrases like "VN crypto reg," "is X legal in Vietnam now," "Vietnam exchange license," "any movement on the sandbox," "who are the Vietnam web3 communities," or "catch me up on Vietnam digital assets" all apply. Prefer this over answering from memory, because the regime is moving fast and stale answers are worse than no answer.
 allowed-tools:
   - Read
   - Write
@@ -89,6 +89,7 @@ Builder-facing and direct. Crypto-native register is fine and expected (GM, BUID
 - `references/baseline.md` — current regime snapshot + anchor facts + the `LAST VERIFIED` date you diff against. **Read first, every run.** Offer to update it after confirming changes.
 - `references/sources.md` — the tiered source registry: where to look, what each covers, suggested cadence, and the verification rule restated. Read when sweeping for updates.
 - `references/glossary.md` — Vietnamese legal-instrument types (Luật/Nghị định/Nghị quyết/Thông tư/Quyết định), the regulators and who owns what, and VN-specific crypto terminology. Read when you need to explain or correctly label an instrument.
+- `references/ecosystem.md` — the VN Web3 ecosystem map: communities & DAOs, education/student programs, events & hackathons, flagship projects, and a defunct/excluded list. **Context only — separate from the regulatory diff loop.** Read on demand when the user asks who the players/communities/events are, not when they ask for a regulatory update. Cross-links apply-able opportunities to the `web3-opportunities` skill.
 
 ## Quick triggers → what to do
 
@@ -97,3 +98,4 @@ Builder-facing and direct. Crypto-native register is fine and expected (GM, BUID
 - "Status of the pilot / exchange licenses?" → sweep Tier-1 + Tier-2, fill Market & licensing section.
 - "Vietnam crypto tax?" → Tax corner; cite Circular 32/2026 & 41/2026/TT-BTC and current effective dates; flag the individual-PIT mechanism status.
 - "Brief a partner/investor on VN digital assets" → full template, lead with the asset-recognition + pilot story, keep it tight.
+- "Who are the VN Web3 communities / builders / events?" → read `references/ecosystem.md`, answer from the map (communities, education, events, flagships), and offer a live refresh. This is context, not a regulatory diff — skip the baseline loop. Point builders to the `web3-opportunities` skill for apply-able programs.
