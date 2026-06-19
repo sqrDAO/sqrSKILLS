@@ -1,0 +1,124 @@
+name: Weekly Skill Refresh
+
+# Re-researches the time-sensitive skills against their dated baselines once a
+# week and opens a pull request with any updates. The PR is the review gate —
+# nothing is merged automatically, which matters for legal/visa/crypto data
+# where a wrong auto-commit is worse than a stale-but-correct one.
+#
+# Setup required (one time):
+#   1. Add a repository secret named ANTHROPIC_API_KEY
+#      (Settings → Secrets and variables → Actions → New repository secret).
+#   2. Allow Actions to open PRs:
+#      Settings → Actions → General → Workflow permissions →
+#      enable "Allow GitHub Actions to create and approve pull requests".
+
+on:
+  schedule:
+    # 01:00 UTC every Monday (~08:00 Vietnam time, ICT).
+    - cron: "0 1 * * 1"
+  workflow_dispatch: {}  # allow manual runs from the Actions tab
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: weekly-skill-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Refresh skill baselines with Claude Code
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: "--allowedTools Read,Write,Edit,WebSearch,WebFetch,Bash(python3 *) --max-turns 60"
+          prompt: |
+            You are running an unattended WEEKLY refresh of the time-sensitive
+            skills in this repository. Today's date is the workflow run date.
+            Do NOT commit or open a PR — just edit files in the working tree; a
+            later workflow step packages your changes into a pull request.
+
+            Follow each skill's OWN documented update method. Read each skill's
+            SKILL.md first, then refresh in this order:
+
+            1. vietnam-crypto-radar
+               - Read references/baseline.md (note its `LAST VERIFIED` date) and
+                 references/sources.md.
+               - Sweep sources in tier order for material dated AFTER the
+                 baseline's LAST VERIFIED date. Apply the skill's verification
+                 discipline: only promote a finding to fact if it cites a
+                 specific instrument number with a Tier-1/named-law-firm
+                 confirmation, or two independent Tier-2 sources. Everything
+                 else stays labeled DRAFT/PROPOSED/RUMORED.
+               - If (and only if) you confirm real changes, update
+                 references/baseline.md in place and set a fresh `LAST VERIFIED`
+                 date.
+
+            2. web3-opportunities
+               - Read data/web3_opportunities.json and references/sources.md.
+               - Live-verify the time-sensitive fields (status, cadence,
+                 typical_check_or_prize, deadlines). Update changed entries and
+                 their per-entry `last_verified` to today; update the top-level
+                 `last_updated` only if any entry changed. Keep stable fields
+                 (type, stage, dilution, chains, regions, url, name) untouched
+                 unless clearly wrong.
+
+            3. vietnam-visa-check
+               - Read data/vietnam_immigration_policy.json. This skill is
+                 offline and conservative. Only change a fact you can confirm
+                 against a Tier-1 source (evisa.gov.vn or primary legal source).
+                 If you change anything, bump `_meta.last_updated` to today.
+
+            Rules:
+            - Per AGENTS.md, if a skill's bundled DATA changed materially, bump
+              that SKILL.md `version:` by a PATCH (e.g. 0.2.0 -> 0.2.1).
+            - Be conservative: when a fact cannot be verified this run, LEAVE IT
+              UNCHANGED rather than guessing. An empty diff is a valid outcome.
+            - Make only data/baseline edits. Do not refactor scripts or prompts.
+
+            Finish by writing a short markdown summary of exactly what you
+            changed (per skill, with old -> new dates and notable items) to a
+            file named REFRESH_SUMMARY.md at the repo root. If nothing changed,
+            write "No verified changes this week." to that file.
+
+      - name: Read refresh summary
+        id: summary
+        run: |
+          if [ -f REFRESH_SUMMARY.md ]; then
+            {
+              echo 'body<<EOF'
+              cat REFRESH_SUMMARY.md
+              echo EOF
+            } >> "$GITHUB_OUTPUT"
+          else
+            echo 'body=Automated weekly skill refresh.' >> "$GITHUB_OUTPUT"
+          fi
+          rm -f REFRESH_SUMMARY.md
+
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: automation/weekly-skill-refresh
+          delete-branch: true
+          commit-message: "chore: weekly refresh of time-sensitive skill baselines"
+          title: "Weekly skill refresh — ${{ github.run_started_at }}"
+          body: |
+            Automated weekly refresh of the time-sensitive skills
+            (`vietnam-crypto-radar`, `web3-opportunities`, `vietnam-visa-check`).
+
+            Each skill was updated following its own documented baseline-diff
+            method. **Review the diff before merging** — verify any changed
+            legal/visa/crypto facts against their primary sources.
+
+            ---
+
+            ${{ steps.summary.outputs.body }}
+
+            ---
+            🤖 Generated with [Claude Code](https://claude.com/claude-code)

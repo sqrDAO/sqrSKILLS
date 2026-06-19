@@ -129,6 +129,18 @@ allowed-tools:
 - Skill bodies should refer to "the user" and "the agent" instead of assuming a specific product identity.
 - Helper scripts use Python 3.10+ and stdlib-only dependencies unless a skill explicitly says otherwise.
 
+## Automated maintenance
+
+Skills with time-sensitive data are refreshed weekly by a scheduled GitHub
+Actions workflow ([`.github/workflows/weekly-skill-refresh.yml`](./.github/workflows/weekly-skill-refresh.yml)).
+Every Monday it re-researches `vietnam-crypto-radar`, `web3-opportunities`, and
+`vietnam-visa-check` against their dated baselines and opens a pull request with
+any verified changes — nothing is merged automatically.
+
+To enable it on a fork: add an `ANTHROPIC_API_KEY` repository secret and allow
+Actions to create pull requests (Settings → Actions → General → Workflow
+permissions). The workflow can also be triggered manually from the Actions tab.
+
 ## Support
 
 Open an issue in the [GitHub Issue Tracker](https://github.com/sqrdao/sqrSKILLS/issues) if you encounter a bug or have a question.
