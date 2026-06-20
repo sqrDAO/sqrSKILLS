@@ -8,3 +8,8 @@ __pycache__/
 wiki/
 CLAUDE.md
 .firecrawl/
+
+# Gemini CLI runtime artifacts (created by the weekly-skill-refresh workflow);
+# config is generated from the workflow's `settings` input, not source.
+.gemini/
+gemini-artifacts/
