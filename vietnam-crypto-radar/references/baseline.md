@@ -1,12 +1,14 @@
 # Vietnam Crypto Regime — Baseline Snapshot
 
-> **LAST VERIFIED: 18 June 2026.**
+> **LAST VERIFIED: 20 June 2026.**
 > Everything the radar reports as "new" is new relative to this date.
 > After confirming real changes in a run, rewrite this file and bump the date.
-> Verification note: the DTI Law anchor below is confirmed by a Tier-1 government source
-> and a Tier-2 legal/analyst source. Some pilot/tax instrument numbers in older snapshots
-> did not surface in live public search on 18 June 2026; treat them as `NEEDS_PRIMARY_SOURCE`
-> until confirmed on a primary legal database or by two independent Tier-2 sources.
+> Verification note: the DTI Law anchor below is confirmed by a Tier-1 government source.
+> The pilot/tax instrument numbers (Resolution 05, Decision 96, Circulars 32 & 41) surfaced
+> in the 20 June 2026 sweep only via Tier-2/Tier-3 outlets (no Tier-1 primary, and not two
+> independent Tier-2). Per the skill's verification discipline they remain `REPORTED —
+> NEEDS_PRIMARY_SOURCE`; promote them only on a primary legal database or two independent
+> Tier-2 sources. All reported rates/dates below carry that caveat.
 
 This is the diff target. Keep it factual, instrument-anchored, and dated. When a status
 changes (e.g. a DRAFT circular becomes EFFECTIVE), move it between sections and update the table.
@@ -15,17 +17,7 @@ changes (e.g. a DRAFT circular becomes EFFECTIVE), move it between sections and 
 
 ## One-paragraph state of play
 
-Vietnam's confirmed regulatory anchor is the **Law on Digital Technology Industry**
-(commonly tracked as the DTI Law), passed on **14 June 2025** and scheduled/effective from
-**1 January 2026**. Tier-1 government coverage says the law creates Vietnam's first legal
-framework for digital assets, including tokenized and virtual assets, with state management,
-cybersecurity, AML/CFT, and sandbox hooks. Older radar snapshots also track a five-year
-pilot market, MOF implementation decision, and crypto-tax circulars; because exact public
-primary confirmation for those later instruments was not found in the 18 June 2026 sweep,
-briefings must carry their status as `NEEDS_PRIMARY_SOURCE` unless the current run verifies
-them. Crucial nuance that keeps getting flattened in coverage: crypto/digital assets being
-recognized or regulated as assets does **not** make them lawful means of payment — the State
-Bank payment-ban line must be checked separately each run.
+Vietnam's confirmed regulatory anchor is the **Law on Digital Technology Industry** (DTI Law), effective **1 January 2026**, which creates the first legal framework for digital assets (Tier-1 confirmed). The government is *reported* to be operationalizing this via a five-year pilot program for crypto-asset trading, targeted for **Q3 2026**, governed by **Resolution 05/2025/NQ-CP** and implemented via **Decision 96/QĐ-BTC**, with a reported tax regime under **Circulars 32/2026/TT-BTC** and **41/2026/TT-BTC** (0.1% individual transaction tax, 20% corporate CIT, withheld at source). **These pilot/tax instruments are `REPORTED — NEEDS_PRIMARY_SOURCE`: the 20 Jun 2026 sweep found only Tier-2/Tier-3 coverage, no Tier-1 primary confirmation.** Crucially, crypto's legal recognition as property does **not** make it a lawful means of payment; the State Bank's position on this must be verified separately each run.
 
 ---
 
@@ -33,39 +25,43 @@ Bank payment-ban line must be checked separately each run.
 
 | Instrument | Governs | Status | Effective |
 |---|---|---|---|
-| **Law on Digital Technology Industry** (often cited as Law 71/2025/QH15; verify number in legal DB) | First legal framework for digital assets, including tokenized and virtual assets; state management, cybersecurity, AML/CFT, sandbox hooks | EFFECTIVE / CONFIRMED | 1 Jan 2026 (passed 14 Jun 2025) |
-| **Resolution 05/2025/NQ-CP** | Reported 5-year pilot for crypto-asset trading markets via licensed providers; local incorporation; VND settlement; high charter-capital bar | NEEDS_PRIMARY_SOURCE | Reported Sep 2025 |
-| **Decision 96/QĐ-BTC** (Ministry of Finance) | Reported pilot implementation and licensing procedure for crypto-asset trading platforms | NEEDS_PRIMARY_SOURCE | Reported Jan 2026 |
-| **Circular 32/2026/TT-BTC** | Reported CIT, VAT, PIT treatment of crypto-asset transactions | NEEDS_PRIMARY_SOURCE | Reported 27 Mar 2026 |
-| **Circular 41/2026/TT-BTC** | Reported tax declaration, withholding, payment, finalization for the crypto market | NEEDS_PRIMARY_SOURCE | Reported 6 Apr 2026 |
+| **Law on Digital Technology Industry** (often cited as Law 71/2025/QH15) | First legal framework for digital assets, including tokenized and virtual assets; state management, cybersecurity, AML/CFT, sandbox hooks. | EFFECTIVE / CONFIRMED | 1 Jan 2026 |
+| **Resolution 05/2025/NQ-CP** | 5-year pilot for crypto-asset trading markets via licensed providers; local incorporation; VND settlement; high charter-capital bar. | REPORTED — NEEDS_PRIMARY_SOURCE | Reported Sep 2025 |
+| **Decision 96/QĐ-BTC** (Ministry of Finance) | Pilot implementation and licensing procedures for crypto-asset trading platforms. | REPORTED — NEEDS_PRIMARY_SOURCE | Reported 20 Jan 2026 |
+| **Circular 32/2026/TT-BTC** | CIT, VAT, PIT treatment of crypto-asset transactions. | REPORTED — NEEDS_PRIMARY_SOURCE | Reported 27 Mar 2026 |
+| **Circular 41/2026/TT-BTC** | Tax declaration, withholding, payment, and finalization for the crypto market. | REPORTED — NEEDS_PRIMARY_SOURCE | Reported 6 Apr 2026 |
 
-### Confirmed DTI Law hooks
-- Vietnam Government News says the law introduces, for the first time, a definition and legal framework for digital assets, including tokenized and virtual assets, classified by intended use and technology.
-- Vietnam Briefing says the law distinguishes virtual and crypto assets, requires strict state regulation for cybersecurity and financial-crime prevention, and creates a regulatory sandbox for approved testing.
-- Do not over-specify statutory definitions unless the current run has the legal text or a named law-firm translation in hand.
+> Only the DTI Law is Tier-1 confirmed. The four instruments above are tracked from
+> Tier-2/Tier-3 reporting and have not cleared the skill's promotion bar (Tier-1 primary
+> or two independent Tier-2). Treat the details below as reported, not confirmed.
 
-### Tax treatment
-- Older snapshot claim: Circulars **32/2026/TT-BTC** and **41/2026/TT-BTC** set VAT/CIT/PIT and declaration/withholding mechanics.
-- 18 Jun 2026 search result: exact circular numbers did not surface in public search. Treat all detailed rates/mechanics as `NEEDS_PRIMARY_SOURCE` unless the current run confirms them on a legal database, MOF/GDT page, or two independent named law-firm alerts.
-- Watch specifically for whether individual PIT is profit-based, gross-transaction-value based, withheld by licensed domestic exchanges, self-declared for foreign platforms, or still draft.
+### Pilot market rules — REPORTED (Tier-2/3, not primary-confirmed)
+- **VND Trading:** Licensed platforms reportedly will offer official trading pairs for major assets (BTC, ETH, USDT, USDC) in Vietnamese đồng (VND).
+- **Asset-Backed Issuance:** New crypto assets issued within Vietnam reportedly must be backed by audited real-world assets.
+- **Data Sovereignty:** Licensed exchanges are reportedly required to house their servers within Vietnam.
+- **Restricted Access:** The government may restrict domestic retail access to certain segments of the pilot market to manage risk.
+
+### Tax treatment (Circular 32 & 41/2026/TT-BTC) — REPORTED, NEEDS_PRIMARY_SOURCE
+- **Personal Income Tax (PIT):** reported **0.1% tax** on the gross value of each crypto-asset transfer for individuals, withheld at source by licensed exchanges.
+- **Corporate Income Tax (CIT):** reported **20% CIT** on net profits from crypto activities for domestic organizations.
+- **Value-Added Tax (VAT):** crypto-asset transfers and trading reportedly **exempt from VAT**.
+- Confirm rates, mechanism, and effective dates against a legal database or two independent named law-firm alerts before stating as fact.
 
 ---
 
 ## STANDING / BACKGROUND (unchanged but load-bearing)
 
 - **Payment ban likely persists, but verify current SBV text each run.** Crypto/digital-asset recognition does not automatically make crypto a lawful means of payment.
-- **Pilot-market details need primary confirmation.** VND settlement, local incorporation, charter-capital threshold, foreign-ownership cap, and eligible investor scope are high-impact facts; do not state them without a current source.
-- **Charter-capital bar** has been reported around **VND 10 trillion (~US$400M)** for licensed market operators; label as reported unless confirmed in the live run.
+- **Charter-capital bar** reported around **VND 10 trillion (~US$400M)** for licensed market operators; label as reported unless confirmed in the live run.
 - **Adoption context:** Vietnam consistently ranks at/near the **top of the Chainalysis Global Crypto Adoption Index**; ~**17M** estimated holders; large remittance and unbanked population driving organic usage.
 
 ---
 
 ## IN MOTION (verify status every run — these move)
 
-- **Pilot exchange go-live:** older snapshot target **Q3 2026**. Status: EXPECTED / NEEDS_CURRENT_CONFIRMATION.
-- **Licensing shortlist:** older snapshot reported affiliates of **Techcombank, VPBank, LPBank**, plus **VIX Securities** and **Sun Group**. Status: REPORTED, not final approvals. Confirm any actual license grant before stating it as fact.
-- **Individual PIT 0.1%:** see Tax section; effective date/mechanism still firming.
-- **Further implementing decrees** on the asset market, custody, AML specifics, and accounting standards expected through 2026. Status: EXPECTED/DRAFT.
+- **Pilot exchange go-live:** reported target **Q3 2026**. Status: EXPECTED / NEEDS_CURRENT_CONFIRMATION.
+- **Licensing shortlist:** Entities reported to be in the final stages of review include **VIX Crypto Asset Exchange**, **SSI Digital (SSID)**, and platforms backed by **Techcombank** and **MB Bank**. Status: REPORTED, not final approvals.
+- **Further implementing decrees** on custody, AML specifics, and accounting standards are expected through 2026. Status: EXPECTED/DRAFT.
 
 ---
 
@@ -73,31 +69,27 @@ Bank payment-ban line must be checked separately each run.
 
 - **National Assembly** — primary laws (Luật), e.g. the DTI Law.
 - **Government** — decrees (Nghị định) and resolutions (Nghị quyết), e.g. Resolution 05.
-- **Ministry of Finance (MOF)** — lead agency for the asset market + tax; issues circulars (Thông tư) and decisions (Quyết định); now houses securities-market supervision functions.
+- **Ministry of Finance (MOF)** — lead agency for the asset market + tax; issues circulars (Thông tư) and decisions (Quyết định).
 - **State Bank of Vietnam (SBV)** — payments, monetary policy, AML; owner of the "not a means of payment" line.
 - **Ministry of Public Security (MPS)** — AML enforcement, fraud/scam crackdowns.
 - **General Department of Taxation** (under MOF) — tax administration, declaration/withholding.
-- **State Securities Commission (SSC)** (under MOF) — market-conduct supervision likely to extend to the regulated crypto market.
+- **State Securities Commission (SSC)** (under MOF) — market-conduct supervision.
 
 ---
 
 ## Known open questions to probe each run
-- Has the individual 0.1% PIT actually commenced, and via what collection mechanism?
-- Have any pilot **licenses actually been granted** (vs shortlisted)?
-- Is there a live exchange operating yet, and which one first?
+- Have any pilot **licenses actually been GRANTED** (vs shortlisted)?
+- Which exchange will be the first to go live in Q3 2026?
+- Has the **0.1% PIT withholding** mechanism actually commenced on any platform?
 - Any new implementing decree on **custody / AML / accounting** for crypto assets?
 - Any change to the **offshore-exchange** stance (how foreign-platform users are treated/taxed)?
 - Any movement on **stablecoins**, **tokenized RWAs**, or a **CBDC/digital VND** pilot (separate track from crypto assets)?
 
 ---
 
-## Verified source anchors from 18 Jun 2026 enrichment
+## Verified source anchors from 18-20 Jun 2026 enrichment
 
 - **Government News (Tier 1):** `https://en.baochinhphu.vn/law-on-digital-technology-industry-approved-111250614143640329.htm`
-  - Confirms National Assembly passage on 14 Jun 2025.
-  - Confirms effective date of 1 Jan 2026.
-  - Confirms first legal framework for digital assets, including tokenized and virtual assets.
-- **Vietnam Briefing (Tier 2):** `https://www.vietnam-briefing.com/news/vietnam-passes-first-ever-law-on-digital-technology-industry.html/`
-  - Confirms standalone Digital Technology Law, passage/effective dates, and crypto/virtual-asset framework.
-  - Useful for plain-English interpretation of sandbox, AML/cybersecurity, AI, tax-incentive, and workforce provisions.
-- **Negative search note:** exact public searches for `"Circular 32/2026/TT-BTC"`, `"Circular 41/2026/TT-BTC"`, and `"Decision 96/QĐ-BTC" crypto Vietnam` returned no reliable public hits on 18 Jun 2026. Do not cite those as confirmed without a fresh primary or two-source Tier-2 check.
+  - Confirms National Assembly passage and 1 Jan 2026 effective date of the DTI Law. This is the only Tier-1-confirmed item in this snapshot.
+- **Tier-2/Tier-3 only (e.g. vietnamnews.vn, blogtienao.com):** carry secondary reporting of the tax circulars, pilot launch date, and licensing candidates. Note `blogtienao.com` is Tier-3 (crypto-native, noisy). This does **not** meet the promotion bar (Tier-1 primary, or two independent Tier-2), so those instruments stay `REPORTED — NEEDS_PRIMARY_SOURCE`.
+- **Negative search note:** exact public searches for `"Circular 32/2026/TT-BTC"`, `"Circular 41/2026/TT-BTC"`, and `"Decision 96/QĐ-BTC" crypto Vietnam` have not returned a reliable Tier-1 primary. Do not cite those as confirmed without a fresh primary or two-source Tier-2 check.
