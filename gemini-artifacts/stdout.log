@@ -1,0 +1,166 @@
+{
+  "session_id": "c75d4065-b1ee-47af-9b76-186ea5fdb7f0",
+  "response": "",
+  "stats": {
+    "models": {
+      "gemini-2.5-pro": {
+        "api": {
+          "totalRequests": 16,
+          "totalErrors": 0,
+          "totalLatencyMs": 164720
+        },
+        "tokens": {
+          "input": 560809,
+          "prompt": 1166939,
+          "candidates": 16062,
+          "total": 1187848,
+          "cached": 606130,
+          "thoughts": 4847,
+          "tool": 0
+        },
+        "roles": {
+          "main": {
+            "totalRequests": 16,
+            "totalErrors": 0,
+            "totalLatencyMs": 164720,
+            "tokens": {
+              "input": 560809,
+              "prompt": 1166939,
+              "candidates": 16062,
+              "total": 1187848,
+              "cached": 606130,
+              "thoughts": 4847,
+              "tool": 0
+            }
+          }
+        }
+      },
+      "gemini-3-flash-preview": {
+        "api": {
+          "totalRequests": 27,
+          "totalErrors": 0,
+          "totalLatencyMs": 482211
+        },
+        "tokens": {
+          "input": 93031,
+          "prompt": 142540,
+          "candidates": 15094,
+          "total": 200054,
+          "cached": 49509,
+          "thoughts": 42420,
+          "tool": 0
+        },
+        "roles": {
+          "utility_tool": {
+            "totalRequests": 27,
+            "totalErrors": 0,
+            "totalLatencyMs": 482211,
+            "tokens": {
+              "input": 93031,
+              "prompt": 142540,
+              "candidates": 15094,
+              "total": 200054,
+              "cached": 49509,
+              "thoughts": 42420,
+              "tool": 0
+            }
+          }
+        }
+      }
+    },
+    "tools": {
+      "totalCalls": 55,
+      "totalSuccess": 55,
+      "totalFail": 0,
+      "totalDurationMs": 482664,
+      "totalDecisions": {
+        "accept": 55,
+        "reject": 0,
+        "modify": 0,
+        "auto_accept": 0
+      },
+      "byName": {
+        "update_topic": {
+          "count": 4,
+          "success": 4,
+          "fail": 0,
+          "durationMs": 10,
+          "decisions": {
+            "accept": 4,
+            "reject": 0,
+            "modify": 0,
+            "auto_accept": 0
+          }
+        },
+        "read_file": {
+          "count": 12,
+          "success": 12,
+          "fail": 0,
+          "durationMs": 79,
+          "decisions": {
+            "accept": 12,
+            "reject": 0,
+            "modify": 0,
+            "auto_accept": 0
+          }
+        },
+        "google_web_search": {
+          "count": 27,
+          "success": 27,
+          "fail": 0,
+          "durationMs": 482521,
+          "decisions": {
+            "accept": 27,
+            "reject": 0,
+            "modify": 0,
+            "auto_accept": 0
+          }
+        },
+        "write_todos": {
+          "count": 7,
+          "success": 7,
+          "fail": 0,
+          "durationMs": 10,
+          "decisions": {
+            "accept": 7,
+            "reject": 0,
+            "modify": 0,
+            "auto_accept": 0
+          }
+        },
+        "write_file": {
+          "count": 3,
+          "success": 3,
+          "fail": 0,
+          "durationMs": 34,
+          "decisions": {
+            "accept": 3,
+            "reject": 0,
+            "modify": 0,
+            "auto_accept": 0
+          }
+        },
+        "replace": {
+          "count": 2,
+          "success": 2,
+          "fail": 0,
+          "durationMs": 10,
+          "decisions": {
+            "accept": 2,
+            "reject": 0,
+            "modify": 0,
+            "auto_accept": 0
+          }
+        }
+      }
+    },
+    "files": {
+      "totalLinesAdded": 117,
+      "totalLinesRemoved": 109
+    }
+  },
+  "error": {
+    "type": "INVALID_STREAM",
+    "message": "Invalid stream: The model returned an empty response or malformed tool call."
+  }
+}

@@ -1,6 +1,6 @@
 ---
 name: web3-opportunities
-version: 0.2.0
+version: 0.2.1
 description: |
   Catalog and surface funding and launch opportunities for Web3 builders and founders —
   accelerators, incubators, grants, hackathons, bounties, retroactive funding,
