@@ -38,13 +38,18 @@ jobs:
         uses: google-github-actions/run-gemini-cli@v0
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          # Required for headless/CI runs so tool calls auto-approve (YOLO);
+          # without it the CLI treats the checkout as untrusted and exits 1.
+          GEMINI_CLI_TRUST_WORKSPACE: "true"
         with:
           gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
           # Pin the model; all core tools (file read/write/edit, shell, web
           # search and fetch) are enabled by default and auto-approved in CI.
           settings: |
             {
-              "model": "gemini-2.5-pro"
+              "model": {
+                "name": "gemini-2.5-pro"
+              }
             }
           prompt: |
             You are running an unattended WEEKLY refresh of the time-sensitive
