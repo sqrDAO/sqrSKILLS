@@ -1,8 +1,8 @@
 ---
 name: llm-wiki
-version: 0.1.2
+version: 0.1.3
 description: |
-  Build and maintain a personal knowledge base as a persistent, interlinked wiki. Use this skill when the user wants to accumulate knowledge on a topic over time — ingesting sources (articles, notes, documents), querying compiled knowledge, and keeping the wiki consistent. Trigger phrases: "add this to my wiki", "ingest this article", "what does my wiki say about", "update the wiki", "build a knowledge base", "research and remember", "lint the wiki", "search my notes". Always search the wiki before falling back to a web search for topics the user has been researching.
+  Build and maintain a personal knowledge base as a persistent, interlinked wiki. Use this skill when the user wants to accumulate knowledge on a topic over time — ingesting sources (articles, notes, documents), querying compiled knowledge, and keeping the wiki consistent. Trigger phrases: "add this to my wiki", "ingest this article", "what does my wiki say about", "update the wiki", "build a knowledge base", "research and remember", "lint the wiki", "search my notes", "list my wiki", "list your wikis", "list wiki pages", "what's in my wiki", "show my wiki". Always search the wiki before falling back to a web search for topics the user has been researching.
 allowed-tools:
   - Bash(python3 *)
   - Read
@@ -62,6 +62,16 @@ last-updated: YYYY-MM-DD
 - Update `last-updated:` on every edit
 
 ## Operations
+
+### List the wiki
+
+When the user asks to **list, show, or browse** their wiki — e.g. "list your wikis", "list my wiki", "list wiki pages", "what's in my wiki", "show my notes":
+
+1. Run: `python3 "$SKILL_DIR/scripts/list.py"` (add `--tag TAG` or `--sort updated` if the user narrows it)
+2. Present the returned pages as a readable table (title, tags, sources, last-updated).
+3. If the script returns an empty array `[]`, the wiki has no pages yet — say so and offer to start one (do **not** describe the directory layout as if it were the answer).
+
+Do **not** answer this request by paraphrasing the Directory Structure section — always run `list.py` and report the actual pages.
 
 ### Ingest a source
 
