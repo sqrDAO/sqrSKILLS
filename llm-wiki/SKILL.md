@@ -1,6 +1,6 @@
 ---
 name: llm-wiki
-version: 0.1.1
+version: 0.1.2
 description: |
   Build and maintain a personal knowledge base as a persistent, interlinked wiki. Use this skill when the user wants to accumulate knowledge on a topic over time — ingesting sources (articles, notes, documents), querying compiled knowledge, and keeping the wiki consistent. Trigger phrases: "add this to my wiki", "ingest this article", "what does my wiki say about", "update the wiki", "build a knowledge base", "research and remember", "lint the wiki", "search my notes". Always search the wiki before falling back to a web search for topics the user has been researching.
 allowed-tools:
@@ -131,6 +131,9 @@ Fixed N issues: ...
 ## Scripts
 
 ```bash
+# List all wiki pages with metadata (title, tags, sources, last-updated)
+python3 "$SKILL_DIR/scripts/list.py" [--tag TAG] [--sort title|updated]
+
 # Search wiki pages by keyword relevance
 python3 "$SKILL_DIR/scripts/search.py" "<query>" [--top N]
 
