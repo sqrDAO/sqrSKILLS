@@ -1,7 +1,7 @@
 {
   "_meta": {
     "document_type": "structured_web3_opportunity_roster",
-    "last_updated": "2026-06-22",
+    "last_updated": "2026-06-29",
     "data_freshness": "Program existence, type, chain/ecosystem, region, and dilution posture are evergreen and verified through June 2026. TIME-SENSITIVE fields (application deadlines, open/closed cohort status, current prize pool / check size, cadence) are baseline snapshots and MUST be re-verified live before the user applies or acts.",
     "coverage": "Global. Every entry is region-tagged. Southeast Asia / Vietnam-relevant entries carry sea_relevant: true.",
     "schema_version": "1.1.0",
@@ -47,7 +47,7 @@
       "url": "https://alliance.xyz/",
       "notes": "Application deadline July 22 for cohort ALL18 (starts Sep 7, 2026). Famously selective alumni. Strong web3-native network.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     },
     {
       "id": "outlier-ventures-basecamp",
@@ -95,7 +95,7 @@
       "url": "https://www.yzilabs.com/",
       "notes": "Investment and incubation arm formerly known as Binance Labs. Strong reach into Asia/SEA markets and BNB Chain ecosystem.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     },
     {
       "id": "base-batches",
@@ -125,9 +125,9 @@
       "cadence": "follows Colosseum hackathon seasons",
       "status": "open",
       "url": "https://www.colosseum.com/",
-      "notes": "Accelerator + venture arm that funds top Solana hackathon teams (see hackathon entry colosseum-hackathon). SEA founders compete and raise remotely.",
+      "notes": "Accelerator + venture arm that funds top Solana hackathon teams. Frontier hackathon just ended; next is Fall 2026. 'Eternal' is their rolling application track.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     },
     {
       "id": "draper-university-web3",
@@ -157,9 +157,9 @@
       "cadence": "rolling residencies across global locations",
       "status": "rolling",
       "url": "https://www.antler.co/",
-      "notes": "Day-zero venture builder with strong SEA presence (Singapore, Jakarta, etc.) and recurring web3/crypto cohorts. Good for solo founders seeking co-founders.",
+      "notes": "Day-zero venture builder with strong SEA presence (Singapore, Jakarta, etc.). No dedicated 'Web3 track' currently advertised, but still active in the space. Good for solo founders seeking co-founders.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     },
     {
       "id": "founders-inc",
@@ -271,7 +271,7 @@
       "url": "https://near.org/founder-hub",
       "notes": "Funding for builders on NEAR, now primarily through Founders Hub and Infrastructure Committee. Regional dev programs reach Asia/SEA.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     },
     {
       "id": "sui-foundation-grants",
@@ -333,9 +333,9 @@
       "cadence": "multiple online hackathons/year",
       "status": "open",
       "url": "https://www.colosseum.com/hackathon",
-      "notes": "Official Solana Foundation hackathon org. Prizes are non-dilutive, but winners can raise into the Colosseum/Eternal accelerator (dilutive). Open to SEA founders remotely.",
+      "notes": "Official Solana Foundation hackathon org. Frontier season just ended; next is Fall 2026 (Sep 28-Nov 2). Prizes are non-dilutive, but winners can raise into the Colosseum/Eternal accelerator (dilutive). Open to SEA founders remotely.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     },
     {
       "id": "dorahacks",
@@ -351,7 +351,7 @@
       "url": "https://dorahacks.io/",
       "notes": "Global hacker movement and grant platform hosting hackathons for many chains. Frequent SEA and Asia events. Combines prizes with QF grants.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     },
     {
       "id": "polkadot-hackathons",
@@ -461,9 +461,9 @@
       "cadence": "periodic cohorts",
       "status": "unknown",
       "url": "https://solana.org/",
-      "notes": "Solana Foundation runs developer fellowships and regional bootcamps. No specific programs listed on main site as of last check.",
+      "notes": "Solana Foundation runs developer fellowships and regional bootcamps. No specific programs listed on main site as of last check; ecosystem partners like Superteam may have more info.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     },
     {
       "id": "ronin-grants",
@@ -477,9 +477,9 @@
       "cadence": "program-based",
       "status": "rolling",
       "url": "https://roninchain.com/",
-      "notes": "Vietnam-rooted (Sky Mavis / Axie Infinity) gaming-focused L1 ecosystem. Relevant for SEA game and consumer-app builders. Confirm current grant vehicle.",
+      "notes": "Vietnam-rooted (Sky Mavis / Axie Infinity) gaming-focused L1 ecosystem. Proof of Distribution (PoD) program is the main incentive mechanism. Relevant for SEA game and consumer-app builders.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     },
     {
       "id": "kyros-ventures",
@@ -491,11 +491,11 @@
       "regions": ["sea", "global"],
       "typical_check_or_prize": "Early-stage investment + regional go-to-market support",
       "cadence": "rolling",
-      "status": "rolling",
+      "status": "unknown",
       "url": "https://kyros.ventures/",
-      "notes": "Vietnam-based research/venture group (Coin98 ecosystem). Strong SEA distribution and market-entry support for regional founders.",
+      "notes": "Vietnam-based research/venture group (Coin98 ecosystem). Website was inaccessible on last check; verify current status.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     },
     {
       "id": "hashed-emergent",
@@ -511,7 +511,7 @@
       "url": "https://www.hashedem.com/",
       "notes": "Emerging-markets-focused web3 venture/accelerator (India and Southeast Asia). Good for founders targeting high-growth Asian markets.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     },
     {
       "id": "tribe-accelerator",
@@ -527,7 +527,7 @@
       "url": "https://tribeaccelerator.co/",
       "notes": "Singapore government-backed blockchain accelerator. Website timed out on last check; verify current cohort status.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     },
     {
       "id": "sqrdao-programs",
@@ -543,7 +543,7 @@
       "url": "https://sqrdao.com/",
       "notes": "Vietnam-rooted web3 builder community running bounties, workshops, and hackathon support across SEA. Local on-ramp for regional founders.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     },
     {
       "id": "superteam-vietnam",
@@ -557,9 +557,9 @@
       "cadence": "continuous / event-driven",
       "status": "open",
       "url": "https://superteam.fun/",
-      "notes": "Vietnam chapter of Superteam, Solana's talent layer. Bounties, grants, and ecosystem programs for regional Solana builders. Local on-ramp into the Solana ecosystem.",
+      "notes": "Vietnam chapter of Superteam, Solana's talent layer. Not listed as a primary chapter on the main website, but active in the ecosystem. Bounties, grants, and ecosystem programs for regional Solana builders.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     },
     {
       "id": "corelia-academy",
@@ -575,7 +575,7 @@
       "url": "https://corelia.academy/",
       "notes": "Campus-embedded Web3 education in Vietnam. Website was inaccessible on last check; verify current program status.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     },
     {
       "id": "vbi-academy",
@@ -591,7 +591,7 @@
       "url": "https://vbiacademy.edu.vn/",
       "notes": "Grassroots, free hands-on blockchain/smart-contract dev training; widely cited as the top-1 Web3 developer school in Vietnam. Builder upskilling, not funding.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     },
     {
       "id": "unihackfest",
@@ -605,9 +605,9 @@
       "cadence": "cohort-based (14-week journey)",
       "status": "cohort-based",
       "url": "https://unihackfest.vn/",
-      "notes": "National student hackathon journey organized by Corelia Academy: build real AI & Web3 products over 14 weeks, then pitch. Entry point for Vietnamese university builders.",
+      "notes": "National student hackathon journey (2026 edition ongoing) organized by Corelia Academy: build real AI & Web3 products over 14 weeks, then pitch. Entry point for Vietnamese university builders.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     },
     {
       "id": "rmit-fintech-club",
@@ -623,7 +623,7 @@
       "url": "https://www.rmithackaventure.com/",
       "notes": "Vietnam's first student-led FinTech club (RMIT Vietnam). Website failed to load on last check; verify the current edition window.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     },
     {
       "id": "hust-bk-fintech-hackday",
@@ -635,11 +635,11 @@
       "regions": ["sea"],
       "typical_check_or_prize": "Per-event prizes (student competition)",
       "cadence": "cohort-based (annual)",
-      "status": "cohort-based",
+      "status": "closed",
       "url": "https://fintech.hust.edu.vn/get-involved/hackday",
-      "notes": "Annual student fintech hackathon by the Institute of Digital Technology & Economics at Hanoi University of Science and Technology (Bach Khoa) with A-Star Group. Verify the current edition window.",
+      "notes": "Annual student fintech hackathon by HUST. Season 11 concluded in June 2026. Verify the next edition window.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     },
     {
       "id": "vietnam-aptos-hackathon",
@@ -655,7 +655,7 @@
       "url": "https://dorahacks.io/hackathon/vietnamaptoshackathon",
       "notes": "Vietnam-focused Aptos hackathon hosted on DoraHacks. Concluded in July 2025.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     },
     {
       "id": "vietbuidl-hackathon",
@@ -671,8 +671,9 @@
       "url": "https://hackathon.ssid.com.vn/",
       "notes": "Vietnam-based global blockchain hackathon. Website failed to load on last check; verify whether a current edition is running.",
       "sea_relevant": true,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-06-29"
     }
   ]
 }
+
 

@@ -4,7 +4,7 @@
     "country": "Vietnam",
     "iso_alpha2": "VN",
     "iso_alpha3": "VNM",
-    "last_updated": "2026-06-18",
+    "last_updated": "2026-06-29",
     "data_freshness": "Core e-Visa and visa-exemption facts verified through June 2026; future-dated or implementation-specific items should be rechecked against evisa.gov.vn and primary legal sources before legal/compliance use.",
     "sources": [
       "https://evisa.gov.vn/",
@@ -65,9 +65,11 @@
     "governing_law": "Law on Entry, Exit, Transit, and Residence of Foreigners in Vietnam (No. 47/2014/QH13, amended 2019)",
     "administering_body": "Vietnam Immigration Department, Ministry of Public Security",
     "official_portal": "https://evisa.gov.vn/",
-    "entry_requirement_summary": "All foreign nationals require a valid entry permission to enter Vietnam. This is satisfied by one of: (1) visa exemption by nationality, (2) e-Visa, (3) visa on arrival (VOA) with pre-approval letter, or (4) embassy/consulate visa. Phu Quoc Island has a standalone special exemption for all nationalities.",
+    "digital_arrival_declaration_portal": "https://prearrival.immigration.gov.vn",
+    "entry_requirement_summary": "All foreign nationals require a valid entry permission to enter Vietnam. This is satisfied by one of: (1) visa exemption by nationality, (2) e-Visa, (3) visa on arrival (VOA) with pre-approval letter, or (4) embassy/consulate visa. Phu Quoc Island has a standalone special exemption for all nationalities. A mandatory health declaration is required for all travelers.",
     "passport_validity_minimum_days": 180,
     "proof_of_onward_travel": "May be requested at immigration at discretion of officer; recommended to carry.",
+    "health_declaration": "Mandatory for all travelers (inbound, outbound, transit) under Decree 165/2026/ND-CP, effective July 1, 2026. Must be submitted within 7 days prior to travel.",
     "entry_modes": ["air", "land", "sea"]
   },
 
@@ -126,6 +128,12 @@
       "restriction": "Visitor must remain on Phu Quoc Island; travel to mainland Vietnam voids exemption and requires a separate visa.",
       "passport_validity_required_days": 180,
       "entry_modes_allowed": ["air", "sea"]
+    },
+    "DIGITAL_ARRIVAL_CARD": {
+      "code": "DAC",
+      "label": "Digital Arrival Card",
+      "description": "A pilot program for Digital Arrival Cards began at Ho Chi Minh City’s Tan Son Nhat International Airport on April 15, 2026, aimed at further digitizing the immigration process and reducing wait times.",
+      "status": "Pilot program"
     }
   },
 
