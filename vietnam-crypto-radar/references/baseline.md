@@ -1,6 +1,6 @@
 # Vietnam Crypto Regime — Baseline Snapshot
 
-> **LAST VERIFIED: 29 June 2026.**
+> **LAST VERIFIED: 06 July 2026.**
 > Everything the radar reports as "new" is new relative to this date.
 > After confirming real changes in a run, rewrite this file and bump the date.
 > Verification note: All instruments listed below are now confirmed by Tier-1 government
