@@ -96,14 +96,33 @@ Many agents can install and invoke skills without leaving the conversation:
 | Agent | Install | Invoke |
 |-------|---------|--------|
 | Claude Code | Ask: *"install the sqrdao telegram-send skill"* | `/<skill-name>` or describe what you need — auto-activates on description match |
-| OpenClaw | Paste the GitHub URL in chat and ask the agent to install it | `/skill <name>` or describe what you need — auto-activates on description match |
+| OpenClaw | Paste the GitHub URL in chat and ask the agent to install it — text only, no commands needed (see below) | `/skill <name>` or describe what you need — auto-activates on description match |
 | Hermes | Type `/skills` or `/` to browse and install from the Skills Hub | `/skill <name>` or describe what you need — auto-activates on description match |
 | Codex / Antigravity / others | Install via the runtime's skills mechanism or copy the folder manually | Describe what you need; agents with skill selection should auto-activate on description match |
 
-For OpenClaw, the GitHub URL for any skill in this repo follows this pattern:
+### OpenClaw: install with plain text, no commands
+
+OpenClaw installs skills entirely through conversation — you never need to open a terminal or run a command. Just send the agent a message:
+
+> Install this skill: https://github.com/sqrdao/sqrSKILLS/tree/main/llm-wiki
+
+The GitHub URL for any skill in this repo follows this pattern:
+
 ```
 https://github.com/sqrdao/sqrSKILLS/tree/main/<skill-name>
 ```
+
+You can also ask by name without a URL:
+
+> Install the telegram-send skill from the sqrdao/sqrSKILLS repo on GitHub
+
+Or install everything at once:
+
+> Install all skills from https://github.com/sqrdao/sqrSKILLS
+
+The agent fetches the skill, places it in its skills directory (`~/.openclaw/skills/`), and confirms when it's ready. If a skill needs an environment variable (see [Requirements](#requirements)), tell the agent in the same conversation — for example: *"Set TELEGRAM_BOT_TOKEN to `<your token>` for the telegram-send skill"* — and it will store it in its config.
+
+Once installed, invoke a skill with `/skill <name>` or just describe what you need; skills auto-activate when your request matches their description.
 
 ## Skill Format
 
