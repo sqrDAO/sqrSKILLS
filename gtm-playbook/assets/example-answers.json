@@ -1,0 +1,154 @@
+{
+  "company": {
+    "name": "Acme Rails",
+    "vision": "Instant cross-border value movement.",
+    "mission": "Cut settlement time for SEA remittance operators.",
+    "values": [
+      "Ship",
+      "Measure"
+    ],
+    "mission_critical_priority": "Land 3 corridor operators by Q4",
+    "milestones": [
+      "Pilot live",
+      "First paid corridor"
+    ]
+  },
+  "offer": {
+    "problem": "Correspondent fees plus 3-day settlement.",
+    "solution": "Stablecoin settlement layer.",
+    "existing_solutions": "Yes, incumbent correspondent banks."
+  },
+  "personas": [
+    {
+      "tier": "A - Must Win",
+      "company": {
+        "industry": "Remittance operators",
+        "revenue": "$5M-$50M",
+        "employee_size": "30-200",
+        "countries": "VN, PH, ID"
+      },
+      "persona": {
+        "job_title": "Head of Payments Ops"
+      },
+      "relevance": "Owns the correspondent-banking cost line."
+    }
+  ],
+  "methodologies": {
+    "qualification": {
+      "framework": "PNUB",
+      "definitions": {
+        "P": "Corridor cost pain, stated in bps by the buyer",
+        "N": "",
+        "U": "",
+        "B": "Reallocation from correspondent-fee line"
+      }
+    },
+    "philosophy": {
+      "name": "Value Selling",
+      "notes": "Buyer states the impact figure."
+    }
+  },
+  "partnership_goals": [
+    {
+      "no": 1,
+      "goal_type": "TVL growth",
+      "target_metrics": "Total $ locked",
+      "target_partners": "DeFi protocols on Bera",
+      "offer": "Co-incentives + integration support",
+      "priority": "P0",
+      "pic": "Leo",
+      "end_results": "Connected with 5 projects, total deposit of $X TVL"
+    }
+  ],
+  "objections": [
+    {
+      "objection": "Too expensive",
+      "underlying_cause": "Value not quantified, or below purse holder",
+      "exploring_question": "Above your approval limit, or above what it is worth?",
+      "response": "Route to purse holder, or return to impact figure"
+    }
+  ],
+  "opportunity_ideas": [
+    {
+      "id": "Idea 1",
+      "industry_segment": "Industry: Financial services\nSegment: SEA retail remittances",
+      "problem_statement": "Corridor settlement takes three days and correspondent fees compound at each hop. Operators cannot quote same-day without pre-funding balances they cannot afford.",
+      "target_audience": "Remittance operators (payer); senders and recipients (users); corridor banks (incumbent)",
+      "technology_opportunity": "Programmable settlement: value moves when the compliance condition clears, removing the human check that is itself the cost. Multi-party, low trust across corridor legs.",
+      "name": "Corridor (stablecoin settlement rail for SEA legs)"
+    },
+    {
+      "id": "Idea 2",
+      "industry_segment": "Industry: Agriculture\nSegment: Coffee export provenance",
+      "problem_statement": "Buyers cannot verify origin claims; certifiers are paid by the producers they certify.",
+      "target_audience": "Exporters; certifiers; EU importers",
+      "technology_opportunity": "Verifiable history, but the audit-log illusion applies: a human types the origin in. Real opportunity sits at the oracle, not the ledger.",
+      "name": "Terroir"
+    },
+    {
+      "id": "Idea 3",
+      "industry_segment": "Industry: Education\nSegment: Vietnamese university credentials",
+      "problem_statement": "Employers cannot cheaply verify degrees; universities charge for each check and take weeks.",
+      "target_audience": "Employers (payer); graduates (beneficiary); universities (issuer)",
+      "technology_opportunity": "Portable credentials across systems that will never share a database.",
+      "name": "Bằng"
+    }
+  ],
+  "decision_matrix": {
+    "scale": "1-5",
+    "factors": [
+      {
+        "name": "Problem severity",
+        "weight": 25
+      },
+      {
+        "name": "Willingness to pay",
+        "weight": 25
+      },
+      {
+        "name": "Blockchain necessity",
+        "weight": 20
+      },
+      {
+        "name": "Time to first pilot",
+        "weight": 15
+      },
+      {
+        "name": "Regulatory exposure",
+        "weight": 15
+      }
+    ],
+    "ideas": [
+      {
+        "name": "Corridor",
+        "scores": [
+          5,
+          5,
+          4,
+          4,
+          2
+        ]
+      },
+      {
+        "name": "Terroir",
+        "scores": [
+          3,
+          2,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "name": "Bằng",
+        "scores": [
+          3,
+          3,
+          4,
+          4,
+          3
+        ]
+      }
+    ]
+  }
+}
