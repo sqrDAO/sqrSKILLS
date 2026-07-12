@@ -114,13 +114,31 @@ jobs:
           fi
           rm -f REFRESH_SUMMARY.md
 
+      - name: Build pull request metadata
+        id: pr_meta
+        run: |
+          run_date="$(date -u +%F)"
+          changed_skills="$(
+            git diff --name-only |
+              cut -d/ -f1 |
+              grep -E '^(vietnam-crypto-radar|web3-opportunities|vietnam-visa-check)$' |
+              sort -u |
+              awk 'BEGIN { sep = "" } { printf "%s%s", sep, $0; sep = ", " }'
+          )"
+
+          if [ -n "$changed_skills" ]; then
+            echo "title=Weekly skill refresh — ${run_date} — ${changed_skills}" >> "$GITHUB_OUTPUT"
+          else
+            echo "title=Weekly skill refresh — ${run_date} — no verified changes" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Open pull request
         uses: peter-evans/create-pull-request@v6
         with:
           branch: automation/weekly-skill-refresh
           delete-branch: true
           commit-message: "chore: weekly refresh of time-sensitive skill baselines"
-          title: "Weekly skill refresh — ${{ github.run_started_at }}"
+          title: "${{ steps.pr_meta.outputs.title }}"
           body: |
             Automated weekly refresh of the time-sensitive skills
             (`vietnam-crypto-radar`, `web3-opportunities`, `vietnam-visa-check`).
