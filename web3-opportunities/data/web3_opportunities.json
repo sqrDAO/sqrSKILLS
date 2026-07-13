@@ -1,7 +1,7 @@
 {
   "_meta": {
     "document_type": "structured_web3_opportunity_roster",
-    "last_updated": "2026-07-06",
+    "last_updated": "2026-07-13",
     "data_freshness": "Program existence, type, chain/ecosystem, region, and dilution posture are evergreen and verified through June 2026. TIME-SENSITIVE fields (application deadlines, open/closed cohort status, current prize pool / check size, cadence) are baseline snapshots and MUST be re-verified live before the user applies or acts.",
     "coverage": "Global. Every entry is region-tagged. Southeast Asia / Vietnam-relevant entries carry sea_relevant: true.",
     "schema_version": "1.1.0",
@@ -27,11 +27,11 @@
       "regions": ["global", "us", "remote"],
       "typical_check_or_prize": "~$500K on a post-money SAFE/equity",
       "cadence": "cohort-based (periodic; US and London editions)",
-      "status": "cohort-based",
+      "status": "closed",
       "url": "https://a16zcrypto.com/csx/",
       "notes": "Intensive multi-week program from a16z crypto. Network-heavy, founder-friendly. Check the official page for the next cohort window.",
       "sea_relevant": false,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "alliance-dao",
@@ -47,7 +47,7 @@
       "url": "https://alliance.xyz/",
       "notes": "Application deadline July 22 for cohort ALL18 (starts Sep 7, 2026). Famously selective alumni. Strong web3-native network.",
       "sea_relevant": true,
-      "last_verified": "2026-06-29"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "outlier-ventures-basecamp",
@@ -58,12 +58,12 @@
       "chains": ["multi-chain"],
       "regions": ["global", "europe", "remote"],
       "typical_check_or_prize": "Investment for equity/tokens + token-design support",
-      "cadence": "rolling cohorts (thematic tracks)",
-      "status": "rolling",
+      "cadence": "cohort-based",
+      "status": "open",
       "url": "https://outlierventures.io/base-camp/",
       "notes": "Often called the "YC of Web3"; 300+ startups accelerated. "Post-Web" thesis (internet for humans and machines). Token-launch and go-to-market focus.",
       "sea_relevant": false,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "tachyon-accelerator",
@@ -75,11 +75,11 @@
       "regions": ["global", "us", "remote"],
       "typical_check_or_prize": "$150k - $250k investment",
       "cadence": "rolling",
-      "status": "rolling",
+      "status": "closed",
       "url": "https://tachyon.xyz/",
-      "notes": "The successor to the Tachyon accelerator, now run by Consensys Mesh with a focus on AI and Crypto. Admission is on a rolling basis.",
+      "notes": "The successor to the Tachyon accelerator, now run by Consensys Mesh with a focus on AI and Crypto. Admission is on a rolling basis, but application review is paused until fall 2026.",
       "sea_relevant": false,
-      "last_verified": "2026-07-06"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "yzi-labs",
@@ -89,13 +89,13 @@
       "dilution": "dilutive",
       "chains": ["multi-chain"],
       "regions": ["global", "sea", "remote"],
-      "typical_check_or_prize": "Strategic investment; size varies by stage",
+      "typical_check_or_prize": "$100k for 5% equity/token stake for EASY Residency",
       "cadence": "rolling",
       "status": "rolling",
       "url": "https://www.yzilabs.com/",
       "notes": "Investment and incubation arm formerly known as Binance Labs. Strong reach into Asia/SEA markets and BNB Chain ecosystem.",
       "sea_relevant": true,
-      "last_verified": "2026-06-29"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "base-batches",
@@ -105,13 +105,13 @@
       "dilution": "non-dilutive",
       "chains": ["l2", "ethereum"],
       "regions": ["global", "us", "remote"],
-      "typical_check_or_prize": "Ecosystem grants and investor access",
+      "typical_check_or_prize": "1-5 ETH for builder grants, 2 ETH weekly for weekly rewards",
       "cadence": "periodic builder grants",
       "status": "rolling",
       "url": "https://www.base.org/",
-      "notes": "Builder grants for projects on the Base L2 (Coinbase). Multiple programs are active, including Builder Rewards (weekly), retro-funding Builder Grants, and the Base Batches accelerator.",
+      "notes": "Builder grants for projects on the Base L2 (Coinbase). Multiple programs are active, including weekly rewards (2 ETH), builder grants (1-5 ETH), and the Base Batches accelerator.",
       "sea_relevant": false,
-      "last_verified": "2026-07-06"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "colosseum-eternal",
@@ -127,7 +127,7 @@
       "url": "https://www.colosseum.com/",
       "notes": "Accelerator + venture arm that funds top Solana hackathon teams. Frontier hackathon just ended; next is Fall 2026. 'Eternal' is their rolling application track.",
       "sea_relevant": true,
-      "last_verified": "2026-06-29"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "draper-university-web3",
@@ -143,7 +143,7 @@
       "url": "https://www.draperuniversity.com/",
       "notes": "Founder training and accelerator with recurring crypto/web3 tracks. No specific web3 cohort listed as of last check; confirm on official site.",
       "sea_relevant": false,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "antler-web3",
@@ -159,7 +159,7 @@
       "url": "https://www.antler.co/",
       "notes": "Day-zero venture builder with strong SEA presence (Singapore, Jakarta, etc.). No dedicated 'Web3 track' currently advertised, but still active in the space. Good for solo founders seeking co-founders.",
       "sea_relevant": true,
-      "last_verified": "2026-06-29"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "founders-inc",
@@ -175,7 +175,7 @@
       "url": "https://f.inc/",
       "notes": "San Francisco builder studio/incubator. The 'Off Season' residency program ran in summer 2024; the 2026 schedule is unconfirmed.",
       "sea_relevant": false,
-      "last_verified": "2026-07-06"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "ethereum-foundation-esp",
@@ -191,7 +191,7 @@
       "url": "https://esp.ethereum.foundation/",
       "notes": "Funds public-goods, infrastructure, research, and tooling for the Ethereum ecosystem. Not for-profit product funding; read the scope before applying.",
       "sea_relevant": false,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "arbitrum-foundation-grants",
@@ -207,7 +207,7 @@
       "url": "https://arbitrum.foundation/grants",
       "notes": "Ecosystem grants for tooling, infra, and apps on Arbitrum (an Ethereum L2). Recent focused tracks have targeted agentic DeFi. Pair with DAO grant rounds.",
       "sea_relevant": false,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "optimism-grants",
@@ -223,7 +223,7 @@
       "url": "https://app.optimism.io/grants",
       "notes": "Forward-looking grants from the Optimism Collective. Season 9 applications closed in May 2026, and the Grants Council is proposed to be dissolved, suggesting a future change in the grants process.",
       "sea_relevant": false,
-      "last_verified": "2026-07-06"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "web3-foundation-grants",
@@ -239,7 +239,7 @@
       "url": "https://grants.web3.foundation/",
       "notes": "Funds open-source software and research for Polkadot, Kusama, and Substrate. Application and milestone delivery are managed publicly on GitHub.",
       "sea_relevant": false,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "interchain-foundation-grants",
@@ -255,7 +255,7 @@
       "url": "https://interchain.io/funding",
       "notes": "Supports core infrastructure, IBC, and tooling across the Cosmos ecosystem. Funds organizations to develop foundational protocols and advance the Interchain Stack.",
       "sea_relevant": false,
-      "last_verified": "2026-07-06"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "near-foundation-grants",
@@ -271,7 +271,7 @@
       "url": "https://near.org/founder-hub",
       "notes": "Funding for builders on NEAR, now primarily through Founders Hub and Infrastructure Committee. Regional dev programs reach Asia/SEA.",
       "sea_relevant": true,
-      "last_verified": "2026-06-29"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "sui-foundation-grants",
@@ -287,7 +287,7 @@
       "url": "https://sui.io/grants",
       "notes": "Grants for infrastructure, tooling, and apps on Sui. Active programs include RFP grants, academic research awards, and education grants.",
       "sea_relevant": false,
-      "last_verified": "2026-07-06"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "filecoin-grants",
@@ -303,7 +303,7 @@
       "url": "https://github.com/filecoin-project/devgrants",
       "notes": "Decentralized storage and data ecosystem grants. Proposals are filed and reviewed openly in the devgrants GitHub repo.",
       "sea_relevant": false,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "ethglobal",
@@ -319,7 +319,7 @@
       "url": "https://ethglobal.com/events",
       "notes": "Flagship Ethereum hackathon series. Next events: ETHGlobal Lisbon (July 24-26, 2026), Tokyo (Sep 25-27), and Mumbai (Nov 5). Non-dilutive prizes; strong recruiting/investor surface.",
       "sea_relevant": false,
-      "last_verified": "2026-07-06"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "colosseum-hackathon",
@@ -335,7 +335,7 @@
       "url": "https://www.colosseum.com/hackathon",
       "notes": "Official Solana Foundation hackathon org. Frontier season just ended; next is Fall 2026 (Sep 28-Nov 2). Prizes are non-dilutive, but winners can raise into the Colosseum/Eternal accelerator (dilutive). Open to SEA founders remotely.",
       "sea_relevant": true,
-      "last_verified": "2026-06-29"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "dorahacks",
@@ -351,7 +351,7 @@
       "url": "https://dorahacks.io/",
       "notes": "Global hacker movement and grant platform hosting hackathons for many chains. Frequent SEA and Asia events. Combines prizes with QF grants.",
       "sea_relevant": true,
-      "last_verified": "2026-06-29"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "polkadot-hackathons",
@@ -367,7 +367,7 @@
       "url": "https://polkadot.com/ecosystem/events/",
       "notes": "Recurring Polkadot/Substrate hackathons. The Polkadot Solidity Hackathon 2026 ran from Feb-Mar 2026. Check the official events page for the next season.",
       "sea_relevant": false,
-      "last_verified": "2026-07-06"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "gitcoin",
@@ -383,7 +383,7 @@
       "url": "https://www.gitcoin.co/",
       "notes": "Public-goods funding via quadratic funding (Grants Stack) plus a bounties marketplace. Best for open-source and community-backed projects.",
       "sea_relevant": false,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "immunefi",
@@ -399,7 +399,7 @@
       "url": "https://immunefi.com/",
       "notes": "The largest web3 bug-bounty platform. For security researchers earning payouts, and for projects funding their own bounty programs.",
       "sea_relevant": false,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "optimism-retro-funding",
@@ -415,7 +415,7 @@
       "url": "https://retrofunding.optimism.io/",
       "notes": "Pays builders AFTER measurable impact. The standard RetroPGF program is paused for 2026 while the Foundation assesses alternative approaches.",
       "sea_relevant": false,
-      "last_verified": "2026-07-06"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "drips-network",
@@ -431,7 +431,7 @@
       "url": "https://www.drips.network/",
       "notes": "Lets projects stream retroactive funding to the open-source dependencies they rely on. Good for OSS maintainers in the Ethereum ecosystem.",
       "sea_relevant": false,
-      "last_verified": "2026-06-22"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "ethereum-protocol-fellowship",
@@ -447,7 +447,7 @@
       "url": "https://epf.wiki/",
       "notes": "Mentorship-driven fellowship for contributing to Ethereum protocol development. Applications for Cohort 7 closed in May 2026.",
       "sea_relevant": false,
-      "last_verified": "2026-07-06"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "solana-foundation-fellowships",
@@ -463,7 +463,7 @@
       "url": "https://solana.org/developers",
       "notes": "Solana Foundation runs developer fellowships and regional bootcamps. Active 2026 programs include the Breakpoint Global Fellows Program (for Breakpoint London in Nov) and the Solana Summer School for college students (started June 2026).",
       "sea_relevant": true,
-      "last_verified": "2026-07-06"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "ronin-grants",
@@ -479,7 +479,7 @@
       "url": "https://roninchain.com/",
       "notes": "Vietnam-rooted (Sky Mavis / Axie Infinity) gaming-focused L1 ecosystem. Proof of Distribution (PoD) program is the main incentive mechanism. Relevant for SEA game and consumer-app builders.",
       "sea_relevant": true,
-      "last_verified": "2026-06-29"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "kyros-ventures",
@@ -495,7 +495,7 @@
       "url": "https://kyros.ventures/",
       "notes": "Vietnam-based research/venture group (Coin98 ecosystem). Active investor and incubator in the SEA region.",
       "sea_relevant": true,
-      "last_verified": "2026-07-06"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "hashed-emergent",
@@ -511,7 +511,7 @@
       "url": "https://www.hashedem.com/",
       "notes": "Emerging-markets-focused web3 venture/accelerator (India and Southeast Asia). Good for founders targeting high-growth Asian markets.",
       "sea_relevant": true,
-      "last_verified": "2026-06-29"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "tribe-accelerator",
@@ -527,7 +527,7 @@
       "url": "https://tribex.co/",
       "notes": "Singapore government-backed blockchain accelerator. Runs flagship Web3 accelerator and specialized programs like the Ignition AI Accelerator with NVIDIA.",
       "sea_relevant": true,
-      "last_verified": "2026-07-06"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "sqrdao-programs",
@@ -543,7 +543,7 @@
       "url": "https://sqrdao.com/",
       "notes": "Vietnam-rooted web3 builder community running bounties, workshops, and hackathon support across SEA. Local on-ramp for regional founders.",
       "sea_relevant": true,
-      "last_verified": "2026-06-29"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "superteam-vietnam",
@@ -559,7 +559,7 @@
       "url": "https://superteam.fun/",
       "notes": "Vietnam chapter of Superteam, Solana's talent layer. Not listed as a primary chapter on the main website, but active in the ecosystem. Bounties, grants, and ecosystem programs for regional Solana builders.",
       "sea_relevant": true,
-      "last_verified": "2026-06-29"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "corelia-academy",
@@ -575,7 +575,7 @@
       "url": "https://corelia.academy/",
       "notes": "Campus-embedded Web3 education in Vietnam. Currently running UniHackfest 2026, a national student hackathon, from June to September 2026.",
       "sea_relevant": true,
-      "last_verified": "2026-07-06"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "vbi-academy",
@@ -591,7 +591,7 @@
       "url": "https://vbiacademy.edu.vn/",
       "notes": "Grassroots, free hands-on blockchain/smart-contract dev training; widely cited as the top-1 Web3 developer school in Vietnam. Builder upskilling, not funding.",
       "sea_relevant": true,
-      "last_verified": "2026-06-29"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "unihackfest",
@@ -607,7 +607,7 @@
       "url": "https://unihackfest.vn/",
       "notes": "National student hackathon journey (2026 edition ongoing) organized by Corelia Academy: build real AI & Web3 products over 14 weeks, then pitch. Entry point for Vietnamese university builders.",
       "sea_relevant": true,
-      "last_verified": "2026-06-29"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "rmit-fintech-club",
@@ -623,7 +623,7 @@
       "url": "https://www.rmithackaventure.com/",
       "notes": "Vietnam's first student-led FinTech club (RMIT Vietnam). The RMIT Hackathon 2026 is scheduled for October 2026.",
       "sea_relevant": true,
-      "last_verified": "2026-07-06"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "hust-bk-fintech-hackday",
@@ -639,7 +639,7 @@
       "url": "https://fintech.hust.edu.vn/get-involved/hackday",
       "notes": "Annual student fintech hackathon by HUST. Runs in multiple seasons per year; Season 12 took place in mid-2026.",
       "sea_relevant": true,
-      "last_verified": "2026-07-06"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "vietnam-aptos-hackathon",
@@ -655,7 +655,7 @@
       "url": "https://dorahacks.io/hackathon/vietnamaptoshackathon",
       "notes": "Vietnam-focused Aptos hackathon hosted on DoraHacks. Concluded in July 2025.",
       "sea_relevant": true,
-      "last_verified": "2026-06-29"
+      "last_verified": "2026-07-13"
     },
     {
       "id": "vietbuidl-hackathon",
@@ -671,7 +671,7 @@
       "url": "https://hackathon.ssid.com.vn/",
       "notes": "Vietnam-based global blockchain hackathon. Website failed to load on last check; verify whether a current edition is running.",
       "sea_relevant": true,
-      "last_verified": "2026-06-29"
+      "last_verified": "2026-07-13"
     }
   ]
 }
