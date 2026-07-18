@@ -38,4 +38,6 @@ flow used in YouAI, adapted to this repository's portable Python skills.
 
 ## Notes
 Completion approved by the user on 2026-07-18 after local verification and push of
-implementation commit `4ab1514`.
+implementation commit `4ab1514`. The review requirement was subsequently adjusted
+for a sole-maintainer repository: PR and harness gates remain required, but a
+different person is not required to approve the last push.
