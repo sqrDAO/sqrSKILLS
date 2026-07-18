@@ -7,7 +7,8 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-None.
+1. `vietnam-crypto-radar-regulatory-refresh` — refresh the dated regulatory
+   baseline with Decree 284 enforcement rules and omitted accounting/tax instruments.
 
 ## Recently shipped
 

@@ -9,7 +9,7 @@ Getting the instrument *type* right is a credibility signal — a "Thông tư" i
 |---|---|---|---|
 | **Luật** | Law | National Assembly | Top-level. e.g. **Law 71/2025/QH15** (DTI Law). The `QH15` = 15th National Assembly. |
 | **Nghị quyết** | Resolution | National Assembly or Government | Policy/pilot frameworks. e.g. **Resolution 05/2025/NQ-CP** (`NQ-CP` = Government resolution). |
-| **Nghị định** | Decree | Government | Implements laws; detailed rules. e.g. Decree 96/2014/ND-CP (`ND-CP`). |
+| **Nghị định** | Decree | Government | Implements laws; detailed rules. e.g. **Decree 284/2026/NĐ-CP**, the pilot market's administrative-penalty regime. |
 | **Quyết định** | Decision | PM, Government, or a Minister | Specific actions/approvals. e.g. **Decision 96/QĐ-BTC** (`QĐ-BTC` = MOF decision). |
 | **Thông tư** | Circular | A Ministry | Technical/operational detail. e.g. **Circular 32/2026/TT-BTC** (`TT-BTC` = MOF circular). |
 | **Công văn / Văn bản** | Official Letter / Document | Any body | Guidance/position, not a regulation per se. e.g. SBV Document 5747/NHNN-PC. |
@@ -38,6 +38,7 @@ Getting the instrument *type* right is a credibility signal — a "Thông tư" i
 - **VASP** — Virtual Asset Service Provider; the licensed-operator concept under the pilot.
 - **The pilot / sandbox** — the 5-year regulated-market program under Resolution 05/2025/NQ-CP.
 - **DTI Law** — the Law on Digital Technology Industry (Law 71/2025/QH15).
+- **Decree 284** — Decree 284/2026/NĐ-CP, the administrative-penalty regime for crypto assets and the pilot market; enacted 16 July 2026 and effective 1 September 2026.
 - **Charter capital (vốn điều lệ)** — registered capital; the pilot's ~VND 10tn bar is a charter-capital requirement.
 - **VND settlement** — the requirement that pilot-market transactions settle in Vietnamese dong.
 
