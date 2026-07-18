@@ -106,7 +106,7 @@ WIKI_DIR=./wiki SKILL_DIR=./llm-wiki \
 | `vietnam-visa-check` | None | None |
 | `vietnam-crypto-radar` | Web access or equivalent research tools | None |
 | `luma-calendar` | `LUMA_API_KEY` | None |
-| `gtm-playbook` | None | None |
+| `business-model-to-market` | None | None |
 
 ## Versioning
 
@@ -143,8 +143,8 @@ Users running `npx skills update` rely on this to understand what changed.
   geocoding.
 - `llm-wiki` wiki data is gitignored. The `wiki/` directory is a runtime artifact,
   not tracked in this repo.
-- `gtm-playbook` is the documented exception to stdlib-only Python: its
-  `scripts/build_gtm_workbook.py` needs `openpyxl` to emit the xlsx workbook.
-  All conversational/markdown flows in the skill work without it. It also has
-  `references/` (framework source material) and `assets/` (original templates
-  plus `example-answers.json`).
+- `business-model-to-market` (formerly `gtm-playbook`) is the documented exception
+  to stdlib-only Python: its `scripts/build_gtm_workbook.py` needs `openpyxl` to
+  emit the xlsx workbook. All conversational/markdown flows in the skill work
+  without it. It also has `references/` (framework source material) and `assets/`
+  (original templates plus `example-answers.json`).

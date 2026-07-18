@@ -15,7 +15,7 @@ import sys
 
 try:
     from openpyxl import Workbook
-    from openpyxl.styles import Alignment, Font, PatternFill
+    from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
     from openpyxl.utils import get_column_letter
     HAVE_OPENPYXL = True
 except ImportError:  # --schema still works without openpyxl
@@ -350,12 +350,75 @@ def tab_partnerships(wb, data):
           rows, widths=[5, 20, 26, 30, 30, 14, 26, 10, 12, 44, 20])
 
 
+if HAVE_OPENPYXL:
+    CANVAS_GRID = Font(name=FONT, size=9, bold=True, color="FFFFFF")
+    CANVAS_BORDER = Border(*(Side(style="thin", color="B0B0B0"),) * 4)
+
+
+def _canvas_box(ws, cell_range, header, answer, prompt):
+    """Draw one canvas block over a merged range: bold header line, then the
+    answer, or the guiding question in muted italic when the answer is blank."""
+    ws.merge_cells(cell_range)
+    top_left = cell_range.split(":")[0]
+    cell = ws[top_left]
+    cell.value = f"{header}\n{answer}" if answer else f"{header}\n{prompt}"
+    cell.alignment = Alignment(wrap_text=True, vertical="top")
+    cell.font = BODY if answer else MUTED
+    # header line styled by leaving it in the same cell; a light fill sets it apart
+    cell.fill = BAND_FILL
+    for row in ws[cell_range]:
+        for c in row:
+            c.border = CANVAS_BORDER
+
+
+def tab_canvas(wb, data):
+    ws = wb.create_sheet("Business Model Canvas")
+    for col in "ABCDE":
+        ws.column_dimensions[col].width = 30
+    title(ws, "BUSINESS MODEL CANVAS", span=5)
+    bmc = data.get("business_model_canvas", {})
+
+    def g(key):
+        return bmc.get(key, "")
+
+    # Top band: rows 3-8. Outer columns and Value Propositions are full height;
+    # Key Activities/Resources and Customer Relationships/Channels split in two.
+    _canvas_box(ws, "A3:A8", "KEY PARTNERS", g("key_partners"),
+                "Who are our key partners and suppliers? Which resources and activities do they provide? (economy / risk / resources)")
+    _canvas_box(ws, "B3:B5", "KEY ACTIVITIES", g("key_activities"),
+                "What activities do our value propositions, channels, and revenue require? (production / problem solving / platform)")
+    _canvas_box(ws, "B6:B8", "KEY RESOURCES", g("key_resources"),
+                "What resources do our value propositions require? (physical / intellectual / human / financial)")
+    _canvas_box(ws, "C3:C8", "VALUE PROPOSITIONS", g("value_propositions"),
+                "What value do we deliver? Which problems do we solve? Which needs do we satisfy? (lead with one or two)")
+    _canvas_box(ws, "D3:D5", "CUSTOMER RELATIONSHIPS", g("customer_relationships"),
+                "What relationship does each segment expect, and what does it cost? (assistance / self-service / community / co-creation)")
+    _canvas_box(ws, "D6:D8", "CHANNELS", g("channels"),
+                "How do we reach each segment across awareness, evaluation, purchase, delivery, and after-sales?")
+    _canvas_box(ws, "E3:E8", "CUSTOMER SEGMENTS", g("customer_segments"),
+                "For whom are we creating value? Who matters most? (mass / niche / segmented / diversified / multi-sided)")
+
+    # Bottom band: rows 10-11.
+    _canvas_box(ws, "A10:B11", "COST STRUCTURE", g("cost_structure"),
+                "What are the most important costs? Cost-driven or value-driven? (fixed / variable / economies of scale or scope)")
+    _canvas_box(ws, "C10:E11", "REVENUE STREAMS", g("revenue_streams"),
+                "What are customers really willing to pay for, and how? (asset sale / usage / subscription / licensing; fixed or dynamic pricing)")
+
+    for r in range(3, 9):
+        ws.row_dimensions[r].height = 26
+    ws.row_dimensions[10].height = 18
+    ws.row_dimensions[11].height = 60
+
+
 SCHEMA = {
     "opportunity_ideas": [{"id": "Idea 1", "industry_segment": "", "problem_statement": "",
                            "target_audience": "", "technology_opportunity": "", "name": ""}],
     "decision_matrix": {"scale": "1-5",
                         "factors": [{"name": "Problem severity", "weight": 25}],
                         "ideas": [{"name": "", "scores": [0]}]},
+    "business_model_canvas": {"customer_segments": "", "value_propositions": "", "channels": "",
+                              "customer_relationships": "", "revenue_streams": "", "key_activities": "",
+                              "key_resources": "", "key_partners": "", "cost_structure": ""},
     "company": {"name": "", "vision": "", "mission": "", "values": [], "culture": "",
                 "corporate_objective": "", "mission_critical_priority": "", "milestones": []},
     "offer": {"problem": "", "solution": "", "existing_solutions": "",
@@ -388,6 +451,7 @@ SCHEMA = {
 
 BUILDERS = [
     ("opportunity_ideas", tab_brainstorm), ("decision_matrix", tab_decision_matrix),
+    ("business_model_canvas", tab_canvas),
     ("company", tab_mission), ("offer", tab_icp), ("personas", tab_personas),
     ("methodologies", tab_methodologies), ("sales_cycle", tab_cycle),
     ("cold_outreach", tab_outreach), ("objections", tab_objections),
@@ -400,6 +464,7 @@ def main():
     ap.add_argument("answers", nargs="?", help="Path to answers JSON")
     ap.add_argument("-o", "--output", default="GTM_filled.xlsx")
     ap.add_argument("--schema", action="store_true", help="Print the expected JSON shape and exit")
+    ap.add_argument("--canvas-only", action="store_true", help="Emit only the Business Model Canvas tab")
     ap.add_argument("--partnership-only", action="store_true", help="Emit only the Partnership Goals tab")
     ap.add_argument("--ideation-only", action="store_true",
                     help="Emit only the Opportunity Brainstorm and Decision Matrix tabs")
@@ -412,7 +477,7 @@ def main():
         ap.error("answers JSON required (or use --schema)")
     if not HAVE_OPENPYXL:
         sys.exit("build_gtm_workbook.py needs the 'openpyxl' package to write xlsx.\n"
-                 "Install it with: pip install openpyxl")
+                 "Install it (e.g. pip install openpyxl) or use --schema, which works without it.")
 
     with open(args.answers) as f:
         data = json.load(f)
@@ -420,7 +485,9 @@ def main():
     wb = Workbook()
     wb.remove(wb.active)
     only = None
-    if args.partnership_only:
+    if args.canvas_only:
+        only = {"business_model_canvas"}
+    elif args.partnership_only:
         only = {"partnership_goals"}
     elif args.ideation_only:
         only = {"opportunity_ideas", "decision_matrix"}
@@ -432,8 +499,10 @@ def main():
     keys = [k for k, _ in builders] if only else list(SCHEMA)
     filled = [k for k in keys if data.get(k)]
     missing = [k for k in keys if not data.get(k)]
-    print(json.dumps({"output": args.output, "filled_sections": filled,
-                      "left_blank_tbd": missing}, indent=2))
+    print(f"Wrote {args.output}")
+    print(f"  filled sections:  {', '.join(filled) or 'none'}")
+    if missing:
+        print(f"  left blank (TBD): {', '.join(missing)}")
     return 0
 
 

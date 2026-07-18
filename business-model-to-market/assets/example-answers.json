@@ -91,7 +91,7 @@
       "problem_statement": "Employers cannot cheaply verify degrees; universities charge for each check and take weeks.",
       "target_audience": "Employers (payer); graduates (beneficiary); universities (issuer)",
       "technology_opportunity": "Portable credentials across systems that will never share a database.",
-      "name": "Bằng"
+      "name": "B\u1eb1ng"
     }
   ],
   "decision_matrix": {
@@ -140,7 +140,7 @@
         ]
       },
       {
-        "name": "Bằng",
+        "name": "B\u1eb1ng",
         "scores": [
           3,
           3,
@@ -150,5 +150,16 @@
         ]
       }
     ]
+  },
+  "business_model_canvas": {
+    "customer_segments": "Mid-size regional banks and licensed remittance providers in SE Asia running cross-border USD settlement. Must-win: correspondent-banking cost owners.",
+    "value_propositions": "Cost reduction and risk reduction: same-day cross-border settlement at a fraction of correspondent-banking fees, with pre-funded liquidity and onchain audit trail. Lead flavor: cost reduction.",
+    "channels": "Awareness: fintech conferences, regulator sandboxes. Evaluation: pilot on a single corridor. Purchase: annual platform contract. Delivery: API + settlement dashboard. After-sales: dedicated integration engineer.",
+    "customer_relationships": "Dedicated personal assistance during integration (high touch, costed as named SE per account); self-service dashboard thereafter.",
+    "revenue_streams": "Usage fee per settled transaction (volume-dependent pricing) plus annual platform subscription. Willingness-to-pay benchmarked against current correspondent-banking spread: TBD, validate in pilot.",
+    "key_activities": "Platform/network: operate the settlement rails and liquidity pools. Problem solving: corridor-specific compliance integration.",
+    "key_resources": "Intellectual: settlement protocol and compliance tooling. Financial: pre-funded liquidity. Human: integration engineers.",
+    "key_partners": "Licensed liquidity providers (acquire resource), local compliance/KYC vendors (acquire activity), custody partner (reduce risk).",
+    "cost_structure": "Value-driven. Fixed: engineering, compliance, liquidity cost of capital. Variable: per-corridor onboarding. Watch: liquidity cost of capital is the dominant line."
   }
 }

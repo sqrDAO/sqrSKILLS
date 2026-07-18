@@ -2,7 +2,7 @@
 
 [![Install via skills.sh](https://img.shields.io/badge/skills.sh-install-green)](https://skills.sh/sqrdao/sqrSKILLS)
 
-Open-source [Agent Skills](https://agentskills.io/home) published by [sqrDAO](https://sqrdao.com). Covers Telegram integration, location search, personal knowledge management, Luma events, Vietnam visa checks, Vietnam crypto regulation briefings, Web3 builder opportunities, and go-to-market planning.
+Open-source [Agent Skills](https://agentskills.io/home) published by [sqrDAO](https://sqrdao.com). Covers Telegram integration, location search, personal knowledge management, Luma events, Vietnam visa checks, Vietnam crypto regulation briefings, Web3 builder opportunities, and business-model and go-to-market planning.
 
 ## Installation
 
@@ -22,7 +22,7 @@ npx skills add sqrdao/sqrSKILLS@vietnam-crypto-radar
 npx skills add sqrdao/sqrSKILLS@telegram-group-summary
 npx skills add sqrdao/sqrSKILLS@luma-calendar
 npx skills add sqrdao/sqrSKILLS@web3-opportunities
-npx skills add sqrdao/sqrSKILLS@gtm-playbook
+npx skills add sqrdao/sqrSKILLS@business-model-to-market
 ```
 
 `npx skills add` installs to all supported agents automatically where the skills installer has an adapter (Claude Code, Codex, Gemini CLI, OpenClaw, Hermes, Nanobot, and others).
@@ -38,7 +38,7 @@ npx skills add sqrdao/sqrSKILLS@gtm-playbook
 - [**telegram-group-summary**](./telegram-group-summary/) — Fetch messages from a Telegram group and produce a structured summary: topics, decisions, action items, and tone. Requires `TELEGRAM_BOT_TOKEN`.
 - [**luma-calendar**](./luma-calendar/) — Manage Luma events and guests via the Luma API: list events, create events, view registrants, and add guests. Requires `LUMA_API_KEY`.
 - [**web3-opportunities**](./web3-opportunities/) — Curated, filterable catalog of Web3 builder/founder opportunities (accelerators, incubators, grants, hackathons, bounties, retroactive funding, fellowships) split by type, stage/dilution, chain/ecosystem, and geography, with a SEA/Vietnam highlight. Bundled offline roster + optional live enrichment of deadlines and cohort status.
-- [**gtm-playbook**](./gtm-playbook/) — Build, audit, and operationalize a go-to-market plan end to end: opportunity brainstorms and weighted decision matrices, mission, ICP and buyer personas, sales methodologies (BANT, MEDDIC/MEDDPICC, Value Selling, Challenger), the 8-stage sales cycle, cold outreach, objection handling, and Web3 partnership goal matrices. Emits a 10-tab spreadsheet deliverable (needs `openpyxl`).
+- [**business-model-to-market**](./business-model-to-market/) — Take a venture from a blank page to closed deals: opportunity brainstorms and weighted decision matrices, the nine-block Business Model Canvas, mission, ICP and buyer personas, sales methodologies (BANT, MEDDIC/MEDDPICC, Value Selling, Challenger), the 8-stage sales cycle, cold outreach, objection handling, and Web3 partnership goal matrices. Emits an 11-tab spreadsheet deliverable (needs `openpyxl`). Formerly `gtm-playbook`.
 
 ## Requirements
 
@@ -56,7 +56,7 @@ npx skills add sqrdao/sqrSKILLS@gtm-playbook
 | telegram-group-summary | `TELEGRAM_BOT_TOKEN` | `OPENCLAW_STATE_DIR` |
 | luma-calendar | `LUMA_API_KEY` | — |
 | web3-opportunities | — | — |
-| gtm-playbook | — | — (spreadsheet output needs the `openpyxl` Python package) |
+| business-model-to-market | — | — (spreadsheet output needs the `openpyxl` Python package) |
 
 Set these through your agent's environment/configuration mechanism (for example a shell profile, project `.env`, Claude Code env file, Codex environment, Hermes/OpenClaw config, or your runtime's equivalent).
 
