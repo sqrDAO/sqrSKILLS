@@ -7,9 +7,10 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-1. `repository-harness` — add repository validation, CI, and the spec-first docs
-   workflow; protect `main` with the resulting required check.
+None.
 
 ## Recently shipped
 
-None yet.
+- `repository-harness` — added the portable skill validator, regression tests,
+  required `Skill Harness` CI, YouAI-style spec processing, contributor docs, and
+  audited/enforced protection for `main`.

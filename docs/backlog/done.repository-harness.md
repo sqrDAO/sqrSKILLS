@@ -37,4 +37,5 @@ flow used in YouAI, adapted to this repository's portable Python skills.
 - `gh api repos/sqrDAO/sqrSKILLS/branches/main/protection` → PR and required-check rules present
 
 ## Notes
-The final `todo.* → done.*` rename waits for explicit user approval, matching YouAI.
+Completion approved by the user on 2026-07-18 after local verification and push of
+implementation commit `4ab1514`.
