@@ -173,9 +173,22 @@ Open an issue in the [GitHub Issue Tracker](https://github.com/sqrdao/sqrSKILLS/
 Contributions are welcome. To add a skill or fix an existing one:
 
 1. Fork this repository
-2. Create a new directory: `<skill-name>/SKILL.md` + `<skill-name>/scripts/*.py`
-3. Follow the structure in [AGENTS.md](./AGENTS.md) — portable wording, stdlib-only Python, JSON to stdout
-4. Open a pull request
+2. Create a `docs/backlog/todo.<slug>.md` spec and list it in
+   [`docs/backlog/PRIORITY.md`](./docs/backlog/PRIORITY.md)
+3. Create or update `<skill-name>/SKILL.md` and any `<skill-name>/scripts/*.py`
+4. Follow the structure in [AGENTS.md](./AGENTS.md) — portable wording,
+   stdlib-only Python, JSON to stdout
+5. Run the same harness used by CI:
+
+   ```bash
+   python3 scripts/validate_skills.py
+   python3 -m unittest discover -s tests -v
+   ```
+
+6. Open a pull request; `main` requires the `Skill Harness` check to pass
+
+The `todo.*` spec becomes `done.*` only after explicit maintainer approval. See
+[AGENTS.md](./AGENTS.md) for the full Plan → Do → Check → Verify → Act workflow.
 
 ## License
 
