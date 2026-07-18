@@ -94,6 +94,77 @@ WIKI_DIR=./wiki SKILL_DIR=./llm-wiki \
   python3 llm-wiki/scripts/search.py "my query"
 ```
 
+## Repository Checks
+
+Run both checks before presenting work as complete:
+
+```bash
+python3 scripts/validate_skills.py
+python3 -m unittest discover -s tests -v
+```
+
+The validator is the repository-wide harness. It checks skill frontmatter and
+SemVer, `$SKILL_DIR` script references, the README skill inventory, bundled JSON,
+Python syntax, and backlog document shape. It prints JSON to stdout and diagnostics
+to stderr. CI runs the same commands in the `Skill Harness` check.
+
+## Backlog Workflow
+
+No implementation work without a spec. Every task uses
+`docs/backlog/todo.<slug>.md`. Rename it to `done.<slug>.md` only after explicit
+user approval; that rename is the completion source of truth.
+
+Loop: **Plan** (write the spec) → **Do** (implement; update the spec first if scope
+changes) → **Check** (run the repository checks) → **Verify** (walk the spec's
+`## Verify`) → **Act** (present outputs, await approval, then rename `todo.*` to
+`done.*`).
+
+Keep `docs/backlog/PRIORITY.md` synchronized with open `todo.*` specs and recently
+shipped work. Documentation changes travel with the implementation: update the
+README inventory and requirements for user-visible skill changes, and update this
+file when repository-wide commands or invariants change.
+
+## Git Workflow
+
+Branch from `main` for each spec. Never commit directly to `main`; users merge pull
+requests after the required `Skill Harness` check passes. Ship the approved spec
+rename in the same pull request as its implementation. Use branch prefixes
+`feat/`, `fix/`, `ref/`, or `chore/`.
+
+The intended GitHub policy is recorded in `.github/main-branch-protection.json`.
+Repository administrators can reapply it with:
+
+```bash
+gh api --method PUT repos/sqrDAO/sqrSKILLS/branches/main/protection \
+  --input .github/main-branch-protection.json
+```
+
+## Spec Format
+
+Specs are agent-readable, at most 80 lines, and omit empty optional sections.
+Required sections are **Goal**, **Files**, **Acceptance**, and **Verify**.
+
+```markdown
+# <title>
+**Deps**: <slugs|—>
+
+## Goal
+<what and why>
+
+## Files
+- `path/to/file.ext` (new|edited|deleted) — <purpose>
+
+## Acceptance
+- [ ] <testable claim>
+- [ ] NOT: <forbidden behavior or scope boundary>
+
+## Verify
+- `<exact command>` → <expected outcome>
+
+## Notes
+<optional invariants, gotchas, or ordering constraints>
+```
+
 ## Per-Skill Environment Variables
 
 | Skill | Required Env Vars | Optional Env Vars |
@@ -148,3 +219,5 @@ Users running `npx skills update` rely on this to understand what changed.
   emit the xlsx workbook. All conversational/markdown flows in the skill work
   without it. It also has `references/` (framework source material) and `assets/`
   (original templates plus `example-answers.json`).
+- `docs/backlog/` holds active specs (`todo.*`), approved completed specs
+  (`done.*`), and the ranked `PRIORITY.md` index.
