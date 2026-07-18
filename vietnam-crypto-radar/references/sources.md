@@ -31,6 +31,13 @@ crypto-native on every conflict. Always carry the instrument number.
 ### Known primary anchors
 
 - DTI Law passage/effective date: `https://en.baochinhphu.vn/law-on-digital-technology-industry-approved-111250614143640329.htm`
+- Decree 284/2026/NĐ-CP status, signed text, and effective date: `https://vanban.chinhphu.vn/?docid=218906&pageid=27160`
+- Government summary of Decree 284 penalties: `https://baochinhphu.vn/cung-cap-dich-vu-lien-quan-den-tai-san-ma-hoa-khi-chua-duoc-cap-phep-bi-phat-toi-200-trieu-dong-10226071715275345.htm`
+- Circular 15/2026/TT-BTC accounting rules: `https://vanban.chinhphu.vn/?docid=217123&pageid=27160`
+- Decree 253/2026/NĐ-CP PIT implementation: `https://vanban.chinhphu.vn/?classid=1&docid=218684&orggroupid=2&pageid=27160`
+- Circular 87/2026/TT-BTC general PIT guidance: `https://vanban.chinhphu.vn/?classid=1&docid=218772&orggroupid=4&pageid=27160`
+- Decree 254/2026/NĐ-CP electronic invoices: `https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160`
+- Government summary of Decree 254 Article 6: `https://baochinhphu.vn/quy-dinh-doi-tuong-su-dung-hoa-don-dien-tu-10226070308163723.htm`
 - National Assembly legal text search: `https://quochoi.vn` and legal databases for the law number/title.
 - When checking payment legality, search SBV for both English and Vietnamese terms: `tiền ảo`, `tài sản ảo`, `tài sản mã hóa`, `phương tiện thanh toán`, `NHNN-PC`.
 
@@ -88,3 +95,9 @@ sole basis for a stated fact.
 - `"Circular 32/2026/TT-BTC" crypto`
 - `"Circular 41/2026/TT-BTC" crypto`
 - `"thuế" "tài sản mã hóa" "TT-BTC"`
+- `"284/2026/NĐ-CP" "tài sản mã hóa"`
+- `"253/2026/NĐ-CP" "tài sản mã hóa"`
+- `"254/2026/NĐ-CP" "tài sản mã hóa"`
+- `"87/2026/TT-BTC" "tài sản mã hóa"`
+- `site:vanban.chinhphu.vn "tài sản mã hóa" [current month year]`
+- `site:baochinhphu.vn "tài sản mã hóa" after:[LAST VERIFIED as YYYY-MM-DD]`
