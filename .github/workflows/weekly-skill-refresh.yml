@@ -104,10 +104,15 @@ jobs:
         id: summary
         run: |
           if [ -f REFRESH_SUMMARY.md ]; then
+            # Random delimiter + forced newline: the summary is LLM-written, so
+            # it may lack a trailing newline or contain a literal "EOF" line —
+            # either breaks a fixed heredoc delimiter and fails the job.
+            delim="SUMMARY_$(date +%s)_$RANDOM"
             {
-              echo 'body<<EOF'
+              echo "body<<${delim}"
               cat REFRESH_SUMMARY.md
-              echo EOF
+              echo
+              echo "${delim}"
             } >> "$GITHUB_OUTPUT"
           else
             echo 'body=Automated weekly skill refresh.' >> "$GITHUB_OUTPUT"
