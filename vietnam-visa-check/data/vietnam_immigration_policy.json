@@ -4,7 +4,7 @@
     "country": "Vietnam",
     "iso_alpha2": "VN",
     "iso_alpha3": "VNM",
-    "last_updated": "2026-07-06",
+    "last_updated": "2026-07-20",
     "data_freshness": "Core e-Visa and visa-exemption facts verified through June 2026; future-dated or implementation-specific items should be rechecked against evisa.gov.vn and primary legal sources before legal/compliance use.",
     "sources": [
       "https://evisa.gov.vn/",
@@ -132,8 +132,8 @@
     "DIGITAL_ARRIVAL_CARD": {
       "code": "DAC",
       "label": "Digital Arrival Card",
-      "description": "A pilot program for Digital Arrival Cards began at Ho Chi Minh City’s Tan Son Nhat International Airport on April 15, 2026, aimed at further digitizing the immigration process and reducing wait times.",
-      "status": "Pilot program"
+      "description": "Effective July 1, 2026, all foreign travelers must complete an online Digital Arrival Card at prearrival.immigration.gov.vn within 72 hours before arrival. A QR code is generated upon completion and must be presented to immigration officers. This is a mandatory requirement, separate from the visa.",
+      "status": "Mandatory"
     }
   },
 
