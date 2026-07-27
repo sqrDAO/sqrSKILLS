@@ -1,10 +1,10 @@
 # Vietnam Crypto Regime — Baseline Snapshot
 
-> **LAST VERIFIED: 18 July 2026.**
+> **LAST VERIFIED: 27 July 2026.**
 > Everything the radar reports as "new" is new relative to this date.
 > After confirming real changes in a run, rewrite this file and bump the date.
 > Verification note: All instruments listed below are confirmed by Tier-1 government
-> sources as of the 18 July 2026 sweep.
+> sources as of the 27 July 2026 sweep.
 
 This is the diff target. Keep it factual, instrument-anchored, and dated. When a status
 changes (e.g. a DRAFT circular becomes EFFECTIVE), move it between sections and update the table.
@@ -70,8 +70,9 @@ Vietnam's confirmed regulatory anchor is the **Law on Digital Technology Industr
 ## IN MOTION (verify status every run — these move)
 
 - **Pilot exchange go-live:** reported target **Q3 2026**. Status: EXPECTED / NEEDS_CURRENT_CONFIRMATION.
-- **Licensing shortlist:** Entities reported to be in the final stages of review include **VIX Crypto Asset Exchange**, **SSI Digital (SSID)**, and platforms backed by **Techcombank** and **MB Bank**. Status: REPORTED, not final approvals.
-- **Further implementing decrees** on custody, AML specifics, and accounting standards are expected through 2026. Status: EXPECTED/DRAFT.
+- **Licensing shortlist:** 5 entities are reported to be under final review by the Ministry of Finance, State Bank, and Ministry of Public Security. The list includes: **VIX Crypto Asset Exchange JSC**, **Loc Phat Vietnam Crypto Asset Exchange JSC**, **Vietnam Prosperity Crypto Asset Exchange JSC**, **Techcom Crypto Asset Exchange JSC**, and **Vietnam Digital Assets JSC**. Status: REPORTED, not final approvals.
+- **Supervision framework:** The State Securities Commission (SSC) is actively developing a "System for management and supervision of the crypto-asset trading market" and a "regulatory framework for supervising the crypto-asset market," including staff training with international partners (Chainalysis, Tether). Status: IN_PROGRESS / CONFIRMED.
+- **Law on AML (Amended):** Expected to be passed in early August 2026, officially bringing VASPs under the SBV's reporting regime. Status: EXPECTED / DRAFT.
 - **Decree 284 commencement:** enacted but not effective until **1 Sep 2026**. Status: ENACTED / CONFIRMED.
 
 ---
@@ -93,13 +94,14 @@ Vietnam's confirmed regulatory anchor is the **Law on Digital Technology Industr
 - Which exchange will be the first to go live in Q3 2026?
 - Has the **0.1% PIT withholding** mechanism actually commenced on any platform?
 - Any new implementing decree on **custody / AML / accounting** for crypto assets?
+- What is the status of the SSC's **supervision framework** and when will it be issued?
 - Has Decree 284 been amended, replaced, or accompanied by implementation guidance before/after its 1 Sep 2026 commencement?
 - Any change to the **offshore-exchange** stance (how foreign-platform users are treated/taxed)?
 - Any movement on **stablecoins**, **tokenized RWAs**, or a **CBDC/digital VND** pilot (separate track from crypto assets)?
 
 ---
 
-## Verified source anchors from 18 Jul 2026 sweep
+## Verified source anchors from 27 Jul 2026 sweep
 
 - **Government News (Tier 1):** `https://en.baochinhphu.vn/law-on-digital-technology-industry-approved-111250614143640329.htm`
 - **Government legal documents DB — Decree 284/2026/NĐ-CP (Tier 1):** `https://vanban.chinhphu.vn/?docid=218906&pageid=27160`
@@ -111,3 +113,5 @@ Vietnam's confirmed regulatory anchor is the **Law on Digital Technology Industr
 - **Government News — Decree 254 Article 6 e-invoice summary (Tier 1):** `https://baochinhphu.vn/quy-dinh-doi-tuong-su-dung-hoa-don-dien-tu-10226070308163723.htm`
 - **Ministry of Finance / SSC / gov.vn portals (Tier 1):** Confirmed existence and key details of the standing instruments during the 18 Jul 2026 search.
 - **Vietnam Briefing (Tier 2):** `https://www.vietnam-briefing.com/news/vietnam-passes-first-ever-law-on-digital-technology-industry.html/`
+- **SSC News — Training with Tether/Chainalysis (Tier 1):** `https://www.ssc.gov.vn/ubck/faces/vi/vim/vitin/vichitiet/vichitiet_trangchu/vicsptin/1253213?_afrLoop=2391219712530349&_afrWindowMode=0&_afrWindowId=null`
+- **MOF News — SSC to build supervision rules (Tier 1):** `https://www.mof.gov.vn/webcenter/portal/btcvn/pages_r/l/tin-bo-tai-chinh?dDocName=MOFUCM288593`
