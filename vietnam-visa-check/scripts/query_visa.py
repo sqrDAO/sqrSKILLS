@@ -8,8 +8,10 @@ Output:
     JSON: {nationality, iso_alpha2, duration_days, recommended_pathway, visa_free?, evisa_option, phu_quoc?, notes[], data_as_of}
 """
 import argparse
+import difflib
 import json
 import os
+import re
 import sys
 from datetime import date
 
@@ -24,6 +26,8 @@ _ALIASES = {
     "great britain": "GB",
     "britain": "GB",
     "england": "GB",
+    "scotland": "GB",
+    "wales": "GB",
     "south korea": "KR",
     "korea": "KR",
     "north korea": "KP",
@@ -35,7 +39,145 @@ _ALIASES = {
     "hong kong": "HK",
     "vietnam": "VN",
     "viet nam": "VN",
+    "burma": "MM",
+    "holland": "NL",
+    "uae": "AE",
+    "emirates": "AE",
+    "slovak republic": "SK",
+    "the philippines": "PH",
 }
+
+
+# Demonyms → ISO alpha-2. Covers every country in the bundled dataset plus common
+# travel nationalities absent from it (those still get a correct e-Visa answer and
+# a proper display name).
+_DEMONYMS = {
+    # Dataset: visa-exempt countries
+    "cambodian": "KH", "khmer": "KH",
+    "indonesian": "ID",
+    "lao": "LA", "laotian": "LA",
+    "malaysian": "MY",
+    "singaporean": "SG",
+    "thai": "TH",
+    "burmese": "MM", "myanmarese": "MM",
+    "filipino": "PH", "filipina": "PH", "philippine": "PH", "pinoy": "PH",
+    "bruneian": "BN",
+    "german": "DE",
+    "french": "FR", "frenchman": "FR", "frenchwoman": "FR",
+    "italian": "IT",
+    "spanish": "ES", "spaniard": "ES",
+    "british": "GB", "briton": "GB", "brit": "GB", "english": "GB",
+    "scottish": "GB", "scot": "GB", "welsh": "GB", "northern irish": "GB",
+    "russian": "RU",
+    "japanese": "JP",
+    "korean": "KR", "south korean": "KR",
+    "danish": "DK", "dane": "DK",
+    "swedish": "SE", "swede": "SE",
+    "norwegian": "NO",
+    "finnish": "FI", "finn": "FI",
+    "belarusian": "BY", "belarussian": "BY",
+    "belgian": "BE",
+    "bulgarian": "BG",
+    "croatian": "HR", "croat": "HR",
+    "czech": "CZ",
+    "swiss": "CH",
+    "luxembourgish": "LU", "luxembourger": "LU",
+    "hungarian": "HU", "magyar": "HU",
+    "dutch": "NL", "dutchman": "NL", "netherlander": "NL",
+    "polish": "PL", "pole": "PL",
+    "romanian": "RO", "rumanian": "RO",
+    "slovak": "SK", "slovakian": "SK",
+    "slovenian": "SI", "slovene": "SI",
+    "chilean": "CL",
+    "panamanian": "PA",
+    "kazakh": "KZ", "kazakhstani": "KZ",
+    "kyrgyz": "KG", "kyrgyzstani": "KG",
+    "mongolian": "MN",
+    "seychellois": "SC",
+    # Dataset: notable countries with no exemption
+    "american": "US",
+    "canadian": "CA",
+    "australian": "AU", "aussie": "AU",
+    "new zealander": "NZ", "kiwi": "NZ",
+    "indian": "IN",
+    "chinese": "CN",
+    "emirati": "AE",
+    "south african": "ZA",
+    "mexican": "MX",
+    "brazilian": "BR",
+    # Common nationalities absent from the dataset
+    "vietnamese": "VN",
+    "irish": "IE",
+    "austrian": "AT",
+    "portuguese": "PT",
+    "greek": "GR",
+    "turkish": "TR", "turk": "TR",
+    "ukrainian": "UA",
+    "israeli": "IL",
+    "taiwanese": "TW",
+    "hongkonger": "HK",
+    "estonian": "EE",
+    "latvian": "LV",
+    "lithuanian": "LT",
+    "icelandic": "IS", "icelander": "IS",
+    "serbian": "RS", "serb": "RS",
+    "maltese": "MT",
+    "cypriot": "CY",
+    "argentine": "AR", "argentinian": "AR",
+    "colombian": "CO",
+    "peruvian": "PE",
+    "nigerian": "NG",
+    "egyptian": "EG",
+    "pakistani": "PK",
+    "bangladeshi": "BD",
+    "sri lankan": "LK",
+    "nepali": "NP", "nepalese": "NP",
+    "iranian": "IR",
+    "saudi": "SA", "saudi arabian": "SA",
+    "qatari": "QA",
+}
+
+
+# ISO alpha-2 → display name, for countries reachable by alias or demonym but not
+# present in the bundled dataset (keeps output off str.title(), e.g. "Usa").
+_COUNTRY_NAMES = {
+    "US": "United States", "GB": "United Kingdom", "KP": "North Korea",
+    "VN": "Vietnam", "TW": "Taiwan", "HK": "Hong Kong", "IE": "Ireland",
+    "AT": "Austria", "PT": "Portugal", "GR": "Greece", "TR": "Turkey",
+    "UA": "Ukraine", "IL": "Israel", "EE": "Estonia", "LV": "Latvia",
+    "LT": "Lithuania", "IS": "Iceland", "RS": "Serbia", "MT": "Malta",
+    "CY": "Cyprus", "AR": "Argentina", "CO": "Colombia", "PE": "Peru",
+    "NG": "Nigeria", "EG": "Egypt", "PK": "Pakistan", "BD": "Bangladesh",
+    "LK": "Sri Lanka", "NP": "Nepal", "IR": "Iran", "SA": "Saudi Arabia",
+    "QA": "Qatar",
+}
+
+
+# Trailing words users append that carry no country information.
+_QUALIFIERS = {
+    "citizen", "citizens", "national", "nationals", "passport", "passports",
+    "holder", "holders", "nationality", "people", "person", "tourist",
+    "tourists", "traveller", "travellers", "traveler", "travelers",
+}
+
+
+def normalize(raw: str) -> str:
+    """Lowercase, strip punctuation and non-informative qualifier words.
+
+    "Russian citizens" → "russian";  "the U.K." → "uk";  "  Germans " → "germans"
+    """
+    key = re.sub(r"[^a-z0-9\s]", " ", raw.casefold())
+    key = re.sub(r"\s+", " ", key).strip()
+    if key.startswith("the "):
+        key = key[4:].strip()
+    words = key.split()
+    while len(words) > 1 and words[-1] in _QUALIFIERS:
+        words.pop()
+    # Dotted abbreviations survive punctuation stripping as single letters: "U.K."
+    # becomes ["u", "k"], which only means anything rejoined.
+    if len(words) > 1 and all(len(word) == 1 for word in words):
+        return "".join(words)
+    return " ".join(words)
 
 
 def load_policy(data_path: str) -> dict:
@@ -44,36 +186,68 @@ def load_policy(data_path: str) -> dict:
 
 
 def build_country_index(policy: dict) -> dict[str, str]:
-    """Return a dict mapping lowercase country name / ISO2 → uppercase ISO2."""
+    """Return a dict mapping normalized country name / ISO2 / alias / demonym → ISO2."""
     index: dict[str, str] = {}
-    for entry in policy["visa_exemption_by_country"]["entries"]:
-        iso2 = entry["iso_alpha2"].upper()
-        index[iso2.lower()] = iso2
-        index[entry["country"].lower()] = iso2
-    for entry in policy.get("no_visa_exemption_notable_countries", {}).get("entries", []):
-        iso2 = entry["iso_alpha2"].upper()
-        index[iso2.lower()] = iso2
-        index[entry["country"].lower()] = iso2
-    # Merge hardcoded aliases (they win on conflict)
-    for alias, iso2 in _ALIASES.items():
-        index[alias] = iso2.upper()
+    for section in ("visa_exemption_by_country", "no_visa_exemption_notable_countries"):
+        for entry in policy.get(section, {}).get("entries", []):
+            iso2 = entry["iso_alpha2"].upper()
+            index[iso2.lower()] = iso2
+            index[normalize(entry["country"])] = iso2
+    # Aliases and demonyms win on conflict
+    for table in (_ALIASES, _DEMONYMS):
+        for key, iso2 in table.items():
+            index[key] = iso2.upper()
     return index
 
 
 def resolve_nationality(raw: str, index: dict[str, str]) -> str | None:
-    """Return uppercase ISO2 for raw nationality string, or None if not found.
+    """Return uppercase ISO2 for a raw nationality string, or None if unresolved.
 
-    Accepts:
-    - 2-letter ISO alpha-2 codes directly (any case), e.g. "US", "us"
-    - Full country names present in the exemption list, e.g. "Germany"
-    - Hardcoded aliases, e.g. "USA", "UK", "South Korea"
+    Accepts, in order of precedence:
+    - Country names in the dataset, aliases, and demonyms — e.g. "Germany",
+      "UK", "Russian", "Russian citizens" (qualifiers are stripped first)
+    - Plural demonyms — e.g. "Russians", "Germans"
+    - Bare 2-letter ISO alpha-2 codes, e.g. "US", "de"
+
+    The index is consulted before the ISO-code shortcut so that short aliases
+    like "UK" resolve to GB rather than being read as a literal country code.
     """
-    raw = raw.strip()
-    # If it looks like an ISO2 code (1-3 letters), accept it directly
-    if len(raw) <= 3 and raw.isalpha():
-        return raw.upper()
-    key = raw.lower()
-    return index.get(key)
+    key = normalize(raw)
+    if not key:
+        return None
+    if key in index:
+        return index[key]
+    # Plural demonym: "russians" → "russian". Plural country names ("laos",
+    # "philippines", "netherlands") already matched above and never reach here.
+    if key.endswith("s") and key[:-1] in index:
+        return index[key[:-1]]
+    # Bare ISO alpha-2 code, including codes absent from the bundled dataset
+    if len(key) == 2 and key.isalpha():
+        return key.upper()
+    return None
+
+
+def build_display_names(policy: dict) -> dict[str, str]:
+    """Return ISO2 → country name, from the dataset plus the bundled name table."""
+    names = dict(_COUNTRY_NAMES)
+    for section in ("visa_exemption_by_country", "no_visa_exemption_notable_countries"):
+        for entry in policy.get(section, {}).get("entries", []):
+            names[entry["iso_alpha2"].upper()] = entry["country"]
+    return names
+
+
+def suggest_nationalities(
+    raw: str, index: dict[str, str], names: dict[str, str], limit: int = 3
+) -> list[str]:
+    """Return close-matching country names for an unresolved input."""
+    key = normalize(raw)
+    candidates = [k for k in index if len(k) > 2]
+    suggestions: list[str] = []
+    for match in difflib.get_close_matches(key, candidates, n=limit * 3, cutoff=0.8):
+        name = names.get(index[match], match.title())
+        if name not in suggestions:
+            suggestions.append(name)
+    return suggestions[:limit]
 
 
 def find_exemption(iso2: str, policy: dict) -> dict | None:
@@ -142,23 +316,50 @@ def main():
         sys.exit(1)
 
     index = build_country_index(policy)
+    names = build_display_names(policy)
     iso2 = resolve_nationality(args.nationality, index)
 
     if iso2 is None:
+        # Exit 0 deliberately: the caller is an agent that already has structured
+        # JSON on stdout, and a non-zero exit surfaces as a tool failure to the user.
         print(json.dumps({
-            "error": f"Nationality '{args.nationality}' not recognised. Use an ISO alpha-2 code (e.g. 'US', 'DE') or a full country name.",
+            "error": f"Nationality '{args.nationality}' not recognised. Use a country name (e.g. 'Germany'), a demonym (e.g. 'German'), or an ISO alpha-2 code (e.g. 'DE').",
             "hint": "Try an ISO 3166-1 alpha-2 code from https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2",
-        }))
-        sys.exit(1)
+            "suggestions": suggest_nationalities(args.nationality, index, names),
+        }, indent=2))
+        return
 
     duration = args.duration_days
     notes: list[str] = []
     evisa_option = build_evisa_option(policy)
 
+    # Vietnamese citizens need no visa at all. Short-circuit before any pathway is
+    # computed — returning EVISA with a populated evisa_option alongside a "no visa
+    # needed" note would contradict itself for any caller reading the fields.
+    if iso2 == "VN":
+        result = {
+            "nationality": names.get(iso2, args.nationality.title()),
+            "iso_alpha2": iso2,
+            "duration_days": duration,
+            "recommended_pathway": "NOT_REQUIRED",
+            "visa_free": None,
+            "evisa_option": None,
+            "phu_quoc": None,
+            "notes": [
+                "Vietnamese citizens do not need a visa to enter Vietnam — this skill "
+                "answers for foreign passport holders.",
+                f"Data as of {policy['_meta']['last_updated']}. "
+                f"Always verify current policy at {policy['policy_framework']['official_portal']}.",
+            ],
+            "data_as_of": policy["_meta"]["last_updated"],
+        }
+        print(json.dumps(result, indent=2))
+        return
+
     # Phu Quoc-only query
     if args.phu_quoc_only:
         result = {
-            "nationality": args.nationality.title(),
+            "nationality": names.get(iso2, args.nationality.title()),
             "iso_alpha2": iso2,
             "duration_days": duration,
             "recommended_pathway": "PHU_QUOC_EXEMPTION",
@@ -216,6 +417,15 @@ def main():
                 "category (e.g. LV work visa, DT investment visa, GD education visa)."
             )
 
+    # Nationality is outside the bundled exemption dataset — say so rather than
+    # implying the generic e-Visa answer was a positive match.
+    if not exemption and not no_exemption_entry:
+        notes.append(
+            f"{names.get(iso2, iso2)} ({iso2}) is not listed in this dataset's visa-exemption "
+            f"table, so no exemption is on record. The e-Visa pathway below is open to all "
+            f"nationalities."
+        )
+
     # Special case: Chinese nationals cannot use VOA, but the e-Visa rule remains all-nationalities.
     if iso2 == "CN":
         notes.append(
@@ -240,16 +450,8 @@ def main():
         f"Always verify current policy at {policy['policy_framework']['official_portal']}."
     )
 
-    # Resolve display name from exemption data or no-exemption list, fallback to input
-    if exemption:
-        display_name = exemption["country"]
-    elif no_exemption_entry:
-        display_name = no_exemption_entry["country"]
-    else:
-        display_name = args.nationality.title()
-
     result = {
-        "nationality": display_name,
+        "nationality": names.get(iso2, args.nationality.title()),
         "iso_alpha2": iso2,
         "duration_days": duration,
         "recommended_pathway": recommended_pathway,
