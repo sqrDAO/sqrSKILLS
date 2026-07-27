@@ -96,7 +96,11 @@ JSON object:
 }
 ```
 
-`recommended_pathway` values: `VISA_FREE`, `EVISA`, `EMBASSY_VISA`, `PHU_QUOC_EXEMPTION`
+`recommended_pathway` values: `VISA_FREE`, `EVISA`, `EMBASSY_VISA`, `PHU_QUOC_EXEMPTION`, `NOT_REQUIRED`
+
+`NOT_REQUIRED` is returned only for Vietnamese nationals (`VN`), who need no visa
+for Vietnam. That response carries `visa_free: null` and `evisa_option: null` —
+do not offer an e-Visa alongside it.
 
 ### Unrecognised nationality
 

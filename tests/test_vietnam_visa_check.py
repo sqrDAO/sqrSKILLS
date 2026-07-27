@@ -152,12 +152,25 @@ class CommandLineTest(unittest.TestCase):
             any("not listed in this dataset" in note for note in out["notes"])
         )
 
-    def test_vietnamese_citizens_note(self):
-        _, out = run("--nationality", "Vietnamese")
-        self.assertEqual(out["iso_alpha2"], "VN")
-        self.assertTrue(
-            any("do not need a visa to enter Vietnam" in note for note in out["notes"])
-        )
+    def test_vietnamese_nationals_need_no_visa(self):
+        # A "no visa needed" note next to recommended_pathway EVISA and a populated
+        # evisa_option would contradict itself for any caller reading the fields.
+        for raw in ("Vietnamese", "VN", "Vietnam"):
+            _, out = run("--nationality", raw)
+            self.assertEqual(out["iso_alpha2"], "VN", raw)
+            self.assertEqual(out["recommended_pathway"], "NOT_REQUIRED", raw)
+            self.assertIsNone(out["evisa_option"], raw)
+            self.assertIsNone(out["visa_free"], raw)
+            self.assertTrue(
+                any("do not need a visa to enter Vietnam" in note for note in out["notes"]),
+                raw,
+            )
+
+    def test_vietnamese_nationals_short_circuit_every_flag(self):
+        for extra in (["--duration_days", "120"], ["--phu_quoc_only"]):
+            _, out = run("--nationality", "VN", *extra)
+            self.assertEqual(out["recommended_pathway"], "NOT_REQUIRED", extra)
+            self.assertIsNone(out["evisa_option"], extra)
 
     def test_duration_beyond_exemption_falls_back_to_evisa(self):
         _, out = run("--nationality", "Germans", "--duration_days", "60")

@@ -333,6 +333,29 @@ def main():
     notes: list[str] = []
     evisa_option = build_evisa_option(policy)
 
+    # Vietnamese citizens need no visa at all. Short-circuit before any pathway is
+    # computed — returning EVISA with a populated evisa_option alongside a "no visa
+    # needed" note would contradict itself for any caller reading the fields.
+    if iso2 == "VN":
+        result = {
+            "nationality": names.get(iso2, args.nationality.title()),
+            "iso_alpha2": iso2,
+            "duration_days": duration,
+            "recommended_pathway": "NOT_REQUIRED",
+            "visa_free": None,
+            "evisa_option": None,
+            "phu_quoc": None,
+            "notes": [
+                "Vietnamese citizens do not need a visa to enter Vietnam — this skill "
+                "answers for foreign passport holders.",
+                f"Data as of {policy['_meta']['last_updated']}. "
+                f"Always verify current policy at {policy['policy_framework']['official_portal']}.",
+            ],
+            "data_as_of": policy["_meta"]["last_updated"],
+        }
+        print(json.dumps(result, indent=2))
+        return
+
     # Phu Quoc-only query
     if args.phu_quoc_only:
         result = {
@@ -401,13 +424,6 @@ def main():
             f"{names.get(iso2, iso2)} ({iso2}) is not listed in this dataset's visa-exemption "
             f"table, so no exemption is on record. The e-Visa pathway below is open to all "
             f"nationalities."
-        )
-
-    # Vietnamese citizens do not need a visa for Vietnam.
-    if iso2 == "VN":
-        notes.append(
-            "Vietnamese citizens do not need a visa to enter Vietnam — this skill answers "
-            "for foreign passport holders."
         )
 
     # Special case: Chinese nationals cannot use VOA, but the e-Visa rule remains all-nationalities.
