@@ -1,6 +1,6 @@
 ---
 name: vietnam-visa-check
-version: 0.2.3
+version: 0.3.1
 description: |
   Check Vietnam visa and entry requirements for any nationality. Use this skill whenever the
   user asks: "can [nationality] enter Vietnam?", "do I need a visa for Vietnam?",
@@ -43,7 +43,15 @@ python3 "$SKILL_DIR/scripts/query_visa.py" \
 
 ### Parameters
 
-- `--nationality` (required): ISO alpha-2 code (e.g. `US`, `DE`, `GB`) or full country name (e.g. `"United States"`, `"Germany"`). Case-insensitive.
+- `--nationality` (required): case-insensitive. Accepts any of:
+  - ISO alpha-2 code — `US`, `DE`, `gb`
+  - Country name — `"United States"`, `"Germany"`, `"The Netherlands"`
+  - Common abbreviation — `UK`, `USA`, `UAE`, `U.K.`
+  - **Demonym, singular or plural** — `German`, `Germans`, `Russians`, `Brits`, `Filipino`
+  - Demonym with a qualifier — `"Russian citizens"`, `"German passport holders"`
+
+  Pass the user's own wording through directly; do not translate it to a country
+  name yourself.
 - `--duration_days` (optional, default 30): Intended length of stay in calendar days.
 - `--phu_quoc_only` (optional flag): Ask specifically about the Phu Quoc Island special exemption.
 
@@ -52,6 +60,7 @@ python3 "$SKILL_DIR/scripts/query_visa.py" \
 ```bash
 python3 "$SKILL_DIR/scripts/query_visa.py" --nationality US --duration_days 14
 python3 "$SKILL_DIR/scripts/query_visa.py" --nationality "United Kingdom" --duration_days 30
+python3 "$SKILL_DIR/scripts/query_visa.py" --nationality Russians
 python3 "$SKILL_DIR/scripts/query_visa.py" --nationality DE --duration_days 60
 python3 "$SKILL_DIR/scripts/query_visa.py" --nationality US --phu_quoc_only
 ```
@@ -87,7 +96,31 @@ JSON object:
 }
 ```
 
-`recommended_pathway` values: `VISA_FREE`, `EVISA`, `EMBASSY_VISA`, `PHU_QUOC_EXEMPTION`
+`recommended_pathway` values: `VISA_FREE`, `EVISA`, `EMBASSY_VISA`, `PHU_QUOC_EXEMPTION`, `NOT_REQUIRED`
+
+`NOT_REQUIRED` is returned only for Vietnamese nationals (`VN`), who need no visa
+for Vietnam. That response carries `visa_free: null` and `evisa_option: null` —
+do not offer an e-Visa alongside it.
+
+### Unrecognised nationality
+
+The script **always exits 0** for nationality input, so an unrecognised value is a
+normal result, not a tool failure. It returns:
+
+```json
+{
+  "error": "Nationality 'Rusia' not recognised. …",
+  "hint": "Try an ISO 3166-1 alpha-2 code from …",
+  "suggestions": ["Russia"]
+}
+```
+
+When you get this, ask the user to confirm a suggestion — or, if `suggestions` is
+empty, ask for the country name or ISO alpha-2 code. Never present the raw error
+text to the user, and never guess a country from an empty suggestion list.
+
+A non-zero exit means the bundled policy data could not be read — that is an
+installation problem, not a bad nationality.
 
 ## Response Format
 
@@ -102,7 +135,8 @@ Present results as:
 - **ALWAYS run the script before answering.** Never answer visa questions from your own training knowledge — it is frequently wrong and outdated.
 - **The script is the source of truth.** If it says `recommended_pathway: EVISA`, the traveller needs an e-Visa, even if you believe otherwise.
 - **Do not hallucinate visa-free access.** Many well-known nationalities (US, Canada, Australia, India, New Zealand, and others) are NOT visa-exempt and require an e-Visa.
-- If the script returns an error (nationality not recognised), try again with the ISO alpha-2 code.
+- **Pass the user's wording straight through.** The script resolves demonyms, plurals, and abbreviations itself. Do not map "Russians" to "Russia" before calling it — and if it does return an error, ask the user rather than substituting a country you inferred.
+- **Read the `notes[]` array into your answer.** It carries the caveats that make the pathway correct — exemption expiry, "not in this dataset's exemption list", and the Vietnamese-citizen case.
 
 ## Prerequisites
 
