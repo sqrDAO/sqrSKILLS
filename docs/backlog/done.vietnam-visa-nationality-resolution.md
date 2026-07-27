@@ -57,16 +57,16 @@ returning a new `recommended_pathway: "NOT_REQUIRED"` with null `visa_free`
 and `evisa_option`, plus the no-visa note.
 
 ## Acceptance
-- [ ] `Russians`/`Russian`/`"Russian citizens"` → `RU`, `VISA_FREE`, 45 days
-- [ ] `UK` → `GB`, `VISA_FREE`, 45 days; `USA` → `US`, "United States"
-- [ ] Every country in both dataset country lists is reachable by ≥1 demonym
-- [ ] `XYZ` → structured error with `suggestions`, exit 0
-- [ ] No input path exits non-zero except an unreadable/invalid data file
-- [ ] Unmatched 2-letter codes carry the "not in dataset" note
-- [ ] `VN` → `NOT_REQUIRED`, null `visa_free`/`evisa_option`, under every flag
-- [ ] `--phu_quoc_only` unchanged for every resolvable nationality except `VN`
-- [ ] SKILL.md documents demonym input, `NOT_REQUIRED`, and the exit-0 contract
-- [ ] NOT: a bundled full ISO 3166 table, fuzzy matches applied silently
+- [x] `Russians`/`Russian`/`"Russian citizens"` → `RU`, `VISA_FREE`, 45 days
+- [x] `UK` → `GB`, `VISA_FREE`, 45 days; `USA` → `US`, "United States"
+- [x] Every country in both dataset country lists is reachable by ≥1 demonym
+- [x] `XYZ` → structured error with `suggestions`, exit 0
+- [x] No input path exits non-zero except an unreadable/invalid data file
+- [x] Unmatched 2-letter codes carry the "not in dataset" note
+- [x] `VN` → `NOT_REQUIRED`, null `visa_free`/`evisa_option`, under every flag
+- [x] `--phu_quoc_only` unchanged for every resolvable nationality except `VN`
+- [x] SKILL.md documents demonym input, `NOT_REQUIRED`, and the exit-0 contract
+- [x] NOT: a bundled full ISO 3166 table, fuzzy matches applied silently
       (suggestions are returned, never auto-accepted), or a non-stdlib dependency
 
 ## Verify
