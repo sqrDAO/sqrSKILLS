@@ -5,7 +5,7 @@
     "iso_alpha2": "VN",
     "iso_alpha3": "VNM",
     "last_updated": "2026-07-27",
-    "data_freshness": "Core e-Visa and visa-exemption facts verified through June 2026; future-dated or implementation-specific items should be rechecked against evisa.gov.vn and primary legal sources before legal/compliance use.",
+    "data_freshness": "Core e-Visa and visa-exemption facts verified through July 2026; future-dated or implementation-specific items should be rechecked against evisa.gov.vn and primary legal sources before legal/compliance use.",
     "sources": [
       "https://evisa.gov.vn/",
       "https://vietnam.travel/things-to-do/new-visa-exemption-policies-effective-15-august-2025",
