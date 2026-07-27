@@ -7,7 +7,10 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-1. `vietnam-crypto-radar-regulatory-refresh` — refresh the dated regulatory
+1. `vietnam-visa-nationality-resolution` — resolve demonyms and short aliases in
+   `vietnam-visa-check`; fixes a silent wrong answer for `UK` and a leaked script
+   failure for unrecognised nationalities.
+2. `vietnam-crypto-radar-regulatory-refresh` — refresh the dated regulatory
    baseline with Decree 284 enforcement rules and omitted accounting/tax instruments.
 
 ## Recently shipped
