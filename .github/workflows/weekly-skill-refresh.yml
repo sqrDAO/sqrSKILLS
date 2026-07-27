@@ -65,10 +65,17 @@ jobs:
                  references/sources.md.
                - Sweep sources in tier order for material dated AFTER the
                  baseline's LAST VERIFIED date. Apply the skill's verification
-                 discipline: only promote a finding to fact if it cites a
-                 specific instrument number with a Tier-1/named-law-firm
-                 confirmation, or two independent Tier-2 sources. Everything
-                 else stays labeled DRAFT/PROPOSED/RUMORED.
+                 discipline: only promote a finding to fact (e.g. to
+                 EFFECTIVE/CONFIRMED) if it cites a specific instrument number
+                 AND is confirmed by EITHER a Tier-1 primary/named-law-firm
+                 source OR two INDEPENDENT Tier-2 sources.
+               - Tier-3 sources (crypto-native outlets, e.g. blogtienao.com)
+                 NEVER promote a finding on their own, and do not count toward
+                 the two-Tier-2 threshold. A finding backed only by Tier-2/Tier-3
+                 coverage with no Tier-1 primary stays
+                 `REPORTED — NEEDS_PRIMARY_SOURCE`. Everything else unconfirmed
+                 stays labeled DRAFT/PROPOSED/RUMORED. When in doubt, do NOT
+                 promote — keep the lower-confidence status.
                - If (and only if) you confirm real changes, update
                  references/baseline.md in place and set a fresh `LAST VERIFIED`
                  date.
