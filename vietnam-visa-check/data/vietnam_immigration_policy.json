@@ -4,7 +4,7 @@
     "country": "Vietnam",
     "iso_alpha2": "VN",
     "iso_alpha3": "VNM",
-    "last_updated": "2026-07-27",
+    "last_updated": "2026-08-03",
     "data_freshness": "Core e-Visa and visa-exemption facts verified through July 2026; future-dated or implementation-specific items should be rechecked against evisa.gov.vn and primary legal sources before legal/compliance use.",
     "sources": [
       "https://evisa.gov.vn/",
@@ -76,7 +76,7 @@
     "entry_requirement_summary": "All foreign nationals require a valid entry permission to enter Vietnam. This is satisfied by one of: (1) visa exemption by nationality, (2) e-Visa, (3) visa on arrival (VOA) with pre-approval letter, or (4) embassy/consulate visa. Phu Quoc Island has a standalone special exemption for all nationalities. A health declaration is required for all travelers.",
     "passport_validity_minimum_days": 180,
     "proof_of_onward_travel": "May be requested at immigration at discretion of officer; recommended to carry.",
-    "health_declaration": "Mandatory. All inbound, outbound, and transit travelers must submit a health declaration under Decree 165/2026/ND-CP, effective July 1, 2026. Submission is recommended at least 7 days prior to travel, but can be done via paper form at the border.",
+    "health_declaration": "Mandatory. All inbound, outbound, and transit travelers must submit a digital health declaration under Decree 165/2026/ND-CP, effective July 1, 2026. A mandatory digital pre-arrival form must also be completed before landing at major international airports.",
     "entry_modes": ["air", "land", "sea"]
   },
 
@@ -567,6 +567,16 @@
         "valid_from": null,
         "valid_until": null,
         "conditions": null
+      },
+      {
+        "country": "Timor-Leste",
+        "iso_alpha2": "TL",
+        "tier": "VISA_FREE_30",
+        "max_stay_days": 30,
+        "agreement_type": "BILATERAL",
+        "valid_from": "2026-07-01",
+        "valid_until": null,
+        "conditions": null
       }
     ]
   },
@@ -677,12 +687,7 @@
           "max_validity": "5 years (tied to UD1 holder)",
           "eligible_profiles": ["Spouse of UD1 holder", "Children under 18 of UD1 holder"]
         }
-      ],
-      "proposed_golden_visa": {
-        "status": "Under review by Ministry of Public Security as of mid-2025",
-        "proposed_validity": "Up to 10 years",
-        "proposed_eligible": "High-value investors and residents meeting criteria TBD"
-      }
+      ]
     }
   },
 
@@ -819,6 +824,7 @@
     { "date": "2025-12-02", "event": "Resolution 389/NQ-CP: 41 new international border gates added for e-Visa entry/exit, expanding total approved ports from 42 to 83 (4 airports, 11 land borders, 26 seaports)" },
     { "date": "2026-02-10", "event": "Announcement: UD1 and UD2 visa categories for high-skill professionals and dependents (valid up to 5 years) to launch July 1, 2026" },
     { "date": "2026-07-01", "event": "Decree 165/2026/ND-CP: Mandatory health declaration for all travelers goes into effect." },
-    { "date": "2026-07-01", "event": "UD1 and UD2 visa categories go into effect" }
+    { "date": "2026-07-01", "event": "UD1 and UD2 visa categories go into effect" },
+    { "date": "2026-07-01", "event": "Vietnam-Timor-Leste bilateral mutual visa exemption effective: 30 days per entry." }
   ]
 }
