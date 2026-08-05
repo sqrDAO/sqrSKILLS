@@ -274,6 +274,10 @@ def is_exemption_valid(entry: dict) -> bool:
     An exemption that has not started yet is as unusable as an expired one, so
     a future `valid_from` disqualifies it — a signed-but-not-yet-effective
     agreement must never be reported as visa-free.
+
+    Fails closed: a date we cannot parse is treated as not in force. Missing
+    dates still mean "no bound" and stay valid. Over-claiming visa-free can
+    strand a traveller at the border; under-claiming costs an e-Visa fee.
     """
     today = date.today()
     valid_from = entry.get("valid_from")
@@ -281,15 +285,15 @@ def is_exemption_valid(entry: dict) -> bool:
         try:
             if today < date.fromisoformat(valid_from):
                 return False
-        except ValueError:
-            pass
+        except (TypeError, ValueError):
+            return False
     valid_until = entry.get("valid_until")
     if valid_until is None:
         return True
     try:
         return today <= date.fromisoformat(valid_until)
-    except ValueError:
-        return True
+    except (TypeError, ValueError):
+        return False
 
 
 def build_evisa_option(policy: dict) -> dict:

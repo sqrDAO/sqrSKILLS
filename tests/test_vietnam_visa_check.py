@@ -211,14 +211,23 @@ class ExemptionValidityTest(unittest.TestCase):
         entry = {"valid_from": None, "valid_until": "2020-01-01"}
         self.assertFalse(self.q.is_exemption_valid(entry))
 
-    def test_null_and_malformed_dates_default_to_in_force(self):
+    def test_absent_dates_mean_no_bound_and_stay_in_force(self):
         for entry in (
             {"valid_from": None, "valid_until": None},
-            {"valid_from": "not-a-date", "valid_until": None},
-            {"valid_from": None, "valid_until": "not-a-date"},
             {},
         ):
             self.assertTrue(self.q.is_exemption_valid(entry), entry)
+
+    def test_malformed_dates_fail_closed(self):
+        """An unparseable date must never be reported as visa-free."""
+        for entry in (
+            {"valid_from": "not-a-date", "valid_until": None},
+            {"valid_from": None, "valid_until": "not-a-date"},
+            {"valid_from": "2020-13-45", "valid_until": None},
+            {"valid_from": 20200101, "valid_until": None},
+            {"valid_from": None, "valid_until": ["2030-01-01"]},
+        ):
+            self.assertFalse(self.q.is_exemption_valid(entry), entry)
 
     def test_no_dataset_exemption_is_future_dated(self):
         """A future-dated entry would silently vanish from results — catch it here."""
