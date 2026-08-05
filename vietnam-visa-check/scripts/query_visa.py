@@ -269,12 +269,25 @@ def find_no_exemption_entry(iso2: str, policy: dict) -> dict | None:
 
 
 def is_exemption_valid(entry: dict) -> bool:
-    """Return True if exemption has not expired."""
+    """Return True if the exemption is in force today.
+
+    An exemption that has not started yet is as unusable as an expired one, so
+    a future `valid_from` disqualifies it — a signed-but-not-yet-effective
+    agreement must never be reported as visa-free.
+    """
+    today = date.today()
+    valid_from = entry.get("valid_from")
+    if valid_from is not None:
+        try:
+            if today < date.fromisoformat(valid_from):
+                return False
+        except ValueError:
+            pass
     valid_until = entry.get("valid_until")
     if valid_until is None:
         return True
     try:
-        return date.today() <= date.fromisoformat(valid_until)
+        return today <= date.fromisoformat(valid_until)
     except ValueError:
         return True
 

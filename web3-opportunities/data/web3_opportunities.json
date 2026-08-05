@@ -1,7 +1,7 @@
 {
   "_meta": {
     "document_type": "structured_web3_opportunity_roster",
-    "last_updated": "2026-08-03",
+    "last_updated": "2026-08-05",
     "data_freshness": "Program existence, type, chain/ecosystem, region, and dilution posture are evergreen and verified through June 2026. TIME-SENSITIVE fields (application deadlines, open/closed cohort status, current prize pool / check size, cadence) are baseline snapshots and MUST be re-verified live before the user applies or acts.",
     "coverage": "Global. Every entry is region-tagged. Southeast Asia / Vietnam-relevant entries carry sea_relevant: true.",
     "schema_version": "1.1.0",
@@ -571,9 +571,9 @@
       "regions": ["sea"],
       "typical_check_or_prize": "Workshops, bootcamps, and certificates (non-funding)",
       "cadence": "campus cohorts / rolling programs",
-      "status": "unknown",
+      "status": "open",
       "url": "https://corelia.academy/",
-      "notes": "The corelia.academy/ URL is not working. Status is unknown.",
+      "notes": "Site is live and running programs; latest UniHackfest 2026 post 24 Jul 2026 (Hanoi Campus). The domain is bot-protected — it returns 403 to plain fetchers but 200 in a browser, so do not mark it dead on a failed automated fetch. Exact UniHackfest phase/deadline unverified.",
       "sea_relevant": true,
       "last_verified": "2026-08-03"
     },
