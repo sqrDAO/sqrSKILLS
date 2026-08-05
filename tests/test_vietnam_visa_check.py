@@ -185,6 +185,56 @@ class CommandLineTest(unittest.TestCase):
         self.assertEqual(out["nationality"], "United States")
         self.assertEqual(out["recommended_pathway"], "PHU_QUOC_EXEMPTION")
 
+    def test_signed_but_not_in_force_exemption_routes_to_evisa(self):
+        """Timor-Leste's agreement is signed but not yet effective — never visa-free."""
+        for raw in ("Timorese", "East Timorese", "Timor-Leste", "TL"):
+            code, out = run("--nationality", raw)
+            self.assertEqual(code, 0, raw)
+            self.assertEqual(out["iso_alpha2"], "TL", raw)
+            self.assertEqual(out["recommended_pathway"], "EVISA", raw)
+            self.assertIsNone(out["visa_free"], raw)
+
+
+class ExemptionValidityTest(unittest.TestCase):
+    def setUp(self):
+        self.q = load_module()
+
+    def test_future_valid_from_is_not_in_force(self):
+        entry = {"valid_from": "2099-01-01", "valid_until": None}
+        self.assertFalse(self.q.is_exemption_valid(entry))
+
+    def test_past_valid_from_is_in_force(self):
+        entry = {"valid_from": "2020-01-01", "valid_until": None}
+        self.assertTrue(self.q.is_exemption_valid(entry))
+
+    def test_expired_valid_until_is_not_in_force(self):
+        entry = {"valid_from": None, "valid_until": "2020-01-01"}
+        self.assertFalse(self.q.is_exemption_valid(entry))
+
+    def test_absent_dates_mean_no_bound_and_stay_in_force(self):
+        for entry in (
+            {"valid_from": None, "valid_until": None},
+            {},
+        ):
+            self.assertTrue(self.q.is_exemption_valid(entry), entry)
+
+    def test_malformed_dates_fail_closed(self):
+        """An unparseable date must never be reported as visa-free."""
+        for entry in (
+            {"valid_from": "not-a-date", "valid_until": None},
+            {"valid_from": None, "valid_until": "not-a-date"},
+            {"valid_from": "2020-13-45", "valid_until": None},
+            {"valid_from": 20200101, "valid_until": None},
+            {"valid_from": None, "valid_until": ["2030-01-01"]},
+        ):
+            self.assertFalse(self.q.is_exemption_valid(entry), entry)
+
+    def test_no_dataset_exemption_is_future_dated(self):
+        """A future-dated entry would silently vanish from results — catch it here."""
+        policy = json.loads(DATA.read_text(encoding="utf-8"))
+        for entry in policy["visa_exemption_by_country"]["entries"]:
+            self.assertTrue(self.q.is_exemption_valid(entry), entry["country"])
+
 
 if __name__ == "__main__":
     unittest.main()

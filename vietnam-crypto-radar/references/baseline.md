@@ -3,8 +3,15 @@
 > **LAST VERIFIED: 3 August 2026.**
 > Everything the radar reports as "new" is new relative to this date.
 > After confirming real changes in a run, rewrite this file and bump the date.
-> Verification note: All instruments listed below are confirmed by Tier-1 government
-> sources as of the 3 August 2026 sweep.
+> Verification note: The 3 August 2026 date above is the last full sweep and remains the
+> diff target. On 5 August 2026 the items added by that sweep were re-verified individually
+> — no new sweep was run, so the diff date is deliberately unchanged.
+> Per `sources.md`, a finding is stated as fact only when a Tier-1 source or a named law
+> firm confirms it, or two independent Tier-2 sources corroborate it; otherwise it is
+> labelled DRAFT / PROPOSED / RUMORED. Tier-2 means legal or analyst publishers as well as
+> state media — crypto-native outlets are Tier 3 and never sufficient. Each anchor names its
+> tier. Re-check every anchor resolves before citing it: the 3 August sweep recorded three
+> that 404'd, served no content, or pointed at the wrong document.
 
 This is the diff target. Keep it factual, instrument-anchored, and dated. When a status
 changes (e.g. a DRAFT circular becomes EFFECTIVE), move it between sections and update the table.
@@ -32,7 +39,7 @@ Vietnam's confirmed regulatory anchor is the **Law on Digital Technology Industr
 | **Circular 87/2026/TT-BTC** | General PIT guidance under Law 109 and Decree 253; read alongside the pilot-specific crypto tax circulars. | EFFECTIVE / CONFIRMED | 1 Jul 2026 |
 | **Decree 254/2026/NĐ-CP** | Electronic invoices and records; includes qualifying crypto-asset businesses among users of e-invoices without a tax-authority code. | EFFECTIVE / CONFIRMED | 1 Jul 2026 |
 | **Resolution 66.17/2026/NQ-CP** | Designates crypto-asset services as a "conditional business line" subject to post-inspection supervision. | ENACTED / CONFIRMED | 1 Jul 2026 |
-| **Resolution 66.23/2026/NQ-CP** | Temporary AML "special mechanisms" (beneficial ownership, risk-based classification) pending full amendment of the Law on AML. | ENACTED / CONFIRMED | 24 Jul 2026 – 28 Feb 2027 |
+| **Resolution 66.23/2026/NQ-CP** | Temporary AML "special mechanisms" (beneficial ownership, risk-based classification) pending full amendment of the Law on AML. Economy-wide, not crypto-specific — the official text names no crypto assets or VASPs; relevant here only as the AML bridge the amended Law will build on. | ENACTED / CONFIRMED | 24 Jul 2026 – 28 Feb 2027 |
 | **Decree 164/2026/NĐ-CP** | Mandates declaration of digital assets (>= VND 150M) for public officials. | ENACTED / CONFIRMED | 1 Jul 2026 |
 | **Decree 284/2026/NĐ-CP** | Administrative violations and penalties for crypto assets and the pilot market. | ENACTED / CONFIRMED | 1 Sep 2026 |
 
@@ -74,7 +81,8 @@ Vietnam's confirmed regulatory anchor is the **Law on Digital Technology Industr
 - **Licensing shortlist:** 5 entities are reported to be under final review by the Ministry of Finance, State Bank, and Ministry of Public Security. The list includes: **VIX Crypto Asset Exchange JSC**, **Loc Phat Vietnam Crypto Asset Exchange JSC**, **Vietnam Prosperity Crypto Asset Exchange JSC**, **Techcom Crypto Asset Exchange JSC**, and **Vietnam Digital Assets JSC**. Status: REPORTED, not final approvals.
 - **Supervision framework:** The State Securities Commission (SSC) is actively developing a "System for management and supervision of the crypto-asset trading market" and a "regulatory framework for supervising the crypto-asset market," including staff training with international partners (Chainalysis, Tether). Status: IN_PROGRESS / CONFIRMED.
 - **Law on AML (Amended):** First extraordinary session of 16th National Assembly convened 3 Aug 2026 to debate draft law, which explicitly brings VASPs under MOF supervision. Status: IN_PROGRESS / CONFIRMED.
-- **Decision 1413/QĐ-TTg:** Approves financial market reform project; tasks MOF with developing a **Law on Digital Assets and Crypto Assets** for the 2028-2029 legislative agenda. Status: ENACTED / CONFIRMED.
+- **Decision 1413/QĐ-TTg:** Signed 27 Jul 2026; approves the comprehensive financial market reform project to 2045, which lists the crypto-asset market among its target markets. Status: ENACTED / CONFIRMED (Tier 1).
+  - Sub-claim — that its task-allocation appendix assigns MOF a **Law on Digital Assets and Crypto Assets** on the 2028-2029 legislative agenda — rests on a single Tier-2 legal publisher reading the appendix; Tier-1 coverage and general press confirm the Decision but not this detail. Status: REPORTED / SINGLE-SOURCE. Promote only when a second independent Tier-2 source or the appendix text itself confirms it.
 - **Decree 284 commencement:** enacted but not effective until **1 Sep 2026**. Status: ENACTED / CONFIRMED.
 
 ---
@@ -113,9 +121,11 @@ Vietnam's confirmed regulatory anchor is the **Law on Digital Technology Industr
 - **Government legal documents DB — Circular 87/2026/TT-BTC (Tier 1):** `https://vanban.chinhphu.vn/?classid=1&docid=218772&orggroupid=4&pageid=27160`
 - **Government legal documents DB — Decree 254/2026/NĐ-CP (Tier 1):** `https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160`
 - **Government News — Decree 254 Article 6 e-invoice summary (Tier 1):** `https://baochinhphu.vn/quy-dinh-doi-tuong-su-dung-hoa-don-dien-tu-10226070308163723.htm`
-- **Government News — Resolution 66.23/2026/NQ-CP (Tier 1):** `https://baochinhphu.vn/nghi-quyet-66-23-nq-cp-102260724160036128.htm`
-- **Lao Dong News — Amended Law on AML draft (Tier 2):** `https://laodong.vn/thoi-su/dua-dich-vu-tai-san-ma-hoa-vào-luat-phong-chong-rua-tien-1374528.ldo`
-- **Luat Vietnam — Decision 1413/QĐ-TTg (Tier 2):** `https://luatvietnam.vn/tai-chinh/quyet-dinh-1413-qd-ttg-2026-de-an-cai-cach-tong-the-thi-truong-tai-chinh-246399-d1.html`
+- **Government News — Resolution 66.23/2026/NQ-CP (Tier 1):** `https://en.baochinhphu.vn/viet-nam-introduces-special-mechanisms-to-strengthen-anti-money-laundering-framework-111260727163324582.htm`
+- **VietnamPlus — Amended Law on AML draft, VASPs under MOF supervision (Tier 2):** `https://en.vietnamplus.vn/na-standing-committee-reviews-central-bank-anti-money-laundering-bills-post348280.vnp`
+- **Vietnam News — 16th NA first extraordinary session opens 3 Aug 2026 (Tier 2):** `https://vietnamnews.vn/politics-laws/1796709/first-extraordinary-session-of-16th-national-assembly-opens.html`
+- **Government News — Decision 1413/QĐ-TTg signed 27 Jul 2026 (Tier 1):** `https://baochinhphu.vn/cai-cach-tong-the-thi-truong-tai-chinh-viet-nam-102260728152117405.htm` — confirms the Decision and that the crypto-asset market is a target market; does NOT mention the MOF law tasking or the 2028-2029 window.
+- **Luat Vietnam — sole source for the 2028-2029 Law on Digital/Crypto Assets tasking (Tier 2):** `https://luatvietnam.vn/tin-van-ban-moi/quyet-dinh-1413-qd-ttg-nghien-cuu-xay-dung-luat-ve-tai-san-so-tai-san-ma-hoa-trong-giai-doan-2028-2029-186-111058-article.html` — single-source; see the REPORTED status above.
 - **Ministry of Finance / SSC / gov.vn portals (Tier 1):** Confirmed existence and key details of the standing instruments during the 18 Jul 2026 search.
 - **Vietnam Briefing (Tier 2):** `https://www.vietnam-briefing.com/news/vietnam-passes-first-ever-law-on-digital-technology-industry.html/`
 - **SSC News — Training with Tether/Chainalysis (Tier 1):** `https://www.ssc.gov.vn/ubck/faces/vi/vim/vitin/vichitiet/vichitiet_trangchu/vicsptin/1253213?_afrLoop=2391219712530349&_afrWindowMode=0&_afrWindowId=null`
