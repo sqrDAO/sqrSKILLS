@@ -4,8 +4,8 @@
     "country": "Vietnam",
     "iso_alpha2": "VN",
     "iso_alpha3": "VNM",
-    "last_updated": "2026-08-05",
-    "data_freshness": "Core e-Visa and visa-exemption facts verified through July 2026; future-dated or implementation-specific items should be rechecked against evisa.gov.vn and primary legal sources before legal/compliance use.",
+    "last_updated": "2026-08-14",
+    "data_freshness": "Core e-Visa and visa-exemption facts verified through July 2026; health-declaration, Pre-arrival Information pilot, and Timor-Leste agreement facts re-verified against primary government sources on 14 August 2026. Future-dated or implementation-specific items should be rechecked against evisa.gov.vn and primary legal sources before legal/compliance use.",
     "sources": [
       "https://evisa.gov.vn/",
       "https://vietnam.travel/things-to-do/new-visa-exemption-policies-effective-15-august-2025",
@@ -13,7 +13,10 @@
       "https://vietnam.travel/things-to-do/vietnam-issues-e-visas-citizens-all-countriesterritories",
       "https://vietnam.travel/things-to-do/big-news-vietnam-approves-extending-e-visas-90-days",
       "https://www.vietnam-briefing.com/news/vietnam-visa-policy-2025-reforms.html/",
-      "https://en.wikipedia.org/wiki/Visa_policy_of_Vietnam"
+      "https://en.wikipedia.org/wiki/Visa_policy_of_Vietnam",
+      "https://en.baochinhphu.vn/health-declaration-not-mandatory-for-all-intl-travelers-from-july-1-111260701111332151.htm",
+      "https://en.mps.gov.vn/article/immigration-department-launches-pre-arrival-information-system-1778670404",
+      "https://en.baochinhphu.vn/viet-nam-timor-leste-agree-to-deepen-multifaceted-cooperation-111260610113046483.htm"
     ],
     "source_registry": {
       "official_evisa_portal": {
@@ -21,11 +24,30 @@
         "tier": 1,
         "use_for": ["live e-Visa application", "fees", "current application requirements"]
       },
-       "decree_165_2026": {
-        "url": "https://luatvietnam.vn/y-te/nghi-dinh-165-2026-nd-cp-khai-bao-y-te-doi-voi-nguoi-nhap-canh-xuat-canh-qua-canh-265328-d1.html",
+      "decree_165_2026_health_declaration": {
+        "url": "https://en.baochinhphu.vn/health-declaration-not-mandatory-for-all-intl-travelers-from-july-1-111260701111332151.htm",
         "tier": 1,
         "verified_facts": [
-          "Decree 165/2026/NĐ-CP, effective July 1, 2026, requires a mandatory health declaration for all inbound, outbound, and transit travelers."
+          "Decree 165/2026/NĐ-CP took effect July 1, 2026, but does not impose routine mandatory declarations on every inbound, outbound, and transit traveler.",
+          "The Minister of Health determines the affected persons and application period for each infectious disease based on current risk.",
+          "The Ministry of Health had no online health-declaration system in use as of its July 1 clarification."
+        ]
+      },
+      "mps_pre_arrival_information_pilot": {
+        "url": "https://en.mps.gov.vn/article/immigration-department-launches-pre-arrival-information-system-1778670404",
+        "tier": 1,
+        "verified_facts": [
+          "Pre-arrival Information entered an optional pilot at Tan Son Nhat International Airport on April 15, 2026.",
+          "The May 13 Ministry of Public Security notice described future expansion but did not establish a nationwide or five-airport requirement.",
+          "Travelers can submit within three days before entry and receive a QR code; the system does not receive or process visa applications."
+        ]
+      },
+      "government_vietnam_timor_leste_ordinary_passport_agreement": {
+        "url": "https://en.baochinhphu.vn/viet-nam-timor-leste-agree-to-deepen-multifaceted-cooperation-111260610113046483.htm",
+        "tier": 1,
+        "verified_facts": [
+          "Vietnam and Timor-Leste signed and exchanged an ordinary-passport visa-exemption agreement in Hanoi on June 9, 2026.",
+          "Entry into force was not confirmed in the official treaty and visa-exemption sources checked on August 14, 2026."
         ]
       },
       "vnta_evisa_guide": {
@@ -73,10 +95,10 @@
     "administering_body": "Vietnam Immigration Department, Ministry of Public Security",
     "official_portal": "https://evisa.gov.vn/",
     "digital_arrival_declaration_portal": "https://prearrival.immigration.gov.vn",
-    "entry_requirement_summary": "All foreign nationals require a valid entry permission to enter Vietnam. This is satisfied by one of: (1) visa exemption by nationality, (2) e-Visa, (3) visa on arrival (VOA) with pre-approval letter, or (4) embassy/consulate visa. Phu Quoc Island has a standalone special exemption for all nationalities. A health declaration is required for all travelers.",
+    "entry_requirement_summary": "All foreign nationals require a valid entry permission to enter Vietnam. This is satisfied by one of: (1) visa exemption by nationality, (2) e-Visa, (3) visa on arrival (VOA) with pre-approval letter, or (4) embassy/consulate visa. Phu Quoc Island has a standalone special exemption for all nationalities. Health declarations are activated only for persons and periods specified by the Minister of Health in response to infectious-disease risk; they are not a routine blanket requirement.",
     "passport_validity_minimum_days": 180,
     "proof_of_onward_travel": "May be requested at immigration at discretion of officer; recommended to carry.",
-    "health_declaration": "Mandatory. All inbound, outbound, and transit travelers must submit a digital health declaration under Decree 165/2026/ND-CP, effective July 1, 2026. Separately, a Digital Arrival Card is mandatory from April 15, 2026 at five international airports — Tan Son Nhat (SGN), Noi Bai (HAN), Da Nang (DAD), Cam Ranh (CXR), and Phu Quoc (PQC) — submitted free at https://prearrival.immigration.gov.vn within 72 hours before landing; the system returns a QR code to show immigration. The Digital Arrival Card is NOT a visa and grants no entry permission on its own.",
+    "health_declaration": "Conditional, not routinely mandatory. Under Decree 165/2026/ND-CP, effective July 1, 2026, the Minister of Health determines which persons must declare and for what period for each infectious disease based on current risk. The Ministry stated on July 1 that there was no blanket requirement for all inbound, outbound, or transit travelers and no online health-declaration system then in use. Do not confuse a health declaration with the separate optional Pre-arrival Information pilot at Tan Son Nhat International Airport.",
     "entry_modes": ["air", "land", "sea"]
   },
 
@@ -139,8 +161,8 @@
     "DIGITAL_ARRIVAL_CARD": {
       "code": "DAC",
       "label": "Digital Arrival Card",
-      "description": "A pilot program for Digital Arrival Cards began at Ho Chi Minh City’s Tan Son Nhat International Airport on April 15, 2026, aimed at further digitizing the immigration process and reducing wait times.",
-      "status": "Pilot program"
+      "description": "The official Pre-arrival Information pilot began for foreign travelers at Ho Chi Minh City’s Tan Son Nhat International Airport on April 15, 2026. The Ministry of Public Security described participation as optional, not mandatory. Travelers may submit free at https://prearrival.immigration.gov.vn within three days before entry and receive a QR code. The system is not a visa and grants no entry permission on its own.",
+      "status": "Optional pilot at Tan Son Nhat; no nationwide rollout confirmed"
     }
   },
 
@@ -765,7 +787,7 @@
       { "country": "South Africa", "iso_alpha2": "ZA", "required_pathway": "EVISA", "note": "No ordinary-passport visa exemption. South African nationals need an e-Visa." },
       { "country": "Mexico", "iso_alpha2": "MX", "required_pathway": "EVISA", "note": "No ordinary-passport visa exemption. Mexican nationals need an e-Visa." },
       { "country": "Brazil", "iso_alpha2": "BR", "required_pathway": "EVISA", "note": "No ordinary-passport visa exemption. Brazilian nationals need an e-Visa." },
-      { "country": "Timor-Leste", "iso_alpha2": "TL", "required_pathway": "EVISA", "note": "NOT YET VISA-FREE. Vietnam and Timor-Leste signed a bilateral 30-day visa exemption for ordinary passports (documents exchanged during PM Xanana Gusmao's Hanoi visit, 9 June 2026; reported signed 23 July 2026). It takes effect only after both sides complete internal legal procedures and exchange diplomatic notes — that has not been confirmed, and Timor-Leste is absent from the operative exemption list. Route to e-Visa until entry into force is verified at evisa.gov.vn." }
+      { "country": "Timor-Leste", "iso_alpha2": "TL", "required_pathway": "EVISA", "note": "NOT YET VISA-FREE. Vietnam and Timor-Leste signed and exchanged a bilateral 30-day visa-exemption agreement for ordinary passports during PM Xanana Gusmao's Hanoi visit on 9 June 2026. Entry into force has not been confirmed in official treaty and visa-exemption sources, and Timor-Leste remains absent from the operative ordinary-passport exemption list. Route to e-Visa until entry into force is verified at evisa.gov.vn." }
     ]
   },
 
@@ -814,8 +836,8 @@
     { "date": "2025-08-15", "event": "Resolution 229/NQ-CP: 45-day visa-free for 12 additional European countries (Belgium, Bulgaria, Croatia, Czech Republic, Switzerland, Luxembourg, Hungary, Netherlands, Poland, Romania, Slovakia, Slovenia) until Aug 14, 2028" },
     { "date": "2025-12-02", "event": "Resolution 389/NQ-CP: 41 new international border gates added for e-Visa entry/exit, expanding total approved ports from 42 to 83 (4 airports, 11 land borders, 26 seaports)" },
     { "date": "2026-02-10", "event": "Announcement: UD1 and UD2 visa categories for high-skill professionals and dependents (valid up to 5 years) to launch July 1, 2026" },
-    { "date": "2026-07-01", "event": "Decree 165/2026/ND-CP: Mandatory health declaration for all travelers goes into effect." },
-    { "date": "2026-07-01", "event": "UD1 and UD2 visa categories go into effect" },
-    { "date": "2026-06-09", "event": "Vietnam and Timor-Leste exchange a bilateral visa exemption agreement for ordinary passports (30 days per entry); reported signed 23 July 2026. NOT in force — pending completion of internal legal procedures and exchange of diplomatic notes by both sides." }
+    { "date": "2026-06-09", "event": "Vietnam and Timor-Leste sign and exchange a bilateral visa-exemption agreement for ordinary passports (30 days per entry). Entry into force is not confirmed in official treaty and visa-exemption sources; continue to require an e-Visa until it is." },
+    { "date": "2026-07-01", "event": "Decree 165/2026/ND-CP takes effect. Health declarations apply only when the Minister of Health specifies affected persons and periods based on infectious-disease risk; there is no routine blanket requirement." },
+    { "date": "2026-07-01", "event": "UD1 and UD2 visa categories go into effect" }
   ]
 }
