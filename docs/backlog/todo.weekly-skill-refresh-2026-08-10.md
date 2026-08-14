@@ -16,13 +16,13 @@ mergeable without regressing the primary-source corrections shipped in #27.
 - `docs/backlog/todo.weekly-skill-refresh-2026-08-10.md` (new) — reconciliation spec
 
 ## Acceptance
-- [ ] PR #26 contains current `main` and GitHub reports no merge conflicts
-- [ ] Final PR diff retains the Web3 opportunity refresh at version `0.2.9`
-- [ ] Final PR diff contains no Vietnam visa files superseded by PR #27
-- [ ] Timor-Leste still routes to `EVISA`
-- [ ] Blanket health-declaration and five-airport PAI claims remain absent
-- [ ] Repository validator and unit tests pass after reconciliation
-- [ ] NOT: overwrite the divergent local automation branch or force-push history
+- [x] PR #26 contains current `main` and GitHub reports no merge conflicts
+- [x] Final PR diff retains the Web3 opportunity refresh at version `0.2.9`
+- [x] Final PR diff contains no Vietnam visa files superseded by PR #27
+- [x] Timor-Leste still routes to `EVISA`
+- [x] Blanket health-declaration and five-airport PAI claims remain absent
+- [x] Repository validator and unit tests pass after reconciliation
+- [x] NOT: overwrite the divergent local automation branch or force-push history
 
 ## Verify
 - `git merge-base --is-ancestor origin/main HEAD` → exit 0
@@ -35,3 +35,5 @@ mergeable without regressing the primary-source corrections shipped in #27.
 ## Notes
 Resolve visa conflicts in favor of #27 because it is newer (14 Aug), cites primary
 government sources, and includes regression tests absent from the 10 Aug refresh.
+GitHub reported the reconciled head mergeable on 14 August 2026; completion still
+requires explicit user approval before this spec can be renamed to `done.*`.
