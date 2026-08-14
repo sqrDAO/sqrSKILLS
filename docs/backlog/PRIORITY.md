@@ -7,7 +7,8 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-_Empty._
+1. `weekly-skill-refresh-2026-08-10` — reconcile PR #26 with current `main`,
+   retaining its Web3 refresh without regressing the visa corrections in #27.
 
 ## Recently shipped
 
