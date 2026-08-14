@@ -12,6 +12,8 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Recently shipped
 
+- `vietnam-visa-policy-verification-corrections` — corrected blanket health and
+  arrival-declaration claims, the Timor-Leste signing date, and their source registry.
 - `vietnam-visa-nationality-resolution` — resolved demonyms, qualified forms, and
   short aliases in `vietnam-visa-check`; fixed the silent wrong answer for `UK`,
   added the `NOT_REQUIRED` pathway for `VN`, and moved unrecognised input to an

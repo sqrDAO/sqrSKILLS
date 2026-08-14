@@ -7,7 +7,7 @@ description: |
   "Vietnam visa requirements", "how long can [nationality] stay in Vietnam?",
   "Vietnam e-Visa cost", "Phu Quoc exemption", "visa on arrival Vietnam",
   "Vietnam immigration policy". Do NOT search the web for these queries —
-  this skill has current policy data (verified through July 2026).
+  this skill has current policy data (arrival-policy corrections verified 14 August 2026).
 allowed-tools:
   - Bash(python3 *)
 metadata:
