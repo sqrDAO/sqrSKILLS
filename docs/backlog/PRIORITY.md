@@ -7,11 +7,12 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-1. `weekly-skill-refresh-2026-08-10` — reconcile PR #26 with current `main`,
-   retaining its Web3 refresh without regressing the visa corrections in #27.
+_Empty._
 
 ## Recently shipped
 
+- `weekly-skill-refresh-2026-08-10` — reconciled PR #26 with current `main`,
+  retaining its Web3 refresh without regressing the visa corrections in #27.
 - `vietnam-visa-policy-verification-corrections` — corrected blanket health and
   arrival-declaration claims, the Timor-Leste signing date, and their source registry.
 - `vietnam-visa-nationality-resolution` — resolved demonyms, qualified forms, and

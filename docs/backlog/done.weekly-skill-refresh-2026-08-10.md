@@ -35,5 +35,5 @@ mergeable without regressing the primary-source corrections shipped in #27.
 ## Notes
 Resolve visa conflicts in favor of #27 because it is newer (14 Aug), cites primary
 government sources, and includes regression tests absent from the 10 Aug refresh.
-GitHub reported the reconciled head mergeable on 14 August 2026; completion still
-requires explicit user approval before this spec can be renamed to `done.*`.
+GitHub reported the reconciled head mergeable on 14 August 2026. Completion was
+explicitly approved by the user the same day after local and CI verification.
