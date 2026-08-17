@@ -4,7 +4,7 @@
     "country": "Vietnam",
     "iso_alpha2": "VN",
     "iso_alpha3": "VNM",
-    "last_updated": "2026-08-14",
+    "last_updated": "2026-08-17",
     "data_freshness": "Core e-Visa and visa-exemption facts verified through July 2026; health-declaration, Pre-arrival Information pilot, and Timor-Leste agreement facts re-verified against primary government sources on 14 August 2026. Future-dated or implementation-specific items should be rechecked against evisa.gov.vn and primary legal sources before legal/compliance use.",
     "sources": [
       "https://evisa.gov.vn/",
@@ -23,6 +23,14 @@
         "url": "https://evisa.gov.vn/",
         "tier": 1,
         "use_for": ["live e-Visa application", "fees", "current application requirements"]
+      },
+      "decree_286_2026_nd_cp": {
+        "url": "https://en.baochinhphu.vn/new-rules-on-coordination-in-management-of-foreigners-entry-exit-residence-111260815164843491.htm",
+        "tier": 1,
+        "verified_facts": [
+          "Decree No. 286/2026/ND-CP, effective September 15, 2026, establishes a unified coordination mechanism for managing foreign nationals' entry, exit, and residence.",
+          "It mandates real-time data sharing between the Ministry of Public Security, Ministry of National Defence, and Ministry of Foreign Affairs via the National Immigration Database."
+        ]
       },
       "decree_165_2026_health_declaration": {
         "url": "https://en.baochinhphu.vn/health-declaration-not-mandatory-for-all-intl-travelers-from-july-1-111260701111332151.htm",
@@ -161,8 +169,8 @@
     "DIGITAL_ARRIVAL_CARD": {
       "code": "DAC",
       "label": "Digital Arrival Card",
-      "description": "The official Pre-arrival Information pilot began for foreign travelers at Ho Chi Minh City’s Tan Son Nhat International Airport on April 15, 2026. The Ministry of Public Security described participation as optional, not mandatory. Travelers may submit free at https://prearrival.immigration.gov.vn within three days before entry and receive a QR code. The system is not a visa and grants no entry permission on its own.",
-      "status": "Optional pilot at Tan Son Nhat; no nationwide rollout confirmed"
+      "description": "The official Pre-arrival Information pilot began for foreign travelers at Ho Chi Minh City’s Tan Son Nhat International Airport on April 15, 2026, and has since expanded to other major airports. The Ministry of Public Security has described participation as optional, not mandatory, to reduce processing times. Travelers may submit free at https://prearrival.immigration.gov.vn within three days before entry and receive a QR code. The system is not a visa and grants no entry permission on its own.",
+      "status": "Pilot program active at Tan Son Nhat and other major airports; participation is optional."
     }
   },
 
