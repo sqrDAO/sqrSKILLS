@@ -12,6 +12,16 @@ name: Weekly Skill Refresh
 #   2. Allow Actions to open PRs:
 #      Settings → Actions → General → Workflow permissions →
 #      enable "Allow GitHub Actions to create and approve pull requests".
+#
+# Optional but recommended:
+#   3. Add a repository secret named REFRESH_PAT (a fine-grained PAT with
+#      Contents: read/write and Pull requests: read/write on this repo).
+#      GitHub deliberately does not trigger workflows for events raised with
+#      the default GITHUB_TOKEN, so a PR opened by this job shows NO checks —
+#      the 2026-08-17 refresh sat for two days with a failing test and a green
+#      -looking page. With REFRESH_PAT set, the PR triggers Repository Checks
+#      normally. Without it, the job still runs the harness inline (below) and
+#      reports the result in the PR body, so nothing merges unexamined.
 
 on:
   schedule:
@@ -76,6 +86,16 @@ jobs:
                  `REPORTED — NEEDS_PRIMARY_SOURCE`. Everything else unconfirmed
                  stays labeled DRAFT/PROPOSED/RUMORED. When in doubt, do NOT
                  promote — keep the lower-confidence status.
+               - Before citing ANY source URL, fetch it and confirm it loads
+                 and shows the document you are citing. Do not cite a URL you
+                 have not opened this run. Past refreshes added anchors that
+                 404'd or resolved to a search page, which leaves the claim
+                 resting on nothing. Mark each anchor with the date you
+                 confirmed it.
+               - Never delete an existing caveat, scope note, or verification
+                 instruction to make room for new material. Those were added by
+                 earlier correction passes. If you believe one is wrong, say so
+                 in the summary and leave it in place.
                - If (and only if) you confirm real changes, update
                  references/baseline.md in place and set a fresh `LAST VERIFIED`
                  date.
@@ -88,6 +108,14 @@ jobs:
                  `last_updated` only if any entry changed. Keep stable fields
                  (type, stage, dilution, chains, regions, url, name) untouched
                  unless clearly wrong.
+               - `last_verified` is a claim that YOU looked at that entry's
+                 source THIS RUN. Do not bump it on entries you did not
+                 actually re-check — a blanket bump makes the whole roster's
+                 freshness meaningless. A later step rolls back any date you
+                 bump without either changing the entry or attesting it below.
+               - If an entry's `url` no longer loads, say so in its `notes` and
+                 replace it with the program's current page. A roster entry
+                 pointing at a dead domain is worse than no entry.
 
             3. vietnam-visa-check
                - Read data/vietnam_immigration_policy.json. This skill is
@@ -102,10 +130,94 @@ jobs:
               UNCHANGED rather than guessing. An empty diff is a valid outcome.
             - Make only data/baseline edits. Do not refactor scripts or prompts.
 
-            Finish by writing a short markdown summary of exactly what you
-            changed (per skill, with old -> new dates and notable items) to a
-            file named REFRESH_SUMMARY.md at the repo root. If nothing changed,
-            write "No verified changes this week." to that file.
+            Finish with TWO files at the repo root:
+
+            1. REFRESH_SUMMARY.md — a short markdown summary of exactly what you
+               changed (per skill, with old -> new dates and notable items). Say
+               what you REMOVED as well as what you added; a summary that lists
+               only additions while the diff also deletes things is a false
+               report. If nothing changed, write "No verified changes this week."
+
+            2. REFRESH_VERIFIED.json — the web3-opportunities entry ids you
+               actually re-checked against a live source this run, including
+               ones you checked and found unchanged:
+
+                   {"web3_opportunities": ["alliance-dao", "yzi-labs"]}
+
+               List only ids you genuinely opened. Dates on unlisted, unchanged
+               entries are rolled back automatically. An empty list is a valid
+               and honest answer.
+
+      # The refresh agent edits data the skills answer from. Everything below
+      # runs against those edits BEFORE a PR exists, because a PR opened by
+      # GITHUB_TOKEN may never trigger a check of its own.
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Hold the refresh to what it verified
+        id: audit
+        run: |
+          # `last_verified` is a freshness claim. Roll back any date the refresh
+          # bumped without either changing the entry or attesting it re-checked
+          # that entry, so the field keeps meaning something.
+          roster=web3-opportunities/data/web3_opportunities.json
+          git show "HEAD:$roster" > /tmp/roster_before.json
+          python3 scripts/audit_refresh.py \
+            --before /tmp/roster_before.json \
+            --after "$roster" \
+            --attested REFRESH_VERIFIED.json > /tmp/audit.json || true
+          python3 - <<'EOF' >> "$GITHUB_OUTPUT"
+          import json
+          try:
+              c = json.load(open("/tmp/audit.json"))["counts"]
+          except Exception:
+              c = {"changed": 0, "attested_only": 0, "unsupported": 0}
+          print(f"changed={c['changed']}")
+          print(f"attested={c['attested_only']}")
+          print(f"reverted={c['unsupported']}")
+          EOF
+          rm -f REFRESH_VERIFIED.json
+
+      - name: Run the skill harness
+        id: harness
+        run: |
+          status=pass
+          python3 scripts/validate_skills.py > /tmp/validate.json || status=fail
+          # Not `... | tail`: a pipeline reports the exit code of its LAST
+          # command, so piping to tail would swallow a test failure entirely.
+          if ! python3 -m unittest discover -s tests -v > /tmp/tests.txt 2>&1; then
+            status=fail
+          fi
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          cat /tmp/validate.json
+          tail -40 /tmp/tests.txt
+
+      - name: Check source anchors resolve
+        id: anchors
+        run: |
+          # A citation that 404s is not a weak citation, it is no citation.
+          # Dead means definitive (404/410 or no DNS record); a bot-hostile host
+          # is reported, not failed, so this cannot block on someone's WAF.
+          status=pass
+          python3 scripts/check_anchors.py > /tmp/anchors.json || status=fail
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          # Tolerate a crashed checker: report zeros rather than failing the
+          # step outright, since the status above already carries the verdict.
+          python3 - <<'EOF' >> "$GITHUB_OUTPUT"
+          import json
+          try:
+              d = json.load(open("/tmp/anchors.json"))
+              c, dead = d["counts"], d["dead"]
+          except Exception:
+              c, dead = {"checked": 0, "dead": 0, "unverified": 0}, []
+          print(f"checked={c['checked']}")
+          print(f"dead={c['dead']}")
+          print(f"unverified={c['unverified']}")
+          print("dead_urls=" + ("; ".join(x["url"] for x in dead) or "none"))
+          EOF
 
       - name: Read refresh summary
         id: summary
@@ -147,6 +259,9 @@ jobs:
       - name: Open pull request
         uses: peter-evans/create-pull-request@v6
         with:
+          # A PR opened with GITHUB_TOKEN does not trigger workflows, so its
+          # checks list stays empty. REFRESH_PAT, when set, makes checks run.
+          token: ${{ secrets.REFRESH_PAT || secrets.GITHUB_TOKEN }}
           branch: automation/weekly-skill-refresh
           delete-branch: true
           commit-message: "chore: weekly refresh of time-sensitive skill baselines"
@@ -159,9 +274,35 @@ jobs:
             method. **Review the diff before merging** — verify any changed
             legal/visa/crypto facts against their primary sources.
 
+            ## Pre-merge checks
+
+            These ran against the refreshed data in the job that opened this PR,
+            because a PR opened by automation may not trigger checks of its own.
+
+            | Check | Result |
+            |---|---|
+            | Skill harness (validator + tests) | **${{ steps.harness.outputs.status }}** |
+            | Source anchors resolve | **${{ steps.anchors.outputs.status }}** — ${{ steps.anchors.outputs.checked }} checked, ${{ steps.anchors.outputs.dead }} dead, ${{ steps.anchors.outputs.unverified }} unverified |
+            | Verification honesty | ${{ steps.audit.outputs.changed }} entries changed, ${{ steps.audit.outputs.attested }} re-verified unchanged, **${{ steps.audit.outputs.reverted }} unsupported dates rolled back** |
+
+            Dead anchors: ${{ steps.anchors.outputs.dead_urls }}
+
+            A `last_verified` date is kept only where the entry's content changed
+            or the agent attested it re-checked that entry. Anything else is
+            rolled back, so the field is not a blanket assertion.
+
             ---
 
             ${{ steps.summary.outputs.body }}
 
             ---
             🤖 Generated by the weekly-skill-refresh workflow (Gemini CLI).
+
+      - name: Fail the run if the refresh did not pass its checks
+        if: steps.harness.outputs.status == 'fail' || steps.anchors.outputs.status == 'fail'
+        run: |
+          # The PR is opened either way — a broken refresh is exactly what needs
+          # human eyes — but the Actions run goes red so it is not missed.
+          echo "harness=${{ steps.harness.outputs.status }} anchors=${{ steps.anchors.outputs.status }}"
+          echo "Dead anchors: ${{ steps.anchors.outputs.dead_urls }}"
+          exit 1

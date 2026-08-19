@@ -364,10 +364,10 @@
       "typical_check_or_prize": "Per-event prize pools",
       "cadence": "seasonal / periodic",
       "status": "open",
-      "url": "https://build.polkadot.network/",
-      "notes": "The official Build Polkadot Network site lists current hackathons and builder initiatives. Many official hackathons are hosted via DoraHacks or Encode Club.",
+      "url": "https://polkadot.network/development/",
+      "notes": "build.polkadot.network no longer resolves; use the official development hub. Many official hackathons are hosted via DoraHacks or Encode Club.",
       "sea_relevant": false,
-      "last_verified": "2026-08-17"
+      "last_verified": "2026-08-19"
     },
     {
       "id": "gitcoin",
@@ -620,10 +620,10 @@
       "typical_check_or_prize": "Per-event prizes (student competition)",
       "cadence": "cohort-based (annual)",
       "status": "cohort-based",
-      "url": "https://www.rmithackaventure.com/",
-      "notes": "Hack-A-Venture 2025 concluded in Jan 2026. The 2026 edition is expected to be announced in Q4 2026.",
+      "url": "https://www.rmit.edu.vn/",
+      "notes": "Hack-A-Venture 2025 concluded in Jan 2026. The 2026 edition is expected to be announced in Q4 2026. The dedicated rmithackaventure.com domain has lapsed; watch RMIT Vietnam and the FinTech Club channels for the next edition.",
       "sea_relevant": true,
-      "last_verified": "2026-08-17"
+      "last_verified": "2026-08-19"
     },
     {
       "id": "hust-bk-fintech-hackday",
@@ -668,10 +668,10 @@
       "typical_check_or_prize": "Large global prize pool (~$4M reported, 2025 edition)",
       "cadence": "event-based",
       "status": "closed",
-      "url": "https://hackathon.ssid.com.vn/",
-      "notes": "The last VietBUIDL Hackathon was in 2025. No 2026 edition has been announced.",
+      "url": "https://ssid.com.vn/",
+      "notes": "The last VietBUIDL Hackathon was in 2025. No 2026 edition has been announced, and the hackathon.ssid.com.vn subdomain no longer resolves; the organiser's main site is the remaining pointer.",
       "sea_relevant": true,
-      "last_verified": "2026-08-17"
+      "last_verified": "2026-08-19"
     }
   ]
 }

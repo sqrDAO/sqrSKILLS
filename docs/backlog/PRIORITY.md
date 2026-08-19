@@ -7,9 +7,11 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
+- `refresh-harness-verification` — give the weekly refresh real pre-merge
+  checks and make `last_verified` mean something.
 - `weekly-skill-refresh-2026-08-17-verification` — correct the dead anchors,
   misdated Decision 21, restored arrival-rollout claim, and silently deleted
-  caveats in PR #28 before it merges.
+  caveats in PR #28. Shipped in #28; awaiting approval to mark done.
 
 ## Recently shipped
 
