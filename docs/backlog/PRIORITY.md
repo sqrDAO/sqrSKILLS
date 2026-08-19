@@ -7,11 +7,13 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-- `refresh-harness-verification` — give the weekly refresh real pre-merge
-  checks and make `last_verified` mean something.
+_Empty._
 
 ## Recently shipped
 
+- `refresh-harness-verification` — gave the weekly refresh real pre-merge
+  checks, an anchor resolution check, and a `last_verified` audit that rolls
+  back dates the refresh did not earn (#29).
 - `weekly-skill-refresh-2026-08-17-verification` — corrected the dead anchors,
   misdated Decision 21, restored arrival-rollout claim, and silently deleted
   caveats in the 2026-08-17 automated refresh (#28).
