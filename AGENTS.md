@@ -118,10 +118,19 @@ python3 scripts/check_anchors.py --targets baseline   # or one dataset at a time
 
 The skills state legal, visa, and funding facts on the authority of a cited URL,
 so an anchor that no longer resolves silently converts a sourced claim into an
-unsourced one. `check_anchors.py` fails only on a definitive answer — HTTP 404/410
-or a hostname with no DNS record. A host that is alive but refuses the request
-(401/403/429, common behind Cloudflare) is reported as unverified, not dead, so a
-bot-hostile site cannot block a refresh.
+unsourced one. `check_anchors.py` fails only on a definitive answer — HTTP 404/410,
+a hostname with no DNS record, or a URL the checker refuses to fetch at all. A host
+that is alive but refuses the request (401/403/429, common behind Cloudflare), or
+whose certificate does not validate, is reported as unverified rather than dead, so
+a bot-hostile site or a TLS quirk cannot block a refresh. TLS verification stays on:
+an anchor we could not validate is never reported as `ok`.
+
+The URLs it fetches come from files an unattended agent writes from web pages, so
+they are untrusted. Only public `http`/`https` targets are fetched — other schemes
+(`urlopen` also speaks `file:`), hostless URLs, and loopback, private, link-local
+or reserved addresses are refused, and redirect targets are re-checked against the
+same rules. If a run reports `unverified` for everything with a `TLS:` status, the
+local CA bundle is the problem, not the sites: try `SSL_CERT_FILE=/etc/ssl/cert.pem`.
 
 ```bash
 python3 scripts/audit_refresh.py --before old.json --after new.json \

@@ -102,12 +102,14 @@ class AuditRefreshTests(unittest.TestCase):
             result["unsupported"],
             "opportunities",
         )
-        changed = [
-            line
-            for old, new in zip(original.splitlines(), self.after.read_text(encoding="utf-8").splitlines())
-            if old != new
-            for line in (old,)
-        ]
+        updated = self.after.read_text(encoding="utf-8")
+        before_lines = original.splitlines()
+        after_lines = updated.splitlines()
+        # zip() stops at the shorter input, so a rollback that added or removed a
+        # line would slip past a zip-only comparison.
+        self.assertEqual(len(before_lines), len(after_lines))
+        changed = [old for old, new in zip(before_lines, after_lines) if old != new]
+        self.assertTrue(changed, "expected at least one reverted date")
         self.assertTrue(all("last_verified" in line for line in changed), changed)
 
 
@@ -161,6 +163,73 @@ class CheckAnchorsTests(unittest.TestCase):
     def test_repository_anchors_are_collected_from_every_target(self) -> None:
         for target in check_anchors.TARGETS:
             self.assertTrue(check_anchors.collect(ROOT, (target,)), target)
+
+
+class AnchorTargetSafetyTests(unittest.TestCase):
+    """The URLs come from files an agent writes out of untrusted web pages."""
+
+    def reason(self, url: str) -> str:
+        with self.assertRaises(check_anchors.UnsafeTarget) as caught:
+            check_anchors.check_target(url)
+        return str(caught.exception)
+
+    def test_non_web_schemes_are_refused(self) -> None:
+        # urlopen speaks file:, so an unfiltered value would read the CI disk.
+        self.assertIn("unsupported-scheme", self.reason("file:///etc/passwd"))
+        self.assertIn("unsupported-scheme", self.reason("ftp://example.com/x"))
+        self.assertIn("unsupported-scheme", self.reason("data:text/plain,hi"))
+
+    def test_url_without_a_host_is_refused(self) -> None:
+        self.assertIn("no-host", self.reason("http:///nowhere"))
+
+    def test_loopback_and_private_targets_are_refused(self) -> None:
+        for url in (
+            "http://127.0.0.1/admin",
+            "http://localhost/admin",
+            "http://10.0.0.1/",
+            "http://192.168.1.1/",
+            "http://169.254.169.254/latest/meta-data/",  # cloud metadata
+        ):
+            self.assertIn("non-public-address", self.reason(url), url)
+
+    def test_unresolvable_host_is_reported_as_nxdomain(self) -> None:
+        self.assertEqual("NXDOMAIN", self.reason("https://no-such-host.invalid/x"))
+
+    def test_public_url_is_allowed(self) -> None:
+        check_anchors.check_target("https://example.com/a")  # must not raise
+
+    def test_classify_refuses_unsafe_targets_without_fetching(self) -> None:
+        verdict, status = check_anchors.classify("file:///etc/passwd", 1.0, 1)
+        self.assertEqual("dead", verdict)
+        self.assertIn("unsupported-scheme", str(status))
+
+    def test_redirect_handler_validates_its_target(self) -> None:
+        handler = check_anchors.ValidatingRedirectHandler()
+        with self.assertRaises(check_anchors.UnsafeTarget):
+            handler.redirect_request(None, None, 302, "Found", {}, "http://127.0.0.1/")
+
+    def test_collection_drops_non_web_urls_from_data(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "policy.json"
+            path.write_text(
+                json.dumps(
+                    {
+                        "_meta": {
+                            "sources": ["file:///etc/passwd", "https://ok.example/"],
+                            "source_registry": {"bad": {"url": "file:///etc/shadow"}},
+                        }
+                    }
+                ),
+                encoding="utf-8",
+            )
+            self.assertEqual(
+                ["https://ok.example/"], [u for u, _ in check_anchors.collect_visa(path)]
+            )
+
+    def test_tls_verification_is_not_disabled(self) -> None:
+        source = (ROOT / "scripts" / "check_anchors.py").read_text(encoding="utf-8")
+        self.assertNotIn("CERT_NONE", source)
+        self.assertNotIn("check_hostname = False", source)
 
 
 if __name__ == "__main__":

@@ -19,6 +19,7 @@ written to stderr so CI and other agents can consume the result reliably.
 from __future__ import annotations
 
 import argparse
+import ipaddress
 import json
 import re
 import socket
@@ -41,6 +42,11 @@ USER_AGENT = (
 TARGETS = ("baseline", "visa", "web3")
 
 
+def is_web_url(value: object) -> bool:
+    """Only http(s) values are anchors. urlopen also speaks file:, so filter here."""
+    return isinstance(value, str) and urllib.parse.urlsplit(value).scheme in ALLOWED_SCHEMES
+
+
 def collect_markdown(path: Path) -> list[tuple[str, str]]:
     if not path.is_file():
         return []
@@ -53,13 +59,11 @@ def collect_visa(path: Path) -> list[tuple[str, str]]:
         return []
     data = json.loads(path.read_text(encoding="utf-8"))
     meta = data.get("_meta", {})
-    urls: list[str] = [
-        url for url in meta.get("sources", []) if isinstance(url, str) and url.startswith("http")
-    ]
+    urls: list[str] = [url for url in meta.get("sources", []) if is_web_url(url)]
     registry = meta.get("source_registry", {})
     if isinstance(registry, dict):
         for entry in registry.values():
-            if isinstance(entry, dict) and isinstance(entry.get("url"), str):
+            if isinstance(entry, dict) and is_web_url(entry.get("url")):
                 urls.append(entry["url"])
     return [(url, str(path)) for url in dict.fromkeys(urls)]
 
@@ -71,7 +75,7 @@ def collect_web3(path: Path) -> list[tuple[str, str]]:
     urls = [
         entry["url"]
         for entry in data.get("opportunities", [])
-        if isinstance(entry, dict) and isinstance(entry.get("url"), str)
+        if isinstance(entry, dict) and is_web_url(entry.get("url"))
     ]
     return [(url, str(path)) for url in dict.fromkeys(urls)]
 
@@ -100,13 +104,61 @@ def collect(root: Path, targets: tuple[str, ...]) -> list[tuple[str, str]]:
 # and declining to serve us, which is not evidence about the document.
 DEFINITIVELY_GONE = (404, 410)
 
+ALLOWED_SCHEMES = ("http", "https")
+
+
+class UnsafeTarget(Exception):
+    """A URL we decline to fetch, with the reason as its message."""
+
+
+def resolved_addresses(host: str) -> list[str]:
+    return [info[4][0] for info in socket.getaddrinfo(host, None)]
+
+
+def check_target(url: str) -> None:
+    """Raise UnsafeTarget unless this is a public http(s) URL we may fetch.
+
+    The URLs come from data files an unattended agent writes from web pages it
+    fetched, so they are not trusted input. Two things matter: urlopen speaks
+    more than http (a `file:` URL would happily read the CI filesystem), and a
+    checker that follows arbitrary hosts is a way to probe whatever the runner
+    can reach.
+    """
+    parts = urllib.parse.urlsplit(url)
+    if parts.scheme not in ALLOWED_SCHEMES:
+        raise UnsafeTarget(f"unsupported-scheme:{parts.scheme or 'none'}")
+    if not parts.hostname:
+        raise UnsafeTarget("no-host")
+    try:
+        addresses = resolved_addresses(parts.hostname)
+    except socket.gaierror:
+        raise UnsafeTarget("NXDOMAIN") from None
+    except OSError:
+        return  # transport trouble, not a naming answer; let the fetch decide
+    for address in addresses:
+        ip = ipaddress.ip_address(address)
+        if ip.is_loopback or ip.is_private or ip.is_link_local or ip.is_reserved:
+            raise UnsafeTarget(f"non-public-address:{address}")
+
+
+class ValidatingRedirectHandler(urllib.request.HTTPRedirectHandler):
+    """Apply the same rules to redirect targets as to the original URL."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):  # noqa: D102
+        check_target(newurl)
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
+def build_opener() -> urllib.request.OpenerDirector:
+    return urllib.request.build_opener(ValidatingRedirectHandler)
+
 
 def hostname_resolves(url: str) -> bool:
     host = urllib.parse.urlsplit(url).hostname
     if not host:
         return False
     try:
-        socket.getaddrinfo(host, None)
+        resolved_addresses(host)
     except socket.gaierror:
         return False
     except OSError:
@@ -116,23 +168,39 @@ def hostname_resolves(url: str) -> bool:
 
 def classify(url: str, timeout: float, attempts: int) -> tuple[str, object]:
     """Return (verdict, status) where verdict is ok, dead, or unverified."""
-    # Some of these hosts present incomplete certificate chains; we are checking
-    # that a document still exists, not establishing a secure channel.
-    context = ssl.create_default_context()
-    context.check_hostname = False
-    context.verify_mode = ssl.CERT_NONE
+    try:
+        check_target(url)
+    except UnsafeTarget as exc:
+        # A citation we may not fetch is not a working citation. NXDOMAIN is the
+        # ordinary shape of link rot; the rest means the data file is wrong.
+        return "dead", str(exc)
+
+    # TLS verification stays on. An anchor we could not validate is reported as
+    # unverified rather than ok, so a broken or intercepted chain never passes
+    # for a live citation -- but it does not fail the run either, since that is
+    # a transport problem and not evidence the document is gone.
+    opener = build_opener()
     request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
 
     status: object = "unknown"
     for attempt in range(attempts):
         try:
-            with urllib.request.urlopen(request, timeout=timeout, context=context) as response:
+            with opener.open(request, timeout=timeout) as response:
                 return "ok", response.status
         except urllib.error.HTTPError as exc:
             status = exc.code
             if exc.code in DEFINITIVELY_GONE:
                 return "dead", exc.code
             # 401/403/429 and 5xx: the host answered, but not about the document.
+        except UnsafeTarget as exc:
+            return "dead", f"redirect-to-{exc}"
+        except urllib.error.URLError as exc:
+            reason = exc.reason
+            status = (
+                f"TLS:{type(reason).__name__}"
+                if isinstance(reason, ssl.SSLError)
+                else type(reason).__name__
+            )
         except Exception as exc:  # noqa: BLE001 - any transport failure
             status = type(exc).__name__
         if attempt + 1 < attempts:
