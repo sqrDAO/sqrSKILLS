@@ -108,6 +108,42 @@ SemVer, `$SKILL_DIR` script references, the README skill inventory, bundled JSON
 Python syntax, and backlog document shape. It prints JSON to stdout and diagnostics
 to stderr. CI runs the same commands in the `Skill Harness` check.
 
+Two further checks are network-dependent, so they are not in the default harness.
+Run them when you touch cited data:
+
+```bash
+python3 scripts/check_anchors.py                      # every cited URL still resolves
+python3 scripts/check_anchors.py --targets baseline   # or one dataset at a time
+```
+
+The skills state legal, visa, and funding facts on the authority of a cited URL,
+so an anchor that no longer resolves silently converts a sourced claim into an
+unsourced one. `check_anchors.py` fails only on a definitive answer — HTTP 404/410,
+a hostname with no DNS record, or a URL the checker refuses to fetch at all. A host
+that is alive but refuses the request (401/403/429, common behind Cloudflare), or
+whose certificate does not validate, is reported as unverified rather than dead, so
+a bot-hostile site or a TLS quirk cannot block a refresh. TLS verification stays on:
+an anchor we could not validate is never reported as `ok`.
+
+The URLs it fetches come from files an unattended agent writes from web pages, so
+they are untrusted. Only public `http`/`https` targets are fetched — other schemes
+(`urlopen` also speaks `file:`), hostless URLs, and loopback, private, link-local
+or reserved addresses are refused, and redirect targets are re-checked against the
+same rules. If a run reports `unverified` for everything with a `TLS:` status, the
+local CA bundle is the problem, not the sites: try `SSL_CERT_FILE=/etc/ssl/cert.pem`.
+
+```bash
+python3 scripts/audit_refresh.py --before old.json --after new.json \
+  --attested REFRESH_VERIFIED.json
+```
+
+`audit_refresh.py` enforces what `last_verified` means. A date survives only where
+the entry's content also changed or the refresh attested it re-checked that entry;
+any other bump is rolled back. This exists because the 2026-08-17 refresh dated 41
+roster entries as verified that day, three of which pointed at domains that no
+longer had DNS records. The weekly refresh workflow runs both automatically before
+opening its PR.
+
 ## Backlog Workflow
 
 No implementation work without a spec. Every task uses
