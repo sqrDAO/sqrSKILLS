@@ -18,14 +18,14 @@ something.
 - `docs/backlog/PRIORITY.md` (edited) — track this spec
 
 ## Acceptance
-- [ ] A PR opened by the refresh reports harness, anchor, and honesty results in its body
-- [ ] A failing test in a refresh turns the Actions run red instead of passing silently
-- [ ] `REFRESH_PAT`, when set, makes the PR trigger `Repository Checks` normally
-- [ ] Anchors fail only on 404/410 or NXDOMAIN; 403 and timeouts report as unverified
-- [ ] A `last_verified` bump survives only with a content change or an attestation
-- [ ] Reverting a date leaves the rest of the file byte-identical
-- [ ] The three roster entries whose domains no longer resolve point at live pages
-- [ ] NOT: make the default `Skill Harness` check depend on the network
+- [x] A PR opened by the refresh reports harness, anchor, and honesty results in its body
+- [x] A failing test in a refresh turns the Actions run red instead of passing silently
+- [x] `REFRESH_PAT`, when set, makes the PR trigger `Repository Checks` normally
+- [x] Anchors fail only on 404/410 or NXDOMAIN; 403 and timeouts report as unverified
+- [x] A `last_verified` bump survives only with a content change or an attestation
+- [x] Reverting a date leaves the rest of the file byte-identical
+- [x] The three roster entries whose domains no longer resolve point at live pages
+- [x] NOT: make the default `Skill Harness` check depend on the network
 
 ## Verify
 - `python3 scripts/validate_skills.py` → JSON with `"ok": true`
@@ -43,3 +43,8 @@ restores real PR checks.
 Reverting unattested dates rather than only warning is deliberate: an unattended
 weekly job that merely warns produces warnings nobody reads, and by then the
 wrong date has shipped.
+Completion approved by the user on 19 August 2026. Shipped in #29 (merged as
+c82d810), including four review findings fixed and verified: a swallowed audit
+failure, shell interpolation of untrusted URLs, disabled TLS verification, and a
+zip() comparison that truncated. `REFRESH_PAT` remains optional and unset; the
+inline checks and the commit status added afterwards cover the PR page without it.
