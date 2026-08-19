@@ -33,7 +33,7 @@ npx skills add sqrdao/sqrSKILLS@business-model-to-market
 - [**list-telegram-chats**](./list-telegram-chats/) — List Telegram groups and private chats that have interacted with the agent's Telegram bot. Reads local session state first.
 - [**nearby-places-search**](./nearby-places-search/) — Real-time place search via Google Places API. Returns results with addresses, ratings, and Maps links. Requires `GOOGLE_PLACES_API_KEY`.
 - [**llm-wiki**](./llm-wiki/) — Personal compounding knowledge base. Ingest sources, query compiled knowledge, and keep pages consistent. Based on [Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f).
-- [**vietnam-visa-check**](./vietnam-visa-check/) — Vietnam visa and entry requirements for any nationality. Fully offline — policy data is bundled (arrival-policy corrections verified 14 August 2026).
+- [**vietnam-visa-check**](./vietnam-visa-check/) — Vietnam visa and entry requirements for any nationality. Fully offline — policy data is bundled (arrival-policy corrections verified 14 August 2026; policy data refreshed 17 August 2026).
 - [**vietnam-crypto-radar**](./vietnam-crypto-radar/) — Up-to-date intelligence briefings on Vietnam's crypto/digital-asset regulation: laws, decrees, tax, the pilot exchange market, and enforcement. Diffs against a dated baseline so you always know what's new.
 - [**telegram-group-summary**](./telegram-group-summary/) — Fetch messages from a Telegram group and produce a structured summary: topics, decisions, action items, and tone. Requires `TELEGRAM_BOT_TOKEN`.
 - [**luma-calendar**](./luma-calendar/) — Manage Luma events and guests via the Luma API: list events, create events, view registrants, and add guests. Requires `LUMA_API_KEY`.
