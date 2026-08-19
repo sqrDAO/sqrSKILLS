@@ -91,11 +91,11 @@
       "regions": ["global", "sea", "remote"],
       "typical_check_or_prize": "$500,000",
       "cadence": "rolling",
-      "status": "open",
+      "status": "rolling",
       "url": "https://www.yzilabs.com/",
-      "notes": "EASY Residency Season 5 applications are open until September 13, 2026.",
+      "notes": "EASY Residency runs year-round with rolling entry; founders can apply and interview at any time. Season 4 ran in Bhutan. A reported Season 5 deadline of September 13, 2026 could not be confirmed against YZi Labs' own channels — check the site before relying on any cutoff date.",
       "sea_relevant": true,
-      "last_verified": "2026-08-17"
+      "last_verified": "2026-08-03"
     },
     {
       "id": "base-batches",

@@ -7,7 +7,9 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-_Empty._
+- `weekly-skill-refresh-2026-08-17-verification` — correct the dead anchors,
+  misdated Decision 21, restored arrival-rollout claim, and silently deleted
+  caveats in PR #28 before it merges.
 
 ## Recently shipped
 

@@ -220,6 +220,16 @@ class PolicyFactTest(unittest.TestCase):
         self.assertIn("no nationwide rollout confirmed", card["status"])
         self.assertNotIn("five international airports", json.dumps(self.policy))
 
+    def test_decree_286_is_scoped_to_inter_agency_coordination(self):
+        source = self.policy["_meta"]["source_registry"]["decree_286_2026_nd_cp"]
+        self.assertEqual(source["tier"], 1)
+        # The URL first cited for this decree 404'd, and the decree was used to
+        # support a PAI airport-expansion claim it says nothing about.
+        self.assertNotIn("new-rules-on-coordination", source["url"])
+        self.assertTrue(
+            any("does not alter visa requirements" in fact for fact in source["verified_facts"])
+        )
+
     def test_timor_leste_uses_the_primary_source_signing_date(self):
         entries = self.policy["no_visa_exemption_notable_countries"]["entries"]
         timor = next(entry for entry in entries if entry["iso_alpha2"] == "TL")
