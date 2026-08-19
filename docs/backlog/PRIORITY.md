@@ -9,12 +9,12 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 - `refresh-harness-verification` — give the weekly refresh real pre-merge
   checks and make `last_verified` mean something.
-- `weekly-skill-refresh-2026-08-17-verification` — correct the dead anchors,
-  misdated Decision 21, restored arrival-rollout claim, and silently deleted
-  caveats in PR #28. Shipped in #28; awaiting approval to mark done.
 
 ## Recently shipped
 
+- `weekly-skill-refresh-2026-08-17-verification` — corrected the dead anchors,
+  misdated Decision 21, restored arrival-rollout claim, and silently deleted
+  caveats in the 2026-08-17 automated refresh (#28).
 - `weekly-skill-refresh-2026-08-10` — reconciled PR #26 with current `main`,
   retaining its Web3 refresh without regressing the visa corrections in #27.
 - `vietnam-visa-policy-verification-corrections` — corrected blanket health and

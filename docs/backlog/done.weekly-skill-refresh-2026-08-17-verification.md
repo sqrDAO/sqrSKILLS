@@ -18,16 +18,16 @@ by PR #25.
 - `docs/backlog/PRIORITY.md` (edited) — track this spec
 
 ## Acceptance
-- [ ] `DIGITAL_ARRIVAL_CARD` states the Tan Son Nhat-only pilot; the airport-expansion claim is labelled unconfirmed
-- [ ] Every source anchor added by the refresh resolves, or its claim is dropped
-- [ ] `Quyết định 21/2026/QĐ-TTg` is dated 30 Apr 2026 signed / 1 Jul 2026 effective
-- [ ] Blockchain is described as one item in Group 1, not a standalone national priority
-- [ ] The caveats added by PR #25 are present: 66.23 scope, anchor-resolution rule, single-source promotion rule
-- [ ] Material legal qualifiers survive: Decree 254 high-tax-risk carve-out, Decree 284 one-half rule and transition warning
-- [ ] The unconfirmed Securities Law claim is recorded as UNVERIFIED, not stated as fact
-- [ ] YZi Labs is not advertising an unsourced application cutoff
-- [ ] Regression tests fail if any of the above regress
-- [ ] NOT: assert a PAI rollout beyond Tan Son Nhat on Tier-3 commercial visa sites
+- [x] `DIGITAL_ARRIVAL_CARD` states the Tan Son Nhat-only pilot; the airport-expansion claim is labelled unconfirmed
+- [x] Every source anchor added by the refresh resolves, or its claim is dropped
+- [x] `Quyết định 21/2026/QĐ-TTg` is dated 30 Apr 2026 signed / 1 Jul 2026 effective
+- [x] Blockchain is described as one item in Group 1, not a standalone national priority
+- [x] The caveats added by PR #25 are present: 66.23 scope, anchor-resolution rule, single-source promotion rule
+- [x] Material legal qualifiers survive: Decree 254 high-tax-risk carve-out, Decree 284 one-half rule and transition warning
+- [x] The unconfirmed Securities Law claim is recorded as UNVERIFIED, not stated as fact
+- [x] YZi Labs is not advertising an unsourced application cutoff
+- [x] Regression tests fail if any of the above regress
+- [x] NOT: assert a PAI rollout beyond Tan Son Nhat on Tier-3 commercial visa sites
 
 ## Verify
 - `python3 scripts/validate_skills.py` → JSON with `"ok": true`
@@ -44,3 +44,7 @@ Saigon Giai Phong (Conviction 2026), VietnamPlus (combined AML bill, 5 Aug 2026)
 The refresh workflow opens PRs as `github-actions`, so `Repository Checks` sits at
 `action_required` and never runs. The failing test here was invisible on the PR page.
 Worth fixing separately so the harness is not advisory.
+Completion approved by the user on 19 August 2026. Shipped in #28 (merged as
+e88f746); every acceptance item re-verified against merged `main` before the
+rename. The follow-up work to stop this recurring is tracked separately in
+`refresh-harness-verification`.
