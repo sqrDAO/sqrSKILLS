@@ -113,6 +113,68 @@ class AuditRefreshTests(unittest.TestCase):
         self.assertTrue(all("last_verified" in line for line in changed), changed)
 
 
+class AuditDirectionTests(unittest.TestCase):
+    """A lowered date withdraws a claim; only a raised one has to earn its keep."""
+
+    def _audit(self, before_date: str, after_date: str, attested: set[str] = frozenset()) -> dict:
+        before = {"opportunities": [{"id": "e", "notes": "same", "last_verified": before_date}]}
+        after = {"opportunities": [{"id": "e", "notes": "same", "last_verified": after_date}]}
+        return audit_refresh.audit(before, after, set(attested), "opportunities")
+
+    def test_lowered_date_is_never_unsupported(self) -> None:
+        # The 2026-08-24 correction pass lowered five dates the refresh had not
+        # earned. Reverting those would restore the false dates this script exists
+        # to stop.
+        result = self._audit("2026-08-24", "2026-08-17")
+        self.assertEqual([], result["unsupported"])
+        self.assertEqual(["e"], [i["id"] for i in result["lowered"]])
+
+    def test_raised_date_still_needs_support(self) -> None:
+        result = self._audit("2026-08-17", "2026-08-24")
+        self.assertEqual(["e"], [i["id"] for i in result["unsupported"]])
+        self.assertEqual([], result["lowered"])
+
+    def test_raised_date_is_supported_by_attestation(self) -> None:
+        result = self._audit("2026-08-17", "2026-08-24", {"e"})
+        self.assertEqual([], result["unsupported"])
+        self.assertEqual(["e"], result["attested_only"])
+
+    def test_unparseable_dates_fall_through_to_needing_support(self) -> None:
+        # "less than" on free text would order these arbitrarily, so they are
+        # treated as raised and must earn their keep.
+        for before, after in (
+            ("2026-08-24", "August 2026"),
+            ("sometime", "2026-08-17"),
+            ("2026-08-24", "2026-8-17"),
+        ):
+            with self.subTest(before=before, after=after):
+                result = self._audit(before, after)
+                self.assertEqual([], result["lowered"])
+                self.assertEqual(["e"], [i["id"] for i in result["unsupported"]])
+
+    def test_missing_date_field_is_not_read_as_lowered(self) -> None:
+        before = {"opportunities": [{"id": "e", "notes": "same", "last_verified": "2026-08-24"}]}
+        after = {"opportunities": [{"id": "e", "notes": "same"}]}
+        result = audit_refresh.audit(before, after, set(), "opportunities")
+        self.assertEqual([], result["lowered"])
+        self.assertEqual(["e"], [i["id"] for i in result["unsupported"]])
+
+    def test_lowered_date_survives_the_reverting_path(self) -> None:
+        # End to end: the file must come back byte-identical.
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            before_doc = {"opportunities": [{"id": "e", "notes": "same", "last_verified": "2026-08-24"}]}
+            after_doc = {"opportunities": [{"id": "e", "notes": "same", "last_verified": "2026-08-17"}]}
+            before = base / "before.json"
+            after = base / "after.json"
+            before.write_text(json.dumps(before_doc, indent=2), encoding="utf-8")
+            after.write_text(json.dumps(after_doc, indent=2), encoding="utf-8")
+            original = after.read_bytes()
+            result = audit_refresh.audit(before_doc, after_doc, set(), "opportunities")
+            audit_refresh.revert(after, before_doc, result["unsupported"], "opportunities")
+            self.assertEqual(original, after.read_bytes())
+
+
 class CheckAnchorsTests(unittest.TestCase):
     def test_collects_backticked_urls_from_markdown(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

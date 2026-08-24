@@ -7,7 +7,9 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-_Empty._
+1. `refresh-direction-and-da-nang-coverage` — stop `audit_refresh.py`
+   re-inflating a deliberately lowered `last_verified`, and make the weekly
+   run sweep Da Nang's controlled trials.
 
 ## Recently shipped
 

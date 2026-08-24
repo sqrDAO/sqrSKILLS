@@ -14,9 +14,17 @@ it actually re-checked against a live source:
 
 This command compares the working tree against the pre-refresh state and:
 
-  - keeps a bumped date where the entry's content also changed (self-evident),
-  - keeps a bumped date where the id is attested,
-  - reverts a bumped date that is neither, since nothing supports it.
+  - keeps a raised date where the entry's content also changed (self-evident),
+  - keeps a raised date where the id is attested,
+  - reverts a raised date that is neither, since nothing supports it,
+  - always keeps a LOWERED date, which needs no support at all.
+
+Direction matters, and only one direction is an abuse. Raising `last_verified`
+asserts a fresh check; lowering it withdraws one. A correction pass that finds a
+date was never earned lowers it deliberately, so treating that like an unearned
+bump would revert the correction and restore the false date -- which is what this
+script exists to prevent. Dates that are not plain ISO `YYYY-MM-DD` cannot be
+ordered, so they are treated as raised and must earn their keep.
 
 Reverting rather than merely reporting is deliberate: an unattended job that
 only warns produces warnings nobody reads, and the wrong date has already
@@ -31,10 +39,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
 DATE_FIELD = "last_verified"
+ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
 def load(path: Path) -> dict:
@@ -53,12 +63,27 @@ def content_without_date(entry: dict) -> dict:
     return {key: value for key, value in entry.items() if key != DATE_FIELD}
 
 
+def is_lowered(previous: object, current: object) -> bool:
+    """True when the date moved backwards, which claims less and needs no support.
+
+    Only comparable ISO dates can be ordered. Anything else -- a missing field, a
+    free-text date, a format change -- is not treated as lowered, so it falls
+    through to the rules that require support.
+    """
+    if not (isinstance(previous, str) and isinstance(current, str)):
+        return False
+    if not (ISO_DATE.match(previous) and ISO_DATE.match(current)):
+        return False
+    return current < previous
+
+
 def audit(before: dict, after: dict, attested: set[str], list_key: str) -> dict:
     old = index_by_id(before, list_key)
     new = index_by_id(after, list_key)
 
     changed: list[str] = []
     attested_only: list[str] = []
+    lowered: list[dict[str, str]] = []
     unsupported: list[dict[str, str]] = []
 
     for entry_id, entry in new.items():
@@ -67,6 +92,17 @@ def audit(before: dict, after: dict, attested: set[str], list_key: str) -> dict:
             changed.append(entry_id)  # a new entry is verified by construction
             continue
         if entry.get(DATE_FIELD) == previous.get(DATE_FIELD):
+            continue
+        if is_lowered(previous.get(DATE_FIELD), entry.get(DATE_FIELD)):
+            # Withdrawing a freshness claim needs no evidence. Reverting this
+            # would restore a date the refresh never earned.
+            lowered.append(
+                {
+                    "id": entry_id,
+                    "from": str(previous.get(DATE_FIELD)),
+                    "to": str(entry.get(DATE_FIELD)),
+                }
+            )
             continue
         if content_without_date(entry) != content_without_date(previous):
             changed.append(entry_id)
@@ -80,7 +116,12 @@ def audit(before: dict, after: dict, attested: set[str], list_key: str) -> dict:
                     "to": str(entry.get(DATE_FIELD)),
                 }
             )
-    return {"changed": changed, "attested_only": attested_only, "unsupported": unsupported}
+    return {
+        "changed": changed,
+        "attested_only": attested_only,
+        "lowered": lowered,
+        "unsupported": unsupported,
+    }
 
 
 def revert(path: Path, before: dict, unsupported: list[dict[str, str]], list_key: str) -> None:
@@ -125,6 +166,13 @@ def main() -> int:
     after = load(args.after)
     result = audit(before, after, attested, args.list_key)
 
+    for item in result["lowered"]:
+        print(
+            f"LOWERED {item['id']}: {DATE_FIELD} {item['from']} -> {item['to']} "
+            "kept as-is; withdrawing a freshness claim needs no support",
+            file=sys.stderr,
+        )
+
     for item in result["unsupported"]:
         print(
             f"UNSUPPORTED {item['id']}: {DATE_FIELD} {item['from']} -> {item['to']} "
@@ -144,9 +192,11 @@ def main() -> int:
                 "counts": {
                     "changed": len(result["changed"]),
                     "attested_only": len(result["attested_only"]),
+                    "lowered": len(result["lowered"]),
                     "unsupported": len(result["unsupported"]),
                 },
                 "reverted": reverted,
+                "lowered": result["lowered"],
                 "unsupported": result["unsupported"],
             },
             indent=2,

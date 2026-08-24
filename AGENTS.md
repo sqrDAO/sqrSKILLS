@@ -137,9 +137,12 @@ python3 scripts/audit_refresh.py --before old.json --after new.json \
   --attested REFRESH_VERIFIED.json
 ```
 
-`audit_refresh.py` enforces what `last_verified` means. A date survives only where
-the entry's content also changed or the refresh attested it re-checked that entry;
-any other bump is rolled back. This exists because the 2026-08-17 refresh dated 41
+`audit_refresh.py` enforces what `last_verified` means. A RAISED date survives only
+where the entry's content also changed or the refresh attested it re-checked that
+entry; any other bump is rolled back. A LOWERED date always survives — withdrawing a
+freshness claim needs no evidence, and reverting it would restore a date the refresh
+never earned. Dates that are not plain ISO `YYYY-MM-DD` cannot be ordered, so they
+count as raised and must earn their keep. This exists because the 2026-08-17 refresh dated 41
 roster entries as verified that day, three of which pointed at domains that no
 longer had DNS records. The weekly refresh workflow runs both automatically before
 opening its PR.

@@ -97,6 +97,29 @@ jobs:
                  instruction to make room for new material. Those were added by
                  earlier correction passes. If you believe one is wrong, say so
                  in the summary and leave it in place.
+               - Sweep Da Nang's municipal controlled-trial regime every run,
+                 not just the national instruments. The city portal
+                 (danang.gov.vn) is the Tier-1 source; sources.md carries the
+                 search strings. Check whether any of the six known trials —
+                 1181/QĐ-UBND (Basal Pay), 2895/QĐ-UBND (MIMO), and
+                 3809–3812/QĐ-UBND (PayD, TORA, Umi Pay, Money X-Border) — has
+                 launched user-facing services, published operating limits,
+                 produced results, been extended, or been suspended, and whether
+                 any NEW trial has been licensed.
+               - Six is a floor, not a total. The regime covers new technology
+                 generally, not only crypto, and the 2026 first-batch approvals
+                 were never enumerated. Do not write a count that implies you
+                 have seen them all. Four applications were filed and are
+                 undecided — VON, G-Flow, GM Services, Dinogo — so check whether
+                 each was approved, rejected, or is still pending, and say which.
+               - Nghị quyết 20/2026/NQ-HĐND rests on ONE Tier-2 anchor and is
+                 labelled REPORTED / SINGLE-SOURCE. Promote it only if you find a
+                 Tier-1 text or a second independent Tier-2 source this run. A
+                 same-numbered resolution exists in another province on an
+                 unrelated subject, so match the issuing council, not the number.
+               - A trial approval is municipal. Never describe one as a national
+                 CASP or exchange licence, and never let it imply that paying
+                 merchants in crypto became lawful nationwide.
                - If (and only if) you confirm real changes, update
                  references/baseline.md in place and set a fresh `LAST VERIFIED`
                  date.
@@ -113,7 +136,11 @@ jobs:
                  source THIS RUN. Do not bump it on entries you did not
                  actually re-check — a blanket bump makes the whole roster's
                  freshness meaningless. A later step rolls back any date you
-                 bump without either changing the entry or attesting it below.
+                 RAISE without either changing the entry or attesting it below.
+                 Lowering a date is always allowed and is never rolled back: if
+                 you find an entry carrying a freshness claim nobody earned, move
+                 it back to the date that was actually verified and say so in the
+                 summary.
                - If an entry's `url` no longer loads, say so in its `notes` and
                  replace it with the program's current page. A roster entry
                  pointing at a dead domain is worse than no entry.
