@@ -7,13 +7,14 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-1. `vietnam-crypto-radar-da-nang-trials` — record Da Nang's municipal
-   controlled-trial regime: the four 22 August 2026 approvals, the two earlier
-   trials still running, the resolution they sit under, and the applications
-   still undecided.
+_Empty._
 
 ## Recently shipped
 
+- `vietnam-crypto-radar-da-nang-trials` — recorded Da Nang's municipal
+  controlled-trial regime: the enabling resolution, the four 22 August 2026
+  approvals, the two earlier trials still running, and the applications filed
+  but not decided. Supersedes #32 (#35).
 - `weekly-skill-refresh-2026-08-24-verification` — corrected the 13 data
   defects merged in #31: `status` values contradicting their own notes,
   deleted deadlines and warnings, and dates bumped onto unchecked claims.

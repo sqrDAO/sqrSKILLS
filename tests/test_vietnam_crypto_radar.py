@@ -113,6 +113,21 @@ class BaselineFactTest(unittest.TestCase):
         self.assertIn("Dragon Lab", self.text)
         self.assertIn("AlphaTrue Solutions", self.text)
 
+    def test_no_unqualified_first_crypto_trial_claim(self):
+        # Basal Pay (Aug 2025) predates MIMO (Dec 2025) in the same city, so neither
+        # is "the first" without a qualifier. Each operator's claim is narrower than
+        # it sounds and must stay attributed.
+        self.assertNotIn("the first such licence in the country", self.text)
+        self.assertNotIn("the first controlled-trial licence of its kind in Vietnam", self.text)
+        self.assertIn("Dragon Lab\ndescribes MIMO as the first licensed-trial solution", self.text)
+        self.assertIn("Travel Rule", self.text)
+
+    def test_da_nang_trial_count_is_stated_as_a_floor_not_a_total(self):
+        # The regime is not crypto-specific and the 2026 first-batch approvals were
+        # never enumerated, so a bare count would repeat the undercount this pass fixed.
+        self.assertIn("floor", self.text)
+        self.assertNotIn("by August 2026 six such trials are live", self.text)
+
     def test_da_nang_records_the_resolution_the_trials_sit_under(self):
         # The individual QĐ-UBND approvals are downstream of this resolution.
         self.assertIn("20/2026/NQ-HĐND", self.text)
