@@ -34,7 +34,7 @@ which is exactly the hole a rewritten note walks through.
 - [x] The QĐ 1624 row states the signing date and that no effective date is in the anchor
 - [x] Every corrected claim was re-checked against the program's own channel on 24 Aug 2026
 - [x] The new tests fail against merged `main` (9/11 roster, 3/3 baseline) and pass here
-- [ ] NOT: revert to last week's text where this week's claim turned out to be right (YZi Labs)
+- [x] NOT: revert to last week's text where this week's claim turned out to be right (YZi Labs)
 
 ## Verify
 - `python3 scripts/validate_skills.py` → JSON with `"ok": true`
@@ -59,3 +59,13 @@ Two harness sharp edges found while verifying, worth separate specs:
   base-batches, antler-web3, ethglobal). Correct rollbacks, surprising side effect.
 - `check_anchors.py` reported 67/67 `TLS:SSLCertVerification` until `SSL_CERT_FILE` was
   set. AGENTS.md documents the workaround; the script could fall back on its own.
+
+Completion approved by the user on 24 August 2026. Shipped in #33 (merged as
+5860f75); every acceptance item re-verified against merged `main` before the
+rename, alongside 83/83 tests and `validate_skills.py` clean. The corrections
+themselves went in as 608f04e and their regression tests as 424b7f1.
+
+The two harness sharp edges in the Notes above are not fixed here and remain
+open work. The `audit_refresh.py` direction issue has a clock on it: this pass
+lowered five `last_verified` dates, which the next weekly refresh will read as
+unsupported.
