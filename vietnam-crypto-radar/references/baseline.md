@@ -6,7 +6,8 @@
 > Verification note: the 24 August 2026 sweep added Quyết định số 1624/QĐ-TTg.
 > The 17 August 2026 sweep added Decree 296/2026/NĐ-CP and
 > Quyết định 21/2026/QĐ-TTg. Anchors carry the date they were last confirmed to
-> resolve; anchors without a 24 August marker were last checked on 17 August 2026.
+> resolve; anchors carrying no date marker at all were last checked on 3 August 2026
+> and are due for a re-check.
 > Per `sources.md`, a finding is stated as fact only when a Tier-1 source or a named law
 > firm confirms it, or two independent Tier-2 sources corroborate it; otherwise it is
 > labelled DRAFT / PROPOSED / RUMORED. Tier-2 means legal or analyst publishers as well as
@@ -45,7 +46,7 @@ Vietnam's confirmed regulatory anchor is the **Law on Digital Technology Industr
 | **Decree 164/2026/NĐ-CP** | Mandates declaration of digital assets (>= VND 150M) for public officials. | ENACTED / CONFIRMED | 1 Jul 2026 |
 | **Decree 296/2026/NĐ-CP** | Amends Decree 168/2025/NĐ-CP on business registration to require beneficial-ownership declaration (>= 25% of charter capital or voting shares). Economy-wide, not crypto-specific — the text names no crypto assets or VASPs; relevant here as the registration-layer AML control future CASPs will sit under. | ENACTED / CONFIRMED | 23 Jul 2026 |
 | **Quyết định 21/2026/QĐ-TTg** | Promulgates the Strategic Technology and Strategic Technology Product catalogues; blockchain (chuỗi khối) appears inside Group 1 (digital technology) alongside AI, big data, cloud, edge, and IoT — it is one line item in that group, not a standalone national priority. Replaces Decision 1131/QĐ-TTg. Signed 30 Apr 2026. Policy signal only; creates no crypto-asset obligations. | ENACTED / CONFIRMED | 1 Jul 2026 |
-| **Quyết định số 1624/QĐ-TTg** | Amends the national Intellectual Property Strategy to 2030, explicitly including "digital assets" and "blockchain" as areas for IP rights protection. Signed 21 Aug 2026. Policy signal only; creates no direct crypto-asset market obligations. | ENACTED / CONFIRMED | 21 Aug 2026 |
+| **Quyết định số 1624/QĐ-TTg** | Amends Quyết định 1068/QĐ-TTg (22 Aug 2019) approving the Intellectual Property Strategy to 2030. Adds a task to "nghiên cứu, xử lý vấn đề bảo hộ các đối tượng quyền sở hữu trí tuệ mới, phi truyền thống như dữ liệu lớn (big data), tài sản số, công nghệ chuỗi khối (blockchain)" — i.e. digital assets and blockchain named as new, non-traditional IP subject matter to be studied. Signed 21 Aug 2026 by Deputy PM Hồ Quốc Dũng. Policy signal only; creates no direct crypto-asset market obligations. | ENACTED / CONFIRMED | Signed 21 Aug 2026; no separate effective date stated in the anchor |
 | **Decree 284/2026/NĐ-CP** | Administrative violations and penalties for crypto assets and the pilot market. | ENACTED / CONFIRMED | 1 Sep 2026 |
 
 
@@ -130,6 +131,7 @@ confirmed on 3 August 2026 and are due for a re-check.
 - **Government News — Quyết định 21/2026/QĐ-TTg, 10 strategic technology groups from 1 Jul 2026 (Tier 1):** `https://baochinhphu.vn/10-nhom-cong-nghe-chien-luoc-tu-1-7-2026-102260506122616258.htm` — confirms blockchain sits inside Group 1 (digital technology). (Confirmed 17 Aug 2026)
 - **Government legal documents DB — Quyết định 21/2026/QĐ-TTg (Tier 1):** `https://vanban.chinhphu.vn/?docid=218002&pageid=27160` — signed 30 Apr 2026, effective 1 Jul 2026. (Confirmed 17 Aug 2026)
 - **Government legal documents DB — Quyết định số 1624/QĐ-TTg (Tier 1):** `https://vanban.chinhphu.vn/?docid=219159` (Confirmed 24 Aug 2026)
+- **Government News — Quyết định số 1624/QĐ-TTg, IP Strategy amendment (Tier 1):** `https://baochinhphu.vn/tang-cuong-che-tai-xu-ly-cac-hanh-vi-xam-pham-quyen-vi-pham-phap-luat-ve-so-huu-tri-tue-102260822145627937.htm` — carries the "dữ liệu lớn (big data), tài sản số, công nghệ chuỗi khối (blockchain)" wording and the 21 Aug 2026 signing; states no effective date. (Confirmed 24 Aug 2026)
 - **Government legal documents DB — Circular 15/2026/TT-BTC (Tier 1):** `https://vanban.chinhphu.vn/?docid=217123&pageid=27160`
 - **Government legal documents DB — Decree 253/2026/NĐ-CP (Tier 1):** `https://vanban.chinhphu.vn/?classid=1&docid=218684&orggroupid=2&pageid=27160`
 - **Government legal documents DB — Circular 87/2026/TT-BTC (Tier 1):** `https://vanban.chinhphu.vn/?classid=1&docid=218772&orggroupid=4&pageid=27160`
