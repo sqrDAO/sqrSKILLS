@@ -97,10 +97,13 @@ Builder-facing and direct. Crypto-native register is fine and expected (GM, BUID
 - "What's new with VN crypto?" → full diff run, output briefing.
 - "Is [X] legal in Vietnam now?" → load baseline, answer with the property/payment/tradable distinction, verify currency of the point, cite the instrument.
 - "Status of the pilot / exchange licenses?" → sweep Tier-1 + Tier-2, fill Market & licensing section.
-- "What is happening in the Da Nang crypto sandbox?" → load `baseline.md` for the four
-  local controlled-trial decisions and `adoption.md` for the crypto→VND use cases. State
-  explicitly that a Da Nang technology-trial approval is not a national CASP/exchange
-  license and does not legalize direct crypto merchant payments nationwide.
+- "What is happening in the Da Nang crypto sandbox?" → load `baseline.md` for all six
+  local controlled-trial decisions — 1181 (Basal Pay) and 2895 (MIMO), both still running,
+  plus 3809–3812 from 22 Aug 2026 — and `adoption.md` for the crypto→VND use cases. Six is
+  a floor, not a total: the regime is not crypto-specific and earlier 2026 batches are not
+  enumerated, so check for newer approvals before answering. State explicitly that a Da Nang
+  technology-trial approval is not a national CASP/exchange license and does not legalize
+  direct crypto merchant payments nationwide.
 - "Vietnam crypto tax?" → Tax corner; trace the rule through Law 109/2025/QH15, Decree 253/2026/NĐ-CP, and Circulars 32, 41 & 87/2026/TT-BTC; include Decree 254/2026/NĐ-CP when e-invoicing is relevant; flag the individual-PIT withholding mechanism's operational status.
 - "What are the penalties / can I use an unlicensed exchange?" → load baseline, verify Decree 284/2026/NĐ-CP is in force for the date asked, distinguish organization and individual fine ceilings, and state whether the conduct falls inside the pilot rules before quoting a penalty.
 - "Brief a partner/investor on VN digital assets" → full template, lead with the asset-recognition + pilot story, keep it tight.

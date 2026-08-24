@@ -13,6 +13,18 @@ ROOT = Path(__file__).resolve().parents[1]
 BASELINE = ROOT / "vietnam-crypto-radar" / "references" / "baseline.md"
 
 
+SKILL = ROOT / "vietnam-crypto-radar" / "SKILL.md"
+
+
+class SkillRoutingTest(unittest.TestCase):
+    def test_da_nang_routing_covers_every_trial_the_baseline_documents(self):
+        # The routing line said "the four local controlled-trial decisions" after the
+        # baseline grew to six, so a sandbox answer could silently omit Basal Pay and MIMO.
+        text = SKILL.read_text(encoding="utf-8")
+        self.assertIn("all six", text)
+        self.assertNotIn("baseline.md` for the four", text)
+
+
 class BaselineFactTest(unittest.TestCase):
     def setUp(self):
         self.text = BASELINE.read_text(encoding="utf-8")
@@ -131,6 +143,24 @@ class BaselineFactTest(unittest.TestCase):
     def test_da_nang_records_the_resolution_the_trials_sit_under(self):
         # The individual QĐ-UBND approvals are downstream of this resolution.
         self.assertIn("20/2026/NQ-HĐND", self.text)
+
+    def test_resolution_20_is_not_published_as_confirmed_on_one_source(self):
+        # sources.md requires Tier 1, a named law firm, or two independent Tier-2
+        # sources. Only VnEconomy carries this one, so it stays single-source.
+        self.assertIn("REPORTED / SINGLE-SOURCE (LOCAL)", self.text)
+        self.assertNotIn("ENACTED / CONFIRMED (LOCAL) | Signed 29 May 2026", self.text)
+
+    def test_no_unconfirmed_effective_dates_on_the_da_nang_instruments(self):
+        # A reported 10 Jun 2026 effective date for Resolution 20 could not be
+        # confirmed against any source, so it is not asserted. Both Da Nang rows
+        # say what their anchor actually carries instead of implying a date.
+        self.assertNotIn("effective 10 Jun 2026", self.text)
+        self.assertIn(
+            "Issued 29 May 2026; no effective date stated in the anchor", self.text
+        )
+        self.assertIn(
+            "No separate legal effective date is stated in the anchor", self.text
+        )
 
     def test_umi_pay_scope_discrepancy_stays_flagged_not_resolved_by_guess(self):
         # Pre-approval filings describe a prediction-market element the decision

@@ -26,6 +26,8 @@ payment.
 - [x] The Umi Pay prediction-market discrepancy is labelled UNVERIFIED rather than resolved by guess
 - [x] No unqualified "first crypto trial in Vietnam" claim: Basal Pay predates MIMO, and each operator's narrower claim stays attributed
 - [x] The trial count is stated as a floor, not a total — the regime is not crypto-specific and the 2026 first batch was not enumerated
+- [x] Nghị quyết 20/2026/NQ-HĐND is labelled REPORTED / SINGLE-SOURCE, not CONFIRMED: only one Tier-2 anchor carries it
+- [x] `SKILL.md` routes all six decisions, not the four from the August batch
 - [x] The trials are classified as effective from 22 August 2026 and sourced to Da Nang's official portal
 - [x] The baseline `LAST VERIFIED` date advances only for content checked on 24 August 2026
 - [x] Skill version is bumped to `0.4.7` (`0.4.6` was taken by the 2026-08-24 refresh in #31)
@@ -46,30 +48,29 @@ Primary confirmation: Da Nang city portal, 22 August 2026. Rebased onto `main` a
 and #33; conflicts resolved in `README.md`, `SKILL.md`, `baseline.md`, `PRIORITY.md`, and
 `tests/test_vietnam_crypto_radar.py`.
 
-The `baseline.md` conflict was not cosmetic. #32's header ("anchors without a 17 August
-marker…") was true when written but not once anchors carry 24 August markers, and it failed
-`test_the_two_unmarked_anchor_dates_agree` from #33. That test was itself brittle — it
-matched one literal space, so a correctly merged header failed it purely because the phrase
-now wraps across a blockquote line. Both regexes tolerate `[\s>]+` and assert the fact.
+The `baseline.md` conflict was not cosmetic: #32's header was true when written but not
+once anchors carry 24 August markers, and it failed `test_the_two_unmarked_anchor_dates_agree`
+from #33. That test was itself brittle — it matched one literal space, so a correctly merged
+header failed purely on line-wrap. Both regexes now tolerate `[\s>]+`.
 
-Every fact #32 stated verified exactly: four decisions, operators, durations, and Sở Khoa
-học và Công nghệ as controlling body. What was missing was context, not accuracy.
+Every fact #32 stated verified exactly. What was missing was context, not accuracy.
 
-A second pass before merge caught three defects in this spec's own completeness work:
+Two review passes then found five defects in this spec's own completeness work:
 
 1. It called MIMO "the first such licence in the country" while listing Basal Pay, an
    earlier Da Nang crypto/fiat trial, directly above — the self-contradiction class #33
-   exists to catch. Both operators claim a narrower first (Dragon Lab: first non-custodial
-   intermediation into VND; AlphaTrue: first to fully integrate the Travel Rule). Both now
-   attributed.
-2. "Six trials are live" was stated as a total. The regime is not crypto-specific and the
-   2026 first batch was never enumerated, so six is a floor — stating a total would repeat
-   the undercount this spec set out to fix.
-3. The Effective column carried MIMO's issuance date (31 Dec 2025) while its trial runs
-   from 18 Dec 2025.
+   exists to catch. Each operator's first is narrower than it sounds; both now attributed.
+2. "Six trials are live" was stated as a total. Six is a floor: the regime is not
+   crypto-specific and the 2026 first batch was never enumerated.
+3. The Effective column carried MIMO's issuance date while its trial runs from 18 Dec 2025.
+4. `SKILL.md` still routed "the four" decisions after the baseline grew to six, so a
+   sandbox answer could omit Basal Pay and MIMO.
+5. Nghị quyết 20 was published CONFIRMED on one Tier-2 anchor, which `sources.md` forbids.
+   No second independent source exists, so it is REPORTED / SINGLE-SOURCE. A reported
+   10 Jun 2026 effective date could not be confirmed and is not asserted.
 
-Three regression tests cover these, plus a CafeF anchor corroborating Basal Pay's date.
+Six regression tests cover these, plus a CafeF anchor corroborating Basal Pay's date.
 
 Completion approved by the user on 24 August 2026. Shipped in #35, superseding #32.
-Checks at merge: validate_skills.py ok, 92/92 tests, 32/32 baseline anchors resolve with
+Checks at merge: validate_skills.py ok, 95/95 tests, 32/32 baseline anchors resolve with
 0 dead, git diff --check clean.
