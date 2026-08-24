@@ -61,6 +61,15 @@ class BaselineFactTest(unittest.TestCase):
         self.assertIn("Checked and NOT confirmed", self.text)
         self.assertNotIn("DRAFT / CONFIRMED (Tier 1)", self.text)
 
+    def test_da_nang_controlled_trials_keep_their_decisions_and_primary_anchor(self):
+        for decision in ("3809/QĐ-UBND", "3810/QĐ-UBND", "3811/QĐ-UBND", "3812/QĐ-UBND"):
+            self.assertIn(decision, self.text)
+        self.assertIn("danang.gov.vn/vi/web/dng/w/chi-dao-dieu-hanh-noi-bat", self.text)
+
+    def test_da_nang_trials_are_not_presented_as_national_licenses(self):
+        self.assertIn("not national CASP/exchange licenses", self.text)
+        self.assertIn("do not infer that direct payment", self.text)
+
 
 if __name__ == "__main__":
     unittest.main()

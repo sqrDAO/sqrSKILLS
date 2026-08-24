@@ -11,6 +11,9 @@ _Empty._
 
 ## Recently shipped
 
+- `vietnam-crypto-radar-da-nang-trials` — added four locally approved
+  crypto/fiat technology trials without conflating them with the national licensed
+  exchange pilot or general merchant-payment legality.
 - `refresh-harness-verification` — gave the weekly refresh real pre-merge
   checks, an anchor resolution check, and a `last_verified` audit that rolls
   back dates the refresh did not earn (#29).

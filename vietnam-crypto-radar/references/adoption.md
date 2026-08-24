@@ -1,6 +1,6 @@
 # Vietnam Crypto — Retail Adoption & Payments Reality
 
-> **LAST VERIFIED: 12 July 2026.**
+> **LAST VERIFIED: 24 August 2026.**
 > This file answers the *consumer/retail* questions the regulatory baseline can't: is crypto
 > usable day-to-day, why the adoption stats feel bigger than the lived experience, which
 > offshore exchanges Vietnamese people actually use, and whether crypto cards work here.
@@ -12,7 +12,9 @@
 > rankings, card availability pages, crypto media) and move fast — exchange popularity,
 > card country-support, and gateway availability all shift. Re-verify live before relying
 > on specifics. Status labels: `Active`, `Reported` (cited but unconfirmed this run),
-> `Niche`, `Defunct`.
+> `Niche`, `Defunct`. The 24 August 2026 verification covers the Da Nang controlled
+> technology trials added below; the broader exchange/card market facts remain dated
+> 12 July 2026 and still require live re-verification.
 
 The load-bearing framing, restated: Vietnam is **top-5 in the world for on-chain crypto
 adoption yet crypto is not a lawful means of payment.** That single sentence resolves almost
@@ -52,9 +54,17 @@ What actually happens on the ground:
 | Path | How it works | Status | Reality |
 |---|---|---|---|
 | **Direct USDT to a merchant** (e.g. jack's rent) | Landlord/shop takes USDT to a personal wallet | `Niche` / informal | Exists only among crypto-native landlords, some high-end hotels, and OTC-adjacent businesses. Not something you can rely on. Legally exposed for the merchant. |
-| **Crypto→VND payment gateways** (LocalPay-style) | User scans a **standard Vietnamese QR**; app debits USDT (often Solana), **settles the merchant in VND** through normal rails | `Reported` / growing | This is the real workaround. The merchant never touches crypto — they receive đồng — so it sidesteps the payment ban. Asset-to-fiat at point of sale. |
+| **Crypto→VND conversion/payment gateways** | User converts stablecoins to VND; some solutions integrate a VND payment gateway so the merchant receives đồng through ordinary rails | `Confirmed controlled trials` in Da Nang; otherwise `Reported` | Da Nang Decisions 3809–3812/QĐ-UBND confirm a supervised local test perimeter containing four related solutions. That does not create a nationwide right to pay merchants directly in crypto. |
 | **Crypto debit/Visa cards** (Bitget, OKX, SafePal…) | Card converts crypto→fiat at the network rail; merchant sees an ordinary card swipe | Mixed — see §4 | Same asset-to-fiat logic, but availability/KYC/region gates make them patchy in VN. This is exactly what jack hit. |
 | **Licensed pilot exchanges (VND pairs)** | Buy/sell crypto for đồng on a *licensed* platform | Pending go-live (Q3 2026 target) | This is the *sanctioned* on-ramp — but it's for trading, still **not** for paying merchants. |
+
+**Confirmed Da Nang trial perimeter (from 22 August 2026):** PayD (18 months), TORA
+(36 months), Umi Pay (36 months), and Money X-Border (24 months). TORA explicitly tests
+non-custodial USDT↔VND conversion with an essential-services payment gateway; Umi Pay tests
+non-custodial USDT/USDC↔VND conversion for tourism and local services; Money X-Border tests
+crypto-based off-chain settlement infrastructure. See `baseline.md` for the decision numbers,
+operators, and primary source. These are time-limited municipal technology trials, not national
+CASP/exchange licenses and not a repeal of the SBV means-of-payment boundary.
 
 **Bottom line to give a newcomer:** you can *hold, trade, receive, and cash out* crypto widely;
 you generally **cannot pay** with it directly. Spending happens via gateways/cards that quietly
@@ -121,11 +131,13 @@ region-locked to Europe. Always re-verify country support live, since these list
 - Current **country-support** for Bitget / OKX / SafePal cards.
 - Any **change to offshore-exchange tolerance/tax** treatment (open question in `baseline.md`).
 - Whether **crypto→VND QR gateways** (LocalPay-style) have scaled or drawn regulatory attention.
+- Current operating scope and results of Da Nang Decisions **3809–3812/QĐ-UBND**.
 
-## Source anchors (Tier-2/3 — re-verify live)
+## Source anchors (Tier 1–3 — re-verify live)
 - Exchange popularity: CoinGecko VN exchange ranking; Coincub/Coingape/Datawallet "best VN
   exchanges 2026" round-ups.
 - Adoption paradox: Chainalysis Global Crypto Adoption Index; TRM Labs Q1 2026 index.
 - Payments/gateways: crypto-media "can you pay with crypto in Vietnam 2026" explainers;
-  LocalPay-style gateway write-ups; Trust Wallet VN QR-payment guide.
+  LocalPay-style gateway write-ups; Trust Wallet VN QR-payment guide. Primary anchor for the
+  Da Nang trials: [Da Nang city portal, 22 August 2026](https://danang.gov.vn/vi/web/dng/w/chi-dao-dieu-hanh-noi-bat-cua-ubnd-chu-tich-cac-pho-chu-tich-ubnd-thanh-pho-ngay-22-8).
 - Cards: Bitget card country-availability page; The Block crypto-card ratings; issuer card pages.
