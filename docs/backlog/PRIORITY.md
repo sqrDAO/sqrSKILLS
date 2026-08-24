@@ -7,12 +7,15 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-1. `weekly-skill-refresh-2026-08-24-verification` — correct the 13 data
-   defects the 2026-08-24 refresh merged into `main` (#31), and add the
-   roster regression tests that would have caught them.
+_Empty._
 
 ## Recently shipped
 
+- `weekly-skill-refresh-2026-08-24-verification` — corrected the 13 data
+  defects merged in #31: `status` values contradicting their own notes,
+  deleted deadlines and warnings, and dates bumped onto unchecked claims.
+  Added the roster's first regression tests, including cross-field
+  invariants that catch the class rather than the instance (#33).
 - `refresh-harness-verification` — gave the weekly refresh real pre-merge
   checks, an anchor resolution check, and a `last_verified` audit that rolls
   back dates the refresh did not earn (#29).
