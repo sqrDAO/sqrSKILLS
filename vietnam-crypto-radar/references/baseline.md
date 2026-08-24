@@ -1,11 +1,12 @@
 # Vietnam Crypto Regime — Baseline Snapshot
 
-> **LAST VERIFIED: 17 August 2026.**
+> **LAST VERIFIED: 24 August 2026.**
 > Everything the radar reports as "new" is new relative to this date.
 > After confirming real changes in a run, rewrite this file and bump the date.
-> Verification note: the 17 August 2026 sweep added Decree 296/2026/NĐ-CP and
+> Verification note: the 24 August 2026 sweep added Quyết định số 1624/QĐ-TTg.
+> The 17 August 2026 sweep added Decree 296/2026/NĐ-CP and
 > Quyết định 21/2026/QĐ-TTg. Anchors carry the date they were last confirmed to
-> resolve; anchors without a 17 August marker were last checked on 3 August 2026.
+> resolve; anchors without a 24 August marker were last checked on 17 August 2026.
 > Per `sources.md`, a finding is stated as fact only when a Tier-1 source or a named law
 > firm confirms it, or two independent Tier-2 sources corroborate it; otherwise it is
 > labelled DRAFT / PROPOSED / RUMORED. Tier-2 means legal or analyst publishers as well as
@@ -44,6 +45,7 @@ Vietnam's confirmed regulatory anchor is the **Law on Digital Technology Industr
 | **Decree 164/2026/NĐ-CP** | Mandates declaration of digital assets (>= VND 150M) for public officials. | ENACTED / CONFIRMED | 1 Jul 2026 |
 | **Decree 296/2026/NĐ-CP** | Amends Decree 168/2025/NĐ-CP on business registration to require beneficial-ownership declaration (>= 25% of charter capital or voting shares). Economy-wide, not crypto-specific — the text names no crypto assets or VASPs; relevant here as the registration-layer AML control future CASPs will sit under. | ENACTED / CONFIRMED | 23 Jul 2026 |
 | **Quyết định 21/2026/QĐ-TTg** | Promulgates the Strategic Technology and Strategic Technology Product catalogues; blockchain (chuỗi khối) appears inside Group 1 (digital technology) alongside AI, big data, cloud, edge, and IoT — it is one line item in that group, not a standalone national priority. Replaces Decision 1131/QĐ-TTg. Signed 30 Apr 2026. Policy signal only; creates no crypto-asset obligations. | ENACTED / CONFIRMED | 1 Jul 2026 |
+| **Quyết định số 1624/QĐ-TTg** | Amends the national Intellectual Property Strategy to 2030, explicitly including "digital assets" and "blockchain" as areas for IP rights protection. Signed 21 Aug 2026. Policy signal only; creates no direct crypto-asset market obligations. | ENACTED / CONFIRMED | 21 Aug 2026 |
 | **Decree 284/2026/NĐ-CP** | Administrative violations and penalties for crypto assets and the pilot market. | ENACTED / CONFIRMED | 1 Sep 2026 |
 
 
@@ -80,8 +82,9 @@ Vietnam's confirmed regulatory anchor is the **Law on Digital Technology Industr
 
 ## IN MOTION (verify status every run — these move)
 
-- **Pilot exchange go-live:** reported target **Q3 2026**. Status: EXPECTED / NEEDS_CURRENT_CONFIRMATION.
+- **Pilot exchange go-live:** reported target **Q3 2026**, accelerated by FATF grey-list pressure. Status: EXPECTED / NEEDS_CURRENT_CONFIRMATION.
 - **Licensing shortlist:** 5 entities are reported to be under final review by the Ministry of Finance, State Bank, and Ministry of Public Security. The list includes: **VIX Crypto Asset Exchange JSC**, **Loc Phat Vietnam Crypto Asset Exchange JSC**, **Vietnam Prosperity Crypto Asset Exchange JSC**, **Techcom Crypto Asset Exchange JSC**, and **Vietnam Digital Assets JSC**. Status: REPORTED, not final approvals.
+- **Digital assets as loan collateral:** Ministry of Finance has proposed allowing SMEs to use digital assets and intellectual property as collateral for bank loans. Status: PROPOSED / NEEDS_PRIMARY_SOURCE.
 - **Supervision framework:** The State Securities Commission (SSC) is actively developing a "System for management and supervision of the crypto-asset trading market" and a "regulatory framework for supervising the crypto-asset market," including staff training with international partners: the SSC ran a "Compliance and Enforcement in the crypto-asset market" programme with Tether and Chainalysis in Hanoi on 21 Jul 2026, with FATF standards, VASP compliance programmes, fund tracing, and illicit P2P networks on the agenda. Status: IN_PROGRESS / CONFIRMED.
 - **Law on AML (Amended):** First extraordinary session of 16th National Assembly convened 3 Aug 2026 to debate draft law, which explicitly brings VASPs under MOF supervision. Update (5 Aug 2026): the AML amendment is carried in a combined bill amending the Law on the State Bank, the Law on AML, and the Law on Credit Institutions; the National Assembly heard the submission and review report on 5 Aug 2026, with adoption expected either at that extraordinary session or at Session 2 (October 2026) under the shortened procedure. Deputies specifically discussed bringing crypto-asset services into the AML reporting perimeter. Status: IN_PROGRESS / CONFIRMED (Tier 2, two independent state outlets).
 - **Decision 1413/QĐ-TTg:** Signed 27 Jul 2026; approves the comprehensive financial market reform project to 2045, which lists the crypto-asset market among its target markets. Status: ENACTED / CONFIRMED (Tier 1).
@@ -126,6 +129,7 @@ confirmed on 3 August 2026 and are due for a re-check.
 - **Government legal documents DB — Decree 296/2026/NĐ-CP, beneficial ownership (Tier 1):** `https://vanban.chinhphu.vn/?docid=218986&pageid=27160` (Confirmed 17 Aug 2026)
 - **Government News — Quyết định 21/2026/QĐ-TTg, 10 strategic technology groups from 1 Jul 2026 (Tier 1):** `https://baochinhphu.vn/10-nhom-cong-nghe-chien-luoc-tu-1-7-2026-102260506122616258.htm` — confirms blockchain sits inside Group 1 (digital technology). (Confirmed 17 Aug 2026)
 - **Government legal documents DB — Quyết định 21/2026/QĐ-TTg (Tier 1):** `https://vanban.chinhphu.vn/?docid=218002&pageid=27160` — signed 30 Apr 2026, effective 1 Jul 2026. (Confirmed 17 Aug 2026)
+- **Government legal documents DB — Quyết định số 1624/QĐ-TTg (Tier 1):** `https://vanban.chinhphu.vn/?docid=219159` (Confirmed 24 Aug 2026)
 - **Government legal documents DB — Circular 15/2026/TT-BTC (Tier 1):** `https://vanban.chinhphu.vn/?docid=217123&pageid=27160`
 - **Government legal documents DB — Decree 253/2026/NĐ-CP (Tier 1):** `https://vanban.chinhphu.vn/?classid=1&docid=218684&orggroupid=2&pageid=27160`
 - **Government legal documents DB — Circular 87/2026/TT-BTC (Tier 1):** `https://vanban.chinhphu.vn/?classid=1&docid=218772&orggroupid=4&pageid=27160`
