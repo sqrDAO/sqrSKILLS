@@ -68,11 +68,13 @@ class BaselineFactTest(unittest.TestCase):
         # 17 August while the anchors section still said 3 August, silently ageing
         # 20+ unverified anchors forward by two weeks.
         header = re.search(
-            r"carrying no date marker at all were last checked on ([0-9]+ \w+ [0-9]{4})",
+            r"carrying no date marker at all were[\s>]+last[\s>]+checked[\s>]+on"
+            r"[\s>]+([0-9]+ \w+ [0-9]{4})",
             self.text,
         )
         section = re.search(
-            r"Unmarked anchors were last\s+confirmed on ([0-9]+ \w+ [0-9]{4})",
+            r"Unmarked anchors were[\s>]+last[\s>]+confirmed[\s>]+on"
+            r"[\s>]+([0-9]+ \w+ [0-9]{4})",
             self.text,
         )
         self.assertIsNotNone(header, "header statement missing")
@@ -93,6 +95,43 @@ class BaselineFactTest(unittest.TestCase):
         # The claim that it names digital assets and blockchain is real, but it is
         # a quotation -- keep the source wording so the next refresh cannot drift it.
         self.assertIn("tài sản số, công nghệ chuỗi khối (blockchain)", self.text)
+    def test_da_nang_controlled_trials_keep_their_decisions_and_primary_anchor(self):
+        for decision in ("3809/QĐ-UBND", "3810/QĐ-UBND", "3811/QĐ-UBND", "3812/QĐ-UBND"):
+            self.assertIn(decision, self.text)
+        self.assertIn("danang.gov.vn/vi/web/dng/w/chi-dao-dieu-hanh-noi-bat", self.text)
+
+    def test_da_nang_trials_are_not_presented_as_national_licenses(self):
+        self.assertIn("not national CASP/exchange licenses", self.text)
+        self.assertIn("do not infer that direct payment", self.text)
+
+    def test_da_nang_records_the_trials_that_predate_the_august_2026_batch(self):
+        # The 22 Aug 2026 batch was not the start of the programme. Basal Pay
+        # (1181) and MIMO (2895) were licensed first and both still run -- MIMO
+        # to Dec 2028. A radar that lists only the latest batch undercounts.
+        for decision in ("1181/QĐ-UBND", "2895/QĐ-UBND"):
+            self.assertIn(decision, self.text, decision)
+        self.assertIn("Dragon Lab", self.text)
+        self.assertIn("AlphaTrue Solutions", self.text)
+
+    def test_da_nang_records_the_resolution_the_trials_sit_under(self):
+        # The individual QĐ-UBND approvals are downstream of this resolution.
+        self.assertIn("20/2026/NQ-HĐND", self.text)
+
+    def test_umi_pay_scope_discrepancy_stays_flagged_not_resolved_by_guess(self):
+        # Pre-approval filings describe a prediction-market element the decision
+        # title does not carry. Neither reading is confirmed, so neither is stated.
+        self.assertIn("prediction market", self.text)
+        self.assertIn("UNVERIFIED", self.text)
+
+    def test_undecided_da_nang_applications_are_tracked_not_dropped(self):
+        for applicant in ("VON", "G-Flow", "GM Services", "Dinogo"):
+            self.assertIn(applicant, self.text, applicant)
+
+    def test_da_nang_locations_are_not_generalised_to_a_whole_ward(self):
+        # The source names sites per decision; an earlier draft flattened them to
+        # "designated technology and innovation sites in Hải Châu ward".
+        self.assertNotIn("innovation sites in\nHải Châu ward", self.text)
+        self.assertIn("Công viên phần mềm số 1", self.text)
 
 
 if __name__ == "__main__":

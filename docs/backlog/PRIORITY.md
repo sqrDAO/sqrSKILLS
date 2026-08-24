@@ -7,7 +7,10 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-_Empty._
+1. `vietnam-crypto-radar-da-nang-trials` — record Da Nang's municipal
+   controlled-trial regime: the four 22 August 2026 approvals, the two earlier
+   trials still running, the resolution they sit under, and the applications
+   still undecided.
 
 ## Recently shipped
 
