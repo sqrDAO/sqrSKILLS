@@ -3,11 +3,13 @@
 > **LAST VERIFIED: 24 August 2026.**
 > Everything the radar reports as "new" is new relative to this date.
 > After confirming real changes in a run, rewrite this file and bump the date.
-> Verification note: the 24 August 2026 sweep added Quyết định số 1624/QĐ-TTg.
-> The 17 August 2026 sweep added Decree 296/2026/NĐ-CP and
+> Verification note: the 24 August 2026 sweep added Quyết định số 1624/QĐ-TTg, and
+> the 24 August 2026 update added Da Nang's municipal controlled-trial regime —
+> Nghị quyết 20/2026/NQ-HĐND and Decisions 1181, 2895 and 3809–3812/QĐ-UBND — from
+> the city portal. The 17 August 2026 sweep added Decree 296/2026/NĐ-CP and
 > Quyết định 21/2026/QĐ-TTg. Anchors carry the date they were last confirmed to
-> resolve; anchors carrying no date marker at all were last checked on 3 August 2026
-> and are due for a re-check.
+> resolve; anchors carrying no date marker at all were last checked on
+> 3 August 2026 and are due for a re-check.
 > Per `sources.md`, a finding is stated as fact only when a Tier-1 source or a named law
 > firm confirms it, or two independent Tier-2 sources corroborate it; otherwise it is
 > labelled DRAFT / PROPOSED / RUMORED. Tier-2 means legal or analyst publishers as well as
@@ -23,7 +25,7 @@ changes (e.g. a DRAFT circular becomes EFFECTIVE), move it between sections and 
 
 ## One-paragraph state of play
 
-Vietnam's confirmed regulatory anchor is the **Law on Digital Technology Industry** (DTI Law), effective **1 January 2026**, which creates the first legal framework for digital assets. The government is operationalizing this via a five-year pilot program for crypto-asset trading, governed by **Resolution 05/2025/NQ-CP** and implemented via **Decision 96/QĐ-BTC**. The operating layer now includes accounting rules in **Circular 15/2026/TT-BTC**, crypto-specific tax policy and administration in **Circulars 32 & 41/2026/TT-BTC**, general PIT implementation in **Decree 253/2026/NĐ-CP** and **Circular 87/2026/TT-BTC**, electronic invoicing in **Decree 254/2026/NĐ-CP**, and an administrative-penalty regime in **Decree 284/2026/NĐ-CP**, effective **1 September 2026**. The tax regime is anchored by the **Law on Personal Income Tax (Law 109/2025/QH15)**, effective **1 July 2026**, which formalizes a 0.1% transaction tax on digital assets. As of August 2026, **Resolution 66.17/2026/NQ-CP** designates crypto services as a "conditional business line," **Resolution 66.23/2026/NQ-CP** creates a temporary AML bridge, **Decree 164/2026/NĐ-CP** mandates asset declaration for public officials, including crypto, and **Decree 296/2026/NĐ-CP** adds economy-wide beneficial-ownership disclosure at business registration. Supervision is handled by the new **Crypto Asset Market Supervision Department** under the State Securities Commission (SSC). Crucially, crypto's legal recognition as property does **not** make it a lawful means of payment; the State Bank's position on this must be verified separately each run.
+Vietnam's confirmed regulatory anchor is the **Law on Digital Technology Industry** (DTI Law), effective **1 January 2026**, which creates the first legal framework for digital assets. The government is operationalizing this via a five-year pilot program for crypto-asset trading, governed by **Resolution 05/2025/NQ-CP** and implemented via **Decision 96/QĐ-BTC**. Separately, Da Nang runs a municipal controlled-trial regime, reported to be framed by **Nghị quyết 20/2026/NQ-HĐND** (single-source — see the table); it was the first locality in the country to license a controlled trial for digital-asset technology. Six crypto-related trials are confirmed live as of 24 August 2026 — **1181/QĐ-UBND** (Basal Pay, Aug 2025), **2895/QĐ-UBND** (MIMO, Dec 2025, running to Dec 2028), and **3809–3812/QĐ-UBND**, four more approved on **22 August 2026** covering non-custodial USDT/USDC↔VND conversion and crypto-based settlement infrastructure. Treat six as a floor, not a total: the regime covers new technology generally, not only crypto, and the 2026 first-batch approvals have not been enumerated. These local trial approvals are not national crypto-asset service-provider or exchange licenses. The operating layer now includes accounting rules in **Circular 15/2026/TT-BTC**, crypto-specific tax policy and administration in **Circulars 32 & 41/2026/TT-BTC**, general PIT implementation in **Decree 253/2026/NĐ-CP** and **Circular 87/2026/TT-BTC**, electronic invoicing in **Decree 254/2026/NĐ-CP**, and an administrative-penalty regime in **Decree 284/2026/NĐ-CP**, effective **1 September 2026**. The tax regime is anchored by the **Law on Personal Income Tax (Law 109/2025/QH15)**, effective **1 July 2026**, which formalizes a 0.1% transaction tax on digital assets. As of August 2026, **Resolution 66.17/2026/NQ-CP** designates crypto services as a "conditional business line," **Resolution 66.23/2026/NQ-CP** creates a temporary AML bridge, **Decree 164/2026/NĐ-CP** mandates asset declaration for public officials, including crypto, and **Decree 296/2026/NĐ-CP** adds economy-wide beneficial-ownership disclosure at business registration. Supervision is handled by the new **Crypto Asset Market Supervision Department** under the State Securities Commission (SSC). Crucially, crypto's legal recognition as property does **not** make it a lawful means of payment; the State Bank's position on this must be verified separately each run.
 
 ---
 
@@ -35,6 +37,9 @@ Vietnam's confirmed regulatory anchor is the **Law on Digital Technology Industr
 | **Law on Personal Income Tax** (Law 109/2025/QH15) | Formalizes 0.1% PIT on digital asset transfers. | ENACTED / CONFIRMED | 1 Jul 2026 |
 | **Resolution 05/2025/NQ-CP** | 5-year pilot for crypto-asset trading markets via licensed providers; local incorporation; VND settlement; high charter-capital bar. | EFFECTIVE / CONFIRMED | 9 Sep 2025 |
 | **Decision 96/QĐ-BTC** (Ministry of Finance) | Pilot implementation and licensing procedures for crypto-asset trading platforms. Sets VND 10T capital bar. | EFFECTIVE / CONFIRMED | 20 Jan 2026 |
+| **Nghị quyết 20/2026/NQ-HĐND (Da Nang)** | Da Nang People's Council resolution setting the criteria, conditions, registration, assessment, and licensing procedure for controlled trials of new technology solutions in the city — reported as the enabling instrument the individual QĐ-UBND trial approvals sit under. Municipal scope only. Rests on a single Tier-2 anchor (VnEconomy); promote only when a Tier-1 text or a second independent Tier-2 source confirms it. A same-numbered resolution exists in another province on an unrelated subject, so match the issuing council, not just the number. | REPORTED / SINGLE-SOURCE (LOCAL) | Issued 29 May 2026; no effective date stated in the anchor |
+| **Da Nang Decisions 1181 & 2895/QĐ-UBND** | The two earlier controlled technology trials, both still running: Basal Pay (Công ty CP AlphaTrue Solutions, 36 months from Aug 2025) and MIMO (Công ty CP Dragon Lab, non-custodial USDT↔VND, 18 Dec 2025 – 17 Dec 2028). Local technology-trial approvals only. | EFFECTIVE / CONFIRMED (LOCAL TRIALS) | Issued 26 Aug 2025 and 31 Dec 2025; MIMO's trial period runs from 18 Dec 2025 |
+| **Da Nang Decisions 3809–3812/QĐ-UBND** | Four further local controlled technology trials: PayD, TORA, Umi Pay, and Money X-Border. Includes crypto/stablecoin↔VND conversion and crypto-based settlement use cases. Local technology-trial approvals only; not national CASP/exchange licenses. | EFFECTIVE / CONFIRMED (LOCAL TRIALS) | Signed 22 Aug 2026 and running from that date; durations vary. No separate legal effective date is stated in the anchor |
 | **Circular 15/2026/TT-BTC** | Accounting principles for organizations participating in Vietnam's pilot crypto-asset market. | EFFECTIVE / CONFIRMED | 4 Mar 2026 |
 | **Circular 32/2026/TT-BTC** | CIT, VAT, PIT treatment of crypto-asset transactions. Implements Law 109. | EFFECTIVE / CONFIRMED | 27 Mar 2026 |
 | **Circular 41/2026/TT-BTC** | Tax declaration, withholding, payment, and finalization for the crypto market. Implements Law 109. | EFFECTIVE / CONFIRMED | 6 Apr 2026 |
@@ -56,6 +61,47 @@ Vietnam's confirmed regulatory anchor is the **Law on Digital Technology Industr
 - **Foreign Ownership:** Capped at 49% for licensed operators.
 - **Data Sovereignty:** Licensed exchanges are required to house their servers within Vietnam.
 - **Asset-Backed Issuance:** New crypto assets issued within Vietnam must be backed by audited real-world assets.
+
+### Da Nang controlled technology trials — EFFECTIVE / CONFIRMED
+
+Da Nang is reported to license these under **Nghị quyết 20/2026/NQ-HĐND** (29 May 2026) — one
+Tier-2 anchor only, so treat the framing instrument as unconfirmed — and its
+Department of Science and Technology (**Sở Khoa học và Công nghệ**) guides and controls
+each trial. Six crypto-related trials are confirmed live as of 24 August 2026 — the four
+approved on **22 August 2026** plus two earlier ones that still have years to run — and that
+is a floor rather than a total, since the regime is not crypto-specific and the 2026
+first-batch approvals were not enumerated. Sites are named per decision rather
+than city-wide: Decision 3809 designates Công viên phần mềm số 1 (02 Quang Trung) and the
+Đà Nẵng startup support centre, and the earlier MIMO decision designates Công viên phần
+mềm số 1, Công viên phần mềm số 2 (đường Như Nguyệt) and the innovation/startup support
+centre (58 Nguyễn Chí Thanh). The city's official announcements confirm:
+
+| Decision | Solution and operator | Trial duration |
+|---|---|---|
+| **1181/QĐ-UBND** (26 Aug 2025) | **“Phần mềm Basal Pay”** — Công ty Cổ phần AlphaTrue Solutions; blockchain/traditional-finance bridge for crypto-asset↔fiat exchange, built to Travel Rule and AML/CFT standards | 36 months |
+| **2895/QĐ-UBND** (31 Dec 2025) | **“Giải pháp MIMO – Trung gian chuyển đổi tài sản số (USDT) sang tiền pháp định (VND) và ngược lại theo cơ chế không lưu ký (non-custodial)”** — Công ty Cổ phần Dragon Lab | 18 Dec 2025 – 17 Dec 2028 |
+| **3809/QĐ-UBND** | **“Ứng dụng Tài chính Du lịch Thông minh PayD”** — Công ty Cổ phần PAYD | 18 months |
+| **3810/QĐ-UBND** | **“TORA - Trung gian chuyển đổi tài sản số (USDT) sang tiền pháp định (VNĐ) và ngược lại tích hợp Cổng thanh toán dịch vụ thiết yếu theo cơ chế không lưu ký (non-custodial)”** — Công ty Cổ phần DANOVA LABS | 36 months |
+| **3811/QĐ-UBND** | **“Umi Pay - Giải pháp trung gian công nghệ không lưu ký hỗ trợ chuyển đổi tài sản số (Stablecoin USDT/USDC) sang tiền pháp định (VNĐ) và ngược lại, tích hợp tính năng hỗ trợ chuyển đổi phục vụ du lịch và hệ sinh thái dịch vụ tại thành phố Đà Nẵng”** — Công ty Cổ phần dịch vụ tài sản số ICETEA SOLUTION | 36 months |
+| **3812/QĐ-UBND** | **“Hạ tầng quyết toán ngoại biên đa tuyến trên nền tảng tài sản mã hóa”** — Công ty TNHH Money X-Border | 24 months |
+
+**On "first":** both operators claim a first, and each is narrower than it sounds. Dragon Lab
+describes MIMO as the first licensed-trial solution in Vietnam for *non-custodial* digital-asset
+intermediation into VND; AlphaTrue describes Basal Pay as the first Vietnamese project to fully
+integrate the Travel Rule standard. Basal Pay is the earlier approval of the two. Neither is
+"the first crypto trial in Vietnam" without qualification — attribute the claim to its operator
+and carry the qualifier.
+
+**Boundary:** these are municipal approvals for controlled technology trials. Do not call
+the operators licensed national exchanges or CASPs, and do not infer that direct payment for
+goods and services in USDT/USDC is now generally lawful. The approved use cases convert to
+VND or test settlement infrastructure inside a supervised, time-limited perimeter.
+
+**Open question — Umi Pay scope:** pre-approval filings reported by Tin nhanh chứng khoán
+described Umi Pay as USDT/USDC↔VND conversion *"kết hợp tiện ích bổ trợ prediction market"*.
+The decision title recorded above names only conversion plus tourism and local services. Either
+the prediction-market element was dropped before approval or it is in scope and unrecorded here.
+Status: UNVERIFIED — confirm against the text of 3811/QĐ-UBND before describing the scope.
 
 ### Tax treatment (Law 109, Circular 32 & 41) — CONFIRMED
 - **Personal Income Tax (PIT):** **0.1% tax** on the gross value of each crypto-asset transfer for individuals, withheld at source by licensed exchanges.
@@ -116,6 +162,13 @@ Vietnam's confirmed regulatory anchor is the **Law on Digital Technology Industr
 - Has Decree 284 been amended, replaced, or accompanied by implementation guidance before/after its 1 Sep 2026 commencement?
 - Any change to the **offshore-exchange** stance (how foreign-platform users are treated/taxed)?
 - Any movement on **stablecoins**, **tokenized RWAs**, or a **CBDC/digital VND** pilot (separate track from crypto assets)?
+- Have the **Da Nang** trials (1181, 2895, 3809–3812/QĐ-UBND) launched user-facing services,
+  published operating limits, produced results, been extended, or been suspended?
+- What became of the Da Nang controlled-trial applications that were filed but are not among
+  the approvals: **VON** (VON LABS, blockchain reward crowdfunding) and **G-Flow** (Lưu Thông
+  Xanh, USDT payment intermediation) from the 2026 batch-2 filings, and **GM Services**
+  (stablecoin payroll for foreign companies) and **Dinogo** (Go Technology, crypto↔fiat for
+  tourists) from the March 2026 evaluation round? Status: NOT CONFIRMED either way.
 
 ---
 
@@ -125,6 +178,12 @@ Each anchor was confirmed to resolve on the date marked. Unmarked anchors were l
 confirmed on 3 August 2026 and are due for a re-check.
 
 - **Government News (Tier 1):** `https://en.baochinhphu.vn/law-on-digital-technology-industry-approved-111250614143640329.htm`
+- **Da Nang city portal — Decisions 3809–3812/QĐ-UBND controlled technology trials (Tier 1):** `https://danang.gov.vn/vi/web/dng/w/chi-dao-dieu-hanh-noi-bat-cua-ubnd-chu-tich-cac-pho-chu-tich-ubnd-thanh-pho-ngay-22-8` — signed 22 Aug 2026; names each solution, operator, and duration. (Confirmed 24 Aug 2026)
+- **Da Nang city portal — Decision 2895/QĐ-UBND, MIMO controlled trial (Tier 1):** `https://danang.gov.vn/vi/w/cap-phep-thu-nghiem-co-kiem-soat-doi-voi-giai-phap-mimo-cua-cong-ty-co-phan-dragon-lab` — 31 Dec 2025, Dragon Lab, non-custodial USDT↔VND, 18 Dec 2025 – 17 Dec 2028, three named sites. (Confirmed 24 Aug 2026)
+- **Da Nang city portal — Decision 1181/QĐ-UBND, Basal Pay controlled trial (Tier 1):** `https://danang.gov.vn/vi/w/phe-duyet-thu-nghiem-co-kiem-soat-co-thoi-han-doi-voi-giai-phap-cong-nghe-moi-phan-mem-basal-pay` — AlphaTrue Solutions, 36 months. (Confirmed 24 Aug 2026)
+- **VnEconomy — Nghị quyết 20/2026/NQ-HĐND, Da Nang controlled-trial framework (Tier 2, SINGLE SOURCE):** `https://vneconomy.vn/buoc-tien-quan-trong-trong-xay-dung-moi-truong-thu-nghiem-cong-nghe-moi-tai-da-nang.htm` — issued 29 May 2026; sets criteria, conditions, and the licensing procedure. States no effective date, and a reported effective date of 10 Jun 2026 could not be confirmed against any source on 24 Aug 2026. No second independent source located. (Confirmed 24 Aug 2026)
+- **CafeF — Basal Pay controlled trial approved 26 Aug 2025 (Tier 3, corroborating only):** `https://cafef.vn/da-nang-cho-phep-thu-nghiem-basal-pay-du-an-chuyen-doi-tai-san-ma-hoa-dau-tien-tuan-thu-chuan-quoc-te-188250826191416986.chn` — corroborates the 26 Aug 2025 date and the 36-month term; the "first in Vietnam" claim in it is scoped to Travel Rule integration. (Confirmed 24 Aug 2026)
+- **Tin nhanh chứng khoán — Da Nang 2026 batch-2 controlled-trial filings (Tier 2):** `https://www.tinnhanhchungkhoan.vn/da-nang-loat-giai-phap-chuyen-doi-tai-san-so-xin-cap-phep-thu-nghiem-co-kiem-soat-post389682.html` — lists Umi Pay, TORA, VON, G-Flow, Money X-Border as applicants, and is the source of the unverified Umi Pay prediction-market description. (Confirmed 24 Aug 2026)
 - **Government legal documents DB — Decree 284/2026/NĐ-CP (Tier 1):** `https://vanban.chinhphu.vn/?docid=218906&pageid=27160`
 - **Government News — Decree 284 penalty summary (Tier 1):** `https://baochinhphu.vn/cung-cap-dich-vu-lien-quan-den-tai-san-ma-hoa-khi-chua-duoc-cap-phep-bi-phat-toi-200-trieu-dong-10226071715275345.htm`
 - **Government legal documents DB — Decree 296/2026/NĐ-CP, beneficial ownership (Tier 1):** `https://vanban.chinhphu.vn/?docid=218986&pageid=27160` (Confirmed 17 Aug 2026)

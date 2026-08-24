@@ -24,6 +24,7 @@ crypto-native on every conflict. Always carry the instrument number.
 | National Assembly | quochoi.vn | Primary laws, legislative agenda | Quarterly / on news |
 | Legal text database | thuvienphapluat.vn | Searchable instrument lookup, status, effective dates (partly paywalled but best for confirming a number/status) | Per run when confirming an instrument |
 | Official Gazette (Công báo) | congbao.chinhphu.vn | Authoritative publication of issued instruments | When confirming issuance |
+| Da Nang city portal | danang.gov.vn | Municipal controlled technology trials and local implementation decisions | On Da Nang signal |
 
 > Tip: the fastest way to *confirm* a rumored circular is real is to search its number on
 > thuvienphapluat.vn or find it on vanban.chinhphu.vn / congbao. No number on a primary site = treat as DRAFT/RUMORED.
@@ -40,6 +41,8 @@ crypto-native on every conflict. Always carry the instrument number.
 - Government summary of Decree 254 Article 6: `https://baochinhphu.vn/quy-dinh-doi-tuong-su-dung-hoa-don-dien-tu-10226070308163723.htm`
 - National Assembly legal text search: `https://quochoi.vn` and legal databases for the law number/title.
 - When checking payment legality, search SBV for both English and Vietnamese terms: `tiền ảo`, `tài sản ảo`, `tài sản mã hóa`, `phương tiện thanh toán`, `NHNN-PC`.
+- Da Nang Decisions 3809–3812/QĐ-UBND controlled technology trials: `https://danang.gov.vn/vi/web/dng/w/chi-dao-dieu-hanh-noi-bat-cua-ubnd-chu-tich-cac-pho-chu-tich-ubnd-thanh-pho-ngay-22-8` (confirmed 24 Aug 2026). Treat these as local trial approvals, not national CASP/exchange licenses.
+- The Da Nang trial regime did not start in August 2026. Check the earlier approvals too — Decision 1181/QĐ-UBND (Basal Pay) and 2895/QĐ-UBND (MIMO, running to Dec 2028) — and the enabling Nghị quyết 20/2026/NQ-HĐND. A count of Da Nang trials that only covers the latest batch is wrong.
 
 ---
 
@@ -101,3 +104,7 @@ sole basis for a stated fact.
 - `"87/2026/TT-BTC" "tài sản mã hóa"`
 - `site:vanban.chinhphu.vn "tài sản mã hóa" [current month year]`
 - `site:baochinhphu.vn "tài sản mã hóa" after:[LAST VERIFIED as YYYY-MM-DD]`
+- `site:danang.gov.vn ("tài sản số" OR "tài sản mã hóa") ("thử nghiệm có kiểm soát" OR sandbox)`
+- `"3809/QĐ-UBND" OR "3810/QĐ-UBND" OR "3811/QĐ-UBND" OR "3812/QĐ-UBND"`
+- `site:danang.gov.vn "thử nghiệm có kiểm soát" ("cấp phép" OR "phê duyệt") [current year]` — catches new approvals and any suspension/extension of an existing trial
+- `"20/2026/NQ-HĐND" Đà Nẵng "thử nghiệm có kiểm soát"`

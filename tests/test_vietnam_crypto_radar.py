@@ -13,6 +13,18 @@ ROOT = Path(__file__).resolve().parents[1]
 BASELINE = ROOT / "vietnam-crypto-radar" / "references" / "baseline.md"
 
 
+SKILL = ROOT / "vietnam-crypto-radar" / "SKILL.md"
+
+
+class SkillRoutingTest(unittest.TestCase):
+    def test_da_nang_routing_covers_every_trial_the_baseline_documents(self):
+        # The routing line said "the four local controlled-trial decisions" after the
+        # baseline grew to six, so a sandbox answer could silently omit Basal Pay and MIMO.
+        text = SKILL.read_text(encoding="utf-8")
+        self.assertIn("all six", text)
+        self.assertNotIn("baseline.md` for the four", text)
+
+
 class BaselineFactTest(unittest.TestCase):
     def setUp(self):
         self.text = BASELINE.read_text(encoding="utf-8")
@@ -68,11 +80,13 @@ class BaselineFactTest(unittest.TestCase):
         # 17 August while the anchors section still said 3 August, silently ageing
         # 20+ unverified anchors forward by two weeks.
         header = re.search(
-            r"carrying no date marker at all were last checked on ([0-9]+ \w+ [0-9]{4})",
+            r"carrying no date marker at all were[\s>]+last[\s>]+checked[\s>]+on"
+            r"[\s>]+([0-9]+ \w+ [0-9]{4})",
             self.text,
         )
         section = re.search(
-            r"Unmarked anchors were last\s+confirmed on ([0-9]+ \w+ [0-9]{4})",
+            r"Unmarked anchors were[\s>]+last[\s>]+confirmed[\s>]+on"
+            r"[\s>]+([0-9]+ \w+ [0-9]{4})",
             self.text,
         )
         self.assertIsNotNone(header, "header statement missing")
@@ -93,6 +107,76 @@ class BaselineFactTest(unittest.TestCase):
         # The claim that it names digital assets and blockchain is real, but it is
         # a quotation -- keep the source wording so the next refresh cannot drift it.
         self.assertIn("tài sản số, công nghệ chuỗi khối (blockchain)", self.text)
+    def test_da_nang_controlled_trials_keep_their_decisions_and_primary_anchor(self):
+        for decision in ("3809/QĐ-UBND", "3810/QĐ-UBND", "3811/QĐ-UBND", "3812/QĐ-UBND"):
+            self.assertIn(decision, self.text)
+        self.assertIn("danang.gov.vn/vi/web/dng/w/chi-dao-dieu-hanh-noi-bat", self.text)
+
+    def test_da_nang_trials_are_not_presented_as_national_licenses(self):
+        self.assertIn("not national CASP/exchange licenses", self.text)
+        self.assertIn("do not infer that direct payment", self.text)
+
+    def test_da_nang_records_the_trials_that_predate_the_august_2026_batch(self):
+        # The 22 Aug 2026 batch was not the start of the programme. Basal Pay
+        # (1181) and MIMO (2895) were licensed first and both still run -- MIMO
+        # to Dec 2028. A radar that lists only the latest batch undercounts.
+        for decision in ("1181/QĐ-UBND", "2895/QĐ-UBND"):
+            self.assertIn(decision, self.text, decision)
+        self.assertIn("Dragon Lab", self.text)
+        self.assertIn("AlphaTrue Solutions", self.text)
+
+    def test_no_unqualified_first_crypto_trial_claim(self):
+        # Basal Pay (Aug 2025) predates MIMO (Dec 2025) in the same city, so neither
+        # is "the first" without a qualifier. Each operator's claim is narrower than
+        # it sounds and must stay attributed.
+        self.assertNotIn("the first such licence in the country", self.text)
+        self.assertNotIn("the first controlled-trial licence of its kind in Vietnam", self.text)
+        self.assertIn("Dragon Lab\ndescribes MIMO as the first licensed-trial solution", self.text)
+        self.assertIn("Travel Rule", self.text)
+
+    def test_da_nang_trial_count_is_stated_as_a_floor_not_a_total(self):
+        # The regime is not crypto-specific and the 2026 first-batch approvals were
+        # never enumerated, so a bare count would repeat the undercount this pass fixed.
+        self.assertIn("floor", self.text)
+        self.assertNotIn("by August 2026 six such trials are live", self.text)
+
+    def test_da_nang_records_the_resolution_the_trials_sit_under(self):
+        # The individual QĐ-UBND approvals are downstream of this resolution.
+        self.assertIn("20/2026/NQ-HĐND", self.text)
+
+    def test_resolution_20_is_not_published_as_confirmed_on_one_source(self):
+        # sources.md requires Tier 1, a named law firm, or two independent Tier-2
+        # sources. Only VnEconomy carries this one, so it stays single-source.
+        self.assertIn("REPORTED / SINGLE-SOURCE (LOCAL)", self.text)
+        self.assertNotIn("ENACTED / CONFIRMED (LOCAL) | Signed 29 May 2026", self.text)
+
+    def test_no_unconfirmed_effective_dates_on_the_da_nang_instruments(self):
+        # A reported 10 Jun 2026 effective date for Resolution 20 could not be
+        # confirmed against any source, so it is not asserted. Both Da Nang rows
+        # say what their anchor actually carries instead of implying a date.
+        self.assertNotIn("effective 10 Jun 2026", self.text)
+        self.assertIn(
+            "Issued 29 May 2026; no effective date stated in the anchor", self.text
+        )
+        self.assertIn(
+            "No separate legal effective date is stated in the anchor", self.text
+        )
+
+    def test_umi_pay_scope_discrepancy_stays_flagged_not_resolved_by_guess(self):
+        # Pre-approval filings describe a prediction-market element the decision
+        # title does not carry. Neither reading is confirmed, so neither is stated.
+        self.assertIn("prediction market", self.text)
+        self.assertIn("UNVERIFIED", self.text)
+
+    def test_undecided_da_nang_applications_are_tracked_not_dropped(self):
+        for applicant in ("VON", "G-Flow", "GM Services", "Dinogo"):
+            self.assertIn(applicant, self.text, applicant)
+
+    def test_da_nang_locations_are_not_generalised_to_a_whole_ward(self):
+        # The source names sites per decision; an earlier draft flattened them to
+        # "designated technology and innovation sites in Hải Châu ward".
+        self.assertNotIn("innovation sites in\nHải Châu ward", self.text)
+        self.assertIn("Công viên phần mềm số 1", self.text)
 
 
 if __name__ == "__main__":
