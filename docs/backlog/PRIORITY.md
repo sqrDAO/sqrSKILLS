@@ -7,7 +7,9 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-_Empty._
+1. `weekly-skill-refresh-2026-08-24-verification` — correct the 13 data
+   defects the 2026-08-24 refresh merged into `main` (#31), and add the
+   roster regression tests that would have caught them.
 
 ## Recently shipped
 
