@@ -7,9 +7,14 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-1. `web3-opportunities-eval-split` — the split is built and calibrated (ideal
-   run 24/24, deliberately-wrong run 0/24). What remains is the baseline agent
-   run and the diagnosis that follows it.
+1. `web3-opportunities-eval-split` — v1 is retired at 24/24 and v2 is built and
+   calibrated. What remains is v2 at two repeats to establish a baseline, then
+   re-testing the withheld E2 against it. That is one fresh agent per case per
+   repeat, so it is a deliberate spend.
+2. `llm-wiki-ordering-and-lookup-invariant` — `search.py` and `list.py` now sort
+   totally, so equal-ranking pages no longer come back in filesystem order; the
+   lookup invariant three skills each found separately is recorded in
+   `AGENTS.md`. Awaiting approval to close.
 
 ## Recently shipped
 

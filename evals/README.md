@@ -47,18 +47,33 @@ store what it returned, and a data refresh re-derives the answer key instead of
 rotting against it.
 
 Of the ten skills in this repo, three qualify: `vietnam-visa-check` and
-`web3-opportunities` (both have one), and `llm-wiki`, whose scripts are
-deterministic over a `$WIKI_DIR` and would need a committed fixture wiki first.
-Five call live APIs and hold credentials (`luma-calendar`,
-`nearby-places-search`, and the three Telegram skills) — no reproducible answer
-key without a recorded-fixture layer that does not exist. `vietnam-crypto-radar`
-ships references but no script, so its truth would have to be hand-written and
-would go stale at the next refresh. `business-model-to-market` is a judgement
-workflow whose output is a workbook, not an answer.
+`web3-opportunities` (both have one), and `llm-wiki`, which is the next
+candidate and is not ready. Its scripts are offline and stdlib-only over a
+`$WIKI_DIR`, which is the right shape, but three things block a split:
 
-Do not build a split for a skill in the second group by hand-writing the answer
-key. A split that rots is worse than none: it fails on refresh, gets "fixed" by
-editing the expectations, and after two rounds of that it is measuring nothing.
+1. **No fixture wiki.** The data is the user's, not bundled, and it has to be
+   copied per case: `log.py` appends to `log.md` and stamps `date.today()`, and
+   ingest cases write pages, so cases would otherwise contaminate each other.
+2. **Ordering was not total** — fixed in `llm-wiki` 0.1.4. `search.py` and
+   `list.py` sorted on one key and left ties in `os.listdir` order, so `--top N`
+   returned an arbitrary N and a generated key would have encoded the machine
+   that built it: passing `--check` on macOS and failing it on CI.
+3. **The harness cannot grade writes.** The interesting half of the skill —
+   ingest, noting contradictions, filing an answer back as a page — produces
+   file mutations, not an answer. Both graders read recorded calls and the final
+   answer only, so this needs a check type that reads the post-run fixture.
+
+The remaining six do not qualify at all. Five call live APIs and hold
+credentials (`luma-calendar`, `nearby-places-search`, and the three Telegram
+skills) — no reproducible answer key without a recorded-fixture layer that does
+not exist. `vietnam-crypto-radar` ships references but no script, so its truth
+would have to be hand-written and would go stale at the next refresh.
+`business-model-to-market` is a judgement workflow whose output is a workbook,
+not an answer.
+
+Do not build a split for one of those six by hand-writing the answer key. A
+split that rots is worse than none: it fails on refresh, gets "fixed" by editing
+the expectations, and after two rounds of that it is measuring nothing.
 
 ## Two rules that make it work
 
