@@ -1,0 +1,10 @@
+{
+  "case_id": "vvc-24",
+  "tool_calls": [
+    {"nationality": "Australia", "duration_days": null, "phu_quoc_only": false},
+    {"nationality": "Ireland", "duration_days": null, "phu_quoc_only": false},
+    {"nationality": "IE", "duration_days": null, "phu_quoc_only": false}
+  ],
+  "answer": "Neither one gives you an edge — Australian and Irish passports are treated identically for Vietnam entry. Vietnam does not have a visa-free exemption for either nationality, so no matter which passport you travel on, you'll need to get a visa in advance.\n\nFor both, the recommended pathway is the e-Visa:\n- Stay: up to 90 days\n- Cost: USD 25 (single entry) or USD 50 (multiple entry)\n- Processing: 2–3 business days (faster/expedited options exist at extra cost)\n- Apply at the official portal: https://evisa.gov.vn/\n- Entry allowed by air, land, or sea at any approved e-Visa port (83 ports tracked in this dataset)\n\nA couple of practical notes that apply either way: your passport needs at least 180 days of validity remaining from your entry date, and since the e-Visa is open to all nationalities, you could technically apply under either passport — just make sure the passport you register for the e-Visa is the one you actually travel and enter with, since they need to match.\n\nBottom line: pick whichever passport is more convenient for you to travel on (e.g., better onward visa-free access elsewhere, or the one that's currently valid with more validity buffer) — it won't change your Vietnam entry requirements, since both Australians and Irish citizens go through the same e-Visa process.\n\nThis is based on data as of 2026-08-17 from the bundled policy dataset — I'd recommend double-checking current requirements at evisa.gov.vn before you book, since visa policies can change.",
+  "extra_reads": []
+}

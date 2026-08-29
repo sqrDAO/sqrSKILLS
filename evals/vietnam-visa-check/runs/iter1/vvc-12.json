@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-12",
+  "tool_calls": [
+    {
+      "nationality": "Polish",
+      "duration_days": 7,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "No, you don't need a visa — Polish passport holders get visa-free entry to Vietnam for up to 45 days under a unilateral exemption, comfortably covering your one-week trip.\n\nKey details:\n- Max stay visa-free: 45 days\n- This exemption is valid through 2028-08-14, so you're well within the window\n- Your passport must be valid for at least 180 days from your entry date — worth double-checking before you fly\n- One nuance: the dataset's record for this exemption notes it was granted for \"tourism purpose.\" Since you're traveling for business meetings rather than tourism, it's worth confirming with the Vietnamese embassy/consulate or at evisa.gov.vn that unilateral visa-free entry covers business visits in your case — in practice it generally does for short business trips (no local employment/work permit involved), but I can't confirm that distinction from this data alone.\n- If you'd rather not rely on the visa-free exemption (or it turns out not to apply to business travel), an e-Visa is available to all nationalities: up to 90 days, USD 25 (single-entry) or USD 50 (multiple-entry), 2-3 business days processing, usable at any of the approved air/land/sea ports — apply at evisa.gov.vn.\n\nData caveat: this is current as of 2026-08-17 per the bundled policy dataset. Please verify the latest rules — especially the business-vs-tourism point — at https://evisa.gov.vn/ before you travel.",
+  "extra_reads": []
+}

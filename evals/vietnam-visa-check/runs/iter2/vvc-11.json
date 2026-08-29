@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-11",
+  "tool_calls": [
+    {
+      "nationality": "Japanese",
+      "duration_days": 42,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Good news — as a Japanese passport holder you're visa-free for stays up to 45 days, so your roughly six-week (42-day) trip fits within that limit with no visa needed. This unilateral exemption is extended until 2028-03-05, and your passport must be valid for at least 180 days from your entry date. If your trip ends up running longer than 45 days, you'd need an e-Visa instead (available to all nationalities, up to 90 days, USD 25 single-entry / USD 50 multiple-entry, apply at evisa.gov.vn). Data as of 2026-08-17 — worth double-checking evisa.gov.vn closer to your travel date in case anything changes.",
+  "extra_reads": []
+}

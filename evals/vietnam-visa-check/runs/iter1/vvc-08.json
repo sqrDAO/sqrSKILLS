@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-08",
+  "tool_calls": [
+    {
+      "nationality": "German",
+      "duration_days": 60,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Yes — for a stay of about two months (60 days), you'll need a visa. Germans get 45 days visa-free (unilateral exemption, currently extended until 2028-03-05), but that doesn't cover a 60-day trip, so you'll need to apply for an e-Visa instead.\n\nThe e-Visa covers up to 90 days, costs USD 25 (single entry) or USD 50 (multiple entry), takes about 2-3 business days to process, and is usable at any of the ~83 approved air/land/sea ports — apply at evisa.gov.vn.\n\nOne more thing to check: your passport needs to be valid for at least 180 days from your entry date.\n\nThis is based on data as of 2026-08-17 — double-check current policy at evisa.gov.vn before you travel.",
+  "extra_reads": []
+}

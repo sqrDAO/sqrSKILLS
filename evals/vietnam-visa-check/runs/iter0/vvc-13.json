@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-13",
+  "tool_calls": [
+    {
+      "nationality": "Swiss",
+      "duration_days": 14,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Good news — as a Swiss citizen you do not need a visa for a two-week holiday in Vietnam.\n\n1. Primary pathway: Switzerland is on Vietnam's unilateral visa-exemption list, so you can enter visa-free for tourism.\n2. Key details: Visa-free stays are allowed for up to 45 days, well within your 14-day trip. This exemption is valid through 2028-08-14 (per Resolution 229/NQ-CP). Just make sure your passport is valid for at least 180 days from your entry date.\n3. E-Visa fallback: You don't need it, but if you ever wanted more flexibility (e.g., a longer stay or multiple entries), an e-Visa is available to all nationalities for up to 90 days, costing USD 25 (single entry) or USD 50 (multiple entry), applied for at evisa.gov.vn.\n4. Data caveat: This information is current as of 2026-08-17. Since exemption terms can change, it's worth double-checking at evisa.gov.vn before you travel.",
+  "extra_reads": []
+}

@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-10",
+  "tool_calls": [
+    {
+      "nationality": "Thai",
+      "duration_days": 31,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "As a Thai citizen, you're normally visa-free in Vietnam for up to 30 days on a bilateral exemption — but since your trip is 31 days, that's 1 day over the limit, so the visa-free exemption doesn't cover you. You'll need an e-Visa instead.\n\nE-Visa details:\n- Valid for stays up to 90 days, so it comfortably covers your 31-day trip\n- Cost: USD 25 (single entry) or USD 50 (multiple entry)\n- Apply at https://evisa.gov.vn/, processing takes 2-3 business days (faster options available for a higher fee)\n- Valid for entry by air, land, or sea at any of the approved ports (83 in this dataset)\n\nOne more requirement either way: your passport must be valid for at least 180 days from your entry date.\n\nData as of 2026-08-17 — verify current policy at evisa.gov.vn before you travel.",
+  "extra_reads": []
+}

@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-12",
+  "tool_calls": [
+    {
+      "nationality": "Polish",
+      "duration_days": 7,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Good news on the basic entry rule: as a Polish citizen you're visa-free for stays up to 45 days (Resolution 229/NQ-CP), which comfortably covers a one-week trip, and this exemption is currently valid through 2028-08-14. No visa or e-Visa fee is needed for entry itself.\n\nOne important catch, though: the dataset's own record of this exemption specifies it's granted for \"tourism purpose.\" Your trip is a week of business meetings, not tourism, so it's worth confirming before you fly whether business meetings fall within the visa-free allowance or whether Vietnam expects business travelers to hold an e-Visa or business visa instead. Immigration authorities can be strict about purpose-of-visit mismatches at the border.\n\nTo be safe, you have a low-cost fallback either way: Vietnam's e-Visa is open to all nationalities (including Poland), allows stays up to 90 days, costs USD 25 (single-entry) or 50 (multiple-entry), takes about 2-3 business days to process, and can be used at any of the approved entry ports (air, land, or sea) — it's not restricted to one nominated port. Applying for one explicitly as a business e-Visa would remove any ambiguity about purpose of travel.\n\nA couple of housekeeping items regardless of route: your passport needs at least 180 days' validity remaining from your entry date, and this data is current as of 2026-08-17 — I'd recommend double-checking the tourism-vs-business condition and current rules directly at evisa.gov.vn before you travel, since a business-purpose mismatch is the kind of detail that can cause problems at immigration even when the visa-free duration itself is generous.",
+  "extra_reads": []
+}

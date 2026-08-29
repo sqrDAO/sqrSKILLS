@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-04",
+  "tool_calls": [
+    {
+      "nationality": "Rusia",
+      "duration_days": null,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Just to confirm — did you mean Russia? I want to look up the right country before answering. If so, let me know and I'll check Vietnam's visa requirements for Russian citizens.",
+  "extra_reads": []
+}

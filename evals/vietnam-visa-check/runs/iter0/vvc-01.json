@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-01",
+  "tool_calls": [
+    {
+      "nationality": "Russians",
+      "duration_days": null,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Good news — Russian citizens can currently visit Vietnam visa-free.\n\n1. **Primary pathway: Visa-free entry.** Russians are on Vietnam's unilateral visa exemption list, so no visa is needed for a standard visit.\n2. **Key details:** You can stay up to **45 days** per visit under this exemption. It's currently valid **until 2028-03-05** (extended per a March 2025 announcement) — worth double-checking it hasn't changed by the time you travel. Your passport also needs at least 180 days of validity remaining from your entry date.\n3. **E-Visa as a fallback:** If you need to stay longer than 45 days (or want a multiple-entry option), an e-Visa is available to all nationalities, including Russians — up to 90 days, costing USD 25 (single-entry) or USD 50 (multiple-entry), with 2-3 business day processing via evisa.gov.vn.\n4. **Data caveat:** This is based on data as of 2026-08-17. Immigration policy can change, so it's a good idea to verify the current rules at https://evisa.gov.vn/ before you travel.",
+  "extra_reads": []
+}

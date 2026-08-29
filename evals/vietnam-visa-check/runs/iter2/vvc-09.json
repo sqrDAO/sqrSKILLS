@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-09",
+  "tool_calls": [
+    {
+      "nationality": "Thai",
+      "duration_days": 30,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Good news — as a Thai citizen you don't need a visa for a 30-day trip to Vietnam. Thailand has a bilateral visa-free agreement with Vietnam allowing stays of up to 30 days, so your exact 30-day trip fits right at the limit (no extra buffer if your trip runs even a day long — plan your exit date carefully).\n\nKey details:\n- Pathway: Visa-free entry (bilateral agreement with Thailand)\n- Max stay: 30 days — matches your planned length exactly\n- Cost: None\n- Your passport must be valid for at least 180 days from your entry date\n\nIf you ever want more flexibility (longer stay or a cushion beyond 30 days), Vietnam's e-Visa is available to all nationalities, including Thai citizens, for up to 90 days at USD 25 (single-entry) or USD 50 (multiple-entry), applied for at evisa.gov.vn.\n\nThis data is current as of 2026-08-17 — I'd recommend double-checking at evisa.gov.vn before you travel in case policy has changed.",
+  "extra_reads": []
+}

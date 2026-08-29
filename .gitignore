@@ -5,7 +5,10 @@ __pycache__/
 ._*
 .env
 *.env
+# llm-wiki runtime workspace ($WIKI_DIR, defaults to ./wiki/) — generated state.
 wiki/
+# Eval wikis are source: the diagnostic layer the skill loop reads and writes.
+!evals/*/wiki/
 CLAUDE.md
 .firecrawl/
 

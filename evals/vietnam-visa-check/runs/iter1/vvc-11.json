@@ -1,0 +1,13 @@
+{
+  "case_id": "vvc-11",
+  "tool_calls": [
+    {
+      "nationality": "Japanese",
+      "duration_days": 42,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Good news — Japanese passport holders can visit Vietnam visa-free for up to 45 days, so your roughly six-week (42-day) trip fits comfortably within that window with no visa needed.\n\nDetails:\n- Pathway: Visa-free entry (unilateral exemption)\n- Max stay: 45 days per entry\n- This exemption is currently extended through 2028-03-05\n- Passport must be valid for at least 180 days from your entry date\n\nIf you ever wanted to stay longer than 45 days, an e-Visa is also available to all nationalities (Japan included) for up to 90 days, costing USD 25 (single-entry) or USD 50 (multiple-entry), applied for at evisa.gov.vn.\n\nData as of 2026-08-17 — I'd recommend double-checking current policy at https://evisa.gov.vn/ before you travel, just in case anything changes closer to your trip."
+  ,
+  "extra_reads": []
+}

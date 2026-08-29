@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-05",
+  "tool_calls": [
+    {
+      "nationality": "Atlantean",
+      "duration_days": 30,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "\"Atlantean\" isn't a nationality my lookup recognizes (Atlantis isn't a real, ISO-registered country, so there's no visa data on file for it). I can't guess a match here since there's nothing close to suggest. Could you tell me your actual country of citizenship (a country name or ISO alpha-2 code, e.g. \"Germany\" or \"DE\") so I can check Vietnam's visa/e-Visa requirements for you?",
+  "extra_reads": []
+}

@@ -1,0 +1,11 @@
+{
+  "case_id": "vvc-19",
+  "tool_calls": [
+    {
+      "nationality": "Timor-Leste",
+      "duration_days": null,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Not yet, unfortunately — as of the latest data (17 Aug 2026), Timor-Leste passport holders do NOT have confirmed visa-free access to Vietnam. Here's the full picture: Vietnam and Timor-Leste signed and exchanged a bilateral 30-day visa-exemption agreement for ordinary passports during PM Xanana Gusmao's visit to Hanoi on 9 June 2026 — so what you read about is real, but it hasn't entered into force yet. Timor-Leste is still absent from the operative visa-exemption list, so I can't tell you it's active.\n\nUntil that's confirmed, you'll need to go through the e-Visa route: apply at evisa.gov.vn, valid for stays up to 90 days, costing USD 25 (single entry) or USD 50 (multiple entry), with processing in about 2-3 business days. It's usable for entry by air, land, or sea at any of the approved ports (no restriction to a single nominated port). Your passport also needs at least 180 days of validity remaining from your entry date.\n\nBottom line: check evisa.gov.vn close to your travel date in case the exemption has entered into force by then — if it hasn't, apply for the e-Visa instead."
+}
