@@ -28,8 +28,16 @@ evals/
       skill-impact.md      every proposed edit, its diff, its score, accepted or rejected
 ```
 
-Two splits exist: `vietnam-visa-check` (saturated at 24/24 — see its
-`skill-impact.md`) and `web3-opportunities` (built, not yet run).
+Three splits exist. Two are retired and one is live:
+
+| split | state |
+|-------|-------|
+| `vietnam-visa-check/cases.jsonl` | saturated at 24/24 — retired |
+| `web3-opportunities/cases.jsonl` (v1) | saturated at 24/24 after one gated edit — retired, kept so its stored runs stay scoreable |
+| `web3-opportunities/cases-v2.jsonl` | live; built and calibrated, not yet run |
+
+A retired split is not deleted. Its cases and runs are the evidence behind every
+entry in `skill-impact.md`, and deleting them would leave the log unverifiable.
 
 ## Which skills can have a split
 
@@ -87,9 +95,47 @@ python3 evals/scripts/build_visa_cases.py           # regenerate after a data re
 python3 evals/scripts/build_visa_cases.py --check   # CI: fail if stale
 python3 evals/scripts/grade_visa.py evals/vietnam-visa-check/runs/iter0-a.jsonl
 
-python3 evals/scripts/build_web3_cases.py
+python3 evals/scripts/build_web3_cases.py             # builds v1 and v2
+python3 evals/scripts/build_web3_cases.py --split v2
 python3 evals/scripts/grade_web3.py evals/web3-opportunities/runs/iter0.jsonl
+
+# v2: several run files means several repeats of the same iteration
+python3 evals/scripts/grade_web3.py runs/iter2-a.jsonl runs/iter2-b.jsonl \
+    --cases evals/web3-opportunities/cases-v2.jsonl
 ```
+
+## Repeats, and why the second one matters
+
+Pass more than one run file and the grader reports the mean, the per-repeat
+rates, and — the reason repeats exist — **`unstable_cases`**: cases that pass in
+one repeat and fail in another.
+
+That list is the single most useful number here. On the `web3-opportunities` v1
+split, an edit appeared to fix two cases and had in fact fixed one; the other was
+a different agent making a different call on a case the edit did not touch. With
+one repeat that is indistinguishable from a result. A case in `unstable_cases`
+must never be credited to an edit.
+
+## Multi-turn cases
+
+A v2 case may carry several `turns`. The failure it exists to catch is answering
+turn 2 out of turn 1's result set instead of re-querying for what turn 2 actually
+asked — invisible in a single-turn split, because there is no turn 2.
+
+Expected calls and rubric checks may pin a `turn` (0-based). Unpinned, a call may
+be satisfied by any turn and a check is graded against every turn's answer joined
+together, so a forbidden claim anywhere in the exchange still counts.
+
+## Web-disabled cases
+
+A case may set `web_allowed: false`. The executor is then told the live-enrichment
+tools are unavailable, and the rubric forbids claiming a live check.
+
+This exists because v1 was, in part, measuring the wrong thing. Agents passed its
+hardest probes by going to the web — which the skill explicitly permits — so a
+labelling rule that looked like it was holding may only have been unreachable.
+The web-disabled cases ask the same questions with that route closed. They are
+the only way to see what the catalog instructions carry on their own.
 
 Both `--check` runs are a required CI step. A split that has drifted from the
 data it was generated from is not a gate.
@@ -120,6 +166,12 @@ themselves are scratch.
 **The run file must contain every case exactly once.** A missing, duplicated, or
 unknown `case_id` is refused with `"ok": false` and no score. Otherwise a run that
 quietly dropped its failures would report a higher pass rate than it earned.
+
+**And every case must record exactly the turns it defines.** Case coverage is not
+enough once a case is multi-turn: a run holding only turn 1 of a two-turn case
+covers every `case_id`, and the missing turn reads as an empty answer that a
+turn-pinned `forbid_all` sails through. Truncating every multi-turn case in the v2
+ideal run produced a perfectly plausible 0.75 before this was refused.
 
 Run file format, one object per case. `tool_calls` records what the agent
 actually invoked, in whatever shape that split's grader reads:

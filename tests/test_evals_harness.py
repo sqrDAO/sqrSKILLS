@@ -16,7 +16,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "evals" / "scripts"))
 
 from rubric import grade_checks, run_integrity_error, summarize  # noqa: E402
-from grade_web3 import satisfies  # noqa: E402
+from grade_web3 import (  # noqa: E402
+    satisfies, read_turns, answer_for, turn_integrity_error,
+)
 
 
 def forbid(*patterns):
@@ -204,6 +206,101 @@ class ReturnsConstraintTest(unittest.TestCase):
 
     def test_a_rejected_invocation_never_satisfies_returns(self):
         self.assertFalse(satisfies(None, {"returns": ["a16z-csx"]}))
+
+
+class MultiTurnTest(unittest.TestCase):
+    """A follow-up that reuses turn 1's result is the failure v2 exists to catch,
+    so the grader has to be able to tell the turns apart."""
+
+    def test_flat_run_reads_as_one_turn(self):
+        run = {"case_id": "x", "tool_calls": [{"argv": ["--all"]}], "answer": "hi"}
+        turns = read_turns(run)
+        self.assertEqual(len(turns), 1)
+        self.assertEqual(turns[0]["answer"], "hi")
+
+    def test_multi_turn_run_keeps_its_turns(self):
+        run = {"case_id": "x", "turns": [{"tool_calls": [], "answer": "one"},
+                                         {"tool_calls": [], "answer": "two"}]}
+        self.assertEqual([t["answer"] for t in read_turns(run)], ["one", "two"])
+
+    def test_an_unpinned_check_sees_every_turn(self):
+        turns = [{"answer": "alpha"}, {"answer": "beta"}]
+        joined = answer_for({"id": "c"}, turns)
+        self.assertIn("alpha", joined)
+        self.assertIn("beta", joined)
+
+    def test_a_pinned_check_sees_only_its_turn(self):
+        turns = [{"answer": "alpha"}, {"answer": "beta"}]
+        self.assertEqual(answer_for({"id": "c", "turn": 1}, turns), "beta")
+        self.assertNotIn("alpha", answer_for({"id": "c", "turn": 1}, turns))
+
+    def test_a_pinned_check_on_a_missing_turn_is_empty_not_an_error(self):
+        # A run that stopped early must fail its checks, not crash the grader.
+        self.assertEqual(answer_for({"id": "c", "turn": 3}, [{"answer": "alpha"}]), "")
+
+    def test_a_forbidden_claim_anywhere_in_the_exchange_still_counts(self):
+        turns = [{"answer": "It is currently open."}, {"answer": "Anyway, good luck."}]
+        checks = [{"id": "f", "type": "forbid_all",
+                   "patterns": [r"is currently open"], "why": "w"}]
+        result = grade_checks(answer_for(checks[0], turns), checks)[0]
+        self.assertFalse(result["passed"])
+
+
+class TurnIntegrityTest(unittest.TestCase):
+    """A half-finished exchange must never produce a score.
+
+    Covering every case_id is not enough once a case has turns: a run recording
+    only turn 1 of a two-turn case still passes the case-coverage check, and the
+    missing turn reads as an empty answer that a turn-pinned `forbid_all` sails
+    through. Reported by CodeRabbit on #44 against a run that scored 0.75.
+    """
+
+    cases = {"one": {"turns": ["a"]}, "two": {"turns": ["a", "b"]}}
+
+    def recorded(self, case_id, n):
+        # Not named `run` -- that shadows TestCase.run and breaks the runner.
+        return {"case_id": case_id, "turns": [{"tool_calls": [], "answer": ""}] * n}
+
+    def test_matching_turn_counts_are_accepted(self):
+        runs = [self.recorded("one", 1), self.recorded("two", 2)]
+        self.assertIsNone(turn_integrity_error(self.cases, runs))
+
+    def test_a_truncated_exchange_is_refused(self):
+        error = turn_integrity_error(self.cases, [self.recorded("two", 1)])
+        self.assertFalse(error["ok"])
+        self.assertEqual(error["mismatched_turns"],
+                         [{"case_id": "two", "expected_turns": 2, "recorded_turns": 1}])
+
+    def test_extra_turns_are_refused_too(self):
+        # More turns than the case defines means it is not this case.
+        self.assertIsNotNone(turn_integrity_error(self.cases, [self.recorded("one", 2)]))
+
+    def test_a_flat_run_counts_as_one_turn(self):
+        flat = {"case_id": "one", "tool_calls": [], "answer": "x"}
+        self.assertIsNone(turn_integrity_error(self.cases, [flat]))
+
+    def test_a_case_with_no_turns_key_expects_one(self):
+        # v1 cases carry `prompt`, not `turns`.
+        flat = {"case_id": "legacy", "tool_calls": [], "answer": "x"}
+        self.assertIsNone(turn_integrity_error({"legacy": {}}, [flat]))
+
+    def test_an_unknown_case_is_left_to_the_other_guard(self):
+        self.assertIsNone(turn_integrity_error(self.cases, [self.recorded("nope", 9)]))
+
+
+class TurnPinnedCallTest(unittest.TestCase):
+
+    def result(self, **over):
+        base = {"type": None, "stage": None, "dilution": None, "chain": None,
+                "region": None, "status": None, "sea": False, "search": None}
+        base.update(over)
+        return {"query": base, "ids": []}
+
+    def test_the_turn_key_is_not_treated_as_a_facet(self):
+        # `turn` rides along on the constraint dict; it must not reach the
+        # unknown-facet guard.
+        got = self.result(dilution=["mixed"])
+        self.assertTrue(satisfies(got, {"dilution": ["mixed"], "turn": 1}))
 
 
 if __name__ == "__main__":

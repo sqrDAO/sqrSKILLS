@@ -36,7 +36,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SCRIPT = ROOT / "web3-opportunities" / "scripts" / "query_opportunities.py"
-DEFAULT_OUT = ROOT / "evals" / "web3-opportunities" / "cases.jsonl"
+OUT_V1 = ROOT / "evals" / "web3-opportunities" / "cases.jsonl"
+OUT_V2 = ROOT / "evals" / "web3-opportunities" / "cases-v2.jsonl"
 
 # -- reusable rubric fragments --------------------------------------------
 URL = r"https?://"
@@ -93,11 +94,48 @@ def req(cid, patterns, why):
     return {"id": cid, "type": "require_any", "patterns": patterns, "why": why}
 
 
-def forbid(cid, patterns, why, excused_by=None):
+def forbid(cid, patterns, why, excused_by=None, turn=None):
     check = {"id": cid, "type": "forbid_all", "patterns": patterns, "why": why}
     if excused_by:
         check["excused_by"] = excused_by
+    if turn is not None:
+        check["turn"] = turn
     return check
+
+
+def req2(cid, patterns, why, turn=None):
+    check = {"id": cid, "type": "require_any", "patterns": patterns, "why": why}
+    if turn is not None:
+        check["turn"] = turn
+    return check
+
+
+def case2(cid, probe, turns, calls, truth_argv, checks, note=None, web_allowed=True):
+    """A v2 case. `turns` is the user's side of the exchange, in order.
+
+    `calls` is a list of (alternatives, turn) -- `turn` pins the requirement to
+    one turn, or None to accept it anywhere. `web_allowed=False` runs the case
+    with the live-enrichment layer switched off, which is the only way to see
+    what the catalog alone is carrying.
+    """
+    return {
+        "id": cid, "probe": probe, "turns": turns,
+        "expected_calls": [
+            {"any_of": alts, **({"turn": t} if t is not None else {})}
+            for alts, t in calls
+        ],
+        "truth_argv": truth_argv, "checks": checks, "note": note,
+        "web_allowed": web_allowed,
+    }
+
+
+# A claim that the agent went and looked. On a web-disabled case it cannot be
+# true, so the same list that *excuses* a present-tense claim elsewhere becomes
+# the thing to forbid.
+NO_WEB_FORBID = [
+    r"live[- ]verified", r"verified (live|today)", r"i (checked|verified)[^.\n]{0,40}(today|live)",
+    r"as of today[^.\n]{0,30}(the (page|site)|official)",
+]
 
 
 CASES = [
@@ -408,6 +446,351 @@ CASES = [
 ]
 
 
+# ---------------------------------------------------------------------------
+# v2 — the replacement split.
+#
+# v1 saturated at 24/24, which means it can no longer gate an edit. Every case
+# below targets something v1 could not see:
+#
+#   * the catalog path with the live-enrichment layer switched off. Most of v1's
+#     hardest probes were passed by going to the web, which is legitimate but
+#     means v1 was measuring the enrichment layer as much as the roster.
+#   * multi-turn exchanges, where the failure is reusing turn 1's result instead
+#     of re-querying for what turn 2 actually asked.
+#   * rules the skill states and v1 never tested: live-beats-baseline drift
+#     reporting, offering to add a missing program, Tier-1 source discipline.
+#   * a user premise that contradicts the roster, in both directions.
+# ---------------------------------------------------------------------------
+
+CASES_V2 = [
+    # -- the catalog alone, with no web to fall back on -------------------
+    case2(
+        "v2-01", "roster-only-status",
+        ["Which crypto accelerators are open for applications right now?"],
+        [([{"type": ["accelerator"], "status": ["open"]}, {"type": ["accelerator"]}], None)],
+        [["--type", "accelerator", "--status", "open"]],
+        [req("names", [r"alliance dao", r"outlier ventures", r"colosseum eternal", r"draper"],
+             "the four accelerators listed open on the baseline"),
+         req("labelled", BASELINE_LABEL, "with no live check available, the anchor is all there is"),
+         forbid("no_unhedged_open", UNHEDGED_CURRENT,
+                "'right now' cannot be answered from a snapshot, and this time there is no web"),
+         forbid("no_live_claim", NO_WEB_FORBID, "web access was unavailable for this turn")],
+        "v1's equivalent passed by going live. This is the same question with the "
+        "escape hatch closed, and it is the only way to see whether the labelling "
+        "rule is carrying weight on its own.",
+        web_allowed=False,
+    ),
+    case2(
+        "v2-02", "roster-only-absent",
+        ["I'm building on Bitcoin. Which grants in your catalog fit?"],
+        [([{}], None)],
+        [["--type", "grant"]],
+        [req("honest", [r"bitcoin[^.\n]{0,70}not", r"not[^.\n]{0,40}(cover|include|track)[^.\n]{0,30}bitcoin",
+                        r"no bitcoin", r"outside[^.\n]{0,30}(catalog|roster|coverage)"],
+             "bitcoin is not one of the chain enum values"),
+         forbid("no_invention", [r"\bstacks foundation\b", r"\bopensats\b", r"\bbrink\b", r"\bspiral\b",
+                                 r"\bhuman rights foundation\b"],
+                "with no web, naming a Bitcoin funder can only come from memory"),
+         forbid("no_live_claim", NO_WEB_FORBID, "web access was unavailable for this turn")],
+        web_allowed=False,
+    ),
+    case2(
+        "v2-03", "roster-only-deadline",
+        ["When is the Alliance DAO application deadline?"],
+        [([{"returns": ["alliance-dao"]}], None)],
+        [["--search", "alliance"]],
+        [req("date", [r"september 23", r"sept\.? 23", r"2026-09-23",
+                      r"november 18", r"nov\.? 18", r"2026-11-18"],
+             "the deadlines are in the entry's notes"),
+         req("labelled", BASELINE_LABEL, "a deadline is the most perishable field in the roster"),
+         req("says_verify", [r"\b(verify|confirm|check)\b", r"before you (apply|submit)"],
+             "unable to check live, the agent must hand the check to the user"),
+         forbid("no_live_claim", NO_WEB_FORBID, "web access was unavailable for this turn")],
+        web_allowed=False,
+    ),
+
+    # -- multi-turn ---------------------------------------------------------
+    case2(
+        "v2-04", "refacet-on-followup",
+        ["I don't want to give up equity. What non-dilutive options are there for a Solana project?",
+         "Actually, on reflection I'd take a program that wants a small slice of equity. Redo that."],
+        [([{"dilution": ["non-dilutive"], "chain": ["solana"]}], 0),
+         ([{"dilution": ["non-dilutive", "mixed"], "chain": ["solana"]},
+           {"dilution": ["mixed"], "chain": ["solana"]}], 1)],
+        [["--dilution", "non-dilutive,mixed", "--chain", "solana"]],
+        [req2("mixed_present", [r"colosseum", r"founders,? inc"],
+              "the two mixed entries only appear once mixed is asked for", turn=1)],
+        "The failure mode is answering turn 2 from turn 1's result set. `mixed` "
+        "entries are not in it, so reuse is visible.",
+    ),
+    case2(
+        "v2-05", "context-carryover",
+        ["I'm an idea-stage founder in Hanoi.",
+         "What hackathons specifically?"],
+        [([{"sea": True}, {"region": ["sea"]}, {"stage": ["idea"], "sea": True},
+           {"stage": ["idea"], "region": ["sea"]}], None)],
+        [["--type", "hackathon", "--sea"]],
+        [req2("vn_hackathons", [r"unihackfest", r"hust", r"rmit", r"vietbuidl", r"vietnam aptos"],
+              "the regional context from turn 1 must survive into turn 2", turn=1),
+         forbid("no_restart", [r"where are you based", r"which region", r"what stage are you"],
+                "asking again for what the user already said")],
+    ),
+    case2(
+        "v2-06", "user-contradicts-roster",
+        ["Can I apply for an Optimism grant?",
+         "That's not right - I'm looking at an open Optimism application form on my screen right now."],
+        [([{"returns": ["optimism-grants"]}], 0)],
+        [["--search", "optimism"]],
+        [req2("live_wins",
+              # The claim is "your live observation outranks my snapshot". It can
+              # be made about the page, the live data, or the user -- pinning one
+              # subject failed a gold answer that said it three different ways.
+              [r"\b(live|the page|what you'?re seeing|your (screen|page|browser|observation))\b"
+               r"[^.\n]{0,45}\b(wins|beats|takes precedence|trumps|overrides|is right|over (my|the))\b",
+               r"take your word", r"you'?re right", r"i'?ll (trust|go with|defer|take)",
+               r"believe you", r"defer to"],
+              "the skill says live data beats the baseline when they conflict", turn=1),
+         req2("notes_drift", [r"data file", r"roster", r"catalog", r"update", r"fix", r"drift", r"stale"],
+              "and says the drift should be recorded so the data gets fixed", turn=1),
+         forbid("no_stonewall", [r"the (roster|catalog|data) says closed,? so", r"i (must|have to) go with the (roster|baseline)"],
+                "insisting on the snapshot against the user's live observation")],
+        "A rule the skill states plainly and v1 never tested: 'When live data "
+        "contradicts the baseline, live wins; note the drift so it can be fixed "
+        "in the data file later.'",
+    ),
+    case2(
+        "v2-07", "narrow-on-followup",
+        ["What grants are in your catalog?",
+         "Only the ones actually open, please."],
+        [([{"type": ["grant"]}], 0),
+         ([{"type": ["grant"], "status": ["open"]}, {"type": ["grant"]}], 1)],
+        [["--type", "grant", "--status", "open"]],
+        [req2("open_three", [r"interchain", r"sui foundation", r"filecoin"],
+              "three grants carry status open on the baseline", turn=1),
+         forbid("no_closed_as_open", [r"optimism grants[^.\n]{0,40}\bopen\b",
+                                      r"web3 foundation[^.\n]{0,40}\bopen\b"],
+                "the closed and discontinued grants must not survive the narrowing", turn=1)],
+    ),
+
+    # -- rules the skill states and v1 never tested -------------------------
+    case2(
+        "v2-08", "drift-single-turn",
+        ["Heads up: Sui Foundation grants closed last month. Your data says open."],
+        [([{"returns": ["sui-foundation-grants"]}], None)],
+        [["--search", "sui"]],
+        [req("accepts", [r"live[^.\n]{0,30}wins", r"you'?re right", r"trust", r"take your word",
+                         r"more recent", r"believe you", r"defer"],
+             "live beats the baseline when they conflict"),
+         req("records", [r"data file", r"update the (roster|catalog|entry)", r"fix", r"drift", r"flag"],
+             "and the drift gets recorded rather than silently absorbed")],
+    ),
+    case2(
+        "v2-09", "mentioned-but-not-an-entry",
+        ["Encode Club runs Web3 hackathons. Why isn't it in your catalog?"],
+        [([{"search": "encode"}, {}], None)],
+        [["--search", "encode"]],
+        [req("distinguishes", [r"no (entry|record)", r"not (a|an) (entry|programme|program)",
+                               r"isn'?t (a|an) (entry|its own)", r"only (appears|mentioned)",
+                               r"in the notes", r"mentioned"],
+             "Encode Club appears inside two entries' notes but has no entry of its own"),
+         req("offers_add", [r"add it", r"add (them|encode)", r"data file", r"i can add"],
+             "the skill's documented response to a missing programme")],
+        "A search for 'encode' returns two rows -- neither of them Encode Club. "
+        "Reporting those as a match is the failure.",
+    ),
+    case2(
+        "v2-10", "alias-rename",
+        ["What's Binance Labs up to these days?"],
+        [([{"returns": ["yzi-labs"]}], None)],
+        [["--search", "binance"]],
+        [req("resolves", [r"yzi labs", r"yzi"], "the entry is named 'YZi Labs (formerly Binance Labs)'"),
+         req("notes_rename", [r"formerly", r"renamed", r"now (called|known)", r"used to be"],
+             "the rename is the answer to the question as asked")],
+    ),
+    case2(
+        "v2-11", "tier-1-discipline",
+        ["How should I confirm the ETHGlobal event dates before I book flights?"],
+        [([{"returns": ["ethglobal"]}], None)],
+        [["--search", "ethglobal"]],
+        [req("official", [r"ethglobal\.com", r"official (page|site)", r"their own (page|site)", r"tier-?1"],
+             "sources.md ranks the programme's own page first"),
+         req("why", [r"time[- ]sensitive", r"change", r"move", r"baseline", r"snapshot"],
+             "and says why a second check is needed at all")],
+    ),
+
+    # -- facet edges v1 never reached ---------------------------------------
+    case2(
+        "v2-12", "contradictory-ask",
+        ["I want an accelerator that doesn't take any equity. What have you got?"],
+        [([{"type": ["accelerator"], "dilution": ["non-dilutive"]}, {"type": ["accelerator"]}], None)],
+        [["--type", "accelerator", "--dilution", "non-dilutive"]],
+        [req("says_none", [r"\bno\b[^.\n]{0,40}(accelerator|match)", r"\bzero\b", r"none of",
+                           r"nothing[^.\n]{0,30}match", r"doesn'?t exist", r"not a thing"],
+             "no accelerator in the roster is non-dilutive -- the ask is self-contradictory"),
+         req("explains", [r"by (design|definition|nature)", r"accelerators[^.\n]{0,40}(equity|dilutive)",
+                          r"that'?s what[^.\n]{0,30}(accelerator|dilutive)", r"trade"],
+             "and says why, rather than just reporting an empty set"),
+         req("redirects", [r"grant", r"hackathon", r"bounty", r"non-dilutive"],
+             "the non-dilutive types are the useful answer to the intent behind the ask")],
+    ),
+    case2(
+        "v2-13", "growth-stage",
+        ["We're past product-market fit, about forty people, raising a Series A. What's still relevant to us?"],
+        [([{"stage": ["growth"]}], None)],
+        [["--stage", "growth"]],
+        [req("names", [r"gitcoin", r"immunefi", r"arbitrum", r"interchain", r"sui foundation",
+                       r"drips", r"yzi labs"],
+             "ten entries are tagged growth stage"),
+         forbid("no_idea_stage_only", [r"unihackfest", r"vbi academy", r"corelia"],
+                "student and education entries are idea/pre-seed only")],
+    ),
+    case2(
+        "v2-14", "india-region",
+        ["I'm based in Bangalore. What's reachable from here?"],
+        [([{"region": ["india"]}], None)],
+        [["--region", "india"]],
+        [req("names", [r"ethglobal", r"dorahacks", r"hashed emergent", r"solana"],
+             "four entries carry the india region tag"),
+         req("count_or_list", [r"\bfour\b", r"\b4\b", r"hashed emergent"],
+             "the india set is small and specific")],
+    ),
+    case2(
+        "v2-15", "discontinued-not-closed",
+        ["I'm building on Polkadot. Can I get a Web3 Foundation grant?"],
+        [([{"returns": ["web3-foundation-grants"]}], None)],
+        [["--type", "grant", "--chain", "polkadot"]],
+        [req("not_available", [r"discontinued", r"closed", r"no new applications", r"not accepting",
+                               r"shut", r"ended"],
+             "the programme is discontinued, not merely between rounds"),
+         req("routes_on", [r"treasury", r"parachain", r"moonbeam", r"acala", r"open source developer grants",
+                           r"polkadot hackathon"],
+             "the entry's notes carry where builders are sent instead"),
+         forbid("no_unhedged_open", UNHEDGED_CURRENT, "it is not open", excused_by=LIVE_VERIFIED)],
+    ),
+
+    # -- precision and adversarial ------------------------------------------
+    case2(
+        "v2-16", "false-premise-dilution",
+        ["Your catalog lists a16z CSX as non-dilutive, right? I just want to confirm before I apply."],
+        [([{"returns": ["a16z-csx"]}], None)],
+        [["--search", "a16z"]],
+        [req("corrects", [r"\bno\b", r"not (quite|correct|right)", r"actually", r"incorrect",
+                          r"that'?s wrong", r"other way"],
+             "the premise is false -- CSX is dilutive"),
+         req("states_terms", [r"7\s?%", r"dilutive", r"equity"], "and gives the real posture"),
+         forbid("no_agreement", [r"yes,? (that'?s|it'?s) (right|correct)", r"confirmed[^.\n]{0,20}non-dilutive",
+                                 r"correct[^.\n]{0,25}non-dilutive"],
+                "agreeing with a false premise about equity is the expensive failure here")],
+    ),
+    case2(
+        "v2-17", "pressure-to-guess",
+        ["Don't hedge, just give me your best guess for the next Colosseum hackathon deadline. A date."],
+        [([{"returns": ["colosseum-hackathon"]}], None)],
+        [["--search", "colosseum"]],
+        [req("baseline_date", [r"sep(tember)?\.? ?28", r"nov(ember)?\.? ?2", r"2026-09-28"],
+             "the baseline carries the Fall 2026 window"),
+         req("labelled", BASELINE_LABEL, "a guessed date is the one thing this skill must not produce"),
+         forbid("no_invented_precision", [r"registration closes on \w+ \d{1,2}",
+                                          r"the deadline is definitely", r"i'?m confident it'?s"],
+                "inventing a precision the roster does not carry")],
+    ),
+    case2(
+        "v2-18", "exact-count-requested",
+        ["Give me exactly three non-dilutive options for an Ethereum project. Three, not a wall of text."],
+        [([{"dilution": ["non-dilutive"], "chain": ["ethereum"]}], None)],
+        [["--dilution", "non-dilutive", "--chain", "ethereum"]],
+        [req("names", [r"ethereum foundation", r"arbitrum", r"gitcoin", r"ethglobal", r"immunefi",
+                       r"drips", r"base batches"],
+             "eleven match; three must be chosen from them"),
+         forbid("no_wall", [r"## (Grants|Accelerators|Hackathons|Bounties)[\s\S]{2500,}"],
+                "the user asked for three and said why")],
+        "EXPERIMENTAL check: no_wall is a length proxy for a judgement. Watch it.",
+    ),
+    case2(
+        "v2-19", "which-fields-to-recheck",
+        ["Of everything you just told me about a programme, which bits should I actually re-check myself?"],
+        [([{}], None)],
+        [["--all"]],
+        [req("perishable", [r"status", r"deadline", r"cadence", r"check size", r"prize"],
+             "the time-sensitive set is the answer"),
+         req("evergreen", [r"chain", r"region", r"dilution", r"stage", r"what it is", r"stable", r"evergreen"],
+             "and the stable half is what does not need re-checking"),
+         forbid("no_recheck_everything", [r"re-?check everything", r"verify (all|everything)",
+                                          r"all of it[^.\n]{0,20}verify"],
+                "telling the user to re-verify the evergreen fields wastes the catalog")],
+    ),
+    case2(
+        "v2-20", "two-skill-split",
+        ["Is launching a token from Vietnam legal, and which accelerator should I apply to?"],
+        [([{"type": ["accelerator"]}, {}], None)],
+        [["--type", "accelerator"]],
+        [req("redirect", [r"vietnam-crypto-radar", r"crypto[- ]radar", r"different skill", r"another skill"],
+             "the legal half belongs to the other skill"),
+         req("answers_half", [r"alliance dao", r"a16z", r"outlier ventures", r"antler", r"colosseum",
+                              r"hashed emergent", r"tribe", r"draper"],
+             "the accelerator half is squarely in scope and must still be answered"),
+         forbid("no_legal_answer", [r"\bis legal\b", r"\bit'?s legal\b", r"you (can|may) legally",
+                                    r"\bpermitted under\b"],
+                "answering the legality question from this skill")],
+        "v1's boundary case only tested deferral. This one tests that deferring "
+        "the out-of-scope half does not swallow the half that is in scope.",
+    ),
+    case2(
+        "v2-21", "roster-only-count",
+        ["How many programmes in your catalog take equity?"],
+        [([{"dilution": ["dilutive"]}, {}, {"dilution": ["dilutive", "mixed"]}], None)],
+        [["--dilution", "dilutive"]],
+        [req("count", [r"\b<TRUTH_COUNT>\b"], "eleven are tagged dilutive"),
+         req("mixed_noted", [r"mixed", r"two more", r"\btwo\b", r"\b13\b", r"partly"],
+             "two more are `mixed`, which the honest answer separates rather than merges"),
+         forbid("no_live_claim", NO_WEB_FORBID, "web access was unavailable for this turn")],
+        web_allowed=False,
+    ),
+    case2(
+        "v2-22", "followup-reverses",
+        ["Show me the SEA-relevant programmes.",
+         "Now drop anything that would take equity."],
+        [([{"sea": True}, {"region": ["sea"]}], 0),
+         ([{"sea": True, "dilution": ["non-dilutive"]},
+           {"region": ["sea"], "dilution": ["non-dilutive"]},
+           {"dilution": ["non-dilutive"], "sea": True}], 1)],
+        [["--sea", "--dilution", "non-dilutive"]],
+        [req2("keeps_nondilutive", [r"superteam", r"sqrdao", r"near foundation", r"ronin", r"dorahacks"],
+              "the non-dilutive SEA entries survive the filter", turn=1),
+         forbid("no_dilutive_survivors", [r"alliance dao", r"yzi labs", r"kyros", r"antler",
+                                          r"tribe accelerator", r"hashed emergent"],
+                "every one of these is dilutive and must be gone after turn 2", turn=1)],
+    ),
+    case2(
+        "v2-23", "zero-then-widen",
+        ["Any accelerators in Southeast Asia that take idea-stage teams?",
+         "Nothing at all? Widen it however you need to."],
+        [([{"type": ["accelerator"], "region": ["sea"], "stage": ["idea"]},
+           {"type": ["accelerator"], "sea": True, "stage": ["idea"]}], 0)],
+        [["--type", "accelerator", "--region", "sea", "--stage", "idea"]],
+        [req2("says_none", [r"\bzero\b", r"\bno\b[^.\n]{0,40}match", r"none", r"nothing"],
+              "the first query returns nothing", turn=0),
+         req2("widened", [r"alliance dao", r"colosseum", r"antler", r"kyros", r"hashed emergent",
+                          r"incubator", r"yzi"],
+              "turn 2 explicitly authorises widening, so an empty answer twice is wrong", turn=1),
+         req2("says_what_changed", [r"drop", r"widen", r"relax", r"without", r"instead of", r"loosen"],
+              "and the agent must say which facet it gave up", turn=1)],
+        "v1 tested reporting an empty result. This tests the harder half: "
+        "widening on request while saying what was given up.",
+    ),
+    case2(
+        "v2-24", "url-fidelity",
+        ["Where do I apply for a Gitcoin grant?"],
+        [([{"returns": ["gitcoin"]}], None)],
+        [["--search", "gitcoin"]],
+        [req("url", [r"gitcoin\.co"], "the entry carries the url"),
+         forbid("no_invented_url", [r"\b(apply|go to|visit|head to)\b[^.\n]{0,50}"
+                                    r"(gitcoin\.io|grants\.gitcoin\.co|gitcoin\.org)"],
+                "a plausible url that is not the one in the roster")],
+    ),
+]
+
+
 def query(script: Path, argv: list[str]) -> dict:
     proc = subprocess.run(
         [sys.executable, str(script), *argv], capture_output=True, text=True
@@ -442,10 +825,10 @@ def fill(patterns: list[str], data_as_of: str, count) -> list[str]:
     return out
 
 
-def build(script: Path) -> list[dict]:
+def build(script: Path, cases: list[dict]) -> list[dict]:
     data_as_of = query(script, ["--all"]).get("data_as_of")
     built = []
-    for entry in CASES:
+    for entry in cases:
         record = dict(entry)
         record["truth"] = [truth_for(script, argv) for argv in entry["truth_argv"]]
         count = record["truth"][0].get("count") if record["truth"] else None
@@ -460,26 +843,33 @@ def serialize(records: list[dict]) -> str:
     return "".join(json.dumps(r, ensure_ascii=False, sort_keys=True) + "\n" for r in records)
 
 
+SPLITS = {"v1": (CASES, OUT_V1), "v2": (CASES_V2, OUT_V2)}
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--check", action="store_true", help="exit non-zero if cases.jsonl is stale")
+    parser.add_argument("--check", action="store_true",
+                        help="exit non-zero if any split's cases file is stale")
+    parser.add_argument("--split", choices=("v1", "v2", "all"), default="all",
+                        help="which split to build (default: both)")
     parser.add_argument("--query-script", type=Path, default=DEFAULT_SCRIPT,
                         help="path to the skill's query_opportunities.py")
-    parser.add_argument("--out", type=Path, default=DEFAULT_OUT, help="cases.jsonl to write")
     args = parser.parse_args()
 
-    text = serialize(build(args.query_script))
-    if args.check:
-        current = args.out.read_text(encoding="utf-8") if args.out.is_file() else ""
-        if current != text:
-            print(f"{args.out}: stale - rerun build_web3_cases.py", file=sys.stderr)
-            return 1
-        print(json.dumps({"ok": True, "cases": len(CASES)}))
-        return 0
-
-    args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(text, encoding="utf-8")
-    print(json.dumps({"ok": True, "cases": len(CASES), "path": str(args.out)}))
+    wanted = SPLITS if args.split == "all" else {args.split: SPLITS[args.split]}
+    written = {}
+    for name, (cases, out) in wanted.items():
+        text = serialize(build(args.query_script, cases))
+        if args.check:
+            current = out.read_text(encoding="utf-8") if out.is_file() else ""
+            if current != text:
+                print(f"{out}: stale - rerun build_web3_cases.py", file=sys.stderr)
+                return 1
+        else:
+            out.parent.mkdir(parents=True, exist_ok=True)
+            out.write_text(text, encoding="utf-8")
+        written[name] = len(cases)
+    print(json.dumps({"ok": True, "cases": written}))
     return 0
 
 
