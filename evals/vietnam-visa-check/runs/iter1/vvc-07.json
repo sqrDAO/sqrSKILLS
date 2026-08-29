@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-07",
+  "tool_calls": [
+    {
+      "nationality": "Seychellois",
+      "duration_days": 30,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "For a 30-day trip, a Seychellois passport holder will need to get a Vietnam e-Visa — the visa-free allowance for Seychelles only covers stays up to 14 days, and your 30-day trip exceeds that.\n\nDetails on the e-Visa:\n- Valid for stays of up to 90 days\n- Cost: USD 25 (single-entry) or USD 50 (multiple-entry)\n- Apply at https://evisa.gov.vn/\n- Processing takes about 2-3 business days (expedited options available at extra cost)\n- Usable for entry by air, land, or sea at any of the approved ports\n- Your passport must be valid for at least 180 days from your entry date\n\nThis is based on data as of 2026-08-17 — I'd recommend double-checking current policy at evisa.gov.vn before you travel.",
+  "extra_reads": []
+}

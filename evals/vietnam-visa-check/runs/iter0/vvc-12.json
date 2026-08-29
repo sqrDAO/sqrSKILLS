@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-12",
+  "tool_calls": [
+    {
+      "nationality": "Polish",
+      "duration_days": 7,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Good news — as a Polish citizen you don't need a visa for a one-week trip to Hanoi.\n\n**Primary pathway: Visa-free entry.** Poland is on Vietnam's unilateral visa-exemption list, so you can enter without applying for anything in advance.\n\n**Key details:**\n- Maximum stay: up to 45 days per visit (your week easily fits within this).\n- This exemption runs through 2028-08-14 (per Resolution 229/NQ-CP).\n- Your passport must be valid for at least 180 days from your entry date.\n- One caveat worth flagging: the policy data notes this exemption is specifically tied to \"tourism purpose.\" Since you're traveling for business meetings, it's worth double-checking with the Vietnamese embassy/consulate or evisa.gov.vn that business meetings fall within the activities allowed under visa-free entry (general business meetings are usually fine, but formal work/labor activities are not). If you want a document that unambiguously covers business travel, see the e-Visa option below.\n\n**Fallback option — e-Visa:** If you'd rather not rely on the tourism-purpose exemption, an e-Visa is available to all nationalities, allows stays up to 90 days, costs USD 25 (single-entry) or USD 50 (multiple-entry), and takes about 2-3 business days to process at evisa.gov.vn.\n\n**One more thing:** This data is current as of 2026-08-17. Since policies can change, I'd recommend a quick check at https://evisa.gov.vn/ before you fly, especially to confirm the tourism-vs-business distinction for your specific meetings.",
+  "extra_reads": []
+}

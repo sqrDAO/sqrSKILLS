@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-05",
+  "tool_calls": [
+    {
+      "nationality": "Atlantean",
+      "duration_days": null,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "I can't look up a visa policy for \"Atlantean\" — Atlantis is a legendary/fictional place, not a country with an ISO code or passport, so it doesn't appear in Vietnam's visa database. Could you tell me your actual country of citizenship (a country name or ISO alpha-2 code, e.g. \"Germany\" or \"DE\")? Once I have that, I can check whether you're visa-free, need an e-Visa, or qualify for the Phu Quoc exemption, along with cost and stay-length details.",
+  "extra_reads": []
+}

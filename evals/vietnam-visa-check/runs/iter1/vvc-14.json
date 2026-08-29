@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-14",
+  "tool_calls": [
+    {
+      "nationality": "Belarusian",
+      "duration_days": 30,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Belarusians do get visa-free entry to Vietnam under a bilateral exemption (effective Jan 30, 2025) — but it comes with a calendar-year cap, and that's the problem here.\n\nThe terms are: max 30 days per entry, and total stay not to exceed 90 days within the calendar year. You've already used 70 of those 90 days in 2026, so under the visa-free exemption you only have 20 days left this year — not the 30 you're asking for. Trying to stay 30 more would put you at 100 days for the year, 10 days over the limit.\n\nTo cover the full 30 extra days, visa-free entry won't get you there — you'd need to fall back on Vietnam's e-Visa, which is open to all nationalities regardless of the bilateral exemption's annual cap: up to 90 days per entry, costing USD 25 (single-entry) or USD 50 (multiple-entry), applied for at evisa.gov.vn (2-3 business days processing). Since you're presumably already in Vietnam on the visa-free entry, you'd typically need to exit and re-enter on the e-Visa (or check with local immigration about converting/extending your current stay) rather than just switching status in place.\n\nOne more thing worth checking directly with Vietnamese immigration: whether that 90-day figure counts stays across all entry types combined, or just visa-free entries — the dataset here only documents the visa-exemption terms, not how it interacts with a subsequent e-Visa stay in the same year.\n\nAlso note: passport must be valid at least 180 days from your entry date. Data as of 2026-08-17 — please verify current policy at evisa.gov.vn before making plans, since day-count caps like this are exactly the kind of detail that can change.",
+  "extra_reads": []
+}

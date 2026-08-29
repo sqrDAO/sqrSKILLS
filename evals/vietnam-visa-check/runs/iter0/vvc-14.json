@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-14",
+  "tool_calls": [
+    {
+      "nationality": "Belarusian",
+      "duration_days": 30,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "As a Belarusian citizen, Vietnam and Belarus have a mutual visa-exemption agreement (in effect since 30 Jan 2025): up to 30 days visa-free per entry, but your total stay cannot exceed 90 days within a calendar year. You've already used 70 of those 90 days this year, so adding 30 more days under the visa-free exemption would put you at 100 days total — 10 days over the annual cap. That means you cannot cover this next stretch of the trip on the visa exemption alone.\n\nYour practical option: apply for an e-Visa instead. It's open to all nationalities (since 15 Aug 2023), allows stays of up to 90 days, and costs USD 25 for single-entry or USD 50 for multiple-entry, with 2-3 business day processing at evisa.gov.vn (expedited options exist for a higher fee). Nothing in the current data ties the e-Visa to the same 90-day/calendar-year limit that applies to the bilateral exemption, so it should let you add the extra 30 days — but because you're right at the edge of the exemption's annual cap, double-check with evisa.gov.vn or a Vietnamese consulate before you travel to confirm border officials will treat the two entry types independently.\n\nOne more requirement either way: your passport must be valid for at least 180 days from your entry date.\n\nThis is based on policy data as of 2026-08-17 — please verify current rules at https://evisa.gov.vn/ before finalizing your plans.",
+  "extra_reads": []
+}

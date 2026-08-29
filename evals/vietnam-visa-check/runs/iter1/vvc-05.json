@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-05",
+  "tool_calls": [
+    {
+      "nationality": "Atlantean",
+      "duration_days": 30,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "\"Atlantean\" isn't a nationality I can look up — Atlantis isn't a real country, so it's not in the visa database. Could you tell me your actual country of citizenship (a country name, e.g. \"Germany,\" or its ISO code, e.g. \"DE\")? Once I have that I can check Vietnam's visa-free, e-Visa, and Phu Quoc rules for you.",
+  "extra_reads": []
+}

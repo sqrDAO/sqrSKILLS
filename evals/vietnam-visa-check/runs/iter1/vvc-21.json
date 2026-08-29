@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-21",
+  "tool_calls": [
+    {
+      "nationality": "American",
+      "duration_days": null,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Not true, unfortunately - the US is not on Vietnam's visa-free list. According to the current policy data, US passport holders have no bilateral or unilateral visa exemption with Vietnam, so there's no free 45-day (or any-day) visa-free stay for Americans.\n\nWhat you actually need: an e-Visa. It's available to all nationalities, costs $25 (single entry) or $50 (multiple entry), takes about 2-3 business days to process, and allows stays of up to 90 days. You can enter by air, land, or sea at any of the approved ports, and you apply at the official portal, evisa.gov.vn.\n\nOne more thing to check before you fly: your passport needs to be valid for at least 180 days from your entry date.\n\nThis is based on data as of 2026-08-17 - policies can shift, so it's worth double-checking at evisa.gov.vn before you book or travel.",
+  "extra_reads": []
+}

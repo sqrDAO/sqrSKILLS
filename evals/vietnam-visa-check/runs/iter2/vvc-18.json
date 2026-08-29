@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-18",
+  "tool_calls": [
+    {
+      "nationality": "Portuguese",
+      "duration_days": 21,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Portugal isn't listed in this skill's visa-exemption table, so I have no visa-free exemption on record for Portuguese passport holders — that's not the same as confirming they don't have one, just that this dataset has no record either way.\n\nWhat you can rely on: the e-Visa is open to all nationalities, including Portugal, and covers your 3-week (21-day) trip comfortably since it allows stays of up to 90 days. It costs USD 25 for a single entry or USD 50 for multiple entries, takes about 2-3 business days to process, and can be used to enter by air, land, or sea (not restricted to one nominated port). Apply at https://evisa.gov.vn/. Your passport also needs to be valid for at least 180 days from your entry date.\n\nThis data is current as of 2026-08-17 — please double-check at evisa.gov.vn before you travel in case Portugal has since been added to a visa-free list or the policy has changed.",
+  "extra_reads": []
+}

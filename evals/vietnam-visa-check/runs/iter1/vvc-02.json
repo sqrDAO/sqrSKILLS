@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-02",
+  "tool_calls": [
+    {
+      "nationality": "Brits",
+      "duration_days": null,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Yes — British citizens (UK passport holders) can enter Vietnam visa-free for stays of up to 45 days, under a unilateral exemption. This exemption is currently extended until 2028-03-05, so it should remain valid for any near-term trip, but do verify it hasn't changed closer to your travel date.\n\nKey details:\n- Max stay: 45 days, visa-free, no cost\n- Your passport must be valid for at least 180 days from your entry date\n\nIf you ever need to stay longer than 45 days, an e-Visa is available to all nationalities (including UK) for up to 90 days, costing USD 25 (single entry) or USD 50 (multiple entry), and usable at any of the approved air, land, or sea ports (not restricted to one nominated port).\n\nThis is based on policy data as of 2026-08-17 — I'd recommend double-checking at evisa.gov.vn before you travel in case anything has changed.",
+  "extra_reads": []
+}

@@ -1,0 +1,17 @@
+{
+  "case_id": "vvc-24",
+  "tool_calls": [
+    {
+      "nationality": "Australian",
+      "duration_days": null,
+      "phu_quoc_only": false
+    },
+    {
+      "nationality": "Irish",
+      "duration_days": null,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Neither passport gives you an edge here — both Australia and Ireland come out the same way: e-Visa required, no visa-free entry.\n\n- **Australian passport**: No visa-free access. Confirmed on record — the dataset explicitly notes Australians do NOT get visa-free entry. e-Visa required.\n- **Irish passport**: Also no visa-free access, but the evidence is a bit weaker — Ireland just isn't listed in this dataset's visa-exemption table at all, so it's an absence of a record rather than a confirmed \"no.\" Practically it lands in the same place: e-Visa required.\n\nBoth routes are identical in practice: e-Visa, up to 90 days, USD 25 (single-entry) or USD 50 (multiple-entry), processed in 2-3 business days, usable at any of the 83 approved air/land/sea ports (no single-port restriction), open to travelers of every nationality. Your passport must be valid for at least 180 days from your entry date either way.\n\nSo pick whichever passport is more convenient for you to travel on (e.g. matches your flight booking) — it won't change the visa requirement or cost. Data as of 2026-08-17; double-check current policy at evisa.gov.vn before you book, especially since Ireland's status isn't explicitly confirmed either way in this dataset.",
+  "extra_reads": []
+}

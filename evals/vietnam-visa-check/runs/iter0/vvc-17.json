@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-17",
+  "tool_calls": [
+    {
+      "nationality": "Chinese",
+      "duration_days": 10,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "No — as a Chinese passport holder you cannot use visa on arrival (VOA) for Vietnam. Chinese nationals don't have visa-free access and are specifically excluded from the VOA program.\n\nWhat you should do instead: apply for an e-Visa at https://evisa.gov.vn/. It's available to all nationalities (including China), covers stays of up to 90 days — well within your 10-day trip — costs USD 25 (single entry) or USD 50 (multiple entry), and processing takes about 2-3 business days (expedited options exist for a higher fee). It's valid for entry by air, land, or sea at any of the approved e-Visa ports.\n\nA couple of practical notes: make sure your passport is valid for at least 180 days from your entry date, and double-check the current e-Visa port list and requirements on evisa.gov.vn before you travel, since entry-port details can change. This information is current as of 2026-08-17 per the bundled policy data — worth a final check on the official site closer to your travel date.",
+  "extra_reads": []
+}

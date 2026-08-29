@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-19",
+  "tool_calls": [
+    {
+      "nationality": "Timor-Leste",
+      "duration_days": 30,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Not yet, actually — you'll need an e-Visa for now. Vietnam and Timor-Leste signed a bilateral 30-day visa-exemption agreement on 9 June 2026 (during PM Xanana Gusmao's Hanoi visit), but it hasn't entered into force yet, and Timor-Leste isn't on the operative visa-free list. So what you read about was real news, but the exemption itself isn't active yet.\n\nUntil it is, the e-Visa is your route in:\n- Stay: up to 90 days\n- Cost: USD 25 (single entry) or USD 50 (multiple entry)\n- Apply at: https://evisa.gov.vn/, processing 2-3 business days\n- Works for entry by air, land, or sea at any approved port (83 ports)\n- Available to all nationalities, including Timor-Leste\n\nOne more requirement either way: your passport needs at least 180 days of validity remaining from your entry date.\n\nThis is based on data as of 2026-08-17, so I'd check https://evisa.gov.vn/ right before you travel — if the exemption agreement enters into force between now and then, you may end up visa-free for stays up to 30 days after all.",
+  "extra_reads": []
+}

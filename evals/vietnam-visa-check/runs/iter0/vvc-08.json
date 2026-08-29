@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-08",
+  "tool_calls": [
+    {
+      "nationality": "German",
+      "duration_days": 60,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Yes — for a two-month stay, you'll need an e-Visa.\n\nGermans get visa-free entry to Vietnam, but only for up to 45 days. Since you're staying about 60 days, that exceeds the visa-free limit, so you'll need to apply for an e-Visa instead.\n\nDetails on the e-Visa:\n- Covers stays of up to 90 days, so it comfortably covers your two-month trip\n- Costs USD 25 (single entry) or USD 50 (multiple entry)\n- Apply online at https://evisa.gov.vn/, processing typically takes 2-3 business days (faster options available for a higher fee)\n- Available to all nationalities, valid for air, land, and sea entry at approved ports\n\nOther notes:\n- Your passport must be valid for at least 180 days from your entry date\n- The 45-day visa-free exemption for Germans is currently set to run until 2028-03-05\n\nThis is based on policy data as of 2026-08-17 — please double-check current requirements at evisa.gov.vn before you travel, since immigration rules can change.",
+  "extra_reads": []
+}

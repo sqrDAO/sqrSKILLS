@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-16",
+  "tool_calls": [
+    {
+      "nationality": "Vietnamese",
+      "duration_days": null,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Good news — as a Vietnamese citizen, you don't need any visa to enter Vietnam. Vietnamese passport holders are exempt from visa requirements entirely; you can travel on your Vietnamese passport just like any other citizen returning to their own country. This is different from the e-Visa or visa-free pathways offered to foreign nationals, since as a Vietnamese national no visa or entry permit is required at all. As always, it's worth double-checking your passport's validity and any other travel document requirements, and you can verify current entry policy at evisa.gov.vn if you want the latest official word — but visa-wise, there's nothing you need to arrange.",
+  "extra_reads": []
+}

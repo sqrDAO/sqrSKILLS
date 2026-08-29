@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-15",
+  "tool_calls": [
+    {
+      "nationality": "Indian",
+      "duration_days": 120,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "As an Indian national, you don't have visa-free access to Vietnam, and a 4-month (120-day) stay is actually too long for the standard e-Visa, which only covers up to 90 days. So for this trip you'll need an embassy/consulate visa rather than the e-Visa.\n\n- **Pathway needed:** Embassy/consulate visa (apply through a Vietnamese embassy or consulate before you travel), in whatever category fits your purpose of visit (e.g. LV for work, DT for investment, GD for study/education-related stays, etc.). The standard tourist e-Visa tops out at 90 days, so it can't cover a 120-day stay.\n- **If you can shorten the trip to 90 days or less:** you'd qualify for the e-Visa instead — apply at evisa.gov.vn, valid for stays up to 90 days, costs USD 25 (single entry) or USD 50 (multiple entry), processing takes about 2-3 business days (faster options available for a fee), and it's usable at any of Vietnam's ~83 approved entry ports (air, land, or sea) — it doesn't lock you to one specific port.\n- **Passport validity:** must be valid for at least 180 days from your entry date, regardless of which route you take.\n- **Data caveat:** this is based on policy data as of 2026-08-17. Visa rules can change, so please verify current requirements at https://evisa.gov.vn/ or with a Vietnamese embassy/consulate before booking your trip.",
+  "extra_reads": []
+}

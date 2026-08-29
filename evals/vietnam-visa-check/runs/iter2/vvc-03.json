@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-03",
+  "tool_calls": [
+    {
+      "nationality": "US",
+      "duration_days": 14,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Yes — as a US passport holder, you need a visa. The US has no visa-free exemption for Vietnam (no bilateral or unilateral agreement exists), so you'll need to get an e-Visa before you travel.\n\nKey details:\n- e-Visa allows stays of up to 90 days, so your 2-week trip is comfortably covered.\n- Cost: $25 for a single-entry e-Visa or $50 for multiple-entry.\n- Apply online at evisa.gov.vn; processing typically takes 2-3 business days (expedited options available for a higher fee).\n- Valid for entry by air, land, or sea at any of the approved ports.\n- Make sure your passport is valid for at least 180 days from your entry date.\n\nThis is based on policy data current as of 2026-08-17 — double-check evisa.gov.vn before you travel in case anything has changed.",
+  "extra_reads": []
+}

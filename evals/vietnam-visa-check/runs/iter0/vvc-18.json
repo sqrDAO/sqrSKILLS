@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-18",
+  "tool_calls": [
+    {
+      "nationality": "Brazilian",
+      "duration_days": 21,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Brazilian passport holders do not get visa-free entry to Vietnam, so for your 3-week (21-day) trip you'll need an e-Visa.\n\n**Primary pathway: e-Visa**\n- Apply online at https://evisa.gov.vn/\n- Allows a stay of up to 90 days, so your 21-day trip comfortably fits within that limit\n- Cost: USD 25 for single-entry or USD 50 for multiple-entry\n- Processing time: 2-3 business days (expedited options available for an extra fee)\n- Valid for entry by air, land, or sea, and usable at any of the approved e-Visa ports (this dataset tracks an 83-port list) — no need to name a single entry port in advance\n\n**Other requirements**\n- Your passport must be valid for at least 180 days from your date of entry to Vietnam\n\nThis is based on policy data as of 2026-08-17 — since immigration rules can change, I'd recommend double-checking current requirements at evisa.gov.vn before you apply or travel.",
+  "extra_reads": []
+}

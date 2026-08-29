@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-16",
+  "tool_calls": [
+    {
+      "nationality": "Vietnamese",
+      "duration_days": null,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "As a Vietnamese citizen, you don't need a visa to enter Vietnam at all — this skill's lookup is meant for foreign passport holders, and it confirms no visa is required for Vietnamese nationals returning home. Just travel on your valid Vietnamese passport (or other valid Vietnamese travel document); no e-Visa, visa-free stamp, or Phu Quoc exemption applies to you since those are for foreigners. Data as of 2026-08-17 — if you have any doubts (e.g., about passport validity or re-entry rules), you can double check at https://evisa.gov.vn/.",
+  "extra_reads": []
+}
