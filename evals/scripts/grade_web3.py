@@ -49,7 +49,12 @@ LIST_FACETS = ("type", "stage", "dilution", "chain", "region", "status")
 
 
 class Normalizer:
-    """argv -> the query block the skill's own script echoes for it."""
+    """argv -> what the skill's own script makes of it.
+
+    Returns the echoed `query` block *and* the ids it retrieved. Both matter:
+    some cases are about which facets were asked for, and some are only about
+    whether the entry the user named came back at all.
+    """
 
     def __init__(self, script: Path):
         self.script = script
@@ -66,7 +71,10 @@ class Normalizer:
                 out = json.loads(proc.stdout)
             except json.JSONDecodeError:
                 out = {"error": proc.stderr.strip() or "no JSON on stdout"}
-            self.cache[key] = None if "error" in out else out.get("query")
+            self.cache[key] = None if "error" in out else {
+                "query": out.get("query", {}),
+                "ids": [r["id"] for r in out.get("results", [])],
+            }
         return self.cache[key]
 
     @staticmethod
@@ -83,7 +91,7 @@ def is_full_roster(query: dict) -> bool:
     )
 
 
-def satisfies(query: dict | None, constraint: dict) -> bool:
+def satisfies(result: dict | None, constraint: dict) -> bool:
     """An empty constraint means 'any invocation, including a rejected one'.
 
     A full-roster query satisfies any constraint: it returns a superset of every
@@ -91,16 +99,31 @@ def satisfies(query: dict | None, constraint: dict) -> bool:
     Grading it as a wrong call would fail an answer that is right -- what the
     agent then did with the rows is the answer checks' job, not the call layer's.
     """
-    unknown = set(constraint) - {*LIST_FACETS, "sea", "search"}
+    unknown = set(constraint) - {*LIST_FACETS, "sea", "search", "returns"}
     if unknown:
         raise ValueError(f"unknown facet {sorted(unknown)!r} in an expected call")
     if not constraint:
         return True
-    if query is None:
+    if result is None:
         return False
+    query, ids = result["query"], result["ids"]
+
+    # `returns` asks whether the call retrieved the entries the question is
+    # about, without dictating how. "a16z CSX" is findable by `--search a16z`,
+    # `--search csx`, or `--type accelerator`; pinning one spelling grades
+    # vocabulary rather than behaviour. It still catches the real failure --
+    # a query too narrow to reach half the answer.
+    if "returns" in constraint:
+        if not set(constraint["returns"]) <= set(ids):
+            return False
+        if len(constraint) == 1:
+            return True
+
     if is_full_roster(query):
         return True
     for facet, want in constraint.items():
+        if facet == "returns":
+            continue
         got = query.get(facet)
         if facet in LIST_FACETS:
             if want is None:
@@ -130,9 +153,9 @@ def grade_call(case: dict, calls: list[dict], normalize) -> dict:
         if argv is None:
             return {"passed": False, "errored": False,
                     "reason": f"tool call has no 'argv': {call!r}"}
-        query = normalize(list(argv))
-        errored = errored or (query is None and not Normalizer.is_usage(list(argv)))
-        queries.append((argv, query))
+        result = normalize(list(argv))
+        errored = errored or (result is None and not Normalizer.is_usage(list(argv)))
+        queries.append((argv, result))
 
     if not required:
         # Nothing is required of the call layer here; the answer is the probe.

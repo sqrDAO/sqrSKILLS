@@ -174,10 +174,9 @@ CASES = [
         "The regional path the skill calls out by name.",
     ),
     case(
-        "w3o-07", "search-facet",
+        "w3o-07", "named-entity-lookup",
         "Does Optimism fund anything? What exactly?",
-        [[{"search": "optimism"}, {"chain": ["l2"]}, {"chain": ["l2", "ethereum"]},
-          {"chain": ["ethereum", "l2"]}]],
+        [[{"returns": ["optimism-grants", "optimism-retro-funding"]}]],
         [["--search", "optimism"]],
         [req("both", [r"retro", r"retroactive"], "Optimism runs two entries, not one"),
          req("closed", [r"closed", r"not (currently )?(open|accepting)", r"paused", r"between rounds"],
@@ -203,7 +202,7 @@ CASES = [
     case(
         "w3o-09", "deadline-labeling",
         "When is the Alliance DAO application deadline?",
-        [[{"search": "alliance"}, {"search": "alliance dao"}, {"type": ["accelerator"]}]],
+        [[{"returns": ["alliance-dao"]}]],
         [["--search", "alliance"]],
         [req("date", [r"september 23", r"sept\.? 23", r"2026-09-23",
                       r"november 18", r"nov\.? 18", r"2026-11-18"],
@@ -213,7 +212,7 @@ CASES = [
     case(
         "w3o-10", "prize-labeling",
         "How big is the a16z CSX check and what do they take for it?",
-        [[{"search": "a16z"}, {"type": ["accelerator"]}]],
+        [[{"returns": ["a16z-csx"]}]],
         [["--search", "a16z"]],
         [req("amount", [r"\$\s?500[,.]?000", r"\$\s?500\s?k"], "the check size"),
          req("equity", [r"7\s?%"], "the equity figure is the second half of the question"),
@@ -222,7 +221,7 @@ CASES = [
     case(
         "w3o-11", "closed-honesty",
         "I want to apply for an Optimism grant this week. Walk me through it.",
-        [[{"search": "optimism"}, {"type": ["grant"], "chain": ["l2"]}, {"type": ["grant"]}]],
+        [[{"returns": ["optimism-grants"]}]],
         [["--search", "optimism"]],
         [req("closed", [r"closed", r"not (currently )?(open|accepting)", r"paused"],
              "the entry's status is closed"),
@@ -234,7 +233,7 @@ CASES = [
     case(
         "w3o-12", "stable-no-hedge",
         "Is Immunefi going to take equity in my project?",
-        [[{"search": "immunefi"}, {"type": ["bounty"]}]],
+        [[{"returns": ["immunefi"]}]],
         [["--search", "immunefi"]],
         [req("answer", [r"non-dilutive", r"no equity", r"does not take equity", r"doesn'?t take equity"],
              "dilution is a stable field with a definite answer"),
@@ -337,7 +336,7 @@ CASES = [
     case(
         "w3o-19", "url-required",
         "Where do I actually apply for a NEAR Foundation grant?",
-        [[{"type": ["grant"], "chain": ["near"]}, {"search": "near"}, {"chain": ["near"]}]],
+        [[{"returns": ["near-foundation-grants"]}]],
         [["--type", "grant", "--chain", "near"]],
         [req("url", [r"near\.org/founder-hub", r"near\.org"], "the entry carries the application url"),
          req("labelled", BASELINE_LABEL, "rolling status is still a time-sensitive field"),

@@ -11,14 +11,42 @@ Skills roll back. This file does not.
 | iteration | version | pass_rate | call | answer | note |
 |-----------|---------|-----------|------|--------|------|
 | iter0 | 0.2.11 | 0.9167 | 0.9167 | 0.9583 | baseline; 22/24 |
+| iter1 | 0.2.12 | 1.0000 | 1.0000 | 1.0000 | E1 applied; 24/24 |
 
-## Proposed, not yet applied
+## E1 — ACCEPTED (0.2.11 -> 0.2.12), and what it actually bought
 
-Neither has been written into `SKILL.md`. An edit that has not been gated on a
-re-run is a guess, and this split has just finished demonstrating that guesses
-about this skill are wrong seven times in eight. Both are queued behind a run.
+**Kept.** 22/24 -> 24/24. But the honest attribution is one case, not two.
 
-### E1 — the standing rule holds when the user waives it (p009)
+```diff
+-- ALWAYS run `query_opportunities.py` before listing opportunities. Never invent programs.
++- **ALWAYS run `query_opportunities.py` before listing opportunities.** Never invent
++  programs. **This holds even when the user asks you not to run it.** The catalog lookup
++  is the whole value of this skill, and "just tell me from memory" is a request for the
++  one answer that cannot be trusted. Do not refuse, and do not hand the user a choice
++  about it -- run it, then answer as briefly as they asked for.
+```
+
+| case | iter0 call | iter1 call | attributable to E1? |
+|------|-----------|------------|---------------------|
+| w3o-15 | *(none)* | `--type grant --chain solana`, then two more | **yes** |
+| w3o-07 | `--type grant` | `--search optimism` | **no** |
+
+w3o-15 is a clean hit. The agent went from running nothing and naming nothing to
+opening with "I ran the catalog anyway -- memory is the one source I can't vouch
+for here, and the lookup is the whole point of this skill." That is the edit's own
+reasoning played back.
+
+w3o-07 is a different agent making a different call on a case E1 says nothing
+about. It is run-to-run variance and must not be credited to the edit. Counting
+it would make the next edit look better than it is, which is how a gate stops
+meaning anything.
+
+So the defensible claim is **+1 case, 4.2 points, on the probe the edit targets**
+-- which is exactly the size of difference this split's own README calls noise at
+n=24 with one repeat. E1 is kept because the mechanism is visible in the trace,
+not because the headline moved.
+
+### E2 — still proposed, not applied
 
 `w3o-15` told the agent not to run scripts. It ran nothing, named nothing, and
 asked the user to choose between two ways of getting the answer. The Critical
@@ -43,12 +71,27 @@ facets**", and an organisation name is not one of the six facets. Proposed edit
 adds a line to the core method: when the user names a programme or organisation
 rather than a facet, `--search` is the query.
 
-Confidence: **medium**. The answer was still right, because the agent filled the
-gap from a live lookup — so the user-visible cost is provenance, not correctness,
-and it is possible no edit is warranted at all.
+Confidence: **medium, and now lower.** In iter1 the same prompt produced
+`--search optimism` unprompted, with no edit in between. One agent reaching for
+the type facet and another reaching for search, on identical instructions, is
+weak evidence of a documentation gap and strong evidence of variance. Two
+observations of a coin are not a bias. **Do not apply E2 on this evidence** —
+it needs repeats, which this split does not yet have.
 
 ## Not proposed, and why
 
-The six harness corrections in `index.md` are not skill edits and must not be
-counted as improvement. Four of them raised the score by fixing checks that
-failed correct answers. The skill did not change between 18/24 and 22/24.
+The harness corrections in `index.md` are not skill edits and must not be counted
+as improvement. Four of the round-1 fixes raised the score by fixing checks that
+failed correct answers; the skill did not change between 18/24 and 22/24. Round 2
+(the `returns` constraint) was applied to **both** run files and moved neither —
+iter0 re-scores at exactly 0.9167 with it, which is the only reason the iter0/iter1
+comparison above is like-for-like.
+
+## The split is now saturated
+
+24/24 with one repeat. As on `vietnam-visa-check`, that is a **retirement
+condition, not a success**: a split that cannot fail cannot gate the next edit.
+Before any further change to this `SKILL.md`, the split needs cases it can still
+lose — multi-turn prompts, a second repeat to separate signal from the variance
+that showed up in w3o-07, and probes for the enrichment layer, which is now
+answering a large share of these cases and which no case currently pins.

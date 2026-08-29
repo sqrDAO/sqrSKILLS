@@ -43,8 +43,13 @@ of this spec.
       scored: **22/24**, call 0.917, answer 0.958.
 - [x] All eight predictions resolved in `wiki/index.md` — seven falsified, one
       confirmed in a different shape; both real failures were unpredicted.
-- [ ] E1 and E2 in `wiki/skill-impact.md` applied one at a time, each gated on a
-      re-run, and kept only if the score improves.
+- [x] E1 applied (0.2.11 -> 0.2.12) and gated: 22/24 -> 24/24, kept. Only one of
+      the two recovered cases is attributable to it; the other is variance, and
+      `skill-impact.md` says so.
+- [x] E2 withheld — it did not reproduce in iter1, so the evidence for it is one
+      observation each way.
+- [ ] Replace the split before the next edit. At 24/24 it cannot gate anything,
+      and E2 is blocked on the repeats it does not have.
 
 ## Verify
 
