@@ -11,6 +11,11 @@ from `todo.<slug>.md` to `done.<slug>.md`.
    re-inflating a deliberately lowered `last_verified`, and make the weekly
    run sweep Da Nang's controlled trials.
 
+2. `visa-country-name-resolution` — resolve a country's own name wherever its
+   demonym resolves. 26 of 81 display names in `vietnam-visa-check` fail, and 17
+   of those suggest the exact input that just failed. Found by the iteration-0
+   eval run.
+
 ## Recently shipped
 
 - `vietnam-crypto-radar-da-nang-trials` — recorded Da Nang's municipal

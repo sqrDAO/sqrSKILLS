@@ -195,6 +195,13 @@ def build_country_index(policy: dict) -> dict[str, str]:
             iso2 = entry["iso_alpha2"].upper()
             index[iso2.lower()] = iso2
             index[normalize(entry["country"])] = iso2
+    # Display names for countries outside the dataset. Without these, a country
+    # reachable by demonym ("Irish") had no entry under its own name ("Ireland"),
+    # which failed with a suggestion list built from the same display names — so
+    # the error suggested the exact word the user had just typed. setdefault
+    # keeps the dataset authoritative wherever both define a name.
+    for iso2, name in _COUNTRY_NAMES.items():
+        index.setdefault(normalize(name), iso2.upper())
     # Aliases and demonyms win on conflict
     for table in (_ALIASES, _DEMONYMS):
         for key, iso2 in table.items():
@@ -247,6 +254,11 @@ def suggest_nationalities(
     suggestions: list[str] = []
     for match in difflib.get_close_matches(key, candidates, n=limit * 3, cutoff=0.8):
         name = names.get(index[match], match.title())
+        # Never echo the input back as its own correction: SKILL.md asks the
+        # agent to confirm a suggestion, so "Argentina -> did you mean
+        # Argentina?" loops the user through the word that just failed.
+        if normalize(name) == key:
+            continue
         if name not in suggestions:
             suggestions.append(name)
     return suggestions[:limit]

@@ -106,6 +106,44 @@ class ResolutionTest(unittest.TestCase):
         for iso2 in set(self.q._DEMONYMS.values()) | set(self.q._ALIASES.values()):
             self.assertIn(iso2, names)
 
+    def test_every_display_name_resolves_to_its_own_code(self):
+        """A name the skill will print must be a name the skill can read.
+
+        Regression: `_COUNTRY_NAMES` fed output but never the lookup index, so
+        26 of 81 names failed while their demonyms worked -- `Irish` resolved,
+        `Ireland` did not. Asserted as an invariant rather than a fixed list so
+        a country added to `_DEMONYMS` later cannot reintroduce the gap.
+        """
+        names = self.q.build_display_names(self.policy)
+        for iso2, name in names.items():
+            self.assertEqual(self.resolve(name), iso2, name)
+
+    def test_country_names_outside_the_dataset_resolve(self):
+        for name, iso2 in (
+            ("Ireland", "IE"), ("Argentina", "AR"), ("Portugal", "PT"),
+            ("Ukraine", "UA"), ("Turkey", "TR"), ("Saudi Arabia", "SA"),
+        ):
+            self.assertEqual(self.resolve(name), iso2, name)
+
+    def test_dataset_names_win_over_the_bundled_table(self):
+        """`setdefault` must not let `_COUNTRY_NAMES` shadow a dataset entry."""
+        for entry in self.policy["visa_exemption_by_country"]["entries"]:
+            self.assertEqual(
+                self.resolve(entry["country"]), entry["iso_alpha2"].upper(),
+                entry["country"],
+            )
+
+    def test_no_suggestion_echoes_its_own_input(self):
+        """`Argentina -> did you mean Argentina?` loops the user forever.
+
+        SKILL.md tells the agent to ask the user to confirm a suggestion, so a
+        suggestion identical to the failed input is worse than none at all.
+        """
+        names = self.q.build_display_names(self.policy)
+        for name in list(names.values()) + ["Rusia", "Germny", "Atlantis"]:
+            suggestions = self.q.suggest_nationalities(name, self.index, names)
+            self.assertNotIn(name, suggestions, name)
+
     def test_suggestions_offered_for_near_misses(self):
         names = self.q.build_display_names(self.policy)
         self.assertIn(
