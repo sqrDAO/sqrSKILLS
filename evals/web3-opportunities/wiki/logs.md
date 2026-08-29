@@ -78,3 +78,35 @@ governance-forum evidence the roster does not contain. The split measures
 `SKILL.md`, but a growing share of what it scores is the enrichment layer, not
 the catalog. A future iteration should carry cases that pin roster-only behaviour
 so the two can be told apart.
+
+## 2026-08-29 — iter1, v0.2.12, E1 applied, 24 cases, 1 repeat
+
+**24/24 — call 1.0, answer 1.0.** Up from 22/24. Gate passed; E1 kept.
+
+The number overstates it. Two cases recovered and only one is attributable to the
+edit — w3o-15, the probe E1 targets, where the agent went from running nothing to
+running three queries and explaining why. w3o-07 recovered because a different
+agent picked `--search optimism` over `--type grant` on a case E1 says nothing
+about. That is variance, and crediting it to the edit would corrupt the next
+comparison. Full attribution table in `skill-impact.md`.
+
+One harness correction this round, and it was applied to both run files before
+the numbers were taken: the named-entity cases pinned a literal search string, so
+`--search csx` failed a case about a16z CSX that `--search a16z` passed. Replaced
+with a `returns` constraint — any query that retrieves the named entries counts.
+iter0 re-scores at exactly 0.9167 under it, so the comparison stays like-for-like.
+
+### The executor prompt
+
+Fixed the iter0 defect: the JSON example now uses an obviously fake placeholder
+rather than `--type grant`, which was also a plausible real call. Two agents this
+round returned prose with no JSON wrapper at all and had to be asked again for it;
+both re-emitted without redoing the work. Worth building into the next runner
+rather than chasing by hand.
+
+### Where this leaves the split
+
+Saturated. A split at 24/24 cannot gate the next edit, and E2 is already blocked
+on exactly that: it needs repeats to tell a documentation gap from a coin flip,
+and there is one repeat per iteration here. Replace before editing again — see
+`skill-impact.md` for what the replacement needs.

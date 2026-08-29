@@ -125,11 +125,11 @@ class SummaryTest(unittest.TestCase):
 class FacetConstraintTest(unittest.TestCase):
     """`--dilution non-dilutive` is a different question from `non-dilutive,mixed`."""
 
-    def query(self, **over):
+    def query(self, ids=(), **over):
         base = {"type": None, "stage": None, "dilution": None, "chain": None,
                 "region": None, "status": None, "sea": False, "search": None}
         base.update(over)
-        return base
+        return {"query": base, "ids": list(ids)}
 
     def test_empty_constraint_accepts_any_invocation(self):
         self.assertTrue(satisfies(self.query(), {}))
@@ -172,6 +172,38 @@ class FacetConstraintTest(unittest.TestCase):
     def test_an_unknown_facet_is_an_error_not_a_pass(self):
         with self.assertRaises(ValueError):
             satisfies(self.query(), {"nonsense": ["x"]})
+
+
+class ReturnsConstraintTest(unittest.TestCase):
+    """Some cases are about reaching an entry, not about which flag reached it."""
+
+    def result(self, ids, **over):
+        base = {"type": None, "stage": None, "dilution": None, "chain": None,
+                "region": None, "status": None, "sea": False, "search": None}
+        base.update(over)
+        return {"query": base, "ids": list(ids)}
+
+    def test_any_query_that_retrieves_the_entry_satisfies(self):
+        # `--search a16z` and `--search csx` are the same behaviour; pinning one
+        # spelling grades vocabulary rather than what the agent did.
+        for search in ("a16z", "csx"):
+            got = self.result(["a16z-csx"], search=search)
+            self.assertTrue(satisfies(got, {"returns": ["a16z-csx"]}), search)
+
+    def test_a_query_that_misses_the_entry_fails(self):
+        got = self.result(["optimism-grants"], type=["grant"])
+        self.assertFalse(
+            satisfies(got, {"returns": ["optimism-grants", "optimism-retro-funding"]})
+        )
+
+    def test_every_named_entry_must_come_back(self):
+        got = self.result(["optimism-grants", "optimism-retro-funding"], search="optimism")
+        self.assertTrue(
+            satisfies(got, {"returns": ["optimism-grants", "optimism-retro-funding"]})
+        )
+
+    def test_a_rejected_invocation_never_satisfies_returns(self):
+        self.assertFalse(satisfies(None, {"returns": ["a16z-csx"]}))
 
 
 if __name__ == "__main__":
