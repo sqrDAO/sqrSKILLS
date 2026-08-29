@@ -25,8 +25,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-SCRIPT = ROOT / "vietnam-visa-check" / "scripts" / "query_visa.py"
-OUT = ROOT / "evals" / "vietnam-visa-check" / "cases.jsonl"
+DEFAULT_SCRIPT = ROOT / "vietnam-visa-check" / "scripts" / "query_visa.py"
+DEFAULT_OUT = ROOT / "evals" / "vietnam-visa-check" / "cases.jsonl"
 
 # Reusable fragments -------------------------------------------------------
 EVISA = r"e-?\s?visa"
@@ -41,11 +41,13 @@ PORTAL = r"evisa\.gov\.vn"
 
 
 def case(cid, probe, prompt, call, checks, notes=None):
+    """`call` is one required invocation, or a list when a case needs several."""
+    calls = call if isinstance(call, list) else [call]
     return {
         "id": cid,
         "probe": probe,
         "prompt": prompt,
-        "expected_call": call,
+        "expected_calls": calls,
         "checks": checks,
         "note": notes,
     }
@@ -265,7 +267,8 @@ CASES = [
     ),
     case(
         "vvc-23", "land-entry",
-        "I'll have a Vietnam e-Visa. Can I cross in by land from Cambodia, or do I have to fly?",
+        "I'm British, 20-day trip. I'll have a Vietnam e-Visa - can I cross in by "
+        "land from Cambodia, or do I have to fly?",
         {"nationality": "British", "duration_days": 20, "phu_quoc_only": False},
         [req("answer", [r"land", r"border"], "the question is about land entry"),
          req("permitted", [r"can\b", r"may\b", r"yes", r"permitted", r"allowed"], "e-Visa holders may use approved land borders"),
@@ -275,24 +278,25 @@ CASES = [
     case(
         "vvc-24", "second-nationality",
         "I hold both Australian and Irish passports. Which one gets me into Vietnam more easily?",
-        {"nationality": "Australian", "duration_days": None, "phu_quoc_only": False},
+        [{"nationality": "Australian", "duration_days": None, "phu_quoc_only": False},
+         {"nationality": "Irish", "duration_days": None, "phu_quoc_only": False}],
         [req("both", [r"irish|ireland"], "must evaluate the second passport too"),
          req("pathway", [EVISA], "neither holds an exemption"),
-         forbid("no_invented_exemption", AFFIRMS_VISA_FREE + [r"\b45[- ]day"],
+         forbid("no_invented_exemption", [*AFFIRMS_VISA_FREE, r"\b45[- ]day"],
                 "neither Australia nor Ireland is exempt")],
         "Two lookups, not one; the skill documents a single --nationality call.",
     ),
 ]
 
 
-def truth_for(call: dict) -> dict:
+def truth_for(call: dict, script: Path) -> dict:
     args = ["--nationality", call["nationality"]]
     if call.get("duration_days") is not None:
         args += ["--duration_days", str(call["duration_days"])]
     if call.get("phu_quoc_only"):
         args.append("--phu_quoc_only")
     proc = subprocess.run(
-        [sys.executable, str(SCRIPT), *args], capture_output=True, text=True, check=True
+        [sys.executable, str(script), *args], capture_output=True, text=True, check=True
     )
     out = json.loads(proc.stdout)
     if "error" in out:
@@ -308,11 +312,11 @@ def truth_for(call: dict) -> dict:
     }
 
 
-def build() -> list[dict]:
+def build(script: Path) -> list[dict]:
     built = []
     for entry in CASES:
         record = dict(entry)
-        record["truth"] = truth_for(entry["expected_call"])
+        record["truth"] = [truth_for(c, script) for c in entry["expected_calls"]]
         built.append(record)
     return built
 
@@ -324,20 +328,24 @@ def serialize(records: list[dict]) -> str:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true", help="exit non-zero if cases.jsonl is stale")
+    parser.add_argument("--query-script", type=Path, default=DEFAULT_SCRIPT,
+                        help="path to the skill's query_visa.py")
+    parser.add_argument("--out", type=Path, default=DEFAULT_OUT, help="cases.jsonl to write")
     args = parser.parse_args()
 
-    text = serialize(build())
+    out = args.out
+    text = serialize(build(args.query_script))
     if args.check:
-        current = OUT.read_text(encoding="utf-8") if OUT.is_file() else ""
+        current = out.read_text(encoding="utf-8") if out.is_file() else ""
         if current != text:
-            print(f"{OUT}: stale - rerun build_visa_cases.py", file=sys.stderr)
+            print(f"{out}: stale - rerun build_visa_cases.py", file=sys.stderr)
             return 1
         print(json.dumps({"ok": True, "cases": len(CASES)}))
         return 0
 
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(text, encoding="utf-8")
-    print(json.dumps({"ok": True, "cases": len(CASES), "path": str(OUT.relative_to(ROOT))}))
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(text, encoding="utf-8")
+    print(json.dumps({"ok": True, "cases": len(CASES), "path": str(out)}))
     return 0
 
 

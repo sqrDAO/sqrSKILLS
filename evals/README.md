@@ -61,6 +61,14 @@ python3 evals/scripts/build_visa_cases.py --check   # CI: fail if stale
 python3 evals/scripts/grade_visa.py evals/vietnam-visa-check/runs/iter0-a.jsonl
 ```
 
+Both scripts take their paths as inputs and fall back to this repo's layout:
+`--query-script`, `--out` on the builder; `--cases`, `--query-script`, `--policy`
+on the grader. Point `--cases` at a subset file to score a targeted probe.
+
+**The run file must contain every case exactly once.** A missing, duplicated, or
+unknown `case_id` is refused with `"ok": false` and no score. Otherwise a run that
+quietly dropped its failures would report a higher pass rate than it earned.
+
 Run file format, one object per case:
 
 ```json
@@ -71,8 +79,12 @@ Run file format, one object per case:
 
 ## What the score means
 
-`pass_rate` is strict: a case passes only when the tool call is right **and**
-every rubric check passes. Two sub-scores are reported separately because they
+`pass_rate` is strict: a case passes only when **every** required tool call is
+right **and** every rubric check passes. A case may require more than one
+invocation — `vvc-24` needs both nationalities looked up, and one of them is not
+enough. Where a prompt states no duration, the call must either omit
+`--duration_days` or pass the script's own default; any other value changes the
+pathway and is graded as a wrong call. Two sub-scores are reported separately because they
 call for different edits — `call_score` (did the agent invoke the script
 correctly) and `answer_score` (did the reply carry what the result made
 available).

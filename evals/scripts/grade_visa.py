@@ -30,30 +30,36 @@ import argparse
 import importlib.util
 import json
 import re
+from collections import Counter
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-CASES = ROOT / "evals" / "vietnam-visa-check" / "cases.jsonl"
-SKILL = ROOT / "vietnam-visa-check"
-QUERY = SKILL / "scripts" / "query_visa.py"
-DATA = SKILL / "data" / "vietnam_immigration_policy.json"
+DEFAULT_CASES = ROOT / "evals" / "vietnam-visa-check" / "cases.jsonl"
+DEFAULT_SKILL = ROOT / "vietnam-visa-check"
+DEFAULT_QUERY = DEFAULT_SKILL / "scripts" / "query_visa.py"
+DEFAULT_DATA = DEFAULT_SKILL / "data" / "vietnam_immigration_policy.json"
+
+# query_visa.py's own `--duration_days` default. Where the prompt states no
+# duration, passing this explicitly is identical to omitting the flag; any other
+# value is a wrong call, because it changes which pathway the script returns.
+SCRIPT_DEFAULT_DURATION = 30
 
 
-def load_resolver():
+def load_resolver(query: Path, data: Path):
     """Reuse the skill's own resolver so grading agrees with the script."""
-    spec = importlib.util.spec_from_file_location("query_visa", QUERY)
+    spec = importlib.util.spec_from_file_location("query_visa", query)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
-    policy = json.loads(DATA.read_text(encoding="utf-8"))
+    policy = json.loads(data.read_text(encoding="utf-8"))
     index = module.build_country_index(policy)
     return lambda raw: module.resolve_nationality(raw or "", index)
 
 
-def load_cases() -> dict[str, dict]:
+def load_cases(cases: Path) -> dict[str, dict]:
     return {
         json.loads(line)["id"]: json.loads(line)
-        for line in CASES.read_text(encoding="utf-8").splitlines()
+        for line in cases.read_text(encoding="utf-8").splitlines()
         if line.strip()
     }
 
@@ -102,51 +108,89 @@ def grade_checks(answer: str, checks: list[dict]) -> list[dict]:
 
 
 def grade_call(case: dict, calls: list[dict], resolve) -> dict:
-    expected = case["expected_call"]
+    """Every required invocation must be present; extra calls are allowed.
+
+    A case that needs two lookups is not satisfied by one of them, and a
+    duration the prompt never stated is a wrong call, not a harmless extra --
+    it changes which pathway the script returns.
+    """
     if not calls:
         return {"passed": False, "reason": "no script invocation recorded", "translated": False}
 
-    want_iso = resolve(expected["nationality"])
-    for call in calls:
-        got_raw = call.get("nationality", "")
-        if resolve(got_raw) != want_iso:
-            continue
-        # Computed before the argument checks below: rewriting the user's wording
-        # is worth reporting even on a call that fails for another reason.
-        translated = got_raw.strip().lower() != expected["nationality"].strip().lower()
-        if expected.get("duration_days") is not None:
-            if call.get("duration_days") != expected["duration_days"]:
-                return {
-                    "passed": False, "translated": translated,
-                    "reason": (f"duration {call.get('duration_days')!r} passed, "
-                               f"{expected['duration_days']} required by the prompt"),
-                }
-        if bool(call.get("phu_quoc_only")) != bool(expected.get("phu_quoc_only")):
-            return {
-                "passed": False, "translated": translated,
-                "reason": f"phu_quoc_only={call.get('phu_quoc_only')!r}, expected {expected.get('phu_quoc_only')}",
-            }
-        return {"passed": True, "translated": translated,
-                "reason": f"rewrote {expected['nationality']!r} as {got_raw!r}" if translated else ""}
+    translated, reasons = False, []
+    for expected in case["expected_calls"]:
+        want_iso = resolve(expected["nationality"])
+        matched = False
+        for call in calls:
+            got_raw = call.get("nationality", "")
+            if resolve(got_raw) != want_iso:
+                continue
+            # Reported even on a call that fails below: rewriting the user's
+            # wording predicts failures the alias tables do not cover.
+            if got_raw.strip().lower() != expected["nationality"].strip().lower():
+                translated = True
+            want_duration = expected.get("duration_days")
+            got_duration = call.get("duration_days")
+            if want_duration is None:
+                acceptable = got_duration in (None, SCRIPT_DEFAULT_DURATION)
+            else:
+                acceptable = got_duration == want_duration
+            if not acceptable:
+                reasons.append(
+                    f"{expected['nationality']!r}: duration {got_duration!r} passed, "
+                    f"{want_duration!r} required by the prompt"
+                )
+                continue
+            if bool(call.get("phu_quoc_only")) != bool(expected.get("phu_quoc_only")):
+                reasons.append(
+                    f"{want_iso}: phu_quoc_only={call.get('phu_quoc_only')!r}, "
+                    f"expected {expected.get('phu_quoc_only')}"
+                )
+                continue
+            matched = True
+            break
+        if not matched:
+            reasons.append(
+                f"no call satisfied {expected['nationality']!r}; got "
+                f"{[c.get('nationality') for c in calls]!r}"
+            )
 
-    return {
-        "passed": False, "translated": False,
-        "reason": (f"no call resolved to {want_iso}; got "
-                   f"{[c.get('nationality') for c in calls]!r}"),
-    }
+    if reasons:
+        return {"passed": False, "translated": translated, "reason": "; ".join(reasons)}
+    return {"passed": True, "translated": translated,
+            "reason": "rewrote the user's wording" if translated else ""}
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("run", help="JSONL run file")
     parser.add_argument("--verbose", action="store_true", help="list every failed check")
+    parser.add_argument("--cases", type=Path, default=DEFAULT_CASES, help="cases.jsonl to grade against")
+    parser.add_argument("--query-script", type=Path, default=DEFAULT_QUERY,
+                        help="path to the skill's query_visa.py")
+    parser.add_argument("--policy", type=Path, default=DEFAULT_DATA, help="path to the policy JSON")
     args = parser.parse_args()
 
-    cases = load_cases()
-    resolve = load_resolver()
-    runs = [json.loads(l) for l in Path(args.run).read_text(encoding="utf-8").splitlines() if l.strip()]
+    cases = load_cases(args.cases)
+    resolve = load_resolver(args.query_script, args.policy)
+    runs = [json.loads(line) for line in
+            Path(args.run).read_text(encoding="utf-8").splitlines() if line.strip()]
 
-    rows, missing = [], sorted(set(cases) - {r["case_id"] for r in runs})
+    # A partial run must never produce a score. Omitting failing cases or
+    # repeating passing ones would otherwise inflate every number below.
+    seen = Counter(r["case_id"] for r in runs)
+    missing = sorted(set(cases) - set(seen))
+    duplicated = sorted(cid for cid, n in seen.items() if n > 1)
+    unknown = sorted(set(seen) - set(cases))
+    if missing or duplicated or unknown:
+        print(json.dumps({
+            "ok": False,
+            "error": "run file must contain every case exactly once",
+            "missing": missing, "duplicated": duplicated, "unknown": unknown,
+        }, indent=2))
+        return 1
+
+    rows = []
     for run in runs:
         case = cases[run["case_id"]]
         checks = grade_checks(run.get("answer", ""), case["checks"])
@@ -167,8 +211,8 @@ def main() -> int:
         by_probe.setdefault(row["probe"], []).append(row["passed"])
 
     summary = {
+        "ok": True,
         "cases_scored": total,
-        "cases_missing": missing,
         "pass_rate": round(passed / total, 4) if total else 0.0,
         "call_score": round(sum(r["call"]["passed"] for r in rows) / total, 4) if total else 0.0,
         "answer_score": round(
