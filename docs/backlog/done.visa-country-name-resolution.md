@@ -70,7 +70,7 @@ contains the input that produced it, so the self-referential shape cannot return
 ## Notes
 Implemented 2026-08-29; `vietnam-visa-check` bumped to `0.4.0`. Verified by
 temporarily reverting the fix: 3 of the 4 new tests fail against the old code.
-Awaiting user approval before renaming to `done.`.
+Completion approved by the user on 29 August 2026 after verifying #36 and merging #37-#39.
 
 Defect 2 is the user-visible one: an error that suggests its own input is worse
 than an error with no suggestions, because SKILL.md's contract sends the agent

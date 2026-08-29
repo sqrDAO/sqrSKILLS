@@ -39,8 +39,8 @@ and nothing in the run tells the agent to look at any of it.
 - `python3 scripts/validate_skills.py` → JSON with `"ok": true`
 - `python3 scripts/audit_refresh.py --before <main roster> --after <same> --report-only`
   → `"unsupported": []`
-- Replay the 2026-08-24 correction: lowering five dates reports `unsupported: []` and
-  `lowered: 5`, and the reverting path leaves the file untouched
+- Replay the 2026-08-24 correction: lowering four dates reports `unsupported: []` and
+  `lowered: 4`, and the reverting path leaves the file untouched
 - `git diff --check` → no whitespace errors
 
 ## Notes

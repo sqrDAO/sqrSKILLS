@@ -7,16 +7,19 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-1. `refresh-direction-and-da-nang-coverage` — stop `audit_refresh.py`
-   re-inflating a deliberately lowered `last_verified`, and make the weekly
-   run sweep Da Nang's controlled trials.
-
-2. `visa-country-name-resolution` — resolve a country's own name wherever its
-   demonym resolves. 26 of 81 display names in `vietnam-visa-check` fail, and 17
-   of those suggest the exact input that just failed. Found by the iteration-0
-   eval run.
+_Empty._
 
 ## Recently shipped
+
+- `visa-country-name-resolution` — indexed `_COUNTRY_NAMES` so a country's own
+  name resolves wherever its demonym does: 26 of 81 display names went from
+  unresolvable to resolvable, and 17 self-echoing suggestions ("Argentina not
+  recognised — did you mean Argentina?") to none. Found by the eval split's
+  first run, inside a trace that passed (#38).
+- `refresh-direction-and-da-nang-coverage` — only a raised `last_verified` has
+  to earn its keep; a lowered one is always kept, since it claims less. The
+  weekly prompt now sweeps Da Nang's controlled trials, states the count is a
+  floor, and refuses to promote the single-source resolution alone (#36).
 
 - `vietnam-crypto-radar-da-nang-trials` — recorded Da Nang's municipal
   controlled-trial regime: the enabling resolution, the four 22 August 2026
