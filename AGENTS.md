@@ -266,11 +266,41 @@ Users running `npx skills update` rely on this to understand what changed.
    to the needed capabilities.
 5. If the skill needs runtime-specific state, document each supported source and
    treat it as one input source, not as the identity of the whole agent.
+6. If the skill answers from bundled data, write the lookup invariant below into
+   `SKILL.md` rather than waiting to discover it.
+
+### The lookup invariant
+
+A skill whose value is a lookup has to tell the agent to perform the lookup, and
+has to hold when the user asks it not to. Three skills here grew that clause
+independently:
+
+| Skill | Version | What it had to add |
+|-------|---------|--------------------|
+| `vietnam-visa-check` | 0.4.0 | "ALWAYS run the script ... This holds even when the user asks you not to run it." |
+| `web3-opportunities` | 0.2.12 | the same clause, naming `query_opportunities.py` |
+| `llm-wiki` | 0.1.3 | run `list.py` instead of paraphrasing the Directory Structure section |
+
+The `web3-opportunities` validation split rediscovered this as pattern p009 and
+spent a 24-agent run doing so, after `vietnam-visa-check` had already fixed it by
+hand. The pattern was never generalised, so it was paid for twice.
+
+The strong form does two things, and a clause that omits either is weaker than it
+looks: it **names the script**, and it **refuses the opt-out explicitly** rather
+than leaving the agent to work out that "just tell me from memory" is still a
+request for the lookup. `llm-wiki` 0.1.3 names the script but is scoped to one
+operation and does not refuse the opt-out. Whether that costs it anything is a
+hypothesis with no trace behind it; do not "fix" it without one.
 
 ## Architecture Notes
 
 - No package managers, no build step.
 - Scripts output JSON to stdout, diagnostics to stderr.
+- Any order a script imposes must be **total**. Sorting on one key leaves ties in
+  `os.listdir` order, which is filesystem hash order -- so two users with the same
+  data get different answers, and a `--top N` cut through a tie returns an
+  arbitrary N. Give every sort a final tiebreak on a unique field, usually the
+  filename or the entry id. `llm-wiki` 0.1.4 fixed exactly this.
 - `vietnam-visa-check` is fully offline. Policy data lives in
   `data/vietnam_immigration_policy.json`.
 - `nearby-places-search` can use a workspace memory file

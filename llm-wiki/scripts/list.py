@@ -99,6 +99,11 @@ def main():
             "last_updated": fm.get("last-updated", "").strip().strip("\"'"),
         })
 
+    # Sort by filename first so the requested order below, which is stable, breaks
+    # its own ties by filename. Without this, pages sharing a title or a
+    # last-updated date come back in os.listdir order -- filesystem hash order,
+    # which differs between machines holding the same wiki.
+    pages.sort(key=lambda p: p["file"])
     if args.sort == "updated":
         pages.sort(key=lambda p: p["last_updated"], reverse=True)
     else:
