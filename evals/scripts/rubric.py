@@ -34,9 +34,11 @@ _NEGATION_WINDOW = 40
 def negated(answer: str, start: int) -> bool:
     """True if a negation appears shortly before `start`, within one sentence."""
     window = answer[max(0, start - _NEGATION_WINDOW):start]
-    # Do not read across a sentence or a line break: a negation two bullets up
-    # says nothing about the claim on this line.
-    window = re.split(r"[.\n]", window)[-1]
+    # Do not read across a sentence or a line break: a negation two bullets up,
+    # or in the question before this one, says nothing about the claim here.
+    # `?` and `!` end a sentence as surely as `.` does -- without them,
+    # "Is it not open? It is currently open." excuses the second clause.
+    window = re.split(r"[.!?\n]", window)[-1]
     return bool(_NEGATION.search(window))
 
 

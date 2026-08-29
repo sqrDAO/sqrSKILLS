@@ -54,6 +54,16 @@ class NegationAwareForbidTest(unittest.TestCase):
         answer = "It is not a grant. It is currently open."
         self.assertFalse(self.passed(answer, forbid(r"is currently open")))
 
+    def test_negation_does_not_carry_across_a_question(self):
+        # A question mark ends a sentence as surely as a period. Without this,
+        # a rhetorical question excuses the claim that answers it.
+        answer = "Is it not open? It is currently open."
+        self.assertFalse(self.passed(answer, forbid(r"is currently open")))
+
+    def test_negation_does_not_carry_across_an_exclamation(self):
+        answer = "Do not apply! It is currently open."
+        self.assertFalse(self.passed(answer, forbid(r"is currently open")))
+
     def test_require_any_ignores_negation(self):
         # require_any asks whether a topic was addressed, not whether it was
         # affirmed -- "not closed" still mentions closure.
