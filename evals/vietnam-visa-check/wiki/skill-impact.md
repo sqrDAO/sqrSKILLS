@@ -181,6 +181,20 @@ The gate is now closed for this split: nothing further can be measured against a
 set that everything passes. Treat 24/24 as the retirement condition, not as a
 target that has been hit.
 
+## Grader corrections — external review, PR #37
+
+Five real defects, one misapplied rule. Full detail in `logs.md`. The serious one:
+**an incomplete run file was scored rather than refused**, so a run that omitted
+its failures reported an inflated `pass_rate`. Every run this loop produced was
+complete, so nothing caught it in three iterations.
+
+Running total: **four rounds of corrections to the measuring apparatus** (three
+rubric, one grader) against three rounds of edits to the skill. The apparatus has
+been wrong more often than the thing it measures — worth remembering before
+trusting the next number it produces.
+
+Re-scored under the corrected grader: 24/24 unchanged.
+
 ## Still open
 
 - **The split needs replacing before the next edit.** Saturated at 24/24, and the

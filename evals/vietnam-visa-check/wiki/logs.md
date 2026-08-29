@@ -258,3 +258,34 @@ and `vvc-23` recovered on its own. So the real rate is 2/24, down from 5/24 — 
 improvement, but the edit has still not earned a case and by this ledger's own
 criterion it is a candidate for removal. Recorded rather than acted on, because
 removing it needs a split that can detect the regression, and this one cannot.
+
+## 2026-08-29 — harness corrections from external review (PR #37)
+
+CodeRabbit raised six findings on the harness. Five were real defects in the
+grader or the split; one was a misapplied project rule. Fixed, and the full run
+was re-scored under the corrected grader: **still 24/24** (`runs/iter2.jsonl`).
+
+| Finding | Verdict |
+|---|---|
+| A run file's missing cases were only *reported*, never scored — a run that dropped its failures inflated every number | **real, serious.** Now refused with `"ok": false` unless every case appears exactly once; duplicates and unknown ids too |
+| `vvc-24` claimed "two lookups, not one" but stored a single required call, so omitting the Irish lookup still earned full call credit | **real.** `expected_call` → `expected_calls`, a list; every one must be satisfied |
+| `vvc-23` required `nationality="British"` and `duration_days=20`, neither of which appeared in its prompt | **real.** The facts were supplied out-of-band to the agent, so the case was not reproducible from `cases.jsonl` alone. Prompt rewritten to carry them; case re-run |
+| Duration was unvalidated when the prompt stated none, so a spurious `120` passed | **real, with a caveat.** Now checked for every case — but the prompt-states-none case accepts `None` *or* the script's own default `30`, which is behaviourally identical to omitting the flag. Failing that would have been the rubric being wrong again |
+| `l` as a variable name (Ruff E741) | real, trivial |
+| "Scripts must never hardcode repository paths" | **misapplied.** That rule lives in AGENTS.md's `$SKILL_DIR` section and governs *installable skill* scripts; the repo's own `validate_skills.py` resolves from `__file__`. The underlying suggestion was still worth taking — paths are now inputs (`--cases`, `--query-script`, `--policy`, `--out`) with layout defaults |
+
+### Why this matters more than the score
+
+The run-completeness hole is the same class of defect as everything else this
+loop has surfaced: **a measurement that cannot fail is not a measurement.** The
+grader would have accepted a run containing only the cases that passed. Nothing
+in three iterations caught it, because every run I produced happened to be
+complete. It took a reader who had not written the harness.
+
+That is now four rounds of corrections to the measuring apparatus (three rubric,
+one grader) against three rounds of edits to the thing being measured. The
+apparatus has been wrong more often than the skill has.
+
+The two-call fix also earns its keep immediately: the adversarial check for
+`vvc-24` now fails on the call as well as the rubric — "no call satisfied
+'Irish'" — where before it passed the call by looking up Australia alone.
