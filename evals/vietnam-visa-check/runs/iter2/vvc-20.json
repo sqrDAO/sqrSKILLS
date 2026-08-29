@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-20",
+  "tool_calls": [
+    {
+      "nationality": "Americans",
+      "duration_days": null,
+      "phu_quoc_only": true
+    }
+  ],
+  "answer": "Yes — Americans can visit Phu Quoc Island visa-free, no visa needed. Details:\n\n- Duration: up to 30 days\n- Conditions: you must arrive directly from outside Vietnam by air or sea (not via mainland Vietnam), and your passport must be valid for at least 180 days from your entry date\n- Restriction: this exemption only covers Phu Quoc Island itself — if you travel to mainland Vietnam, the exemption is voided and you'll need a separate visa\n\nIf you do plan to visit the mainland too, Americans are eligible for Vietnam's e-Visa (available to all nationalities), good for up to 90 days, costing USD 25 (single entry) or USD 50 (multiple entry), processed in about 2-3 business days via evisa.gov.vn.\n\nThis is based on policy data as of 2026-08-17 — I'd recommend double-checking current rules at https://evisa.gov.vn/ before you travel.",
+  "extra_reads": []
+}

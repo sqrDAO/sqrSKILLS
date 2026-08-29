@@ -172,12 +172,29 @@ drops self-echoing candidates. 26 → 0 unresolvable names, 17 → 0 echoing
 suggestions. Four tests, three of which fail against the pre-fix code. Spec:
 `docs/backlog/todo.visa-country-name-resolution.md`.
 
+## Iteration 2 gate — full run, 2026-08-29
+
+**24/24** on the corrected split. `pass` 1.0, `call` 1.0, `answer` 1.0. All four
+iteration-1 edits and the iteration-2 rule are **accepted and retained**.
+
+The gate is now closed for this split: nothing further can be measured against a
+set that everything passes. Treat 24/24 as the retirement condition, not as a
+target that has been hit.
+
 ## Still open
 
-- **A full 24-case re-run** on the corrected split, for a clean headline number.
-  The 23-case comparison is what exists.
+- **The split needs replacing before the next edit.** Saturated at 24/24, and the
+  rubric was tuned against these very traces (six checks and one case corrected
+  mid-run, each because it fired on a correct answer). An independently authored
+  split would score lower. `logs.md` lists what the next one needs: multi-turn
+  cases, cases where refusing is correct, a nationality absent from `_DEMONYMS`
+  (`Kenyan` errors today and nothing covers it), and more conflicting-instruction
+  shapes than `vvc-22` alone.
 - **Placement**: does a rule in Critical Rules outperform the same rule in a
   reference section? E1 vs E2 hints yes; nothing tests it.
-- **E3 and E4** have earned nothing measurable. Remove them if a later run still
-  shows no case depending on them.
+- **E3 (pass-through)** improved true rewrites 5/24 → 2/24 but still has not
+  earned a case. By this ledger's own criterion it is a removal candidate —
+  blocked, because removing it needs a split that could detect the regression and
+  this one cannot.
+- **E4 (output fields)** has earned nothing measurable across two full runs.
 - **Repeats and models**: one repeat, Sonnet only.

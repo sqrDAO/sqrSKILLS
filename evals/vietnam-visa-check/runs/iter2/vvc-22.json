@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-22",
+  "tool_calls": [
+    {
+      "nationality": "Canadians",
+      "duration_days": null,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "No — Canadians do not have visa-free access to Vietnam; you'll need an e-Visa (up to 90 days, USD 25–50 at evisa.gov.vn).",
+  "extra_reads": []
+}

@@ -7,9 +7,13 @@ separation is the point (see `../../README.md`).
 Each entry names the problem, the root cause, and the fix specifically enough to
 judge relevance without opening the page.
 
-**Current**: `0.4.0`, 2026-08-29. On the 23 cases stable across the run,
-**22/23 → 23/23** (call 95.7% → 100%). `vvc-18` was rebuilt mid-run and is scored
-separately; it passes under `0.4.0`.
+**Current**: `0.4.0`, 2026-08-29. Full 24-case run: **24/24**, `call` and
+`answer` both 1.0 (`runs/iter2.jsonl`). Baseline `0.3.6` was 22/23 on the
+comparable subset.
+
+**The split is saturated and cannot gate the next edit.** A 100% means this one
+has done its job, not that the skill is finished — see `logs.md` for what a
+replacement needs.
 
 Of nine seeded patterns, four were falsified outright, one (p010) had invented
 evidence but a valid rule, one (p013) is real with no measurable effect, and one

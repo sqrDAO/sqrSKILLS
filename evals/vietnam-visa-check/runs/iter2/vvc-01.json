@@ -1,0 +1,12 @@
+{
+  "case_id": "vvc-01",
+  "tool_calls": [
+    {
+      "nationality": "Russians",
+      "duration_days": null,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Russians are visa-free for stays of up to 45 days (this exemption is currently valid until 2028-03-05, per a March 2025 announcement extending it). Your passport just needs to be valid for at least 180 days from your entry date.\n\nIf you need to stay longer than 45 days, Russians can also get an e-Visa: up to 90 days, USD 25 (single entry) or USD 50 (multiple entry), processed in 2-3 business days, and usable at any of the approved air/land/sea ports (not restricted to one nominated port). Apply at evisa.gov.vn.\n\nThis data is current as of 2026-08-17 — I'd recommend double-checking at evisa.gov.vn before you travel, since policy can change.",
+  "extra_reads": []
+}

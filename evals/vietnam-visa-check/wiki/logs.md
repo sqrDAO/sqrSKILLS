@@ -200,3 +200,61 @@ not justify it.
 
 Still one repeat, still Sonnet. A full 24-case re-run on the corrected split would
 give a clean headline number; the 23-case comparison above is what exists.
+
+## 2026-08-29 — iteration 2, full 24-case run on `0.4.0`
+
+**24/24. `pass` 1.0, `call` 1.0, `answer` 1.0.** Raw run: `runs/iter2.jsonl`.
+
+Every case, single run, against the corrected split (`vvc-18` on Portugal). This
+supersedes the 23-case comparison in the previous entry, which existed only
+because `vvc-18` was rebuilt mid-run.
+
+| | iter 0 (`0.3.6`) | iter 1 | iter 2 (`0.4.0`) |
+|---|---|---|---|
+| cases | 23 comparable | 23 comparable | **24 full** |
+| pass | 95.7% | 100% | **100%** |
+| call | 95.7% | 100% | **100%** |
+
+Zero traces read anything beyond `SKILL.md`. Zero traces skipped the lookup.
+
+### A 100% is not a victory notice
+
+**The split is now saturated and cannot gate the next edit.** A gate that every
+candidate passes has stopped measuring, and the honest reading of 24/24 is that
+this split has done its job and needs retiring, not that the skill is finished.
+
+Two specific reasons not to over-read it:
+
+1. **The rubric was tuned against these traces.** Six checks and one case were
+   corrected during the run, every one because it fired on a correct answer.
+   That is the right direction to correct in, but it means the rubric has been
+   fitted to what this model already does well. An independently authored split
+   would score lower.
+2. **The cases that produced every real finding are the ones that now pass
+   trivially.** `vvc-22` was the only case ever to fail on `call_score`, and
+   `vvc-24` — which surfaced p012 — passes without exercising the resolver bug at
+   all, because the bug is fixed and the case never targeted it directly.
+
+What a replacement split needs, on this evidence: multi-turn cases (every case
+here is single-shot), cases where the *right* answer is to refuse or ask, a
+nationality whose demonym is absent from `_DEMONYMS` entirely (`Kenyan` returns
+an error today and no case covers it), and conflicting-instruction cases beyond
+`vvc-22`'s single shape.
+
+### The pass-through rule still is not working
+
+`translated_inputs` was 5/24 at iteration 0 and is **4/24 now**, after an edit
+written specifically to stop it:
+
+| Case | User said | Agent passed |
+|---|---|---|
+| `vvc-03` | "USA passport" | `US` |
+| `vvc-17` | "Chinese passport holder" | `Chinese passport holder` (qualifier kept — fine) |
+| `vvc-19` | "I'm from Timor-Leste" | `Timor-Leste` |
+| `vvc-23` | British (from context) | `GB`, then `British` |
+
+Only `vvc-03` and `vvc-19` are true rewrites; `vvc-17` is the user's own phrasing
+and `vvc-23` recovered on its own. So the real rate is 2/24, down from 5/24 — an
+improvement, but the edit has still not earned a case and by this ledger's own
+criterion it is a candidate for removal. Recorded rather than acted on, because
+removing it needs a split that can detect the regression, and this one cannot.

@@ -1,0 +1,17 @@
+{
+  "case_id": "vvc-23",
+  "tool_calls": [
+    {
+      "nationality": "GB",
+      "duration_days": 20,
+      "phu_quoc_only": false
+    },
+    {
+      "nationality": "British",
+      "duration_days": 20,
+      "phu_quoc_only": false
+    }
+  ],
+  "answer": "Yes — you can cross into Vietnam by land from Cambodia on an e-Visa; you don't have to fly. Vietnam's e-Visa allows entry by air, land, or sea, and it isn't tied to a single nominated port: you can use any of the approved e-Visa land border crossings (the dataset tracks about 83 approved ports total, including land crossings from Cambodia such as Moc Bai/Bavet and others). Just double-check the specific border crossing you plan to use is on the current approved list at evisa.gov.vn before you travel, since that list can change.\n\nOne thing worth flagging: as a British passport holder on a 20-day trip, you actually qualify for Vietnam's visa-free entry (up to 45 days, unilateral exemption currently extended to 2028-03-05) and wouldn't need an e-Visa at all — that exemption isn't restricted to air entry either. If you'd rather skip the e-Visa fee/application, that's an option; if you already have or prefer the e-Visa (e.g., for flexibility or multiple entries), it will work fine for your Cambodia land crossing. Data here is as of 2026-08-17 — worth a final check at evisa.gov.vn closer to your trip.",
+  "extra_reads": []
+}
