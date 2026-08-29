@@ -147,6 +147,31 @@ roster entries as verified that day, three of which pointed at domains that no
 longer had DNS records. The weekly refresh workflow runs both automatically before
 opening its PR.
 
+## Changing a SKILL.md
+
+Two skills are gated on a validation split under `evals/`: `vietnam-visa-check`
+and `web3-opportunities`. Before editing either one's `SKILL.md`, read that
+skill's `evals/<skill>/wiki/` — `index.md` for what has already been diagnosed
+and `skill-impact.md` for edits that were tried and reverted. Re-run the split
+after. An edit that does not move the score is reverted; either way it is logged.
+
+Two rules make the measurement mean anything, and both are easy to break by
+accident:
+
+- **The wiki is never read at runtime.** It lives outside the skill directory,
+  and the executing agent must not see it. An agent with the pattern pages in
+  context produces the right answer *from the wiki*, and the trace stops being
+  evidence about `SKILL.md`.
+- **Skills roll back; the wiki does not.** A rejected edit is reverted from
+  `SKILL.md` and its diff and reason stay in `skill-impact.md` permanently. That
+  record is what stops the same idea being re-proposed later.
+
+A defect in a skill's *script* does not belong in the split. It goes to `tests/`
+plus a backlog spec — the split validates instructions, not code.
+
+`evals/README.md` has the full loop, which skills are eligible for one, and how
+to calibrate a new split before spending a run on it.
+
 ## Backlog Workflow
 
 No implementation work without a spec. Every task uses

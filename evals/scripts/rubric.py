@@ -11,6 +11,12 @@ Rubric check types:
   require_any  - at least one pattern must appear in the answer
   forbid_all   - none of the patterns may appear in the answer, unless negated
 Patterns are case-insensitive regular expressions.
+
+A `forbid_all` check may also carry `excused_by`: patterns that, if present
+anywhere in the answer, discharge the check. Some claims are forbidden only
+because of what the agent could not have known -- asserting a programme is open
+today is wrong from a baseline snapshot and right after a live check. Without
+this, the rubric punishes the exact behaviour the skill prescribes.
 """
 
 from __future__ import annotations
@@ -62,6 +68,12 @@ def grade_checks(answer: str, checks: list[dict]) -> list[dict]:
     results = []
     for check in checks:
         if check["type"] == "forbid_all":
+            excuse = next((e for e in check.get("excused_by", [])
+                           if re.search(e, answer, re.I | re.M)), None)
+            if excuse:
+                results.append({"id": check["id"], "passed": True, "why": check["why"],
+                                "matched": [], "excused_by": excuse})
+                continue
             hits = []
             for pattern in check["patterns"]:
                 for match in re.finditer(pattern, answer, re.I | re.M):

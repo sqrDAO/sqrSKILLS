@@ -7,7 +7,9 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-_Empty._
+1. `web3-opportunities-eval-split` — the split is built and calibrated (ideal
+   run 24/24, deliberately-wrong run 0/24). What remains is the baseline agent
+   run and the diagnosis that follows it.
 
 ## Recently shipped
 

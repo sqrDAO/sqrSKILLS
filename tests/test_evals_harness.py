@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "evals" / "scripts"))
 
 from rubric import grade_checks, run_integrity_error, summarize  # noqa: E402
+from grade_web3 import satisfies  # noqa: E402
 
 
 def forbid(*patterns):
@@ -119,6 +120,58 @@ class SummaryTest(unittest.TestCase):
         summary = summarize(self.rows())
         self.assertEqual([f["case_id"] for f in summary["failures"]], ["a"])
         self.assertEqual(summary["by_probe"], {"p": "1/2"})
+
+
+class FacetConstraintTest(unittest.TestCase):
+    """`--dilution non-dilutive` is a different question from `non-dilutive,mixed`."""
+
+    def query(self, **over):
+        base = {"type": None, "stage": None, "dilution": None, "chain": None,
+                "region": None, "status": None, "sea": False, "search": None}
+        base.update(over)
+        return base
+
+    def test_empty_constraint_accepts_any_invocation(self):
+        self.assertTrue(satisfies(self.query(), {}))
+
+    def test_empty_constraint_accepts_a_rejected_invocation(self):
+        # An out-of-enum facet still counts as having run the script.
+        self.assertTrue(satisfies(None, {}))
+
+    def test_a_named_facet_is_never_satisfied_by_a_rejected_invocation(self):
+        self.assertFalse(satisfies(None, {"type": ["grant"]}))
+
+    def test_list_facets_match_as_sets_not_sequences(self):
+        query = self.query(chain=["l2", "ethereum"])
+        self.assertTrue(satisfies(query, {"chain": ["ethereum", "l2"]}))
+
+    def test_a_superset_call_does_not_satisfy_an_exact_facet(self):
+        query = self.query(dilution=["non-dilutive", "mixed"])
+        self.assertFalse(satisfies(query, {"dilution": ["non-dilutive"]}))
+
+    def test_a_subset_call_does_not_satisfy_an_exact_facet(self):
+        query = self.query(dilution=["non-dilutive"])
+        self.assertFalse(satisfies(query, {"dilution": ["non-dilutive", "mixed"]}))
+
+    def test_unnamed_facets_are_free(self):
+        query = self.query(type=["grant"], region=["sea"])
+        self.assertTrue(satisfies(query, {"type": ["grant"]}))
+
+    def test_sea_flag_is_distinct_from_the_sea_region(self):
+        self.assertFalse(satisfies(self.query(region=["sea"]), {"sea": True}))
+        self.assertTrue(satisfies(self.query(sea=True), {"sea": True}))
+
+    def test_search_compares_case_insensitively(self):
+        self.assertTrue(satisfies(self.query(search="Optimism"), {"search": "optimism"}))
+        self.assertFalse(satisfies(self.query(search="optimism"), {"search": "alliance"}))
+
+    def test_a_none_constraint_requires_the_facet_to_be_absent(self):
+        self.assertTrue(satisfies(self.query(), {"type": None}))
+        self.assertFalse(satisfies(self.query(type=["grant"]), {"type": None}))
+
+    def test_an_unknown_facet_is_an_error_not_a_pass(self):
+        with self.assertRaises(ValueError):
+            satisfies(self.query(), {"nonsense": ["x"]})
 
 
 if __name__ == "__main__":
