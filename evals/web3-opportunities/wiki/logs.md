@@ -152,3 +152,27 @@ pinned the subject of the sentence. Broadened to the claim rather than one
 phrasing of it. Round 4 of harness corrections, still ahead of skill edits 4-1.
 
 v1's stored runs re-score unchanged under the rewritten grader (0.9167 / 1.0).
+
+### Harness round 5 — a half-finished exchange scored 0.75
+
+Reported by CodeRabbit on #44, and real. `run_integrity_error` checks that every
+case appears exactly once, which was sufficient while every case had one turn.
+With turns it is not: a run holding only turn 1 of a two-turn case still covers
+every `case_id`, the missing turn reads as an empty answer, and a turn-pinned
+`forbid_all` passes on empty text.
+
+Reproduced by truncating every multi-turn case in the v2 ideal run to its first
+turn. It scored **0.75** — not an error, not a zero, a plausible number computed
+from an exchange that never happened. That is the exact failure the completeness
+guard exists to prevent, and the guard had a hole in it the moment turns were
+added.
+
+`turn_integrity_error` now refuses a mismatch in either direction: too few turns
+means the run stopped early, too many means it is not this case. Six tests.
+
+Worth noting the shape of this one. The v2 cases all happen to carry a turn-pinned
+`require_any` as well, so a truncated run still *failed* those cases — the defect
+was never going to show up as a wrong verdict on today's split. It would have
+shown up the first time someone wrote a case whose second turn only had forbids,
+which is a perfectly reasonable case to write. Five rounds of harness corrections
+now, against one skill edit.

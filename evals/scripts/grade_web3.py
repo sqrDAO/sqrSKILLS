@@ -144,6 +144,37 @@ def read_turns(run: dict) -> list[dict]:
     return [{"tool_calls": run.get("tool_calls", []), "answer": run.get("answer", "")}]
 
 
+def turn_integrity_error(cases: dict[str, dict], runs: list[dict]) -> dict | None:
+    """A half-finished exchange must never produce a score either.
+
+    `run_integrity_error` checks that every case is present exactly once. That is
+    not enough once a case has turns: a run recording only turn 1 of a two-turn
+    case still covers every case_id, and the missing turn reads as an empty
+    answer -- on which a turn-pinned `forbid_all` passes. The result is a
+    plausible-looking number computed from an exchange that never happened.
+
+    The case defines the user's side, so the count is exact in both directions:
+    too few turns means the run stopped early, too many means it is not this case.
+    """
+    mismatched = []
+    for run in runs:
+        case = cases.get(run["case_id"])
+        if case is None:
+            continue  # run_integrity_error reports unknown ids
+        want = len(case.get("turns", [])) or 1
+        got = len(read_turns(run))
+        if got != want:
+            mismatched.append({"case_id": run["case_id"], "expected_turns": want,
+                               "recorded_turns": got})
+    if not mismatched:
+        return None
+    return {
+        "ok": False,
+        "error": "every case must record exactly the turns it defines",
+        "mismatched_turns": mismatched,
+    }
+
+
 def grade_call(case: dict, turns: list[dict], normalize) -> dict:
     required = case.get("expected_calls", [])
     per_turn: list[list[tuple]] = []
@@ -222,7 +253,7 @@ def main() -> int:
     per_repeat = []
     for path in args.run:
         runs = load_runs(Path(path))
-        broken = run_integrity_error(cases, runs)
+        broken = run_integrity_error(cases, runs) or turn_integrity_error(cases, runs)
         if broken:
             print(json.dumps({**broken, "run": path}, indent=2))
             return 1

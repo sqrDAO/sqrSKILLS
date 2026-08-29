@@ -167,6 +167,12 @@ themselves are scratch.
 unknown `case_id` is refused with `"ok": false` and no score. Otherwise a run that
 quietly dropped its failures would report a higher pass rate than it earned.
 
+**And every case must record exactly the turns it defines.** Case coverage is not
+enough once a case is multi-turn: a run holding only turn 1 of a two-turn case
+covers every `case_id`, and the missing turn reads as an empty answer that a
+turn-pinned `forbid_all` sails through. Truncating every multi-turn case in the v2
+ideal run produced a perfectly plausible 0.75 before this was refused.
+
 Run file format, one object per case. `tool_calls` records what the agent
 actually invoked, in whatever shape that split's grader reads:
 
