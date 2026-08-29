@@ -29,10 +29,13 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
-import re
-from collections import Counter
 import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from rubric import (  # noqa: E402  (path set above)
+    grade_checks, load_cases, load_runs, run_integrity_error, summarize,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CASES = ROOT / "evals" / "vietnam-visa-check" / "cases.jsonl"
@@ -54,57 +57,6 @@ def load_resolver(query: Path, data: Path):
     policy = json.loads(data.read_text(encoding="utf-8"))
     index = module.build_country_index(policy)
     return lambda raw: module.resolve_nationality(raw or "", index)
-
-
-def load_cases(cases: Path) -> dict[str, dict]:
-    return {
-        json.loads(line)["id"]: json.loads(line)
-        for line in cases.read_text(encoding="utf-8").splitlines()
-        if line.strip()
-    }
-
-
-# A forbidden phrase inside a negation is usually the correct answer: "does not
-# have visa-free access" and "do NOT get visa-free entry" are what a right answer
-# says. Only matches that are *not* negated count as hits.
-_NEGATION = re.compile(
-    r"(?:\bnot\b|n't\b|\bno\b|\bnever\b|\bwithout\b|\blacks?\b|"
-    r"\bisn|\baren|\bdoesn|\bdon|\bcan't|\bcannot\b|\bunable\b)",
-    re.I,
-)
-_NEGATION_WINDOW = 40
-
-
-def _negated(answer: str, start: int) -> bool:
-    """True if a negation appears shortly before `start`, within one sentence."""
-    window = answer[max(0, start - _NEGATION_WINDOW):start]
-    window = window.rsplit(".", 1)[-1]  # do not read across a sentence boundary
-    return bool(_NEGATION.search(window))
-
-
-def grade_checks(answer: str, checks: list[dict]) -> list[dict]:
-    results = []
-    for check in checks:
-        if check["type"] == "forbid_all":
-            hits = []
-            for pattern in check["patterns"]:
-                for match in re.finditer(pattern, answer, re.I | re.M):
-                    if not _negated(answer, match.start()):
-                        hits.append(pattern)
-                        break
-        else:
-            hits = [p for p in check["patterns"] if re.search(p, answer, re.I | re.M)]
-        if check["type"] == "require_any":
-            passed = bool(hits)
-        elif check["type"] == "forbid_all":
-            passed = not hits
-        else:
-            raise ValueError(f"unknown check type {check['type']!r}")
-        results.append({
-            "id": check["id"], "passed": passed, "why": check["why"],
-            "matched": hits,
-        })
-    return results
 
 
 def grade_call(case: dict, calls: list[dict], resolve) -> dict:
@@ -173,21 +125,11 @@ def main() -> int:
 
     cases = load_cases(args.cases)
     resolve = load_resolver(args.query_script, args.policy)
-    runs = [json.loads(line) for line in
-            Path(args.run).read_text(encoding="utf-8").splitlines() if line.strip()]
+    runs = load_runs(Path(args.run))
 
-    # A partial run must never produce a score. Omitting failing cases or
-    # repeating passing ones would otherwise inflate every number below.
-    seen = Counter(r["case_id"] for r in runs)
-    missing = sorted(set(cases) - set(seen))
-    duplicated = sorted(cid for cid, n in seen.items() if n > 1)
-    unknown = sorted(set(seen) - set(cases))
-    if missing or duplicated or unknown:
-        print(json.dumps({
-            "ok": False,
-            "error": "run file must contain every case exactly once",
-            "missing": missing, "duplicated": duplicated, "unknown": unknown,
-        }, indent=2))
+    broken = run_integrity_error(cases, runs)
+    if broken:
+        print(json.dumps(broken, indent=2))
         return 1
 
     rows = []
@@ -204,29 +146,9 @@ def main() -> int:
             "failed_checks": [c["id"] for c in checks if not c["passed"]],
         })
 
-    total = len(rows)
-    passed = sum(r["passed"] for r in rows)
-    by_probe: dict[str, list[bool]] = {}
-    for row in rows:
-        by_probe.setdefault(row["probe"], []).append(row["passed"])
-
-    summary = {
-        "ok": True,
-        "cases_scored": total,
-        "pass_rate": round(passed / total, 4) if total else 0.0,
-        "call_score": round(sum(r["call"]["passed"] for r in rows) / total, 4) if total else 0.0,
-        "answer_score": round(
-            sum(all(c["passed"] for c in r["checks"]) for r in rows) / total, 4
-        ) if total else 0.0,
+    summary = summarize(rows, {
         "translated_inputs": [r["case_id"] for r in rows if r["call"].get("translated")],
-        "failures": [
-            {"case_id": r["case_id"], "probe": r["probe"],
-             "call": None if r["call"]["passed"] else r["call"]["reason"],
-             "checks": r["failed_checks"]}
-            for r in rows if not r["passed"]
-        ],
-        "by_probe": {k: f"{sum(v)}/{len(v)}" for k, v in sorted(by_probe.items())},
-    }
+    })
     print(json.dumps(summary, indent=2))
 
     if args.verbose:

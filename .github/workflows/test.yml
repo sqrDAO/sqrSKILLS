@@ -30,3 +30,6 @@ jobs:
 
       - name: Run harness tests
         run: python3 -m unittest discover -s tests -v
+
+      - name: Check the validation split is not stale
+        run: python3 evals/scripts/build_visa_cases.py --check
