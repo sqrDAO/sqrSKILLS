@@ -7,10 +7,10 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-1. `web3-opportunities-eval-split` — v1 is retired at 24/24 and v2 is built and
-   calibrated. What remains is v2 at two repeats to establish a baseline, then
-   re-testing the withheld E2 against it. That is one fresh agent per case per
-   repeat, so it is a deliberate spend.
+1. `web3-opportunities-eval-split` — v2 baseline is in: 23/24 and 24/24 across
+   two repeats, no stable failure, call score 1.0. E2 remains withheld because
+   there is nothing left to gate it against, and v2 is saturated on its first
+   run. Every acceptance item is now ticked; awaiting approval to close.
 
 ## Recently shipped
 

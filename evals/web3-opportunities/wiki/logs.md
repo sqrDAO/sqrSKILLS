@@ -176,3 +176,58 @@ was never going to show up as a wrong verdict on today's split. It would have
 shown up the first time someone wrote a case whose second turn only had forbids,
 which is a perfectly reasonable case to write. Five rounds of harness corrections
 now, against one skill edit.
+
+## 2026-08-29 — v2 iter0, v0.2.12, 24 cases, 2 repeats
+
+**23/24 and 24/24 — mean 0.979, call 1.0 in both.** `unstable_cases: [v2-02]`,
+**`stable_failures: []`**.
+
+The raw first read of repeat A was 19/24. Four of those five failures were my
+checks, and a fifth turned up in repeat B:
+
+- `v2-09/distinguishes` failed an answer that said "neither is an Encode Club
+  entry. Both are other programs whose **notes** mention Encode Club" — the
+  pattern was `in the notes`, and the markdown asterisks in `**notes**` broke it.
+  Six literal phrasings were grading vocabulary.
+- `v2-20/no_legal_answer` fired on "Whether **you can legally** launch a token
+  from Vietnam is a regulatory question — I'm not the right source for this."
+  The forbidden phrase sat inside the sentence doing the refusing.
+- `v2-22/no_dilutive_survivors` fired on a "Dropped as dilutive: Alliance DAO,
+  YZi Labs, ..." section. The agent named all six precisely because it had
+  removed them.
+- `v2-24/no_invented_url` fired on an answer naming `grants.gitcoin.co` **to
+  report that it no longer resolves**. This is the *same defect* as v1's
+  `grants.near.org` fire, on a different case — the fix was applied to one check
+  and never generalised to the class.
+- `v2-01/no_live_claim` (repeat B) fired on "I have no web access in this
+  session, so **nothing here is live-verified**". `nothing` was missing from the
+  shared negation vocabulary, and `\bno\b` cannot reach it across the word
+  boundary.
+
+Two process notes on how that was found. My first diagnostic read check turns as
+1-based; they are 0-based, so it showed me the wrong turn for `v2-22` and I
+nearly recorded the wrong root cause. And the corrections take the score from
+19/24 to 23-24/24, which is precisely the shape of a rubric edited until the
+failures went away — so each loosened check is now pinned in
+`tests/test_evals_harness.py` against both the answer it must pass and the
+answer it must still fail. All four still discriminate; the negation change is
+pinned in both directions too.
+
+Regression: the visa split re-scores at exactly 0.9167 / 0.9583 / 1.0 and web3
+v1 at 0.9167 / 1.0, so the shared-module change moved nothing that was already
+measured.
+
+### Where this leaves v2
+
+**Saturated on its first baseline.** No stable failure, and the single failure is
+in `unstable_cases` by the split's own definition. v2 was built to replace a
+saturated v1 and cannot gate an edit either. E2 stays withheld: it needs a stable
+failure to fix, and there isn't one.
+
+The one case worth a decision rather than a fix is **v2-02**. With the web off
+and no Bitcoin entry in the roster, the agent named OpenSats, Spiral, Btrust and
+the HRF Bitcoin Development Fund — out-of-catalog, from memory — but labelled
+them as such, quoted no amounts, deadlines or status, and told the user to verify
+each independently. The check calls that inventing. Whether the label discharges
+it is a question about what the skill should do, not about whether the harness is
+right, so it is left failing rather than quietly excused.

@@ -30,8 +30,10 @@ from pathlib import Path
 # have visa-free access" and "not currently open" are what a right answer says.
 # Only matches that are *not* negated count as hits.
 _NEGATION = re.compile(
-    r"(?:\bnot\b|n't\b|\bno\b|\bnone\b|\bneither\b|\bnor\b|\bnever\b|\bwithout\b|"
-    r"\blacks?\b|\bisn|\baren|\bdoesn|\bdon|\bcan't|\bcannot\b|\bunable\b)",
+    # `nothing` is not reachable from `\bno\b` -- the word boundary stops it -- and
+    # "nothing here is live-verified" is the natural way to disclaim a live check.
+    r"(?:\bnot\b|n't\b|\bno\b|\bnone\b|\bnothing\b|\bneither\b|\bnor\b|\bnever\b|"
+    r"\bwithout\b|\blacks?\b|\bisn|\baren|\bdoesn|\bdon|\bcan't|\bcannot\b|\bunable\b)",
     re.I,
 )
 _NEGATION_WINDOW = 40
