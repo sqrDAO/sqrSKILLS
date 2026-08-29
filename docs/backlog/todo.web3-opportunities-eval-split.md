@@ -48,8 +48,12 @@ of this spec.
       `skill-impact.md` says so.
 - [x] E2 withheld — it did not reproduce in iter1, so the evidence for it is one
       observation each way.
-- [ ] Replace the split before the next edit. At 24/24 it cannot gate anything,
-      and E2 is blocked on the repeats it does not have.
+- [x] Replaced the split. `cases-v2.jsonl`: 24 new cases, 4 with the web
+      switched off, 6 multi-turn, plus probes for the drift, alias, Tier-1 and
+      false-premise rules v1 never tested. Ideal run 24/24, wrong run 0/24.
+- [x] Harness gained multi-turn runs, repeats, and an `unstable_cases` report —
+      the direct fix for what made E1's gate ambiguous.
+- [ ] Run v2 at two repeats to establish a baseline, then re-test E2 against it.
 
 ## Verify
 

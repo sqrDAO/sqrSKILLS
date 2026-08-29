@@ -110,3 +110,45 @@ Saturated. A split at 24/24 cannot gate the next edit, and E2 is already blocked
 on exactly that: it needs repeats to tell a documentation gap from a coin flip,
 and there is one repeat per iteration here. Replace before editing again — see
 `skill-impact.md` for what the replacement needs.
+
+## 2026-08-29 — v1 retired, v2 built and calibrated
+
+v1 saturated at 24/24 after one gated edit, which means it can no longer gate the
+next one. Replaced rather than extended: `cases-v2.jsonl`, 24 cases, none of them
+carried over.
+
+What v2 can see that v1 could not:
+
+- **The catalog with the web switched off.** Four cases run `web_allowed: false`.
+  This is the important one. v1's hardest probes — present-tense status, an
+  unknown chain, a perishable deadline — were passed by agents going and
+  checking, which the skill permits and which is good behaviour. But it means v1
+  could not distinguish "the labelling rule is working" from "the rule was never
+  reached". v2-01 is v1's `status-labeling` question with that route closed.
+- **Multi-turn.** Six cases. The failure mode is answering turn 2 from turn 1's
+  result set: `v2-04` asks for non-dilutive Solana, then widens to accept a small
+  equity slice, and the `mixed` entries are absent from turn 1's rows, so reuse
+  is visible in the answer.
+- **Rules the skill states and v1 never tested.** Live-beats-baseline drift
+  reporting (`v2-06`, `v2-08`), offering to add a missing programme (`v2-09`),
+  Tier-1 source discipline (`v2-11`), and a user premise that contradicts the
+  roster in the expensive direction (`v2-16`, "your catalog lists CSX as
+  non-dilutive, right?").
+- **A self-contradictory ask.** `v2-12` wants a non-dilutive accelerator. Zero
+  match, and the useful answer explains why the category cannot exist rather than
+  reporting an empty set.
+
+### Harness
+
+The grader now reads multi-turn runs, accepts several run files as repeats of one
+iteration, and reports `unstable_cases` — cases that disagree between repeats.
+That list is the direct answer to what went wrong when E1 was gated: a case that
+flips is noise, and an edit credited to it is an edit paid for by a coin flip.
+
+Calibration: ideal run 24/24, deliberately-wrong run 0/24, every case failing on
+its own probe. One check needed fixing first — `live_wins` on `v2-06` failed a
+gold answer that said "the page wins, not my snapshot", because the pattern
+pinned the subject of the sentence. Broadened to the claim rather than one
+phrasing of it. Round 4 of harness corrections, still ahead of skill edits 4-1.
+
+v1's stored runs re-score unchanged under the rewritten grader (0.9167 / 1.0).

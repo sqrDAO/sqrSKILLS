@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "evals" / "scripts"))
 
 from rubric import grade_checks, run_integrity_error, summarize  # noqa: E402
-from grade_web3 import satisfies  # noqa: E402
+from grade_web3 import satisfies, read_turns, answer_for  # noqa: E402
 
 
 def forbid(*patterns):
@@ -204,6 +204,59 @@ class ReturnsConstraintTest(unittest.TestCase):
 
     def test_a_rejected_invocation_never_satisfies_returns(self):
         self.assertFalse(satisfies(None, {"returns": ["a16z-csx"]}))
+
+
+class MultiTurnTest(unittest.TestCase):
+    """A follow-up that reuses turn 1's result is the failure v2 exists to catch,
+    so the grader has to be able to tell the turns apart."""
+
+    def test_flat_run_reads_as_one_turn(self):
+        run = {"case_id": "x", "tool_calls": [{"argv": ["--all"]}], "answer": "hi"}
+        turns = read_turns(run)
+        self.assertEqual(len(turns), 1)
+        self.assertEqual(turns[0]["answer"], "hi")
+
+    def test_multi_turn_run_keeps_its_turns(self):
+        run = {"case_id": "x", "turns": [{"tool_calls": [], "answer": "one"},
+                                         {"tool_calls": [], "answer": "two"}]}
+        self.assertEqual([t["answer"] for t in read_turns(run)], ["one", "two"])
+
+    def test_an_unpinned_check_sees_every_turn(self):
+        turns = [{"answer": "alpha"}, {"answer": "beta"}]
+        joined = answer_for({"id": "c"}, turns)
+        self.assertIn("alpha", joined)
+        self.assertIn("beta", joined)
+
+    def test_a_pinned_check_sees_only_its_turn(self):
+        turns = [{"answer": "alpha"}, {"answer": "beta"}]
+        self.assertEqual(answer_for({"id": "c", "turn": 1}, turns), "beta")
+        self.assertNotIn("alpha", answer_for({"id": "c", "turn": 1}, turns))
+
+    def test_a_pinned_check_on_a_missing_turn_is_empty_not_an_error(self):
+        # A run that stopped early must fail its checks, not crash the grader.
+        self.assertEqual(answer_for({"id": "c", "turn": 3}, [{"answer": "alpha"}]), "")
+
+    def test_a_forbidden_claim_anywhere_in_the_exchange_still_counts(self):
+        turns = [{"answer": "It is currently open."}, {"answer": "Anyway, good luck."}]
+        checks = [{"id": "f", "type": "forbid_all",
+                   "patterns": [r"is currently open"], "why": "w"}]
+        result = grade_checks(answer_for(checks[0], turns), checks)[0]
+        self.assertFalse(result["passed"])
+
+
+class TurnPinnedCallTest(unittest.TestCase):
+
+    def result(self, **over):
+        base = {"type": None, "stage": None, "dilution": None, "chain": None,
+                "region": None, "status": None, "sea": False, "search": None}
+        base.update(over)
+        return {"query": base, "ids": []}
+
+    def test_the_turn_key_is_not_treated_as_a_facet(self):
+        # `turn` rides along on the constraint dict; it must not reach the
+        # unknown-facet guard.
+        got = self.result(dilution=["mixed"])
+        self.assertTrue(satisfies(got, {"dilution": ["mixed"], "turn": 1}))
 
 
 if __name__ == "__main__":

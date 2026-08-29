@@ -1,31 +1,34 @@
 #!/usr/bin/env python3
-"""Score a web3-opportunities run against the validation split.
+"""Score web3-opportunities runs against a validation split.
 
 Usage:
-    python3 evals/scripts/grade_web3.py runs/<name>.jsonl [--verbose]
+    python3 evals/scripts/grade_web3.py runs/iter2-a.jsonl [runs/iter2-b.jsonl ...] \
+        [--cases evals/web3-opportunities/cases-v2.jsonl] [--verbose]
 
-The run file is JSONL, one object per case. A tool call is recorded as the argv
-the agent actually passed to the script -- not as a parsed facet set, so the
-grader and the executor cannot disagree about what a flag meant:
+Pass more than one run file to score repeats of the same iteration. Each must be
+complete on its own; the summary then reports the mean, the spread, and -- the
+reason repeats exist -- which cases *disagree between repeats*. A case that
+passes once and fails once is measuring variance, and an edit credited to it is
+an edit paid for by noise.
 
-    {"case_id": "w3o-03",
-     "tool_calls": [{"argv": ["--dilution", "non-dilutive", "--chain", "solana"]}],
-     "answer": "<the agent's final user-facing reply>"}
+Run file, one object per case. A case may have several turns:
 
-Each argv is normalised by running ``query_opportunities.py`` and reading the
-``query`` block it echoes back, so the skill's own argument parsing -- comma
-splitting, repeated flags, lowercasing -- is the authority. An argv the script
-rejects normalises to ``None``: it counts as an invocation, but cannot satisfy a
-constraint that names facets.
+    {"case_id": "v2-04",
+     "turns": [{"tool_calls": [{"argv": ["--dilution", "non-dilutive"]}],
+                "answer": "<reply to turn 1>"},
+               {"tool_calls": [{"argv": ["--dilution", "non-dilutive,mixed"]}],
+                "answer": "<reply to turn 2>"}]}
 
-A case passes only when every required invocation is present AND every rubric
-check passes. Two axes are reported separately because they call for different
-edits: ``call_score`` (did the agent query the roster correctly) and
-``answer_score`` (did the reply carry what the result made available).
+Single-turn runs may use the flat `{"tool_calls": ..., "answer": ...}` shape;
+it is read as one turn.
 
-``errored_calls`` is a warning, not a failure. Reaching for a facet value
-outside the enum is recoverable, but it predicts answers that quietly drop the
-constraint the user asked for.
+Each argv is normalised by running `query_opportunities.py` and reading back the
+`query` block it echoes and the ids it retrieved, so the grader and the executor
+cannot disagree about what a flag meant.
+
+Expected calls and rubric checks may pin a `turn` (0-based). Without one, a call
+may be satisfied by any turn and a check is graded against every turn's answer
+joined together -- so a forbidden claim anywhere in the exchange still counts.
 """
 
 from __future__ import annotations
@@ -49,12 +52,7 @@ LIST_FACETS = ("type", "stage", "dilution", "chain", "region", "status")
 
 
 class Normalizer:
-    """argv -> what the skill's own script makes of it.
-
-    Returns the echoed `query` block *and* the ids it retrieved. Both matter:
-    some cases are about which facets were asked for, and some are only about
-    whether the entry the user named came back at all.
-    """
+    """argv -> what the skill's own script makes of it."""
 
     def __init__(self, script: Path):
         self.script = script
@@ -79,8 +77,7 @@ class Normalizer:
 
     @staticmethod
     def is_usage(argv: list[str]) -> bool:
-        """`--help` prints usage rather than JSON. Reading the manual is not an
-        error, and counting it as one makes the warning signal useless."""
+        """Reading the manual is not an error."""
         return any(a in ("--help", "-h") for a in argv)
 
 
@@ -94,11 +91,13 @@ def is_full_roster(query: dict) -> bool:
 def satisfies(result: dict | None, constraint: dict) -> bool:
     """An empty constraint means 'any invocation, including a rejected one'.
 
-    A full-roster query satisfies any constraint: it returns a superset of every
-    filtered result, so the agent has strictly more to work with, not less.
-    Grading it as a wrong call would fail an answer that is right -- what the
-    agent then did with the rows is the answer checks' job, not the call layer's.
+    A full-roster query satisfies any facet constraint: it returns a superset,
+    so the agent has more to work with, not less. `returns` asks whether the
+    call retrieved the entries the question is about without dictating how --
+    "a16z CSX" is findable by `--search a16z`, `--search csx`, or
+    `--type accelerator`, and pinning one spelling grades vocabulary.
     """
+    constraint = {k: v for k, v in constraint.items() if k != "turn"}
     unknown = set(constraint) - {*LIST_FACETS, "sea", "search", "returns"}
     if unknown:
         raise ValueError(f"unknown facet {sorted(unknown)!r} in an expected call")
@@ -108,11 +107,6 @@ def satisfies(result: dict | None, constraint: dict) -> bool:
         return False
     query, ids = result["query"], result["ids"]
 
-    # `returns` asks whether the call retrieved the entries the question is
-    # about, without dictating how. "a16z CSX" is findable by `--search a16z`,
-    # `--search csx`, or `--type accelerator`; pinning one spelling grades
-    # vocabulary rather than behaviour. It still catches the real failure --
-    # a query too narrow to reach half the answer.
     if "returns" in constraint:
         if not set(constraint["returns"]) <= set(ids):
             return False
@@ -143,44 +137,78 @@ def satisfies(result: dict | None, constraint: dict) -> bool:
     return True
 
 
-def grade_call(case: dict, calls: list[dict], normalize) -> dict:
-    """Every required invocation must be satisfied; extra invocations are fine."""
+def read_turns(run: dict) -> list[dict]:
+    """Accept both the multi-turn shape and the flat single-turn one."""
+    if "turns" in run:
+        return run["turns"]
+    return [{"tool_calls": run.get("tool_calls", []), "answer": run.get("answer", "")}]
+
+
+def grade_call(case: dict, turns: list[dict], normalize) -> dict:
     required = case.get("expected_calls", [])
-    queries = []
+    per_turn: list[list[tuple]] = []
     errored = False
-    for call in calls:
-        argv = call.get("argv")
-        if argv is None:
-            return {"passed": False, "errored": False,
-                    "reason": f"tool call has no 'argv': {call!r}"}
-        result = normalize(list(argv))
-        errored = errored or (result is None and not Normalizer.is_usage(list(argv)))
-        queries.append((argv, result))
+    for turn in turns:
+        entries = []
+        for call in turn.get("tool_calls", []):
+            argv = call.get("argv")
+            if argv is None:
+                return {"passed": False, "errored": False,
+                        "reason": f"tool call has no 'argv': {call!r}"}
+            result = normalize(list(argv))
+            errored = errored or (result is None and not Normalizer.is_usage(list(argv)))
+            entries.append((argv, result))
+        per_turn.append(entries)
 
     if not required:
-        # Nothing is required of the call layer here; the answer is the probe.
         return {"passed": True, "errored": errored, "reason": ""}
-
-    if not calls:
+    if not any(per_turn):
         return {"passed": False, "errored": False, "reason": "no script invocation recorded"}
 
     reasons = []
     for requirement in required:
         alternatives = requirement["any_of"]
-        if not any(satisfies(q, alt) for _, q in queries for alt in alternatives):
-            reasons.append(
-                f"no invocation matched {alternatives!r}; got "
-                f"{[a for a, _ in queries]!r}"
-            )
+        pinned = requirement.get("turn")
+        scope = per_turn[pinned:pinned + 1] if pinned is not None else per_turn
+        found = any(satisfies(res, alt)
+                    for entries in scope for _, res in entries for alt in alternatives)
+        if not found:
+            where = f" on turn {pinned}" if pinned is not None else ""
+            got = [a for entries in scope for a, _ in entries]
+            reasons.append(f"no invocation{where} matched {alternatives!r}; got {got!r}")
     if reasons:
         return {"passed": False, "errored": errored, "reason": "; ".join(reasons)}
     return {"passed": True, "errored": errored,
             "reason": "an invocation was rejected by the script" if errored else ""}
 
 
+def answer_for(check: dict, turns: list[dict]) -> str:
+    turn = check.get("turn")
+    if turn is None:
+        return "\n\n".join(t.get("answer", "") for t in turns)
+    return turns[turn].get("answer", "") if turn < len(turns) else ""
+
+
+def score_run(cases: dict, runs: list[dict], normalize) -> list[dict]:
+    rows = []
+    for run in runs:
+        case = cases[run["case_id"]]
+        turns = read_turns(run)
+        checks = [
+            grade_checks(answer_for(c, turns), [c])[0] for c in case["checks"]
+        ]
+        call = grade_call(case, turns, normalize)
+        rows.append({
+            "case_id": case["id"], "probe": case["probe"],
+            "passed": call["passed"] and all(c["passed"] for c in checks),
+            "call": call, "checks": checks,
+        })
+    return rows
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("run", help="JSONL run file")
+    parser.add_argument("run", nargs="+", help="one JSONL run file per repeat")
     parser.add_argument("--verbose", action="store_true", help="list every failed check")
     parser.add_argument("--cases", type=Path, default=DEFAULT_CASES,
                         help="cases.jsonl to grade against")
@@ -190,36 +218,49 @@ def main() -> int:
 
     cases = load_cases(args.cases)
     normalize = Normalizer(args.query_script)
-    runs = load_runs(Path(args.run))
 
-    broken = run_integrity_error(cases, runs)
-    if broken:
-        print(json.dumps(broken, indent=2))
-        return 1
+    per_repeat = []
+    for path in args.run:
+        runs = load_runs(Path(path))
+        broken = run_integrity_error(cases, runs)
+        if broken:
+            print(json.dumps({**broken, "run": path}, indent=2))
+            return 1
+        per_repeat.append((path, score_run(cases, runs, normalize)))
 
-    rows = []
-    for run in runs:
-        case = cases[run["case_id"]]
-        checks = grade_checks(run.get("answer", ""), case["checks"])
-        call = grade_call(case, run.get("tool_calls", []), normalize)
-        rows.append({
-            "case_id": case["id"],
-            "probe": case["probe"],
-            "passed": call["passed"] and all(c["passed"] for c in checks),
-            "call": call,
-            "checks": checks,
-        })
-
-    summary = summarize(rows, {
-        "errored_calls": [r["case_id"] for r in rows if r["call"].get("errored")],
+    summary = summarize(per_repeat[0][1], {
+        "errored_calls": [r["case_id"] for r in per_repeat[0][1] if r["call"].get("errored")],
     })
+
+    if len(per_repeat) > 1:
+        rates = [round(sum(r["passed"] for r in rows) / len(rows), 4)
+                 for _, rows in per_repeat]
+        outcomes: dict[str, list[bool]] = {}
+        for _, rows in per_repeat:
+            for row in rows:
+                outcomes.setdefault(row["case_id"], []).append(row["passed"])
+        unstable = sorted(c for c, v in outcomes.items() if len(set(v)) > 1)
+        summary = {
+            "ok": True,
+            "repeats": len(per_repeat),
+            "cases_scored": len(per_repeat[0][1]),
+            "pass_rate_mean": round(sum(rates) / len(rates), 4),
+            "pass_rate_per_repeat": dict(zip([p for p, _ in per_repeat], rates)),
+            # Cases that disagree between repeats are noise, not signal. An edit
+            # credited to one of these is an edit paid for by a coin flip.
+            "unstable_cases": unstable,
+            "stable_failures": sorted(c for c, v in outcomes.items() if not any(v)),
+            "per_repeat": {p: summarize(rows) for p, rows in per_repeat},
+        }
     print(json.dumps(summary, indent=2))
 
     if args.verbose:
-        for row in rows:
-            for check in row["checks"]:
-                if not check["passed"]:
-                    print(f"  {row['case_id']}/{check['id']}: {check['why']}", file=sys.stderr)
+        for _, rows in per_repeat:
+            for row in rows:
+                for check in row["checks"]:
+                    if not check["passed"]:
+                        print(f"  {row['case_id']}/{check['id']}: {check['why']}",
+                              file=sys.stderr)
     return 0
 
 
