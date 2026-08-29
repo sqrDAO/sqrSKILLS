@@ -10,8 +10,10 @@ the reasons is a live bug. `search.py` and `list.py` sort on score or date alone
 and then fall back to whatever order `os.listdir` returned, which is filesystem
 hash order. On a four-way tie, `search.py --top 2` returns two arbitrary pages:
 
-    as enumerated by APFS   ['pages/banana.md', 'pages/apple.md']
-    enumeration reversed    ['pages/zebra.md',  'pages/mango.md']
+```text
+as enumerated by APFS   ['pages/banana.md', 'pages/apple.md']
+enumeration reversed    ['pages/zebra.md',  'pages/mango.md']
+```
 
 Disjoint. Nothing in the code decides that. Two users with the same wiki get
 different answers, and a generated answer key would encode the machine that

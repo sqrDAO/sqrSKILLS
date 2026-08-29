@@ -11,13 +11,17 @@ from `todo.<slug>.md` to `done.<slug>.md`.
    calibrated. What remains is v2 at two repeats to establish a baseline, then
    re-testing the withheld E2 against it. That is one fresh agent per case per
    repeat, so it is a deliberate spend.
-2. `llm-wiki-ordering-and-lookup-invariant` — `search.py` and `list.py` now sort
-   totally, so equal-ranking pages no longer come back in filesystem order; the
-   lookup invariant three skills each found separately is recorded in
-   `AGENTS.md`. Awaiting approval to close.
 
 ## Recently shipped
 
+- `llm-wiki-ordering-and-lookup-invariant` — a sort with ties was really a sort
+  by filesystem: `search.py --top 2` returned a disjoint pair of pages depending
+  only on `os.listdir` order, so two users with identical wikis got different
+  answers. Every sort now ends on a filename tiebreak, pinned by tests that run
+  each script under opposite enumeration orders — six of which fail against the
+  previous scripts. Also recorded the lookup invariant that `vietnam-visa-check`,
+  `web3-opportunities` and `llm-wiki` each found separately, and which the web3
+  split paid a 24-agent run to rediscover (#45).
 - `visa-country-name-resolution` — indexed `_COUNTRY_NAMES` so a country's own
   name resolves wherever its demonym does: 26 of 81 display names went from
   unresolvable to resolvable, and 17 self-echoing suggestions ("Argentina not

@@ -49,12 +49,14 @@ rotting against it.
 Of the ten skills in this repo, three qualify: `vietnam-visa-check` and
 `web3-opportunities` (both have one), and `llm-wiki`, which is the next
 candidate and is not ready. Its scripts are offline and stdlib-only over a
-`$WIKI_DIR`, which is the right shape, but three things block a split:
+`$WIKI_DIR`, which is the right shape, but two things still block a split, and
+a third did until `llm-wiki` 0.1.4:
 
 1. **No fixture wiki.** The data is the user's, not bundled, and it has to be
    copied per case: `log.py` appends to `log.md` and stamps `date.today()`, and
    ingest cases write pages, so cases would otherwise contaminate each other.
-2. **Ordering was not total** — fixed in `llm-wiki` 0.1.4. `search.py` and
+2. **Ordering was not total** — resolved, and kept here because it is the kind
+   of blocker that is invisible until a split exists. `search.py` and
    `list.py` sorted on one key and left ties in `os.listdir` order, so `--top N`
    returned an arbitrary N and a generated key would have encoded the machine
    that built it: passing `--check` on macOS and failing it on CI.
