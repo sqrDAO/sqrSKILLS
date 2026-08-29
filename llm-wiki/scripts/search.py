@@ -106,7 +106,10 @@ def main():
                 "excerpt": excerpt,
             })
 
-    results.sort(key=lambda r: r["score"], reverse=True)
+    # Tiebreak on filename. Sorting on score alone leaves equal-scoring pages in
+    # os.listdir order, which is filesystem hash order -- so `--top N` would return
+    # an arbitrary N of them, differing between machines holding the same wiki.
+    results.sort(key=lambda r: (-r["score"], r["file"]))
     print(json.dumps(results[: args.top], indent=2))
 
 

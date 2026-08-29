@@ -1,6 +1,6 @@
 ---
 name: llm-wiki
-version: 0.1.3
+version: 0.1.4
 description: |
   Build and maintain a personal knowledge base as a persistent, interlinked wiki. Use this skill when the user wants to accumulate knowledge on a topic over time — ingesting sources (articles, notes, documents), querying compiled knowledge, and keeping the wiki consistent. Trigger phrases: "add this to my wiki", "ingest this article", "what does my wiki say about", "update the wiki", "build a knowledge base", "research and remember", "lint the wiki", "search my notes", "list my wiki", "list your wikis", "list wiki pages", "what's in my wiki", "show my wiki". Always search the wiki before falling back to a web search for topics the user has been researching.
 allowed-tools:
