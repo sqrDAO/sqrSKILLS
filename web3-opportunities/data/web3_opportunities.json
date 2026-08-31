@@ -1,7 +1,7 @@
 {
   "_meta": {
     "document_type": "structured_web3_opportunity_roster",
-    "last_updated": "2026-08-24",
+    "last_updated": "2026-08-31",
     "data_freshness": "Program existence, type, chain/ecosystem, region, and dilution posture are evergreen and verified through June 2026. TIME-SENSITIVE fields (application deadlines, open/closed cohort status, current prize pool / check size, cadence) are baseline snapshots and MUST be re-verified live before the user applies or acts.",
     "coverage": "Global. Every entry is region-tagged. Southeast Asia / Vietnam-relevant entries carry sea_relevant: true.",
     "schema_version": "1.1.0",
@@ -29,9 +29,9 @@
       "cadence": "cohort-based (periodic; US and London editions)",
       "status": "cohort-based",
       "url": "https://a16zcrypto.com/csx/",
-      "notes": "Intensive multi-week program from a16z crypto. Network-heavy, founder-friendly. Check the official page for the next cohort window.",
+      "notes": "No 2026 cohort has been announced. The program remains active, but check the official page for the next cohort window.",
       "sea_relevant": false,
-      "last_verified": "2026-08-17"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "alliance-dao",
@@ -45,9 +45,9 @@
       "cadence": "cohort-based (multiple batches/year)",
       "status": "open",
       "url": "https://alliance.xyz/",
-      "notes": "Applications for cohort ALL19 (starting Jan 11, 2027) have an early deadline of September 23, 2026 and a regular deadline of November 18, 2026 \u2014 both listed on alliance.xyz/apply. Interview invites are sent within a week of applying, so review is rolling within each window.",
+      "notes": "Applications for cohort ALL19 (starting Jan 11, 2027) have an early deadline of September 23, 2026 and a regular deadline of November 18, 2026.",
       "sea_relevant": true,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "outlier-ventures-basecamp",
@@ -61,9 +61,9 @@
       "cadence": "cohort-based",
       "status": "open",
       "url": "https://outlierventures.io/base-camp/",
-      "notes": "Accepting early applications for the 2026 cohort. Often called the \"YC of Web3\"; 300+ startups accelerated. \"Post-Web\" thesis (internet for humans and machines). Token-launch and go-to-market focus.",
+      "notes": "Accepting applications for late 2026 and early 2027 cohorts on a rolling basis.",
       "sea_relevant": false,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "tachyon-accelerator",
@@ -77,9 +77,9 @@
       "cadence": "rolling",
       "status": "closed",
       "url": "https://tachyon.xyz/",
-      "notes": "Successor to the Tachyon accelerator, run by Consensys Mesh with a focus on AI and Crypto. Operates on a rolling admission basis, but review of new applications is paused until Fall 2026.",
+      "notes": "Run by Consensys Mesh. Application reviews are paused until Fall 2026.",
       "sea_relevant": false,
-      "last_verified": "2026-08-17"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "yzi-labs",
@@ -93,9 +93,25 @@
       "cadence": "rolling",
       "status": "open",
       "url": "https://www.yzilabs.com/",
-      "notes": "EASY Residency Season 5 applications are open and close at 23:59 (GMT-7) on September 13, 2026, per YZi Labs' own blog announcement dated 14 Aug 2026; the season runs 10 weeks \u2014 5 online, then 5 in person in Thailand. The program moved to a year-round, rolling-entry model with Demo Days in April, August, and December, so missing a season cutoff means waiting for the next season rather than a closed door. The main site has been unreliable for automated checks; yzilabs.com/blog is the dependable route.",
+      "notes": "EASY Residency Season 5 applications close September 14, 2026 at 14:59 (GMT+8). The season is 10 weeks, split between online and in-person in Thailand.",
       "sea_relevant": true,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
+    },
+    {
+        "id": "base-batches-accelerator",
+        "name": "Base Batches Accelerator",
+        "type": "accelerator",
+        "stage": ["idea", "pre-seed"],
+        "dilution": "dilutive",
+        "chains": ["l2", "ethereum"],
+        "regions": ["global", "us", "remote"],
+        "typical_check_or_prize": "$100,000",
+        "cadence": "cohort-based",
+        "status": "open",
+        "url": "https://www.base.org/batches",
+        "notes": "The official Base accelerator for pre-seed teams. Base Batches 004 applications close September 9, 2026 for the 8-week program.",
+        "sea_relevant": false,
+        "last_verified": "2026-08-31"
     },
     {
       "id": "base-batches",
@@ -105,13 +121,13 @@
       "dilution": "non-dilutive",
       "chains": ["l2", "ethereum"],
       "regions": ["global", "us", "remote"],
-      "typical_check_or_prize": "1-5 ETH for builder grants, 2 ETH weekly for weekly rewards",
-      "cadence": "periodic builder grants",
+      "typical_check_or_prize": "1-5 ETH for builder grants",
+      "cadence": "rolling",
       "status": "rolling",
-      "url": "https://www.base.org/",
-      "notes": "Funding is primarily through the Base Ecosystem Fund and a programmatic reward system via the Base Dashboard and Builder Codes.",
+      "url": "https://www.base.org/grants",
+      "notes": "Retroactive grants are awarded on a rolling basis for shipped work on Base. Larger investments are handled by the Base Ecosystem Fund and the Base Batches accelerator.",
       "sea_relevant": false,
-      "last_verified": "2026-08-17"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "colosseum-eternal",
@@ -125,9 +141,9 @@
       "cadence": "follows Colosseum hackathon seasons",
       "status": "open",
       "url": "https://www.colosseum.com/",
-      "notes": "The 'Eternal' track is open; the live countdown on colosseum.com/eternal put the current 4-week window's close at ~Sep 6, 2026 (read 24 Aug 2026) \u2014 confirm on the page, the countdown moves. The next main hackathon is Fall 2026, Sep 28-Nov 2, per Colosseum's announced 2026 schedule; the event name is not yet published.",
+      "notes": "The 'Eternal' track is a rolling program for teams who don't want to wait for a hackathon. The next major hackathon is the Fall 2026 edition, running from Sep 28 to Nov 2.",
       "sea_relevant": true,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "draper-university-web3",
@@ -141,9 +157,9 @@
       "cadence": "cohort-based",
       "status": "open",
       "url": "https://www.draperuniversity.com/",
-      "notes": "Applications for the general Hero Training Fall 2026 session (Oct 11 - Nov 15) are open.",
+      "notes": "The Apex Growth Accelerator (Cardano track) has a Sep 1, 2026 deadline. The general Hero Training Fall 2026 session (Oct 11 - Nov 15) is also open for applications.",
       "sea_relevant": false,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "antler-web3",
@@ -157,9 +173,9 @@
       "cadence": "rolling residencies across global locations",
       "status": "rolling",
       "url": "https://www.antler.co/",
-      "notes": "No dedicated 'Web3 track', but Web3 is a core part of its general residencies. London applications are open for Sep 22 cohort. Singapore intake is Oct 5.",
+      "notes": "Web3 is a core focus in general residencies. London applications close Sep 22 for the Fall cohort. Singapore intake is Oct 5.",
       "sea_relevant": true,
-      "last_verified": "2026-08-17"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "founders-inc",
@@ -173,9 +189,9 @@
       "cadence": "cohort-based",
       "status": "rolling",
       "url": "https://f.inc/",
-      "notes": "The Campus program is open for rolling applications for a two-week campus residency.",
+      "notes": "The flagship hardware program, Blueprint II, has a deadline of September 14, 2026.",
       "sea_relevant": false,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "ethereum-foundation-esp",
@@ -185,13 +201,13 @@
       "dilution": "non-dilutive",
       "chains": ["ethereum", "l2"],
       "regions": ["global", "remote"],
-      "typical_check_or_prize": "Varies by scope; avg ~$65k in 2024",
-      "cadence": "rolling + periodic themed rounds (wishlist / RFPs)",
-      "status": "rolling",
+      "typical_check_or_prize": "Varies by scope",
+      "cadence": "periodic themed rounds (wishlist / RFPs)",
+      "status": "closed",
       "url": "https://esp.ethereum.foundation/",
-      "notes": "The EF is undergoing a reorganization, but the ESP continues to fund core protocol security and public goods. The Q2 2026 report detailed over $5.5M in funding.",
+      "notes": "The ESP has moved away from open intake to a more targeted model with specific RFPs. No open rounds are currently active.",
       "sea_relevant": false,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "arbitrum-foundation-grants",
@@ -201,13 +217,13 @@
       "dilution": "non-dilutive",
       "chains": ["l2", "ethereum"],
       "regions": ["global", "remote"],
-      "typical_check_or_prize": "ARB grants, milestone-based; tiered amounts (incl. focused funds like Trailblazer)",
-      "cadence": "rolling / periodic programs",
+      "typical_check_or_prize": "ARB grants, milestone-based",
+      "cadence": "rolling",
       "status": "rolling",
       "url": "https://arbitrum.foundation/grants",
-      "notes": "Multiple programs are active, including the Arbitrum Audit Program, ArbiFuel, Arbitrum Gaming Ventures, and the Alchemy-Arbitrum Grant Program. Older programs like Trailblazer 2.0 are inactive.",
+      "notes": "The main grant program is active on a rolling basis. Specific initiatives like the Audit Program also accept applications continuously.",
       "sea_relevant": false,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "optimism-grants",
@@ -217,13 +233,13 @@
       "dilution": "non-dilutive",
       "chains": ["l2", "ethereum"],
       "regions": ["global", "remote"],
-      "typical_check_or_prize": "OP token grants via Collective grant programs",
+      "typical_check_or_prize": "OP token grants",
       "cadence": "season-based",
       "status": "closed",
       "url": "https://app.optimism.io/grants",
-      "notes": "The grants process is being restructured, with a new Strategic Ecosystem Fund. Retro Funding is paused until at least 2027.",
+      "notes": "The proactive Grants Council was dissolved in July 2026. Funding now occurs via Foundation-led Missions and a new Strategic Ecosystem Fund. Retro Funding is paused.",
       "sea_relevant": false,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "web3-foundation-grants",
@@ -233,13 +249,13 @@
       "dilution": "non-dilutive",
       "chains": ["polkadot"],
       "regions": ["global", "remote"],
-      "typical_check_or_prize": "Milestone-based grants paid in stablecoin/DOT",
-      "cadence": "discontinued \u2014 no new applications",
+      "typical_check_or_prize": "Milestone-based grants",
+      "cadence": "discontinued",
       "status": "closed",
       "url": "https://github.com/w3f/Grants-Program",
-      "notes": "The Web3 Foundation has discontinued the general Grants Program and is not accepting new applications; the w3f/Grants-Program README carries the notice. It routes builders to the Polkadot Treasury (https://polkadot.network/treasury), Polkadot Open Source Developer Grants (https://github.com/PolkadotOpenSourceGrants/apply), and parachain-run programs (Moonbeam, Acala, ink!ubator, HydraDX, Avail). grants.web3.foundation now 301-redirects to web3.foundation/funding-support.",
+      "notes": "The general Grants Program has been discontinued. Builders are routed to the Polkadot Treasury (OpenGov) and Kusama Vision Bounties, which are active and rolling.",
       "sea_relevant": false,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "interchain-foundation-grants",
@@ -253,9 +269,9 @@
       "cadence": "periodic rounds / RFPs",
       "status": "open",
       "url": "https://interchain.io/ecosystem",
-      "notes": "The ICF continues to fund core infrastructure via Cosmos Labs. Specific grant rounds (e.g., AI-focused) are periodic; check the website for current RFPs.",
+      "notes": "The legacy grants program was archived. On Aug 29, 2026, the ICF announced a new discretionary funding program; details are expected in early September.",
       "sea_relevant": false,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "near-foundation-grants",
@@ -266,12 +282,12 @@
       "chains": ["near"],
       "regions": ["global", "remote", "sea"],
       "typical_check_or_prize": "Ecosystem grants and program funding",
-      "cadence": "periodic / program-based",
+      "cadence": "rolling",
       "status": "rolling",
       "url": "https://near.org/founder-hub",
-      "notes": "Funding is now primarily through Protocol Rewards (performance-based) and the NEAR Horizon accelerator.",
+      "notes": "Funding has been decentralized to committees and hubs (e.g., Infrastructure Committee, NEAR AI). Applications are accepted on a rolling basis via the funding portal.",
       "sea_relevant": true,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "sui-foundation-grants",
@@ -282,12 +298,12 @@
       "chains": ["sui"],
       "regions": ["global", "remote"],
       "typical_check_or_prize": "Milestone-based grants for Sui ecosystem projects",
-      "cadence": "rolling / programmatic",
+      "cadence": "rolling",
       "status": "open",
       "url": "https://sui.io/programs-funding",
-      "notes": "The Foundation has shifted from general grants to the Hydropower accelerator, direct investment, and targeted RFPs.",
+      "notes": "General developer and ecosystem grants are active and reviewed on a rolling basis. Time-sensitive RFPs are also posted periodically.",
       "sea_relevant": false,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "filecoin-grants",
@@ -297,13 +313,13 @@
       "dilution": "non-dilutive",
       "chains": ["multi-chain"],
       "regions": ["global", "remote"],
-      "typical_check_or_prize": "Open grants up to $50k and RFPs; milestone-based",
-      "cadence": "rolling (public GitHub devgrants) + RFPs",
+      "typical_check_or_prize": "Open grants up to $50k and RFPs",
+      "cadence": "rolling + periodic rounds",
       "status": "open",
       "url": "https://github.com/filecoin-project/devgrants",
-      "notes": "Foundation Open Grants are active and accepting applications. Requests for Proposals (RFPs) are currently inactive.",
+      "notes": "The main Proactive Public Goods Funding (ProPGF) round for 2026 had its deadline on June 16. The general Open Grants program remains active on a rolling basis.",
       "sea_relevant": false,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "ethglobal",
@@ -313,13 +329,13 @@
       "dilution": "non-dilutive",
       "chains": ["ethereum", "l2", "multi-chain"],
       "regions": ["global", "us", "europe", "india", "remote"],
-      "typical_check_or_prize": "Per-event prize pools (commonly $200K+) across sponsor tracks",
-      "cadence": "multiple in-person + online events per year",
+      "typical_check_or_prize": "Per-event prize pools (commonly $200K+)",
+      "cadence": "multiple events per year",
       "status": "open",
       "url": "https://ethglobal.com/events",
-      "notes": "Upcoming events: ETHOnline (Sep 4-16), ETHGlobal Tokyo (Sep 25-27), ETHGlobal Mumbai (Nov 6-8).",
+      "notes": "Upcoming events: ETHOnline (Sep 4-16, deadline Sep 13), ETHGlobal Tokyo (Sep 25-27), ETHGlobal Mumbai (Nov 6-8).",
       "sea_relevant": false,
-      "last_verified": "2026-08-17"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "colosseum-hackathon",
@@ -329,13 +345,13 @@
       "dilution": "mixed",
       "chains": ["solana"],
       "regions": ["global", "remote", "sea"],
-      "typical_check_or_prize": "Large prize pools + $250k investment into top teams via Eternal",
+      "typical_check_or_prize": "Large prize pools + $250k investment into top teams",
       "cadence": "multiple online hackathons/year",
       "status": "open",
       "url": "https://www.colosseum.com/hackathon",
-      "notes": "Colosseum runs two hackathons a year. The spring 2026 edition, 'Frontier', ran Apr 6-May 11 with winners announced Jun 26; accelerator cohort 5 was drawn from it. The next is the Fall 2026 hackathon, Sep 28-Nov 2, announced in Colosseum's own 2026 schedule; its name is not yet published. The 'Eternal' sprint runs between hackathons.",
+      "notes": "The next major event is the Fall 2026 hackathon, running from September 28 to November 2.",
       "sea_relevant": true,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "dorahacks",
@@ -346,12 +362,12 @@
       "chains": ["multi-chain", "solana", "ethereum", "near"],
       "regions": ["global", "sea", "india", "remote"],
       "typical_check_or_prize": "Hackathon prizes + quadratic-funding grant rounds",
-      "cadence": "continuous (many ecosystem hackathons + grant rounds)",
+      "cadence": "continuous",
       "status": "open",
       "url": "https://dorahacks.io/",
-      "notes": "Platform is continuously active with numerous hackathons for partners like Solana, Aptos, and BNBChain. Features the BUIDL AI tool for hackathon organization.",
+      "notes": "Platform is continuously active with numerous ecosystem hackathons. Deadlines vary by event (e.g., BUIDL CTC 2026 Fall is Sep 13, KeeperHub is Sep 18).",
       "sea_relevant": true,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "polkadot-hackathons",
@@ -362,12 +378,12 @@
       "chains": ["polkadot"],
       "regions": ["global", "remote"],
       "typical_check_or_prize": "Per-event prize pools",
-      "cadence": "seasonal / periodic",
+      "cadence": "periodic",
       "status": "open",
       "url": "https://polkadot.com/",
-      "notes": "build.polkadot.network is dead and polkadot.network/development now 301-redirects to polkadot.com, which is the current hub. Official hackathons are hosted via DoraHacks or Encode Club rather than on Polkadot's own site \u2014 check those for what is open now. The Polkadot Solidity Hackathon (DoraHacks) ran earlier in 2026 and has concluded; MERGE Madrid, where Polkadot participates, is 27-29 Oct 2026.",
+      "notes": "The flagship Polkadot Solidity Hackathon concluded in March 2026. Ecosystem hackathons are now hosted via partners like DoraHacks and Encode Club.",
       "sea_relevant": false,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "gitcoin",
@@ -381,9 +397,9 @@
       "cadence": "periodic grant rounds + continuous bounties",
       "status": "open",
       "url": "https://www.gitcoin.co/",
-      "notes": "The platform has transitioned to 'Gitcoin 3.0', a continuous funding model. The next major round is Gitcoin Grants 25 (GG25).",
+      "notes": "The next major grants round (GG26) is expected in Q4 2026, coinciding with Devcon. Bounties are active and continuous.",
       "sea_relevant": false,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "immunefi",
@@ -393,13 +409,13 @@
       "dilution": "non-dilutive",
       "chains": ["multi-chain", "ethereum", "l2", "solana"],
       "regions": ["global", "remote"],
-      "typical_check_or_prize": "Bug-bounty payouts (up to millions for critical findings)",
+      "typical_check_or_prize": "Bug-bounty payouts (up to millions)",
       "cadence": "continuous",
       "status": "open",
       "url": "https://immunefi.com/",
-      "notes": "Platform is active with major bounties from LayerZero, ether.fi, and others. Over $190B in assets protected.",
+      "notes": "Continuous bug bounties are active. The next major time-bound event is the ENS Audit Competition, with a submission deadline of September 14, 2026.",
       "sea_relevant": false,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "optimism-retro-funding",
@@ -409,13 +425,13 @@
       "dilution": "non-dilutive",
       "chains": ["l2", "ethereum"],
       "regions": ["global", "remote"],
-      "typical_check_or_prize": "OP rewards distributed for proven ecosystem impact",
-      "cadence": "round-based (Retro Funding missions)",
+      "typical_check_or_prize": "OP rewards for proven impact",
+      "cadence": "round-based",
       "status": "closed",
       "url": "https://retrofunding.optimism.io/",
-      "notes": "The Retro Funding program is paused until 2027. The platform now showcases results from previous rounds.",
+      "notes": "The Retro Funding program is paused for at least 12 months (effective early 2026). The OP Atlas grant platform will be discontinued on Sep 18, 2026.",
       "sea_relevant": false,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "drips-network",
@@ -429,9 +445,9 @@
       "cadence": "continuous streaming",
       "status": "open",
       "url": "https://www.drips.network/",
-      "notes": "Stellar Wave 8 runs Aug 24-31, 2026 with a $75,000 budget; a Wave is a one-week contribution sprint and the program aims to run one every month, so a new Wave opens roughly monthly. A legacy Drips contract was exploited on July 14, 2026 \u2014 the main platform is operational, but treat legacy contracts with care.",
+      "notes": "The protocol enables continuous funding. Specific partner programs have deadlines, e.g., Stellar Wave bounty cycles run monthly; Wave 8 concluded Aug 31, 2026.",
       "sea_relevant": false,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "ethereum-protocol-fellowship",
@@ -441,13 +457,13 @@
       "dilution": "non-dilutive",
       "chains": ["ethereum"],
       "regions": ["global", "remote"],
-      "typical_check_or_prize": "Stipend + mentorship to contribute to Ethereum core protocol",
+      "typical_check_or_prize": "Stipend + mentorship",
       "cadence": "annual cohort",
       "status": "closed",
       "url": "https://epf.wiki/",
-      "notes": "EPF7 was announced Apr 30, 2026, applications closed May 13, 2026, and the cohort runs June to November 2026 \u2014 deliberately smaller than earlier cohorts, prioritising depth over breadth. No EPF8 has been announced; on the EPF6 (Apr 2025) / EPF7 (Apr 2026) cadence the next intake is expected around Spring 2027.",
+      "notes": "Applications for the 2026 cohort (EPF7) closed on May 13, 2026. The next intake is expected around Spring 2027.",
       "sea_relevant": false,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "solana-foundation-fellowships",
@@ -459,11 +475,11 @@
       "regions": ["global", "india", "sea", "remote"],
       "typical_check_or_prize": "Training, stipend/credits, and ecosystem access",
       "cadence": "periodic cohorts",
-      "status": "closed",
+      "status": "open",
       "url": "https://solana.com/developers",
-      "notes": "The Solana Foundation lists no program labelled 'Fellowships' at present \u2014 this entry is kept as a pointer, not an open call. What is live instead: the Solana Developer Bootcamp 2026 (solana.com/developers/bootcamp, source at github.com/solana-foundation/solana-bootcamp-2026), regional bootcamps, and Solana Foundation Grants of roughly $5,000-10,000 that bootcamp graduates can apply for. Ecosystem partners (Superteam, MLH, Encode Club) run their own cohorts.",
+      "notes": "The Solana School Fall Class (a free, 7-week online program) started on August 31, 2026. Other bootcamps and fellowships run on a rolling basis via partners like Superteam and Encode Club.",
       "sea_relevant": true,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "ronin-grants",
@@ -474,12 +490,12 @@
       "chains": ["multi-chain"],
       "regions": ["sea", "global", "remote"],
       "typical_check_or_prize": "Ecosystem grants for games/apps on Ronin",
-      "cadence": "program-based",
+      "cadence": "rolling",
       "status": "rolling",
       "url": "https://roninchain.com/",
-      "notes": "The Ronin Forge Innovation Grant is active and accepting applications. The Proof of Distribution model also provides continuous, performance-based rewards.",
+      "notes": "The main grant programs are rolling. A key deadline is the Axie Classic Bounty Board program, which concludes on September 10, 2026, as the game transitions to community governance.",
       "sea_relevant": true,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "kyros-ventures",
@@ -489,13 +505,13 @@
       "dilution": "dilutive",
       "chains": ["multi-chain"],
       "regions": ["sea", "global"],
-      "typical_check_or_prize": "Early-stage investment + regional go-to-market support",
+      "typical_check_or_prize": "Early-stage investment + regional support",
       "cadence": "rolling",
       "status": "rolling",
       "url": "https://kyros.ventures/",
-      "notes": "GM Vietnam 2026 (Vietnam Blockchain Week), co-hosted with SSID, was held 1-2 Aug 2026 in Hanoi and has concluded; no 2027 edition has been announced. Kyros incubates early-stage projects off the back of Coin68 and its incubation and network services run continuously. No separate 'Web3 Matching' program is currently listed.",
+      "notes": "The flagship event GM Vietnam 2026 concluded in August. The next major event is Web3 Matching Day in HCMC on Dec 11, with applications closing Nov 30.",
       "sea_relevant": true,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "hashed-emergent",
@@ -505,13 +521,13 @@
       "dilution": "dilutive",
       "chains": ["multi-chain"],
       "regions": ["india", "sea", "global"],
-      "typical_check_or_prize": "Investment for equity/tokens + regional network",
-      "cadence": "cohort-based / rolling",
+      "typical_check_or_prize": "Investment for equity/tokens",
+      "cadence": "rolling",
       "status": "rolling",
       "url": "https://www.hashedem.com/",
-      "notes": "Applications for Hashed Vibe Haus (Edition 2) are open on an invite-only basis. India Blockchain Week 2026 is in November.",
+      "notes": "The flagship event, India Blockchain Week, is Nov 1-2 in Mumbai. Demo Day applications are expected to open in October. Direct investment applications are rolling.",
       "sea_relevant": true,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "tribe-accelerator",
@@ -523,11 +539,11 @@
       "regions": ["sea", "global"],
       "typical_check_or_prize": "Investment + enterprise/government partner access",
       "cadence": "cohort-based",
-      "status": "cohort-based",
+      "status": "open",
       "url": "https://tribex.co/",
-      "notes": "The MedTech Innovation Programme is inviting applications. Check the website for future general cohort applications.",
+      "notes": "The KUMIHIMO Tech Camp (MedTech) deadline was July 31. The IoT Tribe SG deadline is August 31. The Ignition AI Accelerator is rolling. The main Tribe Accelerator is open for interest.",
       "sea_relevant": true,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "sqrdao-programs",
@@ -537,13 +553,13 @@
       "dilution": "non-dilutive",
       "chains": ["multi-chain"],
       "regions": ["sea", "global"],
-      "typical_check_or_prize": "Community bounties, hackathon support, and builder programs",
+      "typical_check_or_prize": "Bounties, hackathon support, and builder programs",
       "cadence": "continuous / event-driven",
       "status": "open",
       "url": "https://sqrdao.com/",
-      "notes": "The sqrBUIDL Accelerator is active with Solana and Lisk seasons. A new sqrAgent program has been added. The DAO continues to run builder programs and events.",
+      "notes": "The BUIDL CTC 2026 Fall hackathon has a deadline of September 7, 2026. Other programs like the sqrBUIDL Accelerator are rolling.",
       "sea_relevant": true,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "superteam-vietnam",
@@ -553,13 +569,13 @@
       "dilution": "non-dilutive",
       "chains": ["solana"],
       "regions": ["sea", "global"],
-      "typical_check_or_prize": "Bounties, grants, and hackathon support for Solana builders",
-      "cadence": "continuous / event-driven",
+      "typical_check_or_prize": "Bounties and grants for Solana builders",
+      "cadence": "continuous",
       "status": "open",
       "url": "https://superteam.fun/",
-      "notes": "A new global hackathon on DAOs and Network States is active. Superteam Earn is the primary platform for bounties.",
+      "notes": "Bounties and micro-grants are available on a rolling basis via Superteam Earn. Major ecosystem hackathons have specific deadlines throughout the year.",
       "sea_relevant": true,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "corelia-academy",
@@ -569,13 +585,13 @@
       "dilution": "non-dilutive",
       "chains": ["multi-chain", "sui"],
       "regions": ["sea"],
-      "typical_check_or_prize": "Workshops, bootcamps, and certificates (non-funding)",
-      "cadence": "campus cohorts / rolling programs",
+      "typical_check_or_prize": "Workshops, bootcamps, and certificates",
+      "cadence": "cohort-based",
       "status": "open",
       "url": "https://corelia.academy/",
-      "notes": "UniHackfest 2026 is in its product-building phase, with qualifying rounds reported for September. The domain is bot-protected \u2014 it returns 403 to plain fetchers but 200 in a browser, so do not mark it dead on a failed automated fetch.",
+      "notes": "UniHackfest 2026 is the main program. The Online National Qualifying Round is September 17-20.",
       "sea_relevant": true,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "vbi-academy",
@@ -585,13 +601,13 @@
       "dilution": "non-dilutive",
       "chains": ["multi-chain"],
       "regions": ["sea"],
-      "typical_check_or_prize": "Free hands-on blockchain developer training",
+      "typical_check_or_prize": "Developer training",
       "cadence": "periodic cohorts",
       "status": "open",
       "url": "https://vbiacademy.edu.vn/",
-      "notes": "The Digital Assets Literacy 2026 program is ongoing. The NextX 2026 startup series is in its final stage, with the grand final on August 29.",
+      "notes": "The NextX 2026 competition concluded on August 29. Check social media for new developer bootcamp cohorts in late 2026.",
       "sea_relevant": true,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "unihackfest",
@@ -601,13 +617,13 @@
       "dilution": "non-dilutive",
       "chains": ["multi-chain"],
       "regions": ["sea"],
-      "typical_check_or_prize": "Per-event prizes + mentorship (student-focused)",
-      "cadence": "cohort-based (14-week journey)",
+      "typical_check_or_prize": "Prizes + mentorship (student-focused)",
+      "cadence": "cohort-based",
       "status": "cohort-based",
       "url": "https://unihackfest.vn/",
-      "notes": "Registration for the 2026 edition ran June-July and the program is in its building phase. A Demo Day around 26 Sep 2026 is reported but was not confirmed on 24 Aug 2026: unihackfest.vn returns 403 to plain fetchers (bot-protected, 200 in a browser), so do not mark it dead on a failed automated fetch.",
+      "notes": "The national qualifying round is September 17-20, with the Grand Finale on September 26 in HCMC.",
       "sea_relevant": true,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "rmit-fintech-club",
@@ -618,12 +634,12 @@
       "chains": ["multi-chain"],
       "regions": ["sea"],
       "typical_check_or_prize": "Per-event prizes (student competition)",
-      "cadence": "cohort-based (annual)",
-      "status": "cohort-based",
+      "cadence": "annual",
+      "status": "closed",
       "url": "https://www.rmit.edu.vn/",
-      "notes": "No announcement for a 2026 edition yet. The dedicated rmithackaventure.com domain has lapsed.",
+      "notes": "No announcement for a 2026 edition has been found. The dedicated domain has lapsed.",
       "sea_relevant": true,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "hust-bk-fintech-hackday",
@@ -634,12 +650,12 @@
       "chains": ["multi-chain"],
       "regions": ["sea"],
       "typical_check_or_prize": "Per-event prizes (student competition)",
-      "cadence": "cohort-based (annual)",
-      "status": "cohort-based",
+      "cadence": "annual",
+      "status": "closed",
       "url": "https://fintech.hust.edu.vn/get-involved/hackday",
-      "notes": "Season 13 (UniHackfest 2026 Hanoi Campus) runs 15 Jul-23 Aug 2026. The organiser's page, read 24 Aug 2026, gives an idea submission deadline of 24 Aug 2026, pitching teams announced the same day, and Pitching Day on 26 Aug 2026 \u2014 the window is closing now, so confirm on the site before acting.",
+      "notes": "Season 13 (as part of UniHackfest 2026 Hanoi Campus) concluded with its Pitching Day on August 26.",
       "sea_relevant": true,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "vietnam-aptos-hackathon",
@@ -649,13 +665,13 @@
       "dilution": "non-dilutive",
       "chains": ["multi-chain"],
       "regions": ["sea", "global"],
-      "typical_check_or_prize": "Per-event prize pool (Aptos ecosystem)",
+      "typical_check_or_prize": "Prize pool (Aptos ecosystem)",
       "cadence": "event-based",
       "status": "closed",
       "url": "https://dorahacks.io/hackathon/vietnamaptoshackathon",
-      "notes": "This hackathon ran in 2025 and is now closed.",
+      "notes": "This hackathon ran in 2025 and remains closed.",
       "sea_relevant": true,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "vietbuidl-hackathon",
@@ -665,13 +681,13 @@
       "dilution": "non-dilutive",
       "chains": ["multi-chain"],
       "regions": ["sea", "global"],
-      "typical_check_or_prize": "Large global prize pool (~$4M reported, 2025 edition)",
+      "typical_check_or_prize": "Large global prize pool",
       "cadence": "event-based",
       "status": "closed",
       "url": "https://ssid.com.vn/",
       "notes": "The last VietBUIDL Hackathon was in 2025. No 2026 edition has been announced.",
       "sea_relevant": true,
-      "last_verified": "2026-08-24"
+      "last_verified": "2026-08-31"
     }
   ]
 }
