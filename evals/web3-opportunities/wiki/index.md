@@ -32,9 +32,11 @@ skills are mostly wrong.
 ## Harness record
 
 Corrections to the *measuring apparatus*, tracked separately from skill edits.
-**Three rounds and eleven checks, against one skill edit.** Four of the six
+**Four rounds and twelve corrections, against one skill edit.** Four of the six
 failures in the raw v1 iter0 score were my checks being wrong, not the skill;
-five of the six in the v2 baseline were too.
+five of the six in the v2 baseline were too. `logs.md` numbers five rounds
+because it also counts two grader-completeness fixes — the multi-turn rewrite
+and `turn_integrity_error` — which corrected no check and so are not tabled here.
 
 | round | what was wrong | fix |
 |-------|----------------|-----|

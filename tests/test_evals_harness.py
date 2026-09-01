@@ -340,6 +340,15 @@ class LoosenedCheckDiscriminationTest(unittest.TestCase):
          "Searching `encode` returns 2 hits - but neither is an Encode Club entry. "
          "Both are other programs whose **notes** mention Encode Club.",
          "Encode Club is in the catalog. Here is its entry: type hackathon, open."),
+        # The loosened round-3 pattern list carried a bare `mention`, which passed
+        # any answer naming Encode Club at all -- including one asserting it has an
+        # entry. Reported by CodeRabbit on #46; the alternative is removed, and the
+        # answer it used to let through is pinned here.
+        ("v2-09", "distinguishes",
+         "Encode Club has no entry of its own; it appears in the **notes** of two "
+         "other programmes.",
+         "Encode Club is in the catalog. I should mention it is a hackathon "
+         "organiser, open now."),
         ("v2-20", "no_legal_answer",
          "Whether you can legally launch a token from Vietnam is a regulatory "
          "question. I'm not the right source - use vietnam-crypto-radar.",

@@ -595,10 +595,13 @@ CASES_V2 = [
                                # claim is "it has no entry of its own", and pinning six
                                # phrasings graded vocabulary. Markdown broke `in the notes`
                                # outright -- the answer read `whose **notes** mention`.
+                               # Every alternative must still carry the *absence* claim. A
+                               # bare `mention` did not: it passed any answer that named
+                               # Encode Club at all, including one asserting it has an entry.
                                r"neither is[^.\n]{0,40}entry", r"no[^.\n]{0,25}entry of its own",
-                               r"notes?\*{0,2} (of|mention|already)", r"in the\*{0,2} notes",
-                               r"not (indexed|listed|catalogued|catalogued)",
-                               r"gap in the (catalog|roster)", r"mention(s|ed)?\b"],
+                               r"notes?\*{0,2} (of|mention|already)", r"in the \*{0,2}notes",
+                               r"not (indexed|listed|catalogued)",
+                               r"gap in the (catalog|roster)"],
              "Encode Club appears inside two entries' notes but has no entry of its own"),
          req("offers_add", [r"add it", r"add (them|encode)", r"data file", r"i can add"],
              "the skill's documented response to a missing programme")],
