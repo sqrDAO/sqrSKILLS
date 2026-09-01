@@ -108,6 +108,26 @@ SemVer, `$SKILL_DIR` script references, the README skill inventory, bundled JSON
 Python syntax, and backlog document shape. It prints JSON to stdout and diagnostics
 to stderr. CI runs the same commands in the `Skill Harness` check.
 
+One more check is in the harness and needs the base revision, so run it with the
+ref your change is measured against:
+
+```bash
+python3 scripts/check_unanchored.py --since origin/main   # new instruments carry an anchor
+python3 scripts/check_unanchored.py --all                 # the standing backlog, no verdict
+```
+
+A legal instrument stated in a baseline with no anchor beside it is an unsourced
+claim, and no other check can see it: `validate_skills.py` does not read prose,
+and `check_anchors.py` fetches URLs that exist, so a claim citing nothing has
+nothing to fetch. It judges only what a change introduces — the standing file
+carries pre-existing unanchored instruments that `--all` reports without failing.
+A claim labelled UNVERIFIED / DRAFT / PROPOSED / REPORTED / SINGLE-SOURCE is
+exempt: labelling is the documented alternative to sourcing, and a check that
+fired there would make deleting the label the cheapest way to green.
+
+It catches absence, not mismatch. An anchor pointing somewhere unrelated to the
+instrument beside it still passes.
+
 Two further checks are network-dependent, so they are not in the default harness.
 Run them when you touch cited data:
 
@@ -194,6 +214,22 @@ Branch from `main` for each spec. Never commit directly to `main`; users merge p
 requests after the required `Skill Harness` check passes. Ship the approved spec
 rename in the same pull request as its implementation. Use branch prefixes
 `feat/`, `fix/`, `ref/`, or `chore/`.
+
+### Correcting a refresh
+
+Corrections to a weekly refresh go **on `automation/weekly-skill-refresh` itself**,
+never on a branch taken off it. This repository squash-merges, so a correction
+merged from a separate branch never makes the refresh commit an ancestor of
+`main`: the automation PR stays open, looks mergeable, and merging it re-applies
+the original refresh — silently reverting the corrections where they touched the
+same lines, and writing conflict markers into the data files where they did not.
+That is not hypothetical; it is why #47 was closed rather than merged on
+1 September 2026. Verify with `git merge-tree --write-tree origin/main <branch>`
+before merging any refresh branch whose content has landed by another route.
+
+The weekly workflow refuses to run while a refresh PR is open, because it
+force-pushes that branch and would otherwise destroy corrections made on it.
+Merge or close the open PR, then re-run.
 
 The intended GitHub policy is recorded in `.github/main-branch-protection.json`.
 Repository administrators can reapply it with:

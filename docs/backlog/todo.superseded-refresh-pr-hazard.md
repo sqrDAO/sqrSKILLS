@@ -25,15 +25,15 @@ off its head ends in the same state, every week, for as long as the repo squashe
 - `docs/backlog/PRIORITY.md` (edited) — track this spec
 
 ## Acceptance
-- [ ] A refresh PR whose content has landed by another route cannot sit open in a
+- [x] A refresh PR whose content has landed by another route cannot sit open in a
       state where merging it reverts the corrections
-- [ ] The weekly schedule still runs unattended, and a refresh with nothing to
+- [x] The weekly schedule still runs unattended, and a refresh with nothing to
       correct still opens one reviewable PR as it does now
-- [ ] The PR remains the review gate: nothing merges automatically, which is the
+- [x] The PR remains the review gate: nothing merges automatically, which is the
       property the workflow comment says matters for legal/visa/crypto data
-- [ ] Whichever option is taken, `AGENTS.md` states plainly that a corrected
+- [x] Whichever option is taken, `AGENTS.md` states plainly that a corrected
       refresh must not be merged from its original branch, and why
-- [ ] NOT: switching the repository to merge commits to dodge this — the squash
+- [x] NOT: switching the repository to merge commits to dodge this — the squash
       convention is deliberate and #43–#48 all rely on it
 
 ## Verify
@@ -59,5 +59,7 @@ on the next Monday — a stale PR is live and dangerous for up to a week.
 already present on `main` in corrected form. Most precise, most work, and the
 hardest to keep honest.
 
-The first is proposed, but this is a judgment about how the maintainer wants to run
-the weekly loop, not a technical necessity — hence a spec rather than a patch.
+**Correct in place was chosen.** `AGENTS.md` now states the rule and why merging a
+corrected refresh from a fork of its branch is destructive. The collision it opens —
+workflow and human both writing that branch — is closed by a guard step that refuses
+to run while a refresh PR is open, rather than by force-pushing over review work.

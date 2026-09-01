@@ -221,6 +221,14 @@ jobs:
         run: |
           status=pass
           python3 scripts/validate_skills.py > /tmp/validate.json || status=fail
+          # An instrument number the refresh added with no anchor beside it.
+          # check_anchors.py below cannot see this: it fetches URLs that exist,
+          # and an uncited claim has none. The 31 Aug 2026 refresh added three
+          # circular numbers and a wrong Article 9 enforcement claim through
+          # exactly this gap. HEAD is the pre-refresh tree; the working tree is
+          # what the agent just wrote.
+          python3 scripts/check_unanchored.py --since HEAD > /tmp/unanchored.json \
+            || status=fail
           # Not `... | tail`: a pipeline reports the exit code of its LAST
           # command, so piping to tail would swallow a test failure entirely.
           if ! python3 -m unittest discover -s tests -v > /tmp/tests.txt 2>&1; then
@@ -291,6 +299,30 @@ jobs:
             echo "title=Weekly skill refresh — ${run_date} — no verified changes" >> "$GITHUB_OUTPUT"
           fi
 
+      # `create-pull-request` force-pushes `automation/weekly-skill-refresh`.
+      # Corrections to a refresh are now made ON that branch rather than on a
+      # fork of it (see AGENTS.md, "Correcting a refresh"), so a force-push
+      # while last week's PR is still open would destroy review work. It would
+      # also leave the repository in the state that closed #47: because `main`
+      # squash-merges, a corrected refresh branch never becomes an ancestor of
+      # `main`, so a stale PR stays open and reverts those corrections if
+      # merged. Refuse to proceed instead, and say which PR is in the way.
+      - name: Refuse to clobber an open refresh PR
+        env:
+          GH_TOKEN: ${{ secrets.REFRESH_PAT || secrets.GITHUB_TOKEN }}
+        run: |
+          open_pr="$(gh pr list --head automation/weekly-skill-refresh \
+                       --state open --json number --jq '.[0].number // empty')"
+          if [ -n "$open_pr" ]; then
+            {
+              echo "::error::Refresh PR #${open_pr} is still open on"
+              echo "automation/weekly-skill-refresh. This run would force-push over"
+              echo "it, discarding any corrections made on that branch. Merge or"
+              echo "close #${open_pr} first, then re-run this workflow."
+            } >&2
+            exit 1
+          fi
+
       - name: Open pull request
         id: pr
         uses: peter-evans/create-pull-request@v6
@@ -299,6 +331,9 @@ jobs:
           # checks list stays empty. REFRESH_PAT, when set, makes checks run.
           token: ${{ secrets.REFRESH_PAT || secrets.GITHUB_TOKEN }}
           branch: automation/weekly-skill-refresh
+          # Kept: the branch is recreated from `main` each run, so a merged or
+          # closed PR leaves nothing stale behind. The guard step above is what
+          # protects an *open* one.
           delete-branch: true
           commit-message: "chore: weekly refresh of time-sensitive skill baselines"
           title: "${{ steps.pr_meta.outputs.title }}"
@@ -317,7 +352,7 @@ jobs:
 
             | Check | Result |
             |---|---|
-            | Skill harness (validator + tests) | **${{ steps.harness.outputs.status }}** |
+            | Skill harness (validator + tests + anchors on new instruments) | **${{ steps.harness.outputs.status }}** |
             | Source anchors resolve | **${{ steps.anchors.outputs.status }}** — ${{ steps.anchors.outputs.checked }} checked, ${{ steps.anchors.outputs.dead }} dead, ${{ steps.anchors.outputs.unverified }} unverified |
             | Verification honesty | **${{ steps.audit.outputs.status }}** — ${{ steps.audit.outputs.changed }} entries changed, ${{ steps.audit.outputs.attested }} re-verified unchanged, **${{ steps.audit.outputs.reverted }} unsupported dates rolled back** |
 
