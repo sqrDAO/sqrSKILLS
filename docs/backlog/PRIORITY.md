@@ -13,10 +13,14 @@ from `todo.<slug>.md` to `done.<slug>.md`.
    iter1 its 1.0 and makes `v2-22` a stable failure. The unit is a section, and
    it differs per check.
 
-_Empty._ No spec is open. New work starts with a `todo.<slug>.md` here.
-
-
 ## Recently shipped
+
+- `weekly-skill-refresh-2026-08-31-verification` — held the weekly refresh to what
+  it sourced. #47 deleted four caveats earlier passes had added, flipped two
+  `status` values its summary never mentioned, pointed an entry at a dead url, left
+  the eval answer key stale, and stated a wrong claim about Article 9 enforcement
+  competence plus an unsupported six-month grace period. Corrected on top of the
+  refresh so the week's real findings still shipped (#48).
 
 - `web3-opportunities-eval-split` — the gated skill-evolution loop, end to end on
   a second skill. v1 baseline 22/24, one edit applied and gated to 24/24 with the

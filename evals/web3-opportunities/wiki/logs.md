@@ -182,6 +182,26 @@ now, against one skill edit.
 **23/24 and 24/24 — mean 0.979, call 1.0 in both.** `unstable_cases: [v2-02]`,
 **`stable_failures: []`**.
 
+Scored against the roster at `last_updated: 2026-08-24`. That matters because the
+answer key is derived from `query_opportunities.py`, so a refresh moves it. Under
+the 2026-08-31 roster (the weekly refresh, #48) every stored web3 run re-scores:
+
+| run | 2026-08-24 key | 2026-08-31 key | what moved |
+|---|---|---|---|
+| v2 A / B | 0.9583 / 1.0 | **0.9167 / 0.9583** | `v2-21` — "how many take equity": answered 11, and `base-batches-accelerator` made it 12 |
+| v1 iter0 | 0.9167 | **0.8333** | `w3o-18/as_of`, `w3o-20/date` |
+| v1 iter1 | 1.0 | **0.9167** | `w3o-18/as_of`, `w3o-20/date` |
+
+Nothing regressed. The two v1 cases are `<DATA_AS_OF>` checks: the agents wrote
+`2026-08-24`, which was right, and the key now says `2026-08-31`. Every delta is
+the roster moving under a fixed transcript.
+
+The consequence for anyone using these as a regression check — AGENTS.md and #46
+both quote web3 v1 at `0.9167 / 1.0` — is that those numbers are only reproducible
+against the roster the runs were made on. A stored run is evidence about the skill
+only against its own answer key, and quoting it against a later one is comparing
+two different questions.
+
 The raw first read of repeat A was 19/24. Four of those five failures were my
 checks, and a fifth turned up in repeat B:
 
