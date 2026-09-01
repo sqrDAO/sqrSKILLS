@@ -58,6 +58,24 @@ class NegationAwareForbidTest(unittest.TestCase):
             "I live-verified this against the official page.",
             forbid(r"live[- ]verified")))
 
+    def test_a_negation_does_not_reach_across_a_colon(self):
+        """`:` and `;` bound a clause the way `.` bounds a sentence.
+
+        Reported by CodeRabbit on #46 against `nothing`, but the whole negation
+        vocabulary had it -- `no` and `never` reach across a colon identically,
+        and both predate that change. Fixing one word would have left the rest.
+        """
+        for answer in ("Nothing prevents this: it is live-verified.",
+                       "No doubt about it: it is live-verified.",
+                       "Never mind that: it is live-verified.",
+                       "One caveat; it is live-verified anyway."):
+            with self.subTest(answer=answer):
+                self.assertFalse(self.passed(answer, forbid(r"live[- ]verified")))
+        # The observed answer this vocabulary exists for still passes.
+        self.assertTrue(self.passed(
+            "I have no web access, so nothing here is live-verified.",
+            forbid(r"live[- ]verified")))
+
     def test_neither_counts_as_a_negation(self):
         # The fix for the one check that fired on a correct answer during
         # calibration of the web3-opportunities split.

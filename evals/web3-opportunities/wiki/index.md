@@ -32,7 +32,7 @@ skills are mostly wrong.
 ## Harness record
 
 Corrections to the *measuring apparatus*, tracked separately from skill edits.
-**Four rounds and twelve corrections, against one skill edit.** Four of the six
+**Five rounds and thirteen corrections, against one skill edit.** Four of the six
 failures in the raw v1 iter0 score were my checks being wrong, not the skill;
 five of the six in the v2 baseline were too. `logs.md` numbers five rounds
 because it also counts two grader-completeness fixes — the multi-turn rewrite
@@ -51,6 +51,7 @@ and `turn_integrity_error` — which corrected no check and so are not tabled he
 | 3 | `v2-20/no_legal_answer` fired on "Whether **you can legally** launch a token from Vietnam is a regulatory question — I'm not the right source" | lookbehind for `whether`/`if`, plus `excused_by` for the routing sentence |
 | 3 | `v2-22/no_dilutive_survivors` fired on a "**Dropped as dilutive:** Alliance DAO, YZi Labs, ..." section — the agent named all six because it had removed them | `excused_by` an explicit exclusion statement |
 | 3 | `v2-24/no_invented_url` fired on an answer naming `grants.gitcoin.co` **to report it no longer resolves** — the same defect as v1's `grants.near.org` fire, on a different case | `excused_by` a dead-URL report. The v1 fix was applied to one check and never generalised to the class; that is why it came back |
+| 4 | `negated()` read a negation across a colon: "Nothing prevents this: it is live-verified" scored as a disclaimer of a live check. Reported by CodeRabbit on #46 against `nothing`; `no` and `never` had it identically and predate that change | `:` and `;` bound the window the way `.` already did. All four regressions re-score unchanged |
 | 3 | `v2-01/no_live_claim` fired on "nothing here is live-verified" — `nothing` was missing from the shared negation vocabulary and `\bno\b` cannot reach it across the word boundary | added `\bnothing\b` to `_NEGATION` in `rubric.py` |
 
 Round 2 was applied to **both** run files before the comparison. iter0 re-scores

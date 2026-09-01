@@ -46,7 +46,11 @@ def negated(answer: str, start: int) -> bool:
     # or in the question before this one, says nothing about the claim here.
     # `?` and `!` end a sentence as surely as `.` does -- without them,
     # "Is it not open? It is currently open." excuses the second clause.
-    window = re.split(r"[.!?\n]", window)[-1]
+    # `:` and `;` bound a clause the same way. Without them the negation reaches
+    # across the colon in "Nothing prevents this: it is live-verified", and in
+    # "No doubt about it: ..." and "Never mind that: ..." -- the whole vocabulary
+    # has the property, not one word of it.
+    window = re.split(r"[.!?:;\n]", window)[-1]
     return bool(_NEGATION.search(window))
 
 
