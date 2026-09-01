@@ -7,13 +7,25 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-1. `web3-opportunities-eval-split` — v1 is retired at 24/24 and v2 is built and
-   calibrated. What remains is v2 at two repeats to establish a baseline, then
-   re-testing the withheld E2 against it. That is one fresh agent per case per
-   repeat, so it is a deliberate spend.
+1. `rubric-lexical-proximity` — `excused_by` discharges a whole check from a
+   phrase anywhere in the answer. The negation half of this was fixed on #46;
+   this half was deferred because sentence-scoping the excuse costs web3 v1
+   iter1 its 1.0 and makes `v2-22` a stable failure. The unit is a section, and
+   it differs per check.
+
+_Empty._ No spec is open. New work starts with a `todo.<slug>.md` here.
+
 
 ## Recently shipped
 
+- `web3-opportunities-eval-split` — the gated skill-evolution loop, end to end on
+  a second skill. v1 baseline 22/24, one edit applied and gated to 24/24 with the
+  gain honestly attributed to a single case; v1 retired on saturation and
+  replaced by v2 (web-disabled, multi-turn, repeats). v2 baseline ran at two
+  repeats: **23/24 and 24/24, call 1.0, no stable failure**. E2 withheld — the
+  call score left nothing to gate it against. Standing tally across the whole
+  spec: **eleven harness corrections against one skill edit**, which is the
+  result worth remembering (#46).
 - `llm-wiki-ordering-and-lookup-invariant` — a sort with ties was really a sort
   by filesystem: `search.py --top 2` returned a disjoint pair of pages depending
   only on `os.listdir` order, so two users with identical wikis got different

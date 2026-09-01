@@ -30,8 +30,10 @@ from pathlib import Path
 # have visa-free access" and "not currently open" are what a right answer says.
 # Only matches that are *not* negated count as hits.
 _NEGATION = re.compile(
-    r"(?:\bnot\b|n't\b|\bno\b|\bnone\b|\bneither\b|\bnor\b|\bnever\b|\bwithout\b|"
-    r"\blacks?\b|\bisn|\baren|\bdoesn|\bdon|\bcan't|\bcannot\b|\bunable\b)",
+    # `nothing` is not reachable from `\bno\b` -- the word boundary stops it -- and
+    # "nothing here is live-verified" is the natural way to disclaim a live check.
+    r"(?:\bnot\b|n't\b|\bno\b|\bnone\b|\bnothing\b|\bneither\b|\bnor\b|\bnever\b|"
+    r"\bwithout\b|\blacks?\b|\bisn|\baren|\bdoesn|\bdon|\bcan't|\bcannot\b|\bunable\b)",
     re.I,
 )
 _NEGATION_WINDOW = 40
@@ -44,7 +46,11 @@ def negated(answer: str, start: int) -> bool:
     # or in the question before this one, says nothing about the claim here.
     # `?` and `!` end a sentence as surely as `.` does -- without them,
     # "Is it not open? It is currently open." excuses the second clause.
-    window = re.split(r"[.!?\n]", window)[-1]
+    # `:` and `;` bound a clause the same way. Without them the negation reaches
+    # across the colon in "Nothing prevents this: it is live-verified", and in
+    # "No doubt about it: ..." and "Never mind that: ..." -- the whole vocabulary
+    # has the property, not one word of it.
+    window = re.split(r"[.!?:;\n]", window)[-1]
     return bool(_NEGATION.search(window))
 
 

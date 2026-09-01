@@ -591,7 +591,17 @@ CASES_V2 = [
         [["--search", "encode"]],
         [req("distinguishes", [r"no (entry|record)", r"not (a|an) (entry|programme|program)",
                                r"isn'?t (a|an) (entry|its own)", r"only (appears|mentioned)",
-                               r"in the notes", r"mentioned"],
+                               # An answer that gets this right can say so in many ways: the
+                               # claim is "it has no entry of its own", and pinning six
+                               # phrasings graded vocabulary. Markdown broke `in the notes`
+                               # outright -- the answer read `whose **notes** mention`.
+                               # Every alternative must still carry the *absence* claim. A
+                               # bare `mention` did not: it passed any answer that named
+                               # Encode Club at all, including one asserting it has an entry.
+                               r"neither is[^.\n]{0,40}entry", r"no[^.\n]{0,25}entry of its own",
+                               r"notes?\*{0,2} (of|mention|already)", r"in the \*{0,2}notes",
+                               r"not (indexed|listed|catalogued)",
+                               r"gap in the (catalog|roster)"],
              "Encode Club appears inside two entries' notes but has no entry of its own"),
          req("offers_add", [r"add it", r"add (them|encode)", r"data file", r"i can add"],
              "the skill's documented response to a missing programme")],
@@ -729,9 +739,16 @@ CASES_V2 = [
          req("answers_half", [r"alliance dao", r"a16z", r"outlier ventures", r"antler", r"colosseum",
                               r"hashed emergent", r"tribe", r"draper"],
              "the accelerator half is squarely in scope and must still be answered"),
-         forbid("no_legal_answer", [r"\bis legal\b", r"\bit'?s legal\b", r"you (can|may) legally",
+         # Claim-shaped, not phrase-shaped: "Whether you can legally launch a token
+         # from Vietnam is a regulatory question -- I'm not the right source" is a
+         # refusal, and the first version of this check failed it.
+         forbid("no_legal_answer", [r"(?<!whether )(?<!if )\bis legal\b",
+                                    r"(?<!whether )(?<!if )\bit'?s legal\b",
+                                    r"(?<!whether )(?<!if )you (can|may) legally",
                                     r"\bpermitted under\b"],
-                "answering the legality question from this skill")],
+                "answering the legality question from this skill",
+                excused_by=[r"not the right source", r"can'?t (properly )?answer",
+                            r"(different|another) skill", r"vietnam-crypto-radar"])],
         "v1's boundary case only tested deferral. This one tests that deferring "
         "the out-of-scope half does not swallow the half that is in scope.",
     ),
@@ -757,9 +774,15 @@ CASES_V2 = [
         [["--sea", "--dilution", "non-dilutive"]],
         [req2("keeps_nondilutive", [r"superteam", r"sqrdao", r"near foundation", r"ronin", r"dorahacks"],
               "the non-dilutive SEA entries survive the filter", turn=1),
+         # A "Dropped as dilutive: Alliance DAO, YZi Labs, ..." section names every one
+         # of these precisely because it removed them. The check forbids their
+         # presence in the list, not their appearance in the text.
          forbid("no_dilutive_survivors", [r"alliance dao", r"yzi labs", r"kyros", r"antler",
                                           r"tribe accelerator", r"hashed emergent"],
-                "every one of these is dilutive and must be gone after turn 2", turn=1)],
+                "every one of these is dilutive and must be gone after turn 2", turn=1,
+                excused_by=[r"dropped as dilutive", r"what i (dropped|removed|cut)",
+                            r"(dropped|removed|excluded|filtered out|cut)[^.\n]{0,50}"
+                            r"(dilutive|equity|token)"])],
     ),
     case2(
         "v2-23", "zero-then-widen",
@@ -786,7 +809,9 @@ CASES_V2 = [
         [req("url", [r"gitcoin\.co"], "the entry carries the url"),
          forbid("no_invented_url", [r"\b(apply|go to|visit|head to)\b[^.\n]{0,50}"
                                     r"(gitcoin\.io|grants\.gitcoin\.co|gitcoin\.org)"],
-                "a plausible url that is not the one in the roster")],
+                "a plausible url that is not the one in the roster",
+                excused_by=[r"no longer resolves?", r"(does not|doesn'?t|won'?t) resolve",
+                            r"(dead|defunct|sunset|stale|lapsed)\b", r"404"])],
     ),
 ]
 

@@ -95,3 +95,47 @@ Before any further change to this `SKILL.md`, the split needs cases it can still
 lose — multi-turn prompts, a second repeat to separate signal from the variance
 that showed up in w3o-07, and probes for the enrichment layer, which is now
 answering a large share of these cases and which no case currently pins.
+
+## E2 after the v2 baseline — still withheld, and now for a different reason
+
+v2 ran at two repeats on 2026-08-29 (`runs/v2-iter0-a.jsonl`, `runs/v2-iter0-b.jsonl`):
+**23/24 and 24/24, mean 0.979, call 1.0 in both, `stable_failures: []`.**
+
+E2 was blocked on not having repeats. It now has them, and the answer is that
+there is nothing to gate. E2 targets `v2`'s organisation-name-is-not-a-facet
+pattern (p010); the call score is **1.0 across all 48 case-runs**, so the
+behaviour E2 would document did not fail once. An edit cannot earn its keep
+against a score with no room above it.
+
+**E2 stays unapplied.** Not because it is wrong — because there is no longer any
+measurement that could tell.
+
+## The v2 split is saturated on its first baseline
+
+The same retirement condition as v1 and as `vietnam-visa-check`, reached in one
+run instead of two. The single failure (`v2-02`) is in `unstable_cases`: it
+failed in repeat A and passed in repeat B, and by this split's own rule such a
+case must never be credited or debited to an edit.
+
+That is now three splits in a row that saturate. The honest read is that the
+thing being measured has stopped being the binding constraint: across 48
+case-runs the agents ran the right queries every time, labelled baseline data,
+live-verified when it mattered, refused a false premise, declined an
+out-of-scope legal question, and reported catalog gaps unprompted. The failures
+this round were all in the *rubric*.
+
+Two consequences for whoever picks this up:
+
+1. **Do not build v3 the same way.** A fourth split of hand-written probes over
+   the same catalog will saturate too. What repeatedly *did* surface real
+   defects is the data, not the instructions — v2's agents independently found a
+   stale `sui.io/grants` 404, a dead `grants.gitcoin.co`, an expired
+   `opgrants.io` registration, a closed Polkadot Open Source Developer Grants
+   bounty still cited as live, and a missing Superteam India. A split that
+   grades *roster freshness* would have failed today.
+2. **The one open judgement call is `v2-02`**, and it is a question about the
+   skill's intent rather than the harness: with the web off and no Bitcoin entry,
+   is naming OpenSats/Spiral/Btrust from memory — explicitly labelled as
+   out-of-catalog, with no amounts, dates or status, and told to verify — a
+   violation of "never invent programs", or the best available answer? Left
+   failing pending a decision, rather than excused into a pass.

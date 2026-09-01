@@ -32,8 +32,11 @@ skills are mostly wrong.
 ## Harness record
 
 Corrections to the *measuring apparatus*, tracked separately from skill edits.
-**Two rounds and six checks, against zero skill edits so far.** Four of the six
-failures in the raw iter0 score were my checks being wrong, not the skill.
+**Five rounds and thirteen corrections, against one skill edit.** Four of the six
+failures in the raw v1 iter0 score were my checks being wrong, not the skill;
+five of the six in the v2 baseline were too. `logs.md` numbers five rounds
+because it also counts two grader-completeness fixes — the multi-turn rewrite
+and `turn_integrity_error` — which corrected no check and so are not tabled here.
 
 | round | what was wrong | fix |
 |-------|----------------|-----|
@@ -44,6 +47,12 @@ failures in the raw iter0 score were my checks being wrong, not the skill.
 | 1 | `--all` graded as a wrong call on a case wanting `--sea`, failing an answer whose checks all passed | a full-roster query satisfies any facet constraint — it returns a superset, so the agent has more to work with, not less |
 | 1 | `--help` counted as an errored call | reading the manual is not an error; excluded from the warning |
 | 2 | The named-entity cases pinned a literal search string, so `--search csx` failed a case about a16z CSX that `--search a16z` passed — grading the agent's choice of word rather than its behaviour | added a `returns` constraint: any query that retrieves the named entries satisfies it, however it got there. Still catches the real failure — a query too narrow to reach half the answer, which is exactly why iter0's `--type grant` on w3o-07 still fails |
+| 3 | `v2-09/distinguishes` failed "neither is an Encode Club entry. Both are other programs whose `**notes**` mention Encode Club" — the pattern was the literal `in the notes`, and the markdown asterisks broke it | broadened to the claim ("it has no entry of its own"), not six phrasings of it |
+| 3 | `v2-20/no_legal_answer` fired on "Whether **you can legally** launch a token from Vietnam is a regulatory question — I'm not the right source" | lookbehind for `whether`/`if`, plus `excused_by` for the routing sentence |
+| 3 | `v2-22/no_dilutive_survivors` fired on a "**Dropped as dilutive:** Alliance DAO, YZi Labs, ..." section — the agent named all six because it had removed them | `excused_by` an explicit exclusion statement |
+| 3 | `v2-24/no_invented_url` fired on an answer naming `grants.gitcoin.co` **to report it no longer resolves** — the same defect as v1's `grants.near.org` fire, on a different case | `excused_by` a dead-URL report. The v1 fix was applied to one check and never generalised to the class; that is why it came back |
+| 4 | `negated()` read a negation across a colon: "Nothing prevents this: it is live-verified" scored as a disclaimer of a live check. Reported by CodeRabbit on #46 against `nothing`; `no` and `never` had it identically and predate that change | `:` and `;` bound the window the way `.` already did. All four regressions re-score unchanged |
+| 3 | `v2-01/no_live_claim` fired on "nothing here is live-verified" — `nothing` was missing from the shared negation vocabulary and `\bno\b` cannot reach it across the word boundary | added `\bnothing\b` to `_NEGATION` in `rubric.py` |
 
 Round 2 was applied to **both** run files before the comparison. iter0 re-scores
 at exactly 0.9167 under it, which is the only thing that makes the iter0/iter1
@@ -54,3 +63,12 @@ Every fix was re-verified against both calibration fixtures: the ideal run still
 scores 24/24 and the deliberately-wrong run still scores 0/24, with each of the
 four loosened checks still catching its own wrong answer. A loosened rubric that
 stops discriminating is worse than the false fire it removed.
+
+Round 3 has the same hazard in a sharper form: the corrections take the v2
+baseline from 19/24 to 23-24/24, which is the exact shape of a rubric edited
+until its failures went away. The round-2 fixtures were built in-session and not
+committed, so each round-3 check is instead pinned permanently in
+`tests/test_evals_harness.py` — against the answer it must pass *and* the answer
+it must still fail. All five discriminate. The visa split re-scores at 0.9167 /
+0.9583 / 1.0 and web3 v1 at 0.9167 / 1.0, unchanged, so the shared-module edit
+moved nothing already measured.

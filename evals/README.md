@@ -34,7 +34,7 @@ Three splits exist. Two are retired and one is live:
 |-------|-------|
 | `vietnam-visa-check/cases.jsonl` | saturated at 24/24 — retired |
 | `web3-opportunities/cases.jsonl` (v1) | saturated at 24/24 after one gated edit — retired, kept so its stored runs stay scoreable |
-| `web3-opportunities/cases-v2.jsonl` | live; built and calibrated, not yet run |
+| `web3-opportunities/cases-v2.jsonl` | run at 2 repeats — 23/24 and 24/24, no stable failure. Saturated on its first baseline |
 
 A retired split is not deleted. Its cases and runs are the evidence behind every
 entry in `skill-impact.md`, and deleting them would leave the log unverifiable.

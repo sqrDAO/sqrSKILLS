@@ -39,8 +39,7 @@ of this spec.
 - [x] A deliberately wrong run scores 0/24, each case failing on its own probe.
 - [x] The visa split re-scores identically on all three stored iterations after
       the shared-module extraction and the negation-vocabulary change.
-- [x] Baseline run recorded at `evals/web3-opportunities/runs/iter0.jsonl` and
-      scored: **22/24**, call 0.917, answer 0.958.
+- [x] v1 baseline `runs/iter0.jsonl`: **22/24**, call 0.917, answer 0.958.
 - [x] All eight predictions resolved in `wiki/index.md` — seven falsified, one
       confirmed in a different shape; both real failures were unpredicted.
 - [x] E1 applied (0.2.11 -> 0.2.12) and gated: 22/24 -> 24/24, kept. Only one of
@@ -53,7 +52,10 @@ of this spec.
       false-premise rules v1 never tested. Ideal run 24/24, wrong run 0/24.
 - [x] Harness gained multi-turn runs, repeats, and an `unstable_cases` report —
       the direct fix for what made E1's gate ambiguous.
-- [ ] Run v2 at two repeats to establish a baseline, then re-test E2 against it.
+- [x] Ran v2 at two repeats: **23/24 and 24/24**, call 1.0 in both, no stable
+      failure. Five harness defects fixed first, each pinned in `tests/` against
+      the wrong answer it must still catch. E2 withheld — nothing left to gate
+      it — and v2 is saturated on its first baseline. See `wiki/skill-impact.md`.
 
 ## Verify
 

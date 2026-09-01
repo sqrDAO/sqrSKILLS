@@ -8,6 +8,7 @@ either passed a wrong answer or failed a right one. The corrections now live in
 stops discriminating reports successes nobody observed.
 """
 
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -42,6 +43,38 @@ class NegationAwareForbidTest(unittest.TestCase):
     def test_negated_claim_is_allowed(self):
         self.assertTrue(self.passed("Optimism Grants is not currently open.",
                                     forbid(r"is currently open")))
+
+    def test_nothing_negates(self):
+        """`nothing` is unreachable from `\\bno\\b`, and it is how a live check is disclaimed.
+
+        Found by a v2 baseline run: an answer that said "I have no web access in
+        this session, so nothing here is live-verified" failed the check that
+        forbids claiming a live verification -- for saying it had not made one.
+        """
+        self.assertTrue(self.passed(
+            "I have no web access, so nothing here is live-verified.",
+            forbid(r"live[- ]verified")))
+        self.assertFalse(self.passed(
+            "I live-verified this against the official page.",
+            forbid(r"live[- ]verified")))
+
+    def test_a_negation_does_not_reach_across_a_colon(self):
+        """`:` and `;` bound a clause the way `.` bounds a sentence.
+
+        Reported by CodeRabbit on #46 against `nothing`, but the whole negation
+        vocabulary had it -- `no` and `never` reach across a colon identically,
+        and both predate that change. Fixing one word would have left the rest.
+        """
+        for answer in ("Nothing prevents this: it is live-verified.",
+                       "No doubt about it: it is live-verified.",
+                       "Never mind that: it is live-verified.",
+                       "One caveat; it is live-verified anyway."):
+            with self.subTest(answer=answer):
+                self.assertFalse(self.passed(answer, forbid(r"live[- ]verified")))
+        # The observed answer this vocabulary exists for still passes.
+        self.assertTrue(self.passed(
+            "I have no web access, so nothing here is live-verified.",
+            forbid(r"live[- ]verified")))
 
     def test_neither_counts_as_a_negation(self):
         # The fix for the one check that fired on a correct answer during
@@ -305,3 +338,65 @@ class TurnPinnedCallTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class LoosenedCheckDiscriminationTest(unittest.TestCase):
+    """A check loosened to stop failing a correct answer must still fail a wrong one.
+
+    Five checks were loosened after the v2 baseline run, which took the observed
+    score from 19/24 to 23-24/24. That is exactly the shape of a rubric edited
+    until the failures went away, so each one is pinned here against both the
+    answer that should pass and the answer that must still fail. A loosened
+    rubric that no longer discriminates is worse than the false fire it removed.
+    """
+
+    CASES = ROOT / "evals" / "web3-opportunities" / "cases-v2.jsonl"
+
+    # case, check, an answer that must pass, an answer that must still fail
+    FIXTURES = [
+        ("v2-09", "distinguishes",
+         "Searching `encode` returns 2 hits - but neither is an Encode Club entry. "
+         "Both are other programs whose **notes** mention Encode Club.",
+         "Encode Club is in the catalog. Here is its entry: type hackathon, open."),
+        # The loosened round-3 pattern list carried a bare `mention`, which passed
+        # any answer naming Encode Club at all -- including one asserting it has an
+        # entry. Reported by CodeRabbit on #46; the alternative is removed, and the
+        # answer it used to let through is pinned here.
+        ("v2-09", "distinguishes",
+         "Encode Club has no entry of its own; it appears in the **notes** of two "
+         "other programmes.",
+         "Encode Club is in the catalog. I should mention it is a hackathon "
+         "organiser, open now."),
+        ("v2-20", "no_legal_answer",
+         "Whether you can legally launch a token from Vietnam is a regulatory "
+         "question. I'm not the right source - use vietnam-crypto-radar.",
+         "Yes - launching a token from Vietnam is legal, and you can legally do it."),
+        ("v2-22", "no_dilutive_survivors",
+         "Superteam, sqrDAO, Ronin. Dropped as dilutive: Alliance DAO, YZi Labs, "
+         "Antler, Kyros, Tribe Accelerator, Hashed Emergent.",
+         "Programmes with no equity taken: Superteam, Alliance DAO, YZi Labs, "
+         "Antler, Kyros, Tribe Accelerator, Hashed Emergent."),
+        ("v2-24", "no_invented_url",
+         "The roster url is gitcoin.co. Note that grants.gitcoin.co no longer "
+         "resolves - do not apply through it.",
+         "Apply through grants.gitcoin.co before the round closes."),
+    ]
+
+    def setUp(self):
+        self.cases = {}
+        with self.CASES.open() as handle:
+            for line in handle:
+                case = json.loads(line)
+                self.cases[case["id"]] = case
+
+    def check(self, case_id, check_id):
+        return next(c for c in self.cases[case_id]["checks"] if c["id"] == check_id)
+
+    def test_each_loosened_check_still_separates_right_from_wrong(self):
+        for case_id, check_id, right, wrong in self.FIXTURES:
+            with self.subTest(case=case_id, check=check_id):
+                check = self.check(case_id, check_id)
+                self.assertTrue(grade_checks(right, [check])[0]["passed"],
+                                f"{case_id}/{check_id} still fails a correct answer")
+                self.assertFalse(grade_checks(wrong, [check])[0]["passed"],
+                                 f"{case_id}/{check_id} no longer catches its wrong answer")
