@@ -475,9 +475,9 @@
       "regions": ["global", "india", "sea", "remote"],
       "typical_check_or_prize": "Training, stipend/credits, and ecosystem access",
       "cadence": "periodic cohorts",
-      "status": "open",
+      "status": "closed",
       "url": "https://solana.com/developers",
-      "notes": "The Solana School Fall Class (a free, 7-week online program) started on August 31, 2026. Other bootcamps and fellowships run on a rolling basis via partners like Superteam and Encode Club.",
+      "notes": "The Solana Foundation lists no program labelled 'Fellowships' at present \u2014 this entry is kept as a pointer, not an open call. What is live instead: the Solana Developer Bootcamp 2026 (solana.com/developers/bootcamp, source at github.com/solana-foundation/solana-bootcamp-2026), regional bootcamps, and Solana Foundation Grants of roughly $5,000-10,000 that bootcamp graduates can apply for. The Solana School Fall Class, a free 7-week online program, started 31 August 2026, so that cohort is under way rather than recruiting. Ecosystem partners (Superteam, MLH, Encode Club) run their own cohorts.",
       "sea_relevant": true,
       "last_verified": "2026-08-31"
     },
@@ -539,9 +539,9 @@
       "regions": ["sea", "global"],
       "typical_check_or_prize": "Investment + enterprise/government partner access",
       "cadence": "cohort-based",
-      "status": "open",
+      "status": "cohort-based",
       "url": "https://tribex.co/",
-      "notes": "The KUMIHIMO Tech Camp (MedTech) deadline was July 31. The IoT Tribe SG deadline is August 31. The Ignition AI Accelerator is rolling. The main Tribe Accelerator is open for interest.",
+      "notes": "The KUMIHIMO Tech Camp (MedTech) deadline was 31 July 2026 and the IoT Tribe SG deadline was 31 August 2026; both have passed. The Ignition AI Accelerator runs on a rolling basis, and the main Tribe Accelerator takes expressions of interest between cohorts. Check the website for the next general cohort.",
       "sea_relevant": true,
       "last_verified": "2026-08-31"
     },

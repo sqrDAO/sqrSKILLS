@@ -756,9 +756,12 @@ CASES_V2 = [
         "v2-21", "roster-only-count",
         ["How many programmes in your catalog take equity?"],
         [([{"dilution": ["dilutive"]}, {}, {"dilution": ["dilutive", "mixed"]}], None)],
-        [["--dilution", "dilutive"]],
-        [req("count", [r"\b<TRUTH_COUNT>\b"], "eleven are tagged dilutive"),
-         req("mixed_noted", [r"mixed", r"two more", r"\btwo\b", r"\b13\b", r"partly"],
+        # The second query exists so the combined dilutive+mixed total below is
+        # derived rather than typed; only the first is the canonical answer.
+        [["--dilution", "dilutive"], ["--dilution", "dilutive,mixed"]],
+        [req("count", [r"\b<TRUTH_COUNT>\b"], "the roster's own `dilutive` count"),
+         req("mixed_noted",
+             [r"mixed", r"two more", r"\btwo\b", r"\b<TRUTH_COUNT_2>\b", r"partly"],
              "two more are `mixed`, which the honest answer separates rather than merges"),
          forbid("no_live_claim", NO_WEB_FORBID, "web access was unavailable for this turn")],
         web_allowed=False,
@@ -840,12 +843,23 @@ def truth_for(script: Path, argv: list[str]) -> dict:
     }
 
 
-def fill(patterns: list[str], data_as_of: str, count) -> list[str]:
-    """Substitute the tokens that must re-derive from the data on a refresh."""
+def fill(patterns: list[str], data_as_of: str, counts) -> list[str]:
+    """Substitute the tokens that must re-derive from the data on a refresh.
+
+    ``<TRUTH_COUNT>`` is the canonical query's count. A case whose rubric also
+    names a *second* query's count needs ``<TRUTH_COUNT_n>``, 1-indexed over
+    ``truth_argv``: a hand-typed number beside a generated one drifts on the
+    first refresh that moves it, and nothing catches it, because the rubric is
+    generated output that no test reads back.
+    """
     out = []
     for p in patterns:
         p = p.replace("<DATA_AS_OF>", re.escape(data_as_of or ""))
-        p = p.replace("<TRUTH_COUNT>", re.escape(str(count)))
+        for i, c in enumerate(counts, start=1):
+            p = p.replace(f"<TRUTH_COUNT_{i}>", re.escape(str(c)))
+        p = p.replace("<TRUTH_COUNT>", re.escape(str(counts[0] if counts else None)))
+        if "<TRUTH_COUNT" in p:
+            raise SystemExit(f"unfilled count token in rubric pattern: {p}")
         out.append(p)
     return out
 
@@ -856,9 +870,9 @@ def build(script: Path, cases: list[dict]) -> list[dict]:
     for entry in cases:
         record = dict(entry)
         record["truth"] = [truth_for(script, argv) for argv in entry["truth_argv"]]
-        count = record["truth"][0].get("count") if record["truth"] else None
+        counts = [t.get("count") for t in record["truth"]]
         record["checks"] = [
-            {**c, "patterns": fill(c["patterns"], data_as_of, count)} for c in entry["checks"]
+            {**c, "patterns": fill(c["patterns"], data_as_of, counts)} for c in entry["checks"]
         ]
         built.append(record)
     return built
