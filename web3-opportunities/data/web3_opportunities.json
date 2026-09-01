@@ -124,7 +124,7 @@
       "typical_check_or_prize": "1-5 ETH for builder grants",
       "cadence": "rolling",
       "status": "rolling",
-      "url": "https://www.base.org/grants",
+      "url": "https://www.base.org/",
       "notes": "Retroactive grants are awarded on a rolling basis for shipped work on Base. Larger investments are handled by the Base Ecosystem Fund and the Base Batches accelerator.",
       "sea_relevant": false,
       "last_verified": "2026-08-31"
@@ -445,7 +445,7 @@
       "cadence": "continuous streaming",
       "status": "open",
       "url": "https://www.drips.network/",
-      "notes": "The protocol enables continuous funding. Specific partner programs have deadlines, e.g., Stellar Wave bounty cycles run monthly; Wave 8 concluded Aug 31, 2026.",
+      "notes": "The protocol enables continuous funding. Specific partner programs have deadlines, e.g., Stellar Wave bounty cycles run monthly; Wave 8 concluded Aug 31, 2026. A legacy Drips contract was exploited on July 14, 2026 \u2014 the main platform is operational, but treat legacy contracts with care.",
       "sea_relevant": false,
       "last_verified": "2026-08-31"
     },
@@ -589,7 +589,7 @@
       "cadence": "cohort-based",
       "status": "open",
       "url": "https://corelia.academy/",
-      "notes": "UniHackfest 2026 is the main program. The Online National Qualifying Round is September 17-20.",
+      "notes": "UniHackfest 2026 is the main program. The Online National Qualifying Round is September 17-20. The domain is bot-protected \u2014 it returns 403 to plain fetchers but 200 in a browser, so do not mark it dead on a failed automated fetch.",
       "sea_relevant": true,
       "last_verified": "2026-08-31"
     },
@@ -621,7 +621,7 @@
       "cadence": "cohort-based",
       "status": "cohort-based",
       "url": "https://unihackfest.vn/",
-      "notes": "The national qualifying round is September 17-20, with the Grand Finale on September 26 in HCMC.",
+      "notes": "The national qualifying round is September 17-20, with the Grand Finale on September 26 in HCMC. unihackfest.vn returns 403 to plain fetchers (bot-protected, 200 in a browser), so do not mark it dead on a failed automated fetch.",
       "sea_relevant": true,
       "last_verified": "2026-08-31"
     },

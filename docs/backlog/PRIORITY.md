@@ -7,14 +7,17 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-1. `rubric-lexical-proximity` — `excused_by` discharges a whole check from a
+1. `weekly-skill-refresh-2026-08-31-verification` — #47 is red and blocks the
+   week's real findings from landing. Five of its six test failures are deleted
+   caveats, four of them the same ones the 24 August pass restored; the sixth is
+   the Colosseum test asserting a date format rather than the dates. Corrections
+   sit on a branch off the refresh head so the sourced material still ships.
+
+2. `rubric-lexical-proximity` — `excused_by` discharges a whole check from a
    phrase anywhere in the answer. The negation half of this was fixed on #46;
    this half was deferred because sentence-scoping the excuse costs web3 v1
    iter1 its 1.0 and makes `v2-22` a stable failure. The unit is a section, and
    it differs per check.
-
-_Empty._ No spec is open. New work starts with a `todo.<slug>.md` here.
-
 
 ## Recently shipped
 

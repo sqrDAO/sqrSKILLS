@@ -4,7 +4,7 @@
     "country": "Vietnam",
     "iso_alpha2": "VN",
     "iso_alpha3": "VNM",
-    "last_updated": "2026-08-31",
+    "last_updated": "2026-08-17",
     "data_freshness": "Core e-Visa and visa-exemption facts verified through July 2026; health-declaration, Pre-arrival Information pilot, and Timor-Leste agreement facts re-verified against primary government sources on 14 August 2026 and re-confirmed unchanged on 17 August 2026, when Decree 286/2026/ND-CP was added. Future-dated or implementation-specific items should be rechecked against evisa.gov.vn and primary legal sources before legal/compliance use.",
     "sources": [
       "https://evisa.gov.vn/",
@@ -171,8 +171,8 @@
     "DIGITAL_ARRIVAL_CARD": {
       "code": "DAC",
       "label": "Digital Arrival Card",
-      "description": "A pre-arrival declaration is now required for all foreign passport holders arriving at Vietnam's major international airports (including Noi Bai, Tan Son Nhat, and Da Nang). This is separate from the e-visa application. Travelers must complete the declaration free at https://prearrival.immigration.gov.vn within three days before entry and receive a QR code to present to immigration. The system is not a visa and grants no entry permission on its own.",
-      "status": "Required at major international airports"
+      "description": "The official Pre-arrival Information pilot began for foreign travelers at Ho Chi Minh City’s Tan Son Nhat International Airport on April 15, 2026. The Ministry of Public Security described participation as optional, not mandatory. The Ministry has said it will install the system at other international airports in future, and commercial visa sites report it live at Noi Bai, Da Nang, Phu Quoc, and Cam Ranh, but no Tier-1 or corroborated Tier-2 source confirms that expansion — do not state it as fact. Travelers may submit free at https://prearrival.immigration.gov.vn within three days before entry and receive a QR code. The system is not a visa and grants no entry permission on its own.",
+      "status": "Optional pilot at Tan Son Nhat; no nationwide rollout confirmed"
     }
   },
 

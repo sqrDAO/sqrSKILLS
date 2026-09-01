@@ -95,9 +95,16 @@ class RosterFactTest(unittest.TestCase):
 
     def test_colosseum_entries_agree_on_the_fall_hackathon_window(self):
         # Two entries describe the same event; a refresh left them contradicting
-        # each other and dropped the announced dates from both.
+        # each other and dropped the announced dates from both. What matters is
+        # that both still carry the window, not how either spells it: a refresh
+        # that rewrites "Sep 28-Nov 2" as "September 28 to November 2" has kept
+        # the fact, and failing it there teaches the next refresh to restore a
+        # string rather than a date.
+        starts = (r"Sep(?:t|tember)?\.?\s*28", r"Nov(?:ember)?\.?\s*2(?!\d)")
         for entry_id in ("colosseum-eternal", "colosseum-hackathon"):
-            self.assertIn("Sep 28-Nov 2", self.by_id[entry_id]["notes"], entry_id)
+            notes = self.by_id[entry_id]["notes"]
+            for pattern in starts:
+                self.assertRegex(notes, pattern, entry_id)
 
     def test_dead_or_redirecting_urls_are_not_reinstated(self):
         # Each of these was the entry's own `url` and no longer resolves there.
