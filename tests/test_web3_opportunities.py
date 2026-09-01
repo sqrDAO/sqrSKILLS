@@ -11,6 +11,7 @@ does reopen -- update the test deliberately in the same commit as the data.
 """
 
 import json
+import re
 import unittest
 from pathlib import Path
 
@@ -100,11 +101,16 @@ class RosterFactTest(unittest.TestCase):
         # that rewrites "Sep 28-Nov 2" as "September 28 to November 2" has kept
         # the fact, and failing it there teaches the next refresh to restore a
         # string rather than a date.
-        starts = (r"Sep(?:t|tember)?\.?\s*28", r"Nov(?:ember)?\.?\s*2(?!\d)")
+        # Matched as one ordered range rather than two loose dates: `Sep 28`
+        # and `Nov 2` found in unrelated sentences say nothing about the window,
+        # and a bare `28` would also match a `280`. The year is asserted
+        # separately because no announcement writes it inside the range.
+        window = re.compile(
+            r"Sep(?:t|tember)?\.?\s*28\b[^.\n]{0,30}?Nov(?:ember)?\.?\s*2\b", re.I)
         for entry_id in ("colosseum-eternal", "colosseum-hackathon"):
             notes = self.by_id[entry_id]["notes"]
-            for pattern in starts:
-                self.assertRegex(notes, pattern, entry_id)
+            self.assertRegex(notes, window, entry_id)
+            self.assertIn("2026", notes, entry_id)
 
     def test_dead_or_redirecting_urls_are_not_reinstated(self):
         # Each of these was the entry's own `url` and no longer resolves there.
