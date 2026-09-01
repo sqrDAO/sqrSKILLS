@@ -7,6 +7,12 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
+1. `rubric-lexical-proximity` — `negated()` and `excused_by` both decide by
+   character distance rather than clause structure, and CodeRabbit found the seam
+   in each on #46. Deferred from there because sentence-scoping the excuse costs
+   web3 v1 iter1 its 1.0 and makes `v2-22` a stable failure; the unit is a
+   section, and it differs per check.
+
 _Empty._ No spec is open. New work starts with a `todo.<slug>.md` here.
 
 
