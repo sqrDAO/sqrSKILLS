@@ -19,6 +19,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           persist-credentials: false
+          # The unanchored-instrument check judges what a change introduces, so
+          # it needs the base revision. A shallow clone has no `origin/main` to
+          # diff against, and the check would pass vacuously.
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -30,6 +34,14 @@ jobs:
 
       - name: Run harness tests
         run: python3 -m unittest discover -s tests -v
+
+      - name: Check new legal instruments carry an anchor
+        run: |
+          # `check_anchors.py` fetches URLs that exist, so it cannot see a claim
+          # citing nothing. This is that gap: an instrument number introduced by
+          # this change with no anchor beside it. Text only, no network.
+          git fetch --no-tags --depth=1 origin main
+          python3 scripts/check_unanchored.py --since origin/main
 
       - name: Check validation splits are not stale
         run: |
