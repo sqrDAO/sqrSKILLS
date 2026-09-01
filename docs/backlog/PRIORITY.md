@@ -7,19 +7,20 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-1. `weekly-skill-refresh-2026-08-31-verification` — #47 is red and blocks the
-   week's real findings from landing. Five of its six test failures are deleted
-   caveats, four of them the same ones the 24 August pass restored; the sixth is
-   the Colosseum test asserting a date format rather than the dates. Corrections
-   sit on a branch off the refresh head so the sourced material still ships.
-
-2. `rubric-lexical-proximity` — `excused_by` discharges a whole check from a
+1. `rubric-lexical-proximity` — `excused_by` discharges a whole check from a
    phrase anywhere in the answer. The negation half of this was fixed on #46;
    this half was deferred because sentence-scoping the excuse costs web3 v1
    iter1 its 1.0 and makes `v2-22` a stable failure. The unit is a section, and
    it differs per check.
 
 ## Recently shipped
+
+- `weekly-skill-refresh-2026-08-31-verification` — held the weekly refresh to what
+  it sourced. #47 deleted four caveats earlier passes had added, flipped two
+  `status` values its summary never mentioned, pointed an entry at a dead url, left
+  the eval answer key stale, and stated a wrong claim about Article 9 enforcement
+  competence plus an unsupported six-month grace period. Corrected on top of the
+  refresh so the week's real findings still shipped (#48).
 
 - `web3-opportunities-eval-split` — the gated skill-evolution loop, end to end on
   a second skill. v1 baseline 22/24, one edit applied and gated to 24/24 with the
