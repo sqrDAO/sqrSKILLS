@@ -7,7 +7,18 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-1. `rubric-lexical-proximity` — `excused_by` discharges a whole check from a
+1. `unanchored-instrument-check` — a new instrument number can appear in
+   `baseline.md` citing nothing and no gate notices: `validate_skills.py` does not
+   read prose, and `check_anchors.py` only tests URLs that exist. Two claims from
+   the 31 August refresh went through that gap, one of them wrong about Article 9
+   enforcement competence.
+
+2. `superseded-refresh-pr-hazard` — because the repo squash-merges, a refresh PR
+   corrected on a separate branch stays open and reverts those corrections if
+   merged. #47 would have undone four fixes and written conflict markers into two
+   data files. Structural, so it recurs weekly until the workflow changes.
+
+3. `rubric-lexical-proximity` — `excused_by` discharges a whole check from a
    phrase anywhere in the answer. The negation half of this was fixed on #46;
    this half was deferred because sentence-scoping the excuse costs web3 v1
    iter1 its 1.0 and makes `v2-22` a stable failure. The unit is a section, and
