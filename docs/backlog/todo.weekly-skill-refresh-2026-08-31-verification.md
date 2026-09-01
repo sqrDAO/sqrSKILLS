@@ -66,8 +66,8 @@ Regenerating then exposed builder drift: `v2-21`'s rubric carried a hand-typed `
 dilutive+mixed total beside a generated `<TRUTH_COUNT>`. Nothing reads a generated rubric back, so a
 typed number goes stale on the first refresh that moves it. `fill` now resolves `<TRUTH_COUNT_n>`
 over every query, the case queries `dilutive,mixed`, and an unfilled token is a hard error. The
-regenerated truth's only deltas against `main` are `+1` wherever `base- batches- accelerator` lands
-— the one legitimately new entry; before the status reverts they were `+2`, and that gap is what the
+regenerated truth's only deltas against `main` are `+1` wherever `base-batches-accelerator` lands —
+the one legitimately new entry; before the status reverts they were `+2`, and that gap is what the
 flips would have baked into the answer key. It moves the key under every stored web3 run: v2 A/B
 `0.9583 / 1.0` -> `0.9167 / 0.9583` with `v2-21` stable, v1 iter0 `0.9167` -> `0.8333` and iter1
 `1.0` -> `0.9167`, both on the two `<DATA_AS_OF>` checks. No behaviour regressed — the roster moved

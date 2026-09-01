@@ -1,8 +1,11 @@
 # Vietnam Crypto Regime — Baseline Snapshot
 
-> **LAST VERIFIED: 31 August 2026.**
-> Everything the radar reports as "new" is new relative to this date.
+> **LAST VERIFIED: 31 August 2026** — the date of the last full sweep, and the one
+> the radar diffs against. Everything it reports as "new" is new relative to this date.
 > After confirming real changes in a run, rewrite this file and bump the date.
+> **Targeted correction, 1 September 2026 (not a sweep):** Decree 284's Điều 9, 14 and
+> 15 only. The date above is deliberately not bumped for it — a full sweep is what that
+> date claims, and this pass did not perform one.
 > Verification note: the 1 September 2026 pass read Decree 284's Điều 9, 14 and 15 and
 > corrected the enforcement-competence claim the 31 August refresh added; it also marked
 > that refresh's "6-month trigger" and its three implementing circulars UNVERIFIED, since
