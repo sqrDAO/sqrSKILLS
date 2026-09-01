@@ -49,30 +49,30 @@ Colosseum test asserts a literal date format rather than the claim it documents.
 - `git diff --check` → no whitespace errors
 
 ## Notes
-Two anchor-hygiene findings NOT fixed here; neither breaks a check. The new Decree 284
-bullets (six-month trigger, Circulars 89 and 90/2026/TT-BTC, 39/2026/TT-NHNN) add no
-anchors, so three instrument numbers rest on nothing citable. The VON / G-Flow / GM
-Services / Dinogo update names fidinam.com and vietnamplus.vn inline without adding
-either, though that claim is hedged and overstates nothing.
+Two anchor-hygiene findings NOT fixed here; neither breaks a check. The new Decree 284 bullets (six-
+month trigger, Circulars 89 and 90/2026/TT-BTC, 39/2026/TT-NHNN) add no anchors, so three instrument
+numbers rest on nothing citable. The VON / G-Flow / GM Services / Dinogo update names fidinam.com
+and vietnamplus.vn inline without adding either, though that claim is hedged and overstates nothing.
 
-Scope grew twice past the original list, both times with approval. The stale-split check
-exposed two `status` flips the summary never mentioned: `solana-foundation-fellowships`
-`closed` → `open`, `tribe-accelerator` `cohort-based` → `open`. Both contradict their own
-new notes — the Solana cohort had already started, both of Tribe's deadlines had passed.
-The Solana one is sharper: deleting the "lists no program labelled 'Fellowships'"
-disavowal *and* flipping the status is the pair that walks past
-`test_no_open_entry_disavows_its_own_existence`, which only inspects entries already
-`open`. Both reverted, their new facts kept and stated as past.
+Scope grew twice past the original list, both times with approval. The stale-split check exposed two
+`status` flips the summary never mentioned: `solana-foundation-fellowships` `closed` → `open`,
+`tribe-accelerator` `cohort-based` → `open`. Both contradict their own new notes — the Solana cohort
+had already started, both of Tribe's deadlines had passed. The Solana one is sharper: deleting the
+"lists no program labelled 'Fellowships'" disavowal *and* flipping the status is the pair that walks
+past `test_no_open_entry_disavows_its_own_existence`, which only inspects entries already `open`.
+Both reverted, their new facts kept and stated as past.
 
 Regenerating then exposed builder drift: `v2-21`'s rubric carried a hand-typed `\b13\b` for the
-dilutive+mixed total beside a generated `<TRUTH_COUNT>`. Nothing reads a generated rubric back,
-so a typed number goes stale on the first refresh that moves it. `fill` now resolves
-`<TRUTH_COUNT_n>` over every query, the case queries `dilutive,mixed`, and an unfilled token is
-a hard error. The regenerated truth's only deltas against `main` are `+1` wherever `base-
-batches-accelerator` lands — the one legitimately new entry; before the status reverts they were
-`+2`, and that gap is what the flips would have baked into the answer key. It moves v2 truth for
-`v2-01`, `v2-19`, `v2-20` and `v2-21`, so #46's baseline (23/24, 24/24) was measured against the
-pre-refresh key and does not carry over.
+dilutive+mixed total beside a generated `<TRUTH_COUNT>`. Nothing reads a generated rubric back, so a
+typed number goes stale on the first refresh that moves it. `fill` now resolves `<TRUTH_COUNT_n>`
+over every query, the case queries `dilutive,mixed`, and an unfilled token is a hard error. The
+regenerated truth's only deltas against `main` are `+1` wherever `base- batches- accelerator` lands
+— the one legitimately new entry; before the status reverts they were `+2`, and that gap is what the
+flips would have baked into the answer key. It moves the key under every stored web3 run: v2 A/B
+`0.9583 / 1.0` -> `0.9167 / 0.9583` with `v2-21` stable, v1 iter0 `0.9167` -> `0.8333` and iter1
+`1.0` -> `0.9167`, both on the two `<DATA_AS_OF>` checks. No behaviour regressed — the roster moved
+under fixed transcripts. Tabled in `logs.md` so the figures AGENTS.md and #46 quote are not misread
+as a regression.
 
 `audit_refresh.py` reported this refresh honest (0 rolled back) because every affected
 entry's content changed, which it reads as support for the date bump. A rewritten note
