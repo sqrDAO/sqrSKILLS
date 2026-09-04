@@ -7,31 +7,34 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-1. `vietnam-crypto-radar-danang-blockchain-scheme` — Da Nang's signed Quyết định
-   2728/QĐ-UBND names Nghị quyết 55/2024/NQ-HĐND as the basis of its controlled-trial
-   regime, which the baseline attributed to 20/2026/NQ-HĐND on one Tier-2 anchor —
-   a resolution the 2025 approvals predate. The same documents expose a whole missing
-   layer: the International Financial Centre, one of whose two sites is Da Nang, and
-   the mechanism the city routes its crypto-asset and RWA products through.
-
-2. `unanchored-instrument-check` — a new instrument number can appear in
+1. `unanchored-instrument-check` — a new instrument number can appear in
    `baseline.md` citing nothing and no gate notices: `validate_skills.py` does not
    read prose, and `check_anchors.py` only tests URLs that exist. Two claims from
    the 31 August refresh went through that gap, one of them wrong about Article 9
    enforcement competence.
 
-3. `superseded-refresh-pr-hazard` — because the repo squash-merges, a refresh PR
+2. `superseded-refresh-pr-hazard` — because the repo squash-merges, a refresh PR
    corrected on a separate branch stays open and reverts those corrections if
    merged. #47 would have undone four fixes and written conflict markers into two
    data files. Structural, so it recurs weekly until the workflow changes.
 
-4. `rubric-lexical-proximity` — `excused_by` discharges a whole check from a
+3. `rubric-lexical-proximity` — `excused_by` discharges a whole check from a
    phrase anywhere in the answer. The negation half of this was fixed on #46;
    this half was deferred because sentence-scoping the excuse costs web3 v1
    iter1 its 1.0 and makes `v2-22` a stable failure. The unit is a section, and
    it differs per check.
 
 ## Recently shipped
+
+- `vietnam-crypto-radar-danang-blockchain-scheme` — Da Nang's signed blockchain
+  scheme to 2030 (Quyết định 2728/QĐ-UBND) named the resolution its controlled
+  trials actually sit under, 55/2024/NQ-HĐND, correcting a framing the baseline
+  carried on one Tier-2 anchor and which the 2025 approvals predate. It also
+  exposed the missing IFC layer — one centre at HCMC and Da Nang — and the split
+  routing crypto→fiat to the city sandbox and RWA issuance to the IFC. Review
+  caught seven defects in the change itself, including a refresh prompt that
+  would have restored the old framing within a week and three tests that asserted
+  the presence of prose rather than the claim inside it (#50).
 
 - `weekly-skill-refresh-2026-08-31-verification` — held the weekly refresh to what
   it sourced. #47 deleted four caveats earlier passes had added, flipped two
