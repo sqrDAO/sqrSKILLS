@@ -14,6 +14,10 @@ BASELINE = ROOT / "vietnam-crypto-radar" / "references" / "baseline.md"
 
 
 SKILL = ROOT / "vietnam-crypto-radar" / "SKILL.md"
+GLOSSARY = ROOT / "vietnam-crypto-radar" / "references" / "glossary.md"
+SOURCES = ROOT / "vietnam-crypto-radar" / "references" / "sources.md"
+ADOPTION = ROOT / "vietnam-crypto-radar" / "references" / "adoption.md"
+WORKFLOW = ROOT / ".github" / "workflows" / "weekly-skill-refresh.yml"
 
 
 class SkillRoutingTest(unittest.TestCase):
@@ -23,6 +27,67 @@ class SkillRoutingTest(unittest.TestCase):
         text = SKILL.read_text(encoding="utf-8")
         self.assertIn("all six", text)
         self.assertNotIn("baseline.md` for the four", text)
+
+
+class OpenQuestionConsistencyTest(unittest.TestCase):
+    """The strongest claim must not sit in the least-qualified file.
+
+    baseline.md records that which resolution governs the 22 Aug 2026 batch is
+    unresolved. SKILL.md, glossary.md and adoption.md each stated a flat "the
+    regime runs under 55/2024" -- and SKILL.md is what an agent reads first, so
+    the qualifier was missing exactly where it mattered most.
+    """
+
+    FILES = (SKILL, GLOSSARY, ADOPTION)
+
+    def test_no_file_asserts_55_2024_governs_the_august_2026_batch(self):
+        for path in self.FILES:
+            body = path.read_text(encoding="utf-8")
+            if "55/2024/NQ-HĐND" not in body:
+                continue
+            self.assertNotRegex(
+                body,
+                r"regime runs under\s+\*\*Nghị quyết 55/2024/NQ-HĐND\*\*,? not 20/2026",
+                path.name,
+            )
+            self.assertRegex(body, r"unresolved|not established", path.name)
+
+    def test_approval_is_not_upgraded_to_verified_operation(self):
+        # A decision evidences an approval inside a trial period. It does not
+        # evidence that anyone shipped. SP8's operating status is the scheme's
+        # own roadmap talking, and must stay attributed to it.
+        self.assertRegex(SKILL.read_text(encoding="utf-8"), r"roadmap records it")
+        self.assertNotIn("is already live there", SKILL.read_text(encoding="utf-8"))
+        self.assertIn(
+            "approved and inside the trial period", ADOPTION.read_text(encoding="utf-8")
+        )
+
+
+class WeeklyRefreshPromptTest(unittest.TestCase):
+    """The refresh rewrites baseline.md wholesale, so its prompt is data too.
+
+    #33, #47 and #48 were all the same failure: a refresh regenerated a section
+    from the prompt and lost what a correction pass had put in the file. A
+    correction that is not also made in the prompt has a one-week half-life.
+    """
+
+    def setUp(self):
+        self.text = WORKFLOW.read_text(encoding="utf-8")
+
+    def test_prompt_names_the_resolution_the_trials_actually_sit_under(self):
+        self.assertIn("Nghị quyết 55/2024/NQ-HĐND", self.text)
+        self.assertIn("Do NOT restore Nghị quyết 20/2026/NQ-HĐND", self.text)
+
+    def test_prompt_carries_the_scheme_and_its_tier_4_mechanisms(self):
+        self.assertIn("2728/QĐ-UBND", self.text)
+        self.assertIn("CITY SANDBOX", self.text)
+        self.assertIn("Never swap those", self.text)
+
+    def test_prompt_disambiguates_the_two_ifcs(self):
+        # The prompt is a wrapped YAML block scalar, so match across line breaks.
+        self.assertRegex(self.text, r"International Finance\s+Corporation")
+        self.assertRegex(self.text, r"Trung tâm tài chính quốc tế")
+        self.assertIn("ORIENTATION", self.text)
 
 
 class BaselineFactTest(unittest.TestCase):
@@ -141,8 +206,146 @@ class BaselineFactTest(unittest.TestCase):
         self.assertNotIn("by August 2026 six such trials are live", self.text)
 
     def test_da_nang_records_the_resolution_the_trials_sit_under(self):
-        # The individual QĐ-UBND approvals are downstream of this resolution.
+        # The city's own signed blockchain scheme cites 55/2024/NQ-HĐND as the basis
+        # of its sandbox. 20/2026/NQ-HĐND stays recorded, but it cannot be what the
+        # 2025 approvals were issued under -- both predate it.
+        self.assertIn("55/2024/NQ-HĐND", self.text)
         self.assertIn("20/2026/NQ-HĐND", self.text)
+        # Pin the date to the instrument, not just the number: a row that keeps
+        # the identifier while losing or changing 13 Dec 2024 is the same defect.
+        row = [
+            line for line in self.text.splitlines()
+            if "55/2024/NQ-HĐND (Da Nang)" in line
+        ]
+        self.assertEqual(1, len(row), "expected exactly one table row")
+        self.assertIn("13 Dec 2024", row[0])
+        self.assertNotIn(
+            "Da Nang is reported to license these under **Nghị quyết 20/2026/NQ-HĐND**",
+            self.text,
+        )
+
+    def test_resolution_20_is_not_reasserted_as_the_enabling_instrument(self):
+        # The failure this guards is a refresh restoring the old framing wholesale.
+        # 20/2026 may detail or replace 55/2024; which one the Aug 2026 batch issued
+        # under is an open question, not a fact.
+        self.assertIn("cannot be what the 2025 approvals were issued under", self.text)
+
+    def test_da_nang_scheme_records_its_decision_and_public_anchor(self):
+        self.assertIn("2728/QĐ-UBND", self.text)
+        self.assertIn("Signed 23 Jun 2026; effective on signing", self.text)
+        self.assertIn(
+            "2728.QD.UBND.23.06.2026.signed.signed.signed.signed.pdf", self.text
+        )
+        # The anchor is the same document the entry was written from.
+        self.assertIn(
+            "e7ab57b90861224bb280669f0e243269cbb86a531750185c42ca7b71946f3db2",
+            self.text,
+        )
+
+    def test_scheme_tier_4_records_which_mechanism_each_product_runs_under(self):
+        # SP8 is live under the city sandbox; SP9 and SP10 are IFC-routed and not
+        # approved. Collapsing or swapping the two mechanisms is the error this
+        # pins, so assert the mapping itself -- asserting only that SP8/SP9/SP10
+        # appear would pass on a baseline that reversed them.
+        for product in ("SP8", "SP9", "SP10"):
+            self.assertIn(product, self.text, product)
+        self.assertRegex(
+            self.text, r"SP8 runs under the \*\*city sandbox\*\*"
+        )
+        self.assertRegex(
+            self.text, r"\*\*SP9 and SP10 run under the IFC mechanism\*\*"
+        )
+        self.assertRegex(self.text, r"Neither is\s+approved, licensed or live")
+        # The inverse must never appear.
+        self.assertNotRegex(self.text, r"SP8 runs under the \*\*IFC")
+        self.assertNotRegex(self.text, r"SP9 and SP10 run under the (\*\*)?city sandbox")
+
+    def test_scheme_is_not_presented_as_a_licence(self):
+        self.assertIn(
+            "it creates no crypto-asset licence and no payment authorisation", self.text
+        )
+
+    def test_dnc_chain_constraints_are_not_attributed_to_tier_4(self):
+        # Báo Công luận filed the Tier-3 principle and DNC-Chain's exchange ban under
+        # Tier 4. The signed annex puts them elsewhere, and the difference is what the
+        # scheme means for crypto products.
+        # Match across a line wrap: reflowing the paragraph must not fail the test,
+        # the way test_the_two_unmarked_anchor_dates_agree once did.
+        self.assertRegex(self.text, r"the operating\s+principle for \*\*Tier 3\*\*")
+        self.assertRegex(self.text, r"\*\*DNC-Chain's\*\*\s+three constraints")
+
+    def test_annex_only_detail_is_marked_as_annex_only(self):
+        # The promulgating Decision resolves publicly; the annex does not. A later
+        # pass must not cite a URL for annex-sourced claims.
+        self.assertIn("not publicly resolvable", self.text)
+        self.assertIn("*(annex)*", self.text)
+
+    def test_ifc_instruments_are_recorded_with_the_orientation_caveat(self):
+        for instrument in (
+            "222/2025/QH15",
+            "323/2025/NĐ-CP",
+            "324/2025/NĐ-CP",
+            "329/2025/NĐ-CP",
+        ):
+            self.assertIn(instrument, self.text, instrument)
+        self.assertIn("That is a stated orientation, not a licence", self.text)
+
+    def test_ifc_name_collision_is_flagged(self):
+        # The World Bank's International Finance Corporation appears in the same
+        # Da Nang coverage as Vietnam's Trung tâm tài chính quốc tế. The baseline
+        # mention is incidental; the guidance an agent reads when labelling an
+        # instrument lives in glossary.md and sources.md, so guard those too.
+        self.assertIn("International Finance Corporation", self.text)
+        for path in (GLOSSARY, SOURCES):
+            body = path.read_text(encoding="utf-8")
+            self.assertIn("International Finance Corporation", body, path.name)
+        # Three different regimes answer to the word "sandbox".
+        self.assertIn("Trung tâm tài chính quốc tế", GLOSSARY.read_text(encoding="utf-8"))
+        self.assertIn(
+            "thử nghiệm có kiểm soát", GLOSSARY.read_text(encoding="utf-8")
+        )
+
+    def test_rwa_tokenisation_proposal_stays_a_proposal(self):
+        self.assertIn("PROPOSED / SINGLE-SOURCE", self.text)
+        self.assertIn("This is an intention, not an instrument", self.text)
+
+    def test_investment_law_uses_the_tier_1_signing_date(self):
+        # The Da Nang scheme dates Law 143/2025/QH15 to 27 Jun 2025, which is the
+        # date of Resolution 222/2025/QH15. The government database says 11 Dec
+        # 2025. Assert the date the row actually gives, not just the warning that
+        # follows it -- a row could adopt the wrong date and keep the warning.
+        self.assertIn("143/2025/QH15", self.text)
+        self.assertIn("gives 11 Dec 2025 as the signing date", self.text)
+        self.assertIn("do not repeat that date", self.text)
+        self.assertNotRegex(
+            self.text, r"143/2025/QH15[^|]*?[Ss]igned 27 Jun 2025"
+        )
+
+    def test_annex_iv_commencement_is_not_asserted_as_tier_1(self):
+        # The Tier-1 page carries only the law's 1 Mar 2026 commencement. The
+        # 1 Jul 2026 Annex IV date rests on Tier-2 publishers plus the Da Nang
+        # scheme, and the state-of-play paragraph must say so rather than
+        # asserting it flat -- an agent leads with that paragraph.
+        self.assertIn("its Annex IV is REPORTED to take effect", self.text)
+        self.assertNotIn(
+            "whose Annex IV takes effect **1 July 2026**", self.text
+        )
+
+    def test_scheme_decision_number_provenance_is_recorded(self):
+        # Neither "2728" nor the day appears in the Decision's text layer, so a
+        # verifier who opens the anchor and searches for them finds nothing.
+        # Without this note the entry looks unverifiable against its own source.
+        self.assertIn("Number and day are not in the text layer", self.text)
+        self.assertIn("comes from the portal filename", self.text)
+
+    def test_annex_provenance_is_not_overstated(self):
+        # One organisational CA seal with no named signer, and a modification
+        # timestamp rather than a signature date. The annex is the sole source
+        # for the heaviest claims in this section, so it must not read as equal
+        # to the Decision, which carries three named signatures.
+        self.assertIn("no named signer", self.text)
+        self.assertIn("not a signature date", self.text)
+        self.assertNotIn("Tier 1 by signature", self.text)
 
     def test_resolution_20_is_not_published_as_confirmed_on_one_source(self):
         # sources.md requires Tier 1, a named law firm, or two independent Tier-2

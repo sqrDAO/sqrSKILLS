@@ -24,7 +24,8 @@ crypto-native on every conflict. Always carry the instrument number.
 | National Assembly | quochoi.vn | Primary laws, legislative agenda | Quarterly / on news |
 | Legal text database | thuvienphapluat.vn | Searchable instrument lookup, status, effective dates (partly paywalled but best for confirming a number/status) | Per run when confirming an instrument |
 | Official Gazette (Công báo) | congbao.chinhphu.vn | Authoritative publication of issued instruments | When confirming issuance |
-| Da Nang city portal | danang.gov.vn | Municipal controlled technology trials and local implementation decisions | On Da Nang signal |
+| Da Nang city portal | danang.gov.vn · cttdt.danangportal.gov.vn | Municipal controlled technology trials, the city blockchain scheme, and local implementation decisions | On Da Nang signal |
+| Da Nang signed-document store | danang.gov.vn/documents/37638/164901/ | The signed PDFs themselves, named `<number>.QD.UBND.<DD.MM.YYYY>.signed[...].pdf`. Both hosts serve the same file. Missing paths return HTTP 200 with an HTML error page, so check the content type, not the status | When you have a decision number |
 
 > Tip: the fastest way to *confirm* a rumored circular is real is to search its number on
 > thuvienphapluat.vn or find it on vanban.chinhphu.vn / congbao. No number on a primary site = treat as DRAFT/RUMORED.
@@ -42,7 +43,17 @@ crypto-native on every conflict. Always carry the instrument number.
 - National Assembly legal text search: `https://quochoi.vn` and legal databases for the law number/title.
 - When checking payment legality, search SBV for both English and Vietnamese terms: `tiền ảo`, `tài sản ảo`, `tài sản mã hóa`, `phương tiện thanh toán`, `NHNN-PC`.
 - Da Nang Decisions 3809–3812/QĐ-UBND controlled technology trials: `https://danang.gov.vn/vi/web/dng/w/chi-dao-dieu-hanh-noi-bat-cua-ubnd-chu-tich-cac-pho-chu-tich-ubnd-thanh-pho-ngay-22-8` (confirmed 24 Aug 2026). Treat these as local trial approvals, not national CASP/exchange licenses.
-- The Da Nang trial regime did not start in August 2026. Check the earlier approvals too — Decision 1181/QĐ-UBND (Basal Pay) and 2895/QĐ-UBND (MIMO, running to Dec 2028) — and the enabling Nghị quyết 20/2026/NQ-HĐND. A count of Da Nang trials that only covers the latest batch is wrong.
+- The Da Nang trial regime did not start in August 2026. Check the earlier approvals too — Decision 1181/QĐ-UBND (Basal Pay) and 2895/QĐ-UBND (MIMO, running to Dec 2028) — and the enabling Nghị quyết 55/2024/NQ-HĐND. A count of Da Nang trials that only covers the latest batch is wrong.
+- Da Nang blockchain scheme to 2030, Quyết định 2728/QĐ-UBND: `https://www.danang.gov.vn/documents/37638/164901/2728.QD.UBND.23.06.2026.signed.signed.signed.signed.pdf` and the portal announcement `https://cttdt.danangportal.gov.vn/vi/web/dng/w/thuc-day-ung-dung-va-phat-trien-cong-nghe-blockchain`
+- Approved Da Nang controlled-trial solutions, current list: `https://startupdanang.vn/danh-sach-cac-giai-phap-duoc-phe-duyet-thuc-hien-thu-nghiem-co-kiem-soat` — scope and operators, no decision numbers.
+- Vietnam's International Financial Centre — Nghị quyết 222/2025/QH15: `https://vanban.chinhphu.vn/?pageid=27160&docid=214392`; Nghị định 323/2025/NĐ-CP: `https://vanban.chinhphu.vn/?pageid=27160&docid=216242`; 324/2025/NĐ-CP: `https://vanban.chinhphu.vn/?pageid=27160&docid=216246`; 329/2025/NĐ-CP (banking, FX, AML/CFT): `https://vanban.chinhphu.vn/?pageid=27160&docid=216256`
+- Law on Investment 143/2025/QH15, whose Annex IV makes crypto-asset services conditional: `https://vanban.chinhphu.vn/?pageid=27160&docid=216524`
+
+> **Two traps in Da Nang and IFC material.** First, "IFC" means Vietnam's Trung tâm tài chính
+> quốc tế *and* the World Bank's International Finance Corporation, and both appear in Da Nang
+> coverage. Second, "sandbox" means the city's municipal trial regime, the national pilot, or
+> the IFC's controlled-testing environment — three different issuers and perimeters. Resolve
+> both before repeating a source's sentence. See `glossary.md`.
 
 ---
 
@@ -108,3 +119,10 @@ sole basis for a stated fact.
 - `"3809/QĐ-UBND" OR "3810/QĐ-UBND" OR "3811/QĐ-UBND" OR "3812/QĐ-UBND"`
 - `site:danang.gov.vn "thử nghiệm có kiểm soát" ("cấp phép" OR "phê duyệt") [current year]` — catches new approvals and any suspension/extension of an existing trial
 - `"20/2026/NQ-HĐND" Đà Nẵng "thử nghiệm có kiểm soát"`
+- `"55/2024/NQ-HĐND" Đà Nẵng "thử nghiệm có kiểm soát"` — the resolution the city's own scheme cites
+- `"2728/QĐ-UBND" OR "DNC-Chain" Đà Nẵng chuỗi khối`
+- `"DNC-Chain" ("Layer-1" OR "quy chế" OR "vận hành")` — catches the scheme's next deliverables
+- `site:danang.gov.vn/documents "QD.UBND" chuỗi khối` — the signed-PDF store
+- `"Trung tâm tài chính quốc tế" ("tài sản số" OR "tài sản mã hóa") Đà Nẵng`
+- `"323/2025/NĐ-CP" OR "329/2025/NĐ-CP" "tài sản số"`
+- `"token hóa" ("RWA" OR "tài sản thực") Đà Nẵng` — the infrastructure-tokenisation track

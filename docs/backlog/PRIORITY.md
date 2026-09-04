@@ -26,6 +26,16 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Recently shipped
 
+- `vietnam-crypto-radar-danang-blockchain-scheme` — Da Nang's signed blockchain
+  scheme to 2030 (Quyết định 2728/QĐ-UBND) named the resolution its controlled
+  trials actually sit under, 55/2024/NQ-HĐND, correcting a framing the baseline
+  carried on one Tier-2 anchor and which the 2025 approvals predate. It also
+  exposed the missing IFC layer — one centre at HCMC and Da Nang — and the split
+  routing crypto→fiat to the city sandbox and RWA issuance to the IFC. Review
+  caught seven defects in the change itself, including a refresh prompt that
+  would have restored the old framing within a week and three tests that asserted
+  the presence of prose rather than the claim inside it (#50).
+
 - `weekly-skill-refresh-2026-08-31-verification` — held the weekly refresh to what
   it sourced. #47 deleted four caveats earlier passes had added, flipped two
   `status` values its summary never mentioned, pointed an entry at a dead url, left

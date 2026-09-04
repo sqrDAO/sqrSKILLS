@@ -227,6 +227,64 @@ class CheckAnchorsTests(unittest.TestCase):
             self.assertTrue(check_anchors.collect(ROOT, (target,)), target)
 
 
+class _FakeResponse:
+    """Enough of an http.client.HTTPResponse for served_as_expected."""
+
+    def __init__(self, status: int, content_type: str | None, body: bytes = b"") -> None:
+        self.status = status
+        self.headers = {} if content_type is None else {"Content-Type": content_type}
+        self._body = body
+
+    def read(self, size: int = -1) -> bytes:
+        return self._body if size < 0 else self._body[:size]
+
+
+class PdfAnchorContentTests(unittest.TestCase):
+    """Da Nang's portal answers a missing document path with 200 + HTML.
+
+    A status code is not evidence there when the host lies with it. Without
+    this, an anchor pointing at a moved or renamed signed PDF passes as `ok`
+    while carrying nothing -- the exact silent unsourcing check_anchors exists
+    to catch, and the trap sources.md documents.
+    """
+
+    PDF_URL = (
+        "https://www.danang.gov.vn/documents/37638/164901/"
+        "2728.QD.UBND.23.06.2026.signed.signed.signed.signed.pdf"
+    )
+
+    def test_pdf_anchor_served_as_html_is_dead(self) -> None:
+        verdict, status = check_anchors.served_as_expected(
+            self.PDF_URL, _FakeResponse(200, "text/html;charset=UTF-8", b"<!DOCTYPE")
+        )
+        self.assertEqual("dead", verdict)
+        self.assertIn("not-a-pdf", str(status))
+
+    def test_pdf_anchor_served_as_pdf_is_ok(self) -> None:
+        verdict, _ = check_anchors.served_as_expected(
+            self.PDF_URL, _FakeResponse(200, "application/pdf")
+        )
+        self.assertEqual("ok", verdict)
+
+    def test_pdf_without_a_content_type_falls_back_to_the_signature(self) -> None:
+        # Some hosts send octet-stream or no type at all; failing those would
+        # be a header quirk masquerading as link rot.
+        for content_type in ("application/octet-stream", None):
+            verdict, _ = check_anchors.served_as_expected(
+                self.PDF_URL, _FakeResponse(200, content_type, b"%PDF-1.7")
+            )
+            self.assertEqual("ok", verdict, content_type)
+
+    def test_html_anchors_are_untouched_by_the_pdf_rule(self) -> None:
+        # The checker deliberately does not read prose, so an HTML citation is
+        # judged on status alone. Narrowing to `.pdf` keeps it that way.
+        verdict, _ = check_anchors.served_as_expected(
+            "https://vanban.chinhphu.vn/?pageid=27160&docid=216242",
+            _FakeResponse(200, "text/html; charset=utf-8", b"<!DOCTYPE"),
+        )
+        self.assertEqual("ok", verdict)
+
+
 class AnchorTargetSafetyTests(unittest.TestCase):
     """The URLs come from files an agent writes out of untrusted web pages."""
 

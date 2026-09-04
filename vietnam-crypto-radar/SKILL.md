@@ -1,7 +1,7 @@
 ---
 name: vietnam-crypto-radar
-version: 0.4.8
-description: Produce up-to-date intelligence briefings on Vietnam's crypto/digital-asset landscape — laws, decrees, circulars, licensing, tax, accounting, administrative penalties, the pilot exchange market, local controlled technology trials such as Da Nang's crypto/fiat sandbox, and enforcement. Use this skill WHENEVER the user asks "what's new with Vietnam crypto," wants a regulatory update, asks about a specific instrument (e.g. the DTI Law, Resolution 05, Decree 284, or a TT-BTC circular), wants to know the status of the pilot/VASP licensing, asks about crypto tax or penalties in Vietnam, or needs a briefing for a partner/investor/founder on the VN digital-asset regime. It also covers the retail/consumer reality (see `references/adoption.md`) — why on-chain adoption is top-5 in the world yet you can't pay rent in USDT, which offshore exchanges Vietnamese people actually use (Binance, OKX, Bybit, Bitget, Gate.io, MEXC), whether crypto is spendable day-to-day, and whether crypto cards (Bitget/OKX/SafePal) work here — and maps the VN Web3 ecosystem players as context (communities, builders, student/education programs, events, flagship projects; see `references/ecosystem.md`). Trigger even when the user doesn't say the word "skill" — phrases like "VN crypto reg," "is X legal in Vietnam now," "Vietnam exchange license," "Vietnam crypto fines," "any movement on the sandbox," "Da Nang crypto sandbox," "which exchanges are popular in Vietnam," "can I pay with crypto/USDT in Vietnam," "do crypto cards work in Vietnam," "who are the Vietnam web3 communities," or "catch me up on Vietnam digital assets" all apply. Prefer this over answering from memory, because the regime is moving fast and stale answers are worse than no answer.
+version: 0.5.0
+description: Produce up-to-date intelligence briefings on Vietnam's crypto/digital-asset landscape — laws, decrees, circulars, licensing, tax, accounting, administrative penalties, the pilot exchange market, local controlled technology trials such as Da Nang's crypto/fiat sandbox, city blockchain schemes (Da Nang's Đề án to 2030 and DNC-Chain), Vietnam's International Financial Centre at Ho Chi Minh City and Da Nang, and enforcement. Use this skill WHENEVER the user asks "what's new with Vietnam crypto," wants a regulatory update, asks about a specific instrument (e.g. the DTI Law, Resolution 05, Decree 284, or a TT-BTC circular), wants to know the status of the pilot/VASP licensing, asks about crypto tax or penalties in Vietnam, or needs a briefing for a partner/investor/founder on the VN digital-asset regime. It also covers the retail/consumer reality (see `references/adoption.md`) — why on-chain adoption is top-5 in the world yet you can't pay rent in USDT, which offshore exchanges Vietnamese people actually use (Binance, OKX, Bybit, Bitget, Gate.io, MEXC), whether crypto is spendable day-to-day, and whether crypto cards (Bitget/OKX/SafePal) work here — and maps the VN Web3 ecosystem players as context (communities, builders, student/education programs, events, flagship projects; see `references/ecosystem.md`). Trigger even when the user doesn't say the word "skill" — phrases like "VN crypto reg," "is X legal in Vietnam now," "Vietnam exchange license," "Vietnam crypto fines," "any movement on the sandbox," "Da Nang crypto sandbox," "Da Nang blockchain plan," "what is DNC-Chain," "can I tokenize RWAs in Vietnam," "what is the Vietnam IFC," "which exchanges are popular in Vietnam," "can I pay with crypto/USDT in Vietnam," "do crypto cards work in Vietnam," "who are the Vietnam web3 communities," or "catch me up on Vietnam digital assets" all apply. Prefer this over answering from memory, because the regime is moving fast and stale answers are worse than no answer.
 allowed-tools:
   - Read
   - Write
@@ -45,6 +45,11 @@ Distinguish three things that get sloppily merged:
 - **Property/asset recognition** (crypto is legally ownable, transferable, inheritable — YES since the DTI Law).
 - **Means of payment** (using crypto to pay for goods — still NOT lawful; SBV position persists).
 - **Tradable on a licensed market** (only via the pilot's licensed providers; offshore-exchange use sits outside the protected perimeter).
+
+And keep the three permission regimes apart — they have different issuers and perimeters, and sources use "sandbox" for all of them:
+- **A municipal controlled trial** (Da Nang, under Nghị quyết 55/2024/NQ-HĐND) — a time-limited technology-trial certificate for a named solution at named sites.
+- **The national pilot** (Resolution 05/2025/NQ-CP, Decision 96/QĐ-BTC) — the only route to a licensed crypto-asset trading market.
+- **The IFC** (Nghị quyết 222/2025/QH15, Nghị định 323/2025/NĐ-CP) — a special-mechanism zone at HCMC and Da Nang whose Da Nang site is *oriented* toward digital-asset products. Orientation is not authorization.
 
 ## Output template
 
@@ -101,9 +106,30 @@ Builder-facing and direct. Crypto-native register is fine and expected (GM, BUID
   local controlled-trial decisions — 1181 (Basal Pay) and 2895 (MIMO), both still running,
   plus 3809–3812 from 22 Aug 2026 — and `adoption.md` for the crypto→VND use cases. Six is
   a floor, not a total: the regime is not crypto-specific and earlier 2026 batches are not
-  enumerated, so check for newer approvals before answering. State explicitly that a Da Nang
-  technology-trial approval is not a national CASP/exchange license and does not legalize
-  direct crypto merchant payments nationwide.
+  enumerated, so check for newer approvals before answering. The 2025 approvals (1181, 2895)
+  were issued under **Nghị quyết 55/2024/NQ-HĐND**; they cannot rest on 20/2026, which
+  postdates them. Which of the two the 22 Aug 2026 batch sits under is **not established** —
+  say so rather than picking one. State explicitly that a Da Nang technology-trial approval
+  is not a national CASP/exchange license and does not legalize direct crypto merchant
+  payments nationwide. The six trials are **approved and within their trial periods**; that
+  is what the decisions evidence. Do not upgrade that to verified user-facing operation
+  without a separate source.
+- "What is Da Nang's blockchain plan / DNC-Chain / the Đề án?" → read the
+  `Da Nang blockchain scheme to 2030` section of `baseline.md`. Lead with what it is
+  (Quyết định 2728/QĐ-UBND, 23 Jun 2026, a municipal programme document) and what it is not
+  (no licence, no payment authorisation). Give the four tiers, then be precise about Tier 4:
+  SP8 crypto→fiat runs under the **city sandbox**, where the scheme's own roadmap records it
+  as already operating — attribute that to the roadmap, not to independent evidence; SP9 (crypto-asset
+  and RWA issuance, custody, trading) and SP10 (blockchain crowdfunding) run under the **IFC**
+  and are at coordination stage, not approved. Flag that DNC-Chain itself will not host a
+  crypto exchange, and that one Tier-2 outlet misfiled that constraint under Tier 4.
+- "What is the Vietnam IFC / can I tokenize RWAs there?" → Nghị quyết 222/2025/QH15 and
+  Nghị định 323, 324 & 329/2025/NĐ-CP: one centre, two sites (HCMC and Da Nang), with the
+  Da Nang site *oriented* toward controlled testing of new financial models and digital-asset
+  products. Orientation is not a licence and not an operating market — no digital-asset member
+  admission is on record. Disambiguate "IFC" from the World Bank's International Finance
+  Corporation, which appears in the same coverage. Da Nang's ~US$4bn infrastructure-tokenisation
+  proposal is PROPOSED / SINGLE-SOURCE; do not present it as a programme.
 - "Vietnam crypto tax?" → Tax corner; trace the rule through Law 109/2025/QH15, Decree 253/2026/NĐ-CP, and Circulars 32, 41 & 87/2026/TT-BTC; include Decree 254/2026/NĐ-CP when e-invoicing is relevant; flag the individual-PIT withholding mechanism's operational status.
 - "What are the penalties / can I use an unlicensed exchange?" → load baseline, verify Decree 284/2026/NĐ-CP is in force for the date asked, distinguish organization and individual fine ceilings, and state whether the conduct falls inside the pilot rules before quoting a penalty.
 - "Brief a partner/investor on VN digital assets" → full template, lead with the asset-recognition + pilot story, keep it tight.
