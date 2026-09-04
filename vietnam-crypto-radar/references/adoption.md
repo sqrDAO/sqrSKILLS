@@ -66,14 +66,17 @@ is the earlier approval — and four more started on 22 August 2026:
 PayD (18 months), TORA (36 months), Umi Pay (36 months), and Money X-Border (24 months).
 MIMO and TORA both test non-custodial USDT↔VND conversion, TORA with an essential-services
 payment gateway; Umi Pay tests non-custodial USDT/USDC↔VND conversion for tourism and local
-services; Money X-Border tests crypto-based off-chain settlement infrastructure. The regime
-they sit in runs under Nghị quyết 55/2024/NQ-HĐND. See `baseline.md` for decision numbers,
-operators, and primary sources. These are time-limited municipal technology trials, not
-national CASP/exchange licenses and not a repeal of the SBV means-of-payment boundary.
+services; Money X-Border tests crypto-based off-chain settlement infrastructure. The 2025
+approvals were issued under Nghị quyết 55/2024/NQ-HĐND; which resolution the August 2026
+batch sits under is unresolved (see `baseline.md`, which also has decision numbers, operators
+and primary sources). "Live" here means approved and inside the trial period — that is what
+the decisions evidence; user-facing operation needs its own source. These are time-limited
+municipal technology trials, not national CASP/exchange licenses and not a repeal of the SBV
+means-of-payment boundary.
 
 Da Nang's blockchain scheme to 2030 (**Quyết định 2728/QĐ-UBND**, 23 Jun 2026) treats this
-crypto→fiat conversion layer as one of ten products — "SP8", already operating under the city
-sandbox — and routes the more consumer-visible things people ask about next, crypto-asset
+crypto→fiat conversion layer as one of ten products — "SP8", which the scheme's roadmap
+records as already operating under the city sandbox — and routes the more consumer-visible things people ask about next, crypto-asset
 issuance/trading and blockchain crowdfunding, to the International Financial Centre rather
 than the sandbox. Neither is approved. For a user asking "will I be able to spend crypto in
 Da Nang," the honest answer is unchanged: conversion to VND inside a supervised perimeter,

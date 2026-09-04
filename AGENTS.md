@@ -145,6 +145,15 @@ whose certificate does not validate, is reported as unverified rather than dead,
 a bot-hostile site or a TLS quirk cannot block a refresh. TLS verification stays on:
 an anchor we could not validate is never reported as `ok`.
 
+One host lies with its status code, so a 2xx is not always enough. Da Nang's
+portal answers a missing document path with HTTP 200 and an HTML error page,
+which would let an anchor pointing at a moved or renamed signed PDF pass as `ok`
+while carrying nothing. An anchor whose URL path ends in `.pdf` therefore also
+has to come back as a PDF — by `Content-Type` or by the `%PDF-` signature, since
+some hosts send `octet-stream` or no type at all — and is `dead` otherwise. The
+rule is scoped to `.pdf` on purpose: the checker does not read prose, so an HTML
+citation is still judged on status alone.
+
 The URLs it fetches come from files an unattended agent writes from web pages, so
 they are untrusted. Only public `http`/`https` targets are fetched — other schemes
 (`urlopen` also speaks `file:`), hostless URLs, and loopback, private, link-local

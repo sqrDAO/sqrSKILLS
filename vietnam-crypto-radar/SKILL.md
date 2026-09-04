@@ -106,15 +106,20 @@ Builder-facing and direct. Crypto-native register is fine and expected (GM, BUID
   local controlled-trial decisions — 1181 (Basal Pay) and 2895 (MIMO), both still running,
   plus 3809–3812 from 22 Aug 2026 — and `adoption.md` for the crypto→VND use cases. Six is
   a floor, not a total: the regime is not crypto-specific and earlier 2026 batches are not
-  enumerated, so check for newer approvals before answering. The regime runs under
-  **Nghị quyết 55/2024/NQ-HĐND**, not 20/2026 — the 2025 approvals predate 20/2026. State
-  explicitly that a Da Nang technology-trial approval is not a national CASP/exchange license
-  and does not legalize direct crypto merchant payments nationwide.
+  enumerated, so check for newer approvals before answering. The 2025 approvals (1181, 2895)
+  were issued under **Nghị quyết 55/2024/NQ-HĐND**; they cannot rest on 20/2026, which
+  postdates them. Which of the two the 22 Aug 2026 batch sits under is **not established** —
+  say so rather than picking one. State explicitly that a Da Nang technology-trial approval
+  is not a national CASP/exchange license and does not legalize direct crypto merchant
+  payments nationwide. The six trials are **approved and within their trial periods**; that
+  is what the decisions evidence. Do not upgrade that to verified user-facing operation
+  without a separate source.
 - "What is Da Nang's blockchain plan / DNC-Chain / the Đề án?" → read the
   `Da Nang blockchain scheme to 2030` section of `baseline.md`. Lead with what it is
   (Quyết định 2728/QĐ-UBND, 23 Jun 2026, a municipal programme document) and what it is not
   (no licence, no payment authorisation). Give the four tiers, then be precise about Tier 4:
-  SP8 crypto→fiat runs under the **city sandbox** and is already live there; SP9 (crypto-asset
+  SP8 crypto→fiat runs under the **city sandbox**, where the scheme's own roadmap records it
+  as already operating — attribute that to the roadmap, not to independent evidence; SP9 (crypto-asset
   and RWA issuance, custody, trading) and SP10 (blockchain crowdfunding) run under the **IFC**
   and are at coordination stage, not approved. Flag that DNC-Chain itself will not host a
   crypto exchange, and that one Tier-2 outlet misfiled that constraint under Tier 4.

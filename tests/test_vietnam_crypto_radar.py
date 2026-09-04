@@ -16,6 +16,7 @@ BASELINE = ROOT / "vietnam-crypto-radar" / "references" / "baseline.md"
 SKILL = ROOT / "vietnam-crypto-radar" / "SKILL.md"
 GLOSSARY = ROOT / "vietnam-crypto-radar" / "references" / "glossary.md"
 SOURCES = ROOT / "vietnam-crypto-radar" / "references" / "sources.md"
+ADOPTION = ROOT / "vietnam-crypto-radar" / "references" / "adoption.md"
 WORKFLOW = ROOT / ".github" / "workflows" / "weekly-skill-refresh.yml"
 
 
@@ -26,6 +27,40 @@ class SkillRoutingTest(unittest.TestCase):
         text = SKILL.read_text(encoding="utf-8")
         self.assertIn("all six", text)
         self.assertNotIn("baseline.md` for the four", text)
+
+
+class OpenQuestionConsistencyTest(unittest.TestCase):
+    """The strongest claim must not sit in the least-qualified file.
+
+    baseline.md records that which resolution governs the 22 Aug 2026 batch is
+    unresolved. SKILL.md, glossary.md and adoption.md each stated a flat "the
+    regime runs under 55/2024" -- and SKILL.md is what an agent reads first, so
+    the qualifier was missing exactly where it mattered most.
+    """
+
+    FILES = (SKILL, GLOSSARY, ADOPTION)
+
+    def test_no_file_asserts_55_2024_governs_the_august_2026_batch(self):
+        for path in self.FILES:
+            body = path.read_text(encoding="utf-8")
+            if "55/2024/NQ-HĐND" not in body:
+                continue
+            self.assertNotRegex(
+                body,
+                r"regime runs under\s+\*\*Nghị quyết 55/2024/NQ-HĐND\*\*,? not 20/2026",
+                path.name,
+            )
+            self.assertRegex(body, r"unresolved|not established", path.name)
+
+    def test_approval_is_not_upgraded_to_verified_operation(self):
+        # A decision evidences an approval inside a trial period. It does not
+        # evidence that anyone shipped. SP8's operating status is the scheme's
+        # own roadmap talking, and must stay attributed to it.
+        self.assertRegex(SKILL.read_text(encoding="utf-8"), r"roadmap records it")
+        self.assertNotIn("is already live there", SKILL.read_text(encoding="utf-8"))
+        self.assertIn(
+            "approved and inside the trial period", ADOPTION.read_text(encoding="utf-8")
+        )
 
 
 class WeeklyRefreshPromptTest(unittest.TestCase):
@@ -176,6 +211,14 @@ class BaselineFactTest(unittest.TestCase):
         # 2025 approvals were issued under -- both predate it.
         self.assertIn("55/2024/NQ-HĐND", self.text)
         self.assertIn("20/2026/NQ-HĐND", self.text)
+        # Pin the date to the instrument, not just the number: a row that keeps
+        # the identifier while losing or changing 13 Dec 2024 is the same defect.
+        row = [
+            line for line in self.text.splitlines()
+            if "55/2024/NQ-HĐND (Da Nang)" in line
+        ]
+        self.assertEqual(1, len(row), "expected exactly one table row")
+        self.assertIn("13 Dec 2024", row[0])
         self.assertNotIn(
             "Da Nang is reported to license these under **Nghị quyết 20/2026/NQ-HĐND**",
             self.text,

@@ -104,6 +104,9 @@ def collect(root: Path, targets: tuple[str, ...]) -> list[tuple[str, str]]:
 # and declining to serve us, which is not evidence about the document.
 DEFINITIVELY_GONE = (404, 410)
 
+# Content types that count as "this really is the PDF that was cited".
+PDF_CONTENT_TYPES = frozenset({"application/pdf", "application/x-pdf"})
+
 ALLOWED_SCHEMES = ("http", "https")
 
 
@@ -166,6 +169,37 @@ def hostname_resolves(url: str) -> bool:
     return True
 
 
+def served_as_expected(url: str, response) -> tuple[str, object]:
+    """Verdict for a 2xx response, checking the body is the kind of thing cited.
+
+    A 200 is normally proof enough, and for an HTML page it has to be: this
+    checker deliberately does not read prose, so it cannot tell a live article
+    from a redesigned one. There is one case where the status lies outright.
+    Da Nang's portal serves a missing document path as HTTP 200 with an HTML
+    error page, so an anchor pointing at a moved or renamed PDF passes as `ok`
+    while carrying nothing -- the silent unsourcing this whole script exists to
+    catch. `sources.md` documents that trap; without this the checker could not
+    act on it.
+
+    Scoped to anchors whose path ends in `.pdf`, so a host that answers HTML for
+    an HTML citation is untouched. A PDF served as HTML is `dead`: the response
+    is definitive about what is there, and what is there is not the document.
+    """
+    status = response.status
+    if not urllib.parse.urlsplit(url).path.lower().endswith(".pdf"):
+        return "ok", status
+
+    content_type = (response.headers.get("Content-Type") or "").split(";")[0].strip()
+    if content_type.lower() in PDF_CONTENT_TYPES:
+        return "ok", status
+    # Some hosts serve a PDF as octet-stream or omit the type entirely, so fall
+    # back to the file signature rather than failing on a header quirk.
+    head = response.read(5)
+    if head.startswith(b"%PDF-"):
+        return "ok", status
+    return "dead", f"{status} not-a-pdf ({content_type or 'no content-type'})"
+
+
 def classify(url: str, timeout: float, attempts: int) -> tuple[str, object]:
     """Return (verdict, status) where verdict is ok, dead, or unverified."""
     try:
@@ -186,7 +220,7 @@ def classify(url: str, timeout: float, attempts: int) -> tuple[str, object]:
     for attempt in range(attempts):
         try:
             with opener.open(request, timeout=timeout) as response:
-                return "ok", response.status
+                return served_as_expected(url, response)
         except urllib.error.HTTPError as exc:
             status = exc.code
             if exc.code in DEFINITIVELY_GONE:
