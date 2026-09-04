@@ -141,8 +141,85 @@ class BaselineFactTest(unittest.TestCase):
         self.assertNotIn("by August 2026 six such trials are live", self.text)
 
     def test_da_nang_records_the_resolution_the_trials_sit_under(self):
-        # The individual QĐ-UBND approvals are downstream of this resolution.
+        # The city's own signed blockchain scheme cites 55/2024/NQ-HĐND as the basis
+        # of its sandbox. 20/2026/NQ-HĐND stays recorded, but it cannot be what the
+        # 2025 approvals were issued under -- both predate it.
+        self.assertIn("55/2024/NQ-HĐND", self.text)
         self.assertIn("20/2026/NQ-HĐND", self.text)
+        self.assertNotIn(
+            "Da Nang is reported to license these under **Nghị quyết 20/2026/NQ-HĐND**",
+            self.text,
+        )
+
+    def test_resolution_20_is_not_reasserted_as_the_enabling_instrument(self):
+        # The failure this guards is a refresh restoring the old framing wholesale.
+        # 20/2026 may detail or replace 55/2024; which one the Aug 2026 batch issued
+        # under is an open question, not a fact.
+        self.assertIn("cannot be what the 2025 approvals were issued under", self.text)
+
+    def test_da_nang_scheme_records_its_decision_and_public_anchor(self):
+        self.assertIn("2728/QĐ-UBND", self.text)
+        self.assertIn("Signed 23 Jun 2026; effective on signing", self.text)
+        self.assertIn(
+            "2728.QD.UBND.23.06.2026.signed.signed.signed.signed.pdf", self.text
+        )
+        # The anchor is the same document the entry was written from.
+        self.assertIn(
+            "e7ab57b90861224bb280669f0e243269cbb86a531750185c42ca7b71946f3db2",
+            self.text,
+        )
+
+    def test_scheme_tier_4_records_which_mechanism_each_product_runs_under(self):
+        # SP8 is live under the city sandbox; SP9 and SP10 are IFC-routed and not
+        # approved. Collapsing the two mechanisms is the error this pins.
+        for product in ("SP8", "SP9", "SP10"):
+            self.assertIn(product, self.text, product)
+        self.assertRegex(self.text, r"Neither is\s+approved, licensed or live")
+
+    def test_scheme_is_not_presented_as_a_licence(self):
+        self.assertIn(
+            "it creates no crypto-asset licence and no payment authorisation", self.text
+        )
+
+    def test_dnc_chain_constraints_are_not_attributed_to_tier_4(self):
+        # Báo Công luận filed the Tier-3 principle and DNC-Chain's exchange ban under
+        # Tier 4. The signed annex puts them elsewhere, and the difference is what the
+        # scheme means for crypto products.
+        # Match across a line wrap: reflowing the paragraph must not fail the test,
+        # the way test_the_two_unmarked_anchor_dates_agree once did.
+        self.assertRegex(self.text, r"the operating\s+principle for \*\*Tier 3\*\*")
+        self.assertRegex(self.text, r"\*\*DNC-Chain's\*\*\s+three constraints")
+
+    def test_annex_only_detail_is_marked_as_annex_only(self):
+        # The promulgating Decision resolves publicly; the annex does not. A later
+        # pass must not cite a URL for annex-sourced claims.
+        self.assertIn("not publicly resolvable", self.text)
+        self.assertIn("*(annex)*", self.text)
+
+    def test_ifc_instruments_are_recorded_with_the_orientation_caveat(self):
+        for instrument in (
+            "222/2025/QH15",
+            "323/2025/NĐ-CP",
+            "324/2025/NĐ-CP",
+            "329/2025/NĐ-CP",
+        ):
+            self.assertIn(instrument, self.text, instrument)
+        self.assertIn("That is a stated orientation, not a licence", self.text)
+
+    def test_ifc_name_collision_is_flagged(self):
+        # The World Bank's International Finance Corporation appears in the same
+        # Da Nang coverage as Vietnam's Trung tâm tài chính quốc tế.
+        self.assertIn("International Finance Corporation", self.text)
+
+    def test_rwa_tokenisation_proposal_stays_a_proposal(self):
+        self.assertIn("PROPOSED / SINGLE-SOURCE", self.text)
+        self.assertIn("This is an intention, not an instrument", self.text)
+
+    def test_investment_law_uses_the_tier_1_signing_date(self):
+        # The Da Nang scheme dates Law 143/2025/QH15 to 27 Jun 2025, which is the
+        # date of Resolution 222/2025/QH15. The government database says 11 Dec 2025.
+        self.assertIn("143/2025/QH15", self.text)
+        self.assertIn("do not repeat that date", self.text)
 
     def test_resolution_20_is_not_published_as_confirmed_on_one_source(self):
         # sources.md requires Tier 1, a named law firm, or two independent Tier-2
