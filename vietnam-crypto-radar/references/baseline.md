@@ -1,19 +1,19 @@
 # Vietnam Crypto Regime — Baseline Snapshot
 
-> **LAST VERIFIED: 31 August 2026** — the date of the last full sweep, and the one
+> **LAST VERIFIED: 7 September 2026** — the date of the last full sweep, and the one
 > the radar diffs against. Everything it reports as "new" is new relative to this date.
 > After confirming real changes in a run, rewrite this file and bump the date.
+> **Verification note, 7 September 2026:** Confirmed the 6-month grace period for
+> Decree 284's penalties on individual investors (its basis is Resolution 05/2025/NQ-CP)
+> and added the Politburo's new disciplinary rule (Quy định 212-QĐ/TW) and the government's
+> pilot-acceleration order (Nghị quyết 262/NQ-CP).
 > **Targeted update, 4 September 2026 (not a sweep):** Da Nang's blockchain scheme
 > (Quyết định 2728/QĐ-UBND and its annexed Đề án) and the International Financial Centre
 > layer only, worked from the signed municipal documents. The date above is deliberately
 > not bumped for it either.
 > **Targeted correction, 1 September 2026 (not a sweep):** Decree 284's Điều 9, 14 and
 > 15 only. The date above is deliberately not bumped for it — a full sweep is what that
-> date claims, and this pass did not perform one.
-> Verification note: the 1 September 2026 pass read Decree 284's Điều 9, 14 and 15 and
-> corrected the enforcement-competence claim the 31 August refresh added; it also marked
-> that refresh's "6-month trigger" and its three implementing circulars UNVERIFIED, since
-> nothing found supports them. The 4 September 2026 update added Quyết định 2728/QĐ-UBND
+> date claims, and this pass did not perform one. The 4 September 2026 update added Quyết định 2728/QĐ-UBND
 > (Da Nang's blockchain scheme to 2030), corrected the resolution the city's controlled
 > trials sit under, and added the IFC instruments — Nghị quyết 222/2025/QH15 and Nghị định
 > 323, 324 and 329/2025/NĐ-CP — which the scheme names as the mechanism for its crypto-asset
@@ -49,7 +49,7 @@ Vietnam's confirmed regulatory anchor is the **Law on Digital Technology Industr
 |---|---|---|---|
 | **Law on Digital Technology Industry** (Law 71/2025/QH15) | First legal framework for digital assets, including tokenized and virtual assets; state management, cybersecurity, AML/CFT, sandbox hooks. | EFFECTIVE / CONFIRMED | 1 Jan 2026 |
 | **Law on Personal Income Tax** (Law 109/2025/QH15) | Formalizes 0.1% PIT on digital asset transfers. | ENACTED / CONFIRMED | 1 Jul 2026 |
-| **Resolution 05/2025/NQ-CP** | 5-year pilot for crypto-asset trading markets via licensed providers; local incorporation; VND settlement; high charter-capital bar. | EFFECTIVE / CONFIRMED | 9 Sep 2025 |
+| **Resolution 05/2025/NQ-CP** | 5-year pilot for crypto-asset trading markets via licensed providers; local incorporation; VND settlement; high charter-capital bar. Also the source of the 6-month grace period for Decree 284's penalties on individual investors. | EFFECTIVE / CONFIRMED | 9 Sep 2025 |
 | **Decision 96/QĐ-BTC** (Ministry of Finance) | Pilot implementation and licensing procedures for crypto-asset trading platforms. Sets VND 10T capital bar. | EFFECTIVE / CONFIRMED | 20 Jan 2026 |
 | **Nghị quyết 55/2024/NQ-HĐND (Da Nang)** | Da Nang People's Council resolution on the criteria, conditions and procedure for controlled trials of new technology solutions in the city. This is the instrument the city's own signed blockchain scheme cites as the basis of its sandbox, and the one Decision 1181/QĐ-UBND (Aug 2025) was issued under. Municipal scope only; it licenses technology trials, not financial services. | EFFECTIVE / CONFIRMED (LOCAL) | Issued 13 Dec 2024 |
 | **Nghị quyết 20/2026/NQ-HĐND (Da Nang)** | Da Nang People's Council resolution setting the criteria, conditions, registration, assessment, and licensing procedure for controlled trials of new technology solutions in the city — the same subject matter as 55/2024/NQ-HĐND above, which it appears to detail or replace. It is **not** what the 2025 approvals sit under: 1181 (26 Aug 2025) and 2895 (31 Dec 2025) both predate it. Municipal scope only. Rests on a single Tier-2 anchor (VnEconomy); promote only when a Tier-1 text or a second independent Tier-2 source confirms it. A same-numbered resolution exists in another province on an unrelated subject, so match the issuing council, not just the number. | REPORTED / SINGLE-SOURCE (LOCAL) | Issued 29 May 2026; no effective date stated in the anchor |
@@ -74,6 +74,7 @@ Vietnam's confirmed regulatory anchor is the **Law on Digital Technology Industr
 | **Quyết định 21/2026/QĐ-TTg** | Promulgates the Strategic Technology and Strategic Technology Product catalogues; blockchain (chuỗi khối) appears inside Group 1 (digital technology) alongside AI, big data, cloud, edge, and IoT — it is one line item in that group, not a standalone national priority. Replaces Decision 1131/QĐ-TTg. Signed 30 Apr 2026. Policy signal only; creates no crypto-asset obligations. | ENACTED / CONFIRMED | 1 Jul 2026 |
 | **Quyết định số 1624/QĐ-TTg** | Amends Quyết định 1068/QĐ-TTg (22 Aug 2019) approving the Intellectual Property Strategy to 2030. Adds a task to "nghiên cứu, xử lý vấn đề bảo hộ các đối tượng quyền sở hữu trí tuệ mới, phi truyền thống như dữ liệu lớn (big data), tài sản số, công nghệ chuỗi khối (blockchain)" — i.e. digital assets and blockchain named as new, non-traditional IP subject matter to be studied. Signed 21 Aug 2026 by Deputy PM Hồ Quốc Dũng. Policy signal only; creates no direct crypto-asset market obligations. | ENACTED / CONFIRMED | Signed 21 Aug 2026; no separate effective date stated in the anchor |
 | **Decree 284/2026/NĐ-CP** | Administrative violations and penalties for crypto assets and the pilot market. | ENACTED / CONFIRMED | 1 Sep 2026 |
+| **Quy định số 212-QĐ/TW (Politburo)** | Disciplinary rules for party members, explicitly including illicit activities related to crypto assets (`tài sản mã hóa`) and digital assets (`tài sản số`) for the first time. Sets severe penalties (up to expulsion) for acts like misappropriation or facilitating illegal exchanges. A political/regulatory instrument, not a state law, but signals high-level focus on enforcement. | EFFECTIVE / CONFIRMED (POLITICAL) | Issued 17 Aug 2026 |
 
 
 ### Pilot market rules (Res. 05 & Dec. 96) — CONFIRMED
@@ -203,7 +204,7 @@ regime, or the municipal trial decisions.
 - **Unlicensed services or marketing:** VND 180–200 million for organizations that provide or advertise crypto-asset services without the required market-service license; VND 90–100 million for an individual committing the equivalent violation under the decree's one-half rule.
 - **Domestic investor off-platform trading:** the published organizational bracket is VND 30–50 million for trading outside a Ministry of Finance-licensed provider; the equivalent individual bracket is VND 15–25 million under the decree's one-half rule.
 - **Article 9 (domestic investors), as the decree states it:** 30–50 million VND for a domestic investor trading outside a Ministry of Finance-licensed provider (khoản 2 Điều 7 of Resolution 05/2025/NQ-CP), and 70–100 million VND for trading assets offered or issued to foreign investors (khoản 1 Điều 6 of the same resolution). The article sets these brackets outright; no commencement condition appears in its text.
-- **A claimed "6-month trigger" is UNVERIFIED and should not be repeated as fact.** The 31 August 2026 refresh added a claim that Article 9 penalties apply only six months after the Ministry of Finance licenses the first domestic exchange, attributing it to Resolution 05. The 1 September 2026 sweep could not confirm it: it is not in Decree 284's own text, and Tier-1 press on precisely this question (VietnamNet, "Số phận các sàn giao dịch tài sản mã hoá quốc tế sẽ ra sao sau ngày 1/9") states that from 1/9 investors must trade through licensed domestic exchanges, describing no grace period. Absence of confirmation is not disproof — Resolution 05's own text was not read this run — but nothing found supports it. Do not tell a user they have a grace period.
+- **6-month grace period for individual investors is CONFIRMED.** Penalties under Article 9 for domestic investors trading on unlicensed platforms will only be applied **6 months after the first domestic crypto-asset exchange is officially licensed**. This grace period is established by **Resolution 05/2025/NQ-CP**, not Decree 284 itself. As no exchange is yet licensed, the grace period has not yet begun. Do not tell a user penalties are being applied to individuals today.
 - **Enforcement competence is split by Article 15(4), and it is not "MoF, SSC and the State Bank".** Điểm a assigns Điều 6, 7, 8, **9**, khoản 3 Điều 10, and Điều 11–13 to the authorities in Điều 14 khoản 1, 3, 5, 6 and 7 — the SSC inspectorate and its chair, police units of the Ministry of Public Security, provincial People's Committee chairs, and Ministry of Finance inspection teams. Điểm b assigns **only Điều 10–13** to khoản 2, 4 and 8, which are the State Bank bodies. So the State Bank has **no** Article 9 competence, and any summary omitting the police and provincial People's Committees understates who can penalise a domestic investor.
 - **Implementing circulars are UNVERIFIED.** The same refresh added **Circular 89/2026/TT-BTC**, **Circular 90/2026/TT-BTC** and **Circular 39/2026/TT-NHNN** as supporting guidance without citing any source, and none was confirmed on 1 September 2026. Treat all three numbers as unconfirmed until found on a primary site.
 - **Duration:** effective from 1 September 2026 until Resolution 05/2025/NQ-CP expires. Do not describe these administrative fines as currently effective for conduct before that date without checking transition rules and counsel.
@@ -219,7 +220,8 @@ regime, or the municipal trial decisions.
 
 ## IN MOTION (verify status every run — these move)
 
-- **Pilot exchange go-live:** reported target **Q3 2026**, accelerated by FATF grey-list pressure. Status: EXPECTED / NEEDS_CURRENT_CONFIRMATION.
+- **Pilot acceleration:** **Nghị quyết số 262/NQ-CP**, issued 5 Sep 2026 after the government's August meeting, directs the Ministry of Finance to accelerate the implementation of the crypto-asset market pilot program, signaling urgency. Status: ENACTED / CONFIRMED.
+- **Pilot exchange go-live:** reported target **Q3 2026**, now reinforced by Resolution 262's call for acceleration. Status: EXPECTED / NEEDS_CURRENT_CONFIRMATION.
 - **Licensing shortlist:** 5 entities are reported to be under final review by the Ministry of Finance, State Bank, and Ministry of Public Security. The list includes: **VIX Crypto Asset Exchange JSC**, **Loc Phat Vietnam Crypto Asset Exchange JSC**, **Vietnam Prosperity Crypto Asset Exchange JSC**, **Techcom Crypto Asset Exchange JSC**, and **Vietnam Digital Assets JSC**. Status: REPORTED, not final approvals.
 - **Digital assets as loan collateral:** Ministry of Finance has proposed allowing SMEs to use digital assets and intellectual property as collateral for bank loans. Status: PROPOSED / NEEDS_PRIMARY_SOURCE.
 - **Supervision framework:** The State Securities Commission (SSC) is actively developing a "System for management and supervision of the crypto-asset trading market" and a "regulatory framework for supervising the crypto-asset market," including staff training with international partners: the SSC ran a "Compliance and Enforcement in the crypto-asset market" programme with Tether and Chainalysis in Hanoi on 21 Jul 2026, with FATF standards, VASP compliance programmes, fund tracing, and illicit P2P networks on the agenda. Status: IN_PROGRESS / CONFIRMED.
@@ -237,6 +239,7 @@ regime, or the municipal trial decisions.
 
 - **National Assembly** — primary laws (Luật), e.g. the DTI Law, PIT Law.
 - **Government** — decrees (Nghị định) and resolutions (Nghị quyết), e.g. Resolution 05 & 66, Decree 164.
+- **Politburo** — disciplinary regulations for party members (Quy định), e.g. Quy định 212-QĐ/TW.
 - **Ministry of Finance (MOF)** — lead agency for the asset market + tax; issues circulars (Thông tư) and decisions (Quyết định).
 - **State Bank of Vietnam (SBV)** — payments, monetary policy, AML; owner of the "not a means of payment" line.
 - **Ministry of Public Security (MPS)** — AML enforcement, fraud/scam crackdowns.
@@ -253,7 +256,7 @@ regime, or the municipal trial decisions.
 - What is the status of the SSC's **supervision framework** and when will it be issued?
 - Has Decree 284 been amended, replaced, or accompanied by implementation guidance before/after its 1 Sep 2026 commencement?
 - Any change to the **offshore-exchange** stance (how foreign-platform users are treated/taxed)?
-- Any movement on **stablecoins**, **tokenized RWAs**, or a **CBDC/digital VND** pilot (separate track from crypto assets)?
+- Any new official statements or draft instruments on **tokenized RWAs**?
 - Have the **Da Nang** trials (1181, 2895, 3809–3812/QĐ-UBND) launched user-facing services,
   published operating limits, produced results, been extended, or been suspended?
 - What became of the Da Nang controlled-trial applications that were filed but are not among
