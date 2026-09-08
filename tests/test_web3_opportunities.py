@@ -105,8 +105,13 @@ class RosterFactTest(unittest.TestCase):
         # and `Nov 2` found in unrelated sentences say nothing about the window,
         # and a bare `28` would also match a `280`. The year is asserted
         # separately because no announcement writes it inside the range.
+        # Window moved deliberately on 2026-09-08: colosseum.com/hackathon now
+        # gives the Fall 2026 edition ("Crypto World's Fair") as Sep 14 - Oct 12,
+        # and both entries were updated to agree. The old Sep 28 - Nov 2 pair was
+        # the stale one, so this is the legitimate-change case the module
+        # docstring describes, not a refresh dropping a date.
         window = re.compile(
-            r"Sep(?:t|tember)?\.?\s*28\b[^.\n]{0,30}?Nov(?:ember)?\.?\s*2\b", re.I)
+            r"Sep(?:t|tember)?\.?\s*14\b[^.\n]{0,30}?Oct(?:ober)?\.?\s*12\b", re.I)
         for entry_id in ("colosseum-eternal", "colosseum-hackathon"):
             notes = self.by_id[entry_id]["notes"]
             self.assertRegex(notes, window, entry_id)

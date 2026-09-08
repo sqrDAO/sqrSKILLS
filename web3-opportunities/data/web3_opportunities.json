@@ -1,7 +1,7 @@
 {
   "_meta": {
     "document_type": "structured_web3_opportunity_roster",
-    "last_updated": "2026-09-07",
+    "last_updated": "2026-09-08",
     "data_freshness": "Program existence, type, chain/ecosystem, region, and dilution posture are evergreen and verified through June 2026. TIME-SENSITIVE fields (application deadlines, open/closed cohort status, current prize pool / check size, cadence) are baseline snapshots and MUST be re-verified live before the user applies or acts.",
     "coverage": "Global. Every entry is region-tagged. Southeast Asia / Vietnam-relevant entries carry sea_relevant: true.",
     "schema_version": "1.1.0",
@@ -45,9 +45,9 @@
       "cadence": "cohort-based (multiple batches/year)",
       "status": "open",
       "url": "https://alliance.xyz/",
-      "notes": "Applications for cohort ALL19 (starting Jan 11, 2027) have a deadline of September 23, 2026.",
+      "notes": "Applications for cohort ALL19 (starting Jan 11, 2027) have an early deadline of September 23, 2026 and a regular deadline of November 18, 2026.",
       "sea_relevant": true,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-09-08"
     },
     {
       "id": "outlier-ventures-basecamp",
@@ -445,9 +445,9 @@
       "cadence": "continuous streaming",
       "status": "open",
       "url": "https://www.drips.network/",
-      "notes": "The protocol is active and operational. The Stellar Wave bounty program is currently on Wave 7.",
+      "notes": "The protocol enables continuous funding. Specific partner programs have deadlines, e.g., Stellar Wave bounty cycles run monthly; Wave 8 concluded Aug 31, 2026. A legacy Drips contract was exploited on July 14, 2026 \u2014 the main platform is operational, but treat legacy contracts with care.",
       "sea_relevant": false,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-08-31"
     },
     {
       "id": "ethereum-protocol-fellowship",
@@ -459,11 +459,11 @@
       "regions": ["global", "remote"],
       "typical_check_or_prize": "Stipend + mentorship",
       "cadence": "annual cohort",
-      "status": "open",
+      "status": "closed",
       "url": "https://epf.wiki/",
-      "notes": "Applications for the 2026 cohort (EPF7) are now open. The program runs from June to November.",
+      "notes": "Applications for the 2026 cohort (EPF7) closed on May 13, 2026; the cohort itself runs June to November 2026. The next intake is expected around Spring 2027.",
       "sea_relevant": false,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-09-08"
     },
     {
       "id": "solana-foundation-fellowships",
