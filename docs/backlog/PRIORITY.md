@@ -7,32 +7,35 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-1. `unanchored-instrument-check` — a new instrument number can appear in
-   `baseline.md` citing nothing and no gate notices: `validate_skills.py` does not
-   read prose, and `check_anchors.py` only tests URLs that exist. Two claims from
-   the 31 August refresh went through that gap, one of them wrong about Article 9
-   enforcement competence.
+1. `confidence-promotion-anchoring` — `check_unanchored.py` judges instrument
+   numbers new to the file, so the 2026-09-07 refresh walked past it twice: it
+   promoted a caveat to CONFIRMED by hanging it on an instrument the file already
+   knew, and added `212-QĐ/TW`, which the matcher cannot see because Politburo
+   numbering is `NNN-QĐ/TW` rather than `NNN/QĐ-XX`. Judge what a change
+   *promotes*, not only what it introduces. Ranked here as an extension of its
+   dependency, not on agreed priority.
 
-2. `confidence-promotion-anchoring` — the check above judges instrument numbers
-   new to the file, so the 2026-09-07 refresh walked past it twice: it promoted a
-   caveat to CONFIRMED by hanging it on an instrument the file already knew, and
-   added `212-QĐ/TW`, which the matcher cannot see because Politburo numbering is
-   `NNN-QĐ/TW` rather than `NNN/QĐ-XX`. Judge what a change *promotes*, not only
-   what it introduces. Ranked here as an extension of its dependency, not on
-   agreed priority.
-
-3. `superseded-refresh-pr-hazard` — because the repo squash-merges, a refresh PR
+2. `superseded-refresh-pr-hazard` — because the repo squash-merges, a refresh PR
    corrected on a separate branch stays open and reverts those corrections if
    merged. #47 would have undone four fixes and written conflict markers into two
    data files. Structural, so it recurs weekly until the workflow changes.
 
-4. `rubric-lexical-proximity` — `excused_by` discharges a whole check from a
+3. `rubric-lexical-proximity` — `excused_by` discharges a whole check from a
    phrase anywhere in the answer. The negation half of this was fixed on #46;
    this half was deferred because sentence-scoping the excuse costs web3 v1
    iter1 its 1.0 and makes `v2-22` a stable failure. The unit is a section, and
    it differs per check.
 
 ## Recently shipped
+
+- `unanchored-instrument-check` — a new instrument number could appear in
+  `baseline.md` citing nothing and no gate noticed: `validate_skills.py` does not
+  read prose, and `check_anchors.py` only tests URLs that exist, so a claim citing
+  nothing is invisible to it by construction. `check_unanchored.py` closes that,
+  judging only what a change introduces and exempting text that labels itself
+  unconfirmed. It caught `262/NQ-CP` on the 2026-09-07 refresh, which is also
+  where its two remaining blind spots surfaced — see
+  `confidence-promotion-anchoring` (#49).
 
 - `vietnam-crypto-radar-danang-blockchain-scheme` — Da Nang's signed blockchain
   scheme to 2030 (Quyết định 2728/QĐ-UBND) named the resolution its controlled
