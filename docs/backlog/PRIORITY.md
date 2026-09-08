@@ -15,12 +15,18 @@ from `todo.<slug>.md` to `done.<slug>.md`.
    *promotes*, not only what it introduces. Ranked here as an extension of its
    dependency, not on agreed priority.
 
-2. `superseded-refresh-pr-hazard` — because the repo squash-merges, a refresh PR
+2. `refresh-cost-controls` — the weekly refresh runs one Gemini session over all
+   three skills, so every turn of every skill pays the whole ~178 KB corpus. Two
+   runs hit 41.9 min to produce a 66-line diff, and `baseline.md` is 7.3× its
+   June size and still climbing. There is also no turn cap, no timeout and no
+   cost visibility: the action computes token stats every run and discards them.
+
+3. `superseded-refresh-pr-hazard` — because the repo squash-merges, a refresh PR
    corrected on a separate branch stays open and reverts those corrections if
    merged. #47 would have undone four fixes and written conflict markers into two
    data files. Structural, so it recurs weekly until the workflow changes.
 
-3. `rubric-lexical-proximity` — `excused_by` discharges a whole check from a
+4. `rubric-lexical-proximity` — `excused_by` discharges a whole check from a
    phrase anywhere in the answer. The negation half of this was fixed on #46;
    this half was deferred because sentence-scoping the excuse costs web3 v1
    iter1 its 1.0 and makes `v2-22` a stable failure. The unit is a section, and

@@ -41,12 +41,22 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    # Hard ceiling on the whole job. The per-step timeouts and `maxSessionTurns`
+    # below are the intended bounds; this one is the backstop that survives a CLI
+    # settings-schema change. Without any of them the agent runs `--yolo` against
+    # the open web until GitHub's 6-hour default.
+    timeout-minutes: 75
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Refresh skill baselines with Gemini CLI
-        uses: google-github-actions/run-gemini-cli@v0
+      - name: Refresh vietnam-crypto-radar
+        id: leg_crypto
+        # One leg failing must not discard the other legs' verified work; the
+        # combine step below records which ran and the final step still fails.
+        continue-on-error: true
+        timeout-minutes: 25
+        uses: google-github-actions/run-gemini-cli@f77273f4c914e4bf38440cf36a0369cb64a37489  # v0.1.22
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           # Required for headless/CI runs so tool calls auto-approve (YOLO);
@@ -54,154 +64,338 @@ jobs:
           GEMINI_CLI_TRUST_WORKSPACE: "true"
         with:
           gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
-          # Pin the model; all core tools (file read/write/edit, shell, web
-          # search and fetch) are enabled by default and auto-approved in CI.
+          # Pinned, not `latest`: a CLI release that changes the settings schema
+          # would silently fall back to defaults, losing the cap below.
+          gemini_cli_version: "0.58.0"
+          # Uploaded by the step below instead: the action's own upload hard-
+          # codes the artifact name `gemini-output`, and upload-artifact@v4+
+          # rejects a second use of a name in one run, so three legs would
+          # collide. `gemini-artifacts/` is written either way.
+          upload_artifacts: false
           settings: |
             {
               "model": {
                 "name": "gemini-2.5-pro"
-              }
+              },
+              "maxSessionTurns": 60
             }
           prompt: |
-            You are running an unattended WEEKLY refresh of the time-sensitive
-            skills in this repository. Today's date is the workflow run date.
+            You are running an unattended WEEKLY refresh of ONE skill in
+            this repository: `vietnam-crypto-radar`. Today's date is the
+            workflow run date. The other skills are refreshed by their own
+            separate runs — do NOT read or edit anything outside
+            `vietnam-crypto-radar/`, and do not go looking for context in
+            the other skills. Read its SKILL.md first.
+
             Do NOT commit or open a PR — just edit files in the working tree; a
             later workflow step packages your changes into a pull request.
 
-            Follow each skill's OWN documented update method. Read each skill's
-            SKILL.md first, then refresh in this order:
-
-            1. vietnam-crypto-radar
-               - Read references/baseline.md (note its `LAST VERIFIED` date) and
-                 references/sources.md.
-               - Sweep sources in tier order for material dated AFTER the
-                 baseline's LAST VERIFIED date. Apply the skill's verification
-                 discipline: only promote a finding to fact (e.g. to
-                 EFFECTIVE/CONFIRMED) if it cites a specific instrument number
-                 AND is confirmed by EITHER a Tier-1 primary/named-law-firm
-                 source OR two INDEPENDENT Tier-2 sources.
-               - Tier-3 sources (crypto-native outlets, e.g. blogtienao.com)
-                 NEVER promote a finding on their own, and do not count toward
-                 the two-Tier-2 threshold. A finding backed only by Tier-2/Tier-3
-                 coverage with no Tier-1 primary stays
-                 `REPORTED — NEEDS_PRIMARY_SOURCE`. Everything else unconfirmed
-                 stays labeled DRAFT/PROPOSED/RUMORED. When in doubt, do NOT
-                 promote — keep the lower-confidence status.
-               - Before citing ANY source URL, fetch it and confirm it loads
-                 and shows the document you are citing. Do not cite a URL you
-                 have not opened this run. Past refreshes added anchors that
-                 404'd or resolved to a search page, which leaves the claim
-                 resting on nothing. Mark each anchor with the date you
-                 confirmed it.
-               - Never delete an existing caveat, scope note, or verification
-                 instruction to make room for new material. Those were added by
-                 earlier correction passes. If you believe one is wrong, say so
-                 in the summary and leave it in place.
-               - Sweep Da Nang's municipal controlled-trial regime every run,
-                 not just the national instruments. The city portal
-                 (danang.gov.vn) is the Tier-1 source; sources.md carries the
-                 search strings. Check whether any of the six known trials —
-                 1181/QĐ-UBND (Basal Pay), 2895/QĐ-UBND (MIMO), and
-                 3809–3812/QĐ-UBND (PayD, TORA, Umi Pay, Money X-Border) — has
-                 launched user-facing services, published operating limits,
-                 produced results, been extended, or been suspended, and whether
-                 any NEW trial has been licensed.
-               - Six is a floor, not a total. The regime covers new technology
-                 generally, not only crypto, and the 2026 first-batch approvals
-                 were never enumerated. Do not write a count that implies you
-                 have seen them all. Four applications were filed and are
-                 undecided — VON, G-Flow, GM Services, Dinogo — so check whether
-                 each was approved, rejected, or is still pending, and say which.
-               - The regime runs under Nghị quyết 55/2024/NQ-HĐND (13 Dec 2024).
-                 Da Nang's own signed blockchain scheme is the Tier-1 source for
-                 that. Do NOT restore Nghị quyết 20/2026/NQ-HĐND as the enabling
-                 instrument: it is dated 29 May 2026 and both 2025 approvals
-                 predate it. 20/2026 covers the same subject and may detail or
-                 replace 55/2024; which of the two the August 2026 batch issued
-                 under is an OPEN QUESTION, not a fact to resolve by guess.
-               - Nghị quyết 20/2026/NQ-HĐND rests on ONE Tier-2 anchor and is
-                 labelled REPORTED / SINGLE-SOURCE. Promote it only if you find a
-                 Tier-1 text or a second independent Tier-2 source this run. A
-                 same-numbered resolution exists in another province on an
-                 unrelated subject, so match the issuing council, not the number.
-               - Quyết định 2728/QĐ-UBND (23 Jun 2026) promulgates Da Nang's
-                 blockchain scheme to 2030: DNC-Chain plus ten products in four
-                 tiers. Tier 4 is the crypto tier and its two mechanisms are NOT
-                 interchangeable — SP8 (crypto→fiat) runs under the CITY SANDBOX
-                 and already operates there; SP9 (crypto-asset/RWA issuance,
-                 custody, trading) and SP10 (blockchain crowdfunding) run under
-                 the IFC and are neither approved nor live. Never swap those.
-                 Check each run for the DNC-Chain Layer-1 selection and the five
-                 governance instruments the scheme promises for 2026-2027.
-               - The IFC here is Vietnam's Trung tâm tài chính quốc tế (Nghị quyết
-                 222/2025/QH15, Nghị định 323, 324 and 329/2025/NĐ-CP), one centre
-                 at HCMC and Đà Nẵng. The World Bank's International Finance
-                 Corporation is also "IFC" and appears in the same Da Nang
-                 coverage; do not merge them. Decree 323 gives the Da Nang site a
-                 digital-asset ORIENTATION — that is not a licence, a member
-                 admission, or an operating market.
-               - A trial approval is municipal. Never describe one as a national
-                 CASP or exchange licence, and never let it imply that paying
-                 merchants in crypto became lawful nationwide.
-               - If (and only if) you confirm real changes, update
-                 references/baseline.md in place and set a fresh `LAST VERIFIED`
-                 date.
-
-            2. web3-opportunities
-               - Read data/web3_opportunities.json and references/sources.md.
-               - Live-verify the time-sensitive fields (status, cadence,
-                 typical_check_or_prize, deadlines). Update changed entries and
-                 their per-entry `last_verified` to today; update the top-level
-                 `last_updated` only if any entry changed. Keep stable fields
-                 (type, stage, dilution, chains, regions, url, name) untouched
-                 unless clearly wrong.
-               - `last_verified` is a claim that YOU looked at that entry's
-                 source THIS RUN. Do not bump it on entries you did not
-                 actually re-check — a blanket bump makes the whole roster's
-                 freshness meaningless. A later step rolls back any date you
-                 RAISE without either changing the entry or attesting it below.
-                 Lowering a date is always allowed and is never rolled back: if
-                 you find an entry carrying a freshness claim nobody earned, move
-                 it back to the date that was actually verified and say so in the
-                 summary.
-               - If an entry's `url` no longer loads, say so in its `notes` and
-                 replace it with the program's current page. A roster entry
-                 pointing at a dead domain is worse than no entry.
-
-            3. vietnam-visa-check
-               - Read data/vietnam_immigration_policy.json. This skill is
-                 offline and conservative. Only change a fact you can confirm
-                 against a Tier-1 source (evisa.gov.vn or primary legal source).
-                 If you change anything, bump `_meta.last_updated` to today.
+            - Read references/baseline.md (note its `LAST VERIFIED` date) and
+              references/sources.md.
+            - Sweep sources in tier order for material dated AFTER the
+              baseline's LAST VERIFIED date. Apply the skill's verification
+              discipline: only promote a finding to fact (e.g. to
+              EFFECTIVE/CONFIRMED) if it cites a specific instrument number
+              AND is confirmed by EITHER a Tier-1 primary/named-law-firm
+              source OR two INDEPENDENT Tier-2 sources.
+            - Tier-3 sources (crypto-native outlets, e.g. blogtienao.com)
+              NEVER promote a finding on their own, and do not count toward
+              the two-Tier-2 threshold. A finding backed only by Tier-2/Tier-3
+              coverage with no Tier-1 primary stays
+              `REPORTED — NEEDS_PRIMARY_SOURCE`. Everything else unconfirmed
+              stays labeled DRAFT/PROPOSED/RUMORED. When in doubt, do NOT
+              promote — keep the lower-confidence status.
+            - Before citing ANY source URL, fetch it and confirm it loads
+              and shows the document you are citing. Do not cite a URL you
+              have not opened this run. Past refreshes added anchors that
+              404'd or resolved to a search page, which leaves the claim
+              resting on nothing. Mark each anchor with the date you
+              confirmed it.
+            - Never delete an existing caveat, scope note, or verification
+              instruction to make room for new material. Those were added by
+              earlier correction passes. If you believe one is wrong, say so
+              in the summary and leave it in place.
+            - Sweep Da Nang's municipal controlled-trial regime every run,
+              not just the national instruments. The city portal
+              (danang.gov.vn) is the Tier-1 source; sources.md carries the
+              search strings. Check whether any of the six known trials —
+              1181/QĐ-UBND (Basal Pay), 2895/QĐ-UBND (MIMO), and
+              3809–3812/QĐ-UBND (PayD, TORA, Umi Pay, Money X-Border) — has
+              launched user-facing services, published operating limits,
+              produced results, been extended, or been suspended, and whether
+              any NEW trial has been licensed.
+            - Six is a floor, not a total. The regime covers new technology
+              generally, not only crypto, and the 2026 first-batch approvals
+              were never enumerated. Do not write a count that implies you
+              have seen them all. Four applications were filed and are
+              undecided — VON, G-Flow, GM Services, Dinogo — so check whether
+              each was approved, rejected, or is still pending, and say which.
+            - The regime runs under Nghị quyết 55/2024/NQ-HĐND (13 Dec 2024).
+              Da Nang's own signed blockchain scheme is the Tier-1 source for
+              that. Do NOT restore Nghị quyết 20/2026/NQ-HĐND as the enabling
+              instrument: it is dated 29 May 2026 and both 2025 approvals
+              predate it. 20/2026 covers the same subject and may detail or
+              replace 55/2024; which of the two the August 2026 batch issued
+              under is an OPEN QUESTION, not a fact to resolve by guess.
+            - Nghị quyết 20/2026/NQ-HĐND rests on ONE Tier-2 anchor and is
+              labelled REPORTED / SINGLE-SOURCE. Promote it only if you find a
+              Tier-1 text or a second independent Tier-2 source this run. A
+              same-numbered resolution exists in another province on an
+              unrelated subject, so match the issuing council, not the number.
+            - Quyết định 2728/QĐ-UBND (23 Jun 2026) promulgates Da Nang's
+              blockchain scheme to 2030: DNC-Chain plus ten products in four
+              tiers. Tier 4 is the crypto tier and its two mechanisms are NOT
+              interchangeable — SP8 (crypto→fiat) runs under the CITY SANDBOX
+              and already operates there; SP9 (crypto-asset/RWA issuance,
+              custody, trading) and SP10 (blockchain crowdfunding) run under
+              the IFC and are neither approved nor live. Never swap those.
+              Check each run for the DNC-Chain Layer-1 selection and the five
+              governance instruments the scheme promises for 2026-2027.
+            - The IFC here is Vietnam's Trung tâm tài chính quốc tế (Nghị quyết
+              222/2025/QH15, Nghị định 323, 324 and 329/2025/NĐ-CP), one centre
+              at HCMC and Đà Nẵng. The World Bank's International Finance
+              Corporation is also "IFC" and appears in the same Da Nang
+              coverage; do not merge them. Decree 323 gives the Da Nang site a
+              digital-asset ORIENTATION — that is not a licence, a member
+              admission, or an operating market.
+            - A trial approval is municipal. Never describe one as a national
+              CASP or exchange licence, and never let it imply that paying
+              merchants in crypto became lawful nationwide.
+            - If (and only if) you confirm real changes, update
+              references/baseline.md in place and set a fresh `LAST VERIFIED`
+              date.
 
             Rules:
-            - Per AGENTS.md, if a skill's bundled DATA changed materially, bump
-              that SKILL.md `version:` by a PATCH (e.g. 0.2.0 -> 0.2.1).
+            - Per AGENTS.md, if the skill's bundled DATA changed materially, bump
+              its SKILL.md `version:` by a PATCH (e.g. 0.2.0 -> 0.2.1).
             - Be conservative: when a fact cannot be verified this run, LEAVE IT
               UNCHANGED rather than guessing. An empty diff is a valid outcome.
             - Make only data/baseline edits. Do not refactor scripts or prompts.
 
-            Finish with TWO files at the repo root:
+            Finish by writing `REFRESH_SUMMARY.vietnam-crypto-radar.md` at the
+            repo root: a short markdown summary, headed `## vietnam-crypto-radar`,
+            of exactly what you changed (old -> new dates and notable
+            items). Say what you REMOVED as well as what you added; a summary
+            that lists only additions while the diff also deletes things is a
+            false report. If nothing changed, write "No verified changes this
+            week."
 
-            1. REFRESH_SUMMARY.md — a short markdown summary of exactly what you
-               changed (per skill, with old -> new dates and notable items). Say
-               what you REMOVED as well as what you added; a summary that lists
-               only additions while the diff also deletes things is a false
-               report. If nothing changed, write "No verified changes this week."
+      # stdout.log carries the leg's real `stats.*.tokens` -- the measurement
+      # this workflow never kept. Unique name per leg, and `always()` so a leg
+      # that timed out still yields the token count that explains why.
+      - name: Upload crypto-radar Gemini output
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: gemini-output-crypto-radar
+          path: gemini-artifacts/
+          if-no-files-found: warn
 
-            2. REFRESH_VERIFIED.json — the web3-opportunities entry ids you
-               actually re-checked against a live source this run, including
-               ones you checked and found unchanged:
+      - name: Refresh web3-opportunities
+        id: leg_web3
+        # One leg failing must not discard the other legs' verified work; the
+        # combine step below records which ran and the final step still fails.
+        continue-on-error: true
+        timeout-minutes: 20
+        uses: google-github-actions/run-gemini-cli@f77273f4c914e4bf38440cf36a0369cb64a37489  # v0.1.22
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          # Required for headless/CI runs so tool calls auto-approve (YOLO);
+          # without it the CLI treats the checkout as untrusted and exits 1.
+          GEMINI_CLI_TRUST_WORKSPACE: "true"
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          # Pinned, not `latest`: a CLI release that changes the settings schema
+          # would silently fall back to defaults, losing the cap below.
+          gemini_cli_version: "0.58.0"
+          # Uploaded by the step below instead: the action's own upload hard-
+          # codes the artifact name `gemini-output`, and upload-artifact@v4+
+          # rejects a second use of a name in one run, so three legs would
+          # collide. `gemini-artifacts/` is written either way.
+          upload_artifacts: false
+          settings: |
+            {
+              "model": {
+                "name": "gemini-2.5-flash"
+              },
+              "maxSessionTurns": 50
+            }
+          prompt: |
+            You are running an unattended WEEKLY refresh of ONE skill in
+            this repository: `web3-opportunities`. Today's date is the
+            workflow run date. The other skills are refreshed by their own
+            separate runs — do NOT read or edit anything outside
+            `web3-opportunities/`, and do not go looking for context in
+            the other skills. Read its SKILL.md first.
 
-                   {"web3_opportunities": ["alliance-dao", "yzi-labs"]}
+            Do NOT commit or open a PR — just edit files in the working tree; a
+            later workflow step packages your changes into a pull request.
 
-               List only ids you genuinely opened. Dates on unlisted, unchanged
-               entries are rolled back automatically. An empty list is a valid
-               and honest answer.
+            - Read data/web3_opportunities.json and references/sources.md.
+            - Live-verify the time-sensitive fields (status, cadence,
+              typical_check_or_prize, deadlines). Update changed entries and
+              their per-entry `last_verified` to today; update the top-level
+              `last_updated` only if any entry changed. Keep stable fields
+              (type, stage, dilution, chains, regions, url, name) untouched
+              unless clearly wrong.
+            - `last_verified` is a claim that YOU looked at that entry's
+              source THIS RUN. Do not bump it on entries you did not
+              actually re-check — a blanket bump makes the whole roster's
+              freshness meaningless. A later step rolls back any date you
+              RAISE without either changing the entry or attesting it below.
+              Lowering a date is always allowed and is never rolled back: if
+              you find an entry carrying a freshness claim nobody earned, move
+              it back to the date that was actually verified and say so in the
+              summary.
+            - If an entry's `url` no longer loads, say so in its `notes` and
+              replace it with the program's current page. A roster entry
+              pointing at a dead domain is worse than no entry.
 
-      # The refresh agent edits data the skills answer from. Everything below
-      # runs against those edits BEFORE a PR exists, because a PR opened by
-      # GITHUB_TOKEN may never trigger a check of its own.
+            Rules:
+            - Per AGENTS.md, if the skill's bundled DATA changed materially, bump
+              its SKILL.md `version:` by a PATCH (e.g. 0.2.0 -> 0.2.1).
+            - Be conservative: when a fact cannot be verified this run, LEAVE IT
+              UNCHANGED rather than guessing. An empty diff is a valid outcome.
+            - Make only data/baseline edits. Do not refactor scripts or prompts.
+
+            Finish by writing `REFRESH_SUMMARY.web3-opportunities.md` at the
+            repo root: a short markdown summary, headed `## web3-opportunities`,
+            of exactly what you changed (old -> new dates and notable
+            items). Say what you REMOVED as well as what you added; a summary
+            that lists only additions while the diff also deletes things is a
+            false report. If nothing changed, write "No verified changes this
+            week."
+
+            Also write `REFRESH_VERIFIED.json` at the repo root: the entry ids you
+            actually re-checked against a live source this run, including ones you
+            checked and found unchanged:
+
+                {"web3_opportunities": ["alliance-dao", "yzi-labs"]}
+
+            List only ids you genuinely opened. Dates on unlisted, unchanged
+            entries are rolled back automatically. An empty list is a valid and
+            honest answer.
+
+      # stdout.log carries the leg's real `stats.*.tokens` -- the measurement
+      # this workflow never kept. Unique name per leg, and `always()` so a leg
+      # that timed out still yields the token count that explains why.
+      - name: Upload web3 Gemini output
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: gemini-output-web3
+          path: gemini-artifacts/
+          if-no-files-found: warn
+
+      - name: Refresh vietnam-visa-check
+        id: leg_visa
+        # One leg failing must not discard the other legs' verified work; the
+        # combine step below records which ran and the final step still fails.
+        continue-on-error: true
+        timeout-minutes: 10
+        uses: google-github-actions/run-gemini-cli@f77273f4c914e4bf38440cf36a0369cb64a37489  # v0.1.22
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          # Required for headless/CI runs so tool calls auto-approve (YOLO);
+          # without it the CLI treats the checkout as untrusted and exits 1.
+          GEMINI_CLI_TRUST_WORKSPACE: "true"
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          # Pinned, not `latest`: a CLI release that changes the settings schema
+          # would silently fall back to defaults, losing the cap below.
+          gemini_cli_version: "0.58.0"
+          # Uploaded by the step below instead: the action's own upload hard-
+          # codes the artifact name `gemini-output`, and upload-artifact@v4+
+          # rejects a second use of a name in one run, so three legs would
+          # collide. `gemini-artifacts/` is written either way.
+          upload_artifacts: false
+          settings: |
+            {
+              "model": {
+                "name": "gemini-2.5-flash"
+              },
+              "maxSessionTurns": 25
+            }
+          prompt: |
+            You are running an unattended WEEKLY refresh of ONE skill in
+            this repository: `vietnam-visa-check`. Today's date is the
+            workflow run date. The other skills are refreshed by their own
+            separate runs — do NOT read or edit anything outside
+            `vietnam-visa-check/`, and do not go looking for context in
+            the other skills. Read its SKILL.md first.
+
+            Do NOT commit or open a PR — just edit files in the working tree; a
+            later workflow step packages your changes into a pull request.
+
+            - Read data/vietnam_immigration_policy.json. This skill is
+              offline and conservative. Only change a fact you can confirm
+              against a Tier-1 source (evisa.gov.vn or primary legal source).
+              If you change anything, bump `_meta.last_updated` to today.
+
+            Rules:
+            - Per AGENTS.md, if the skill's bundled DATA changed materially, bump
+              its SKILL.md `version:` by a PATCH (e.g. 0.2.0 -> 0.2.1).
+            - Be conservative: when a fact cannot be verified this run, LEAVE IT
+              UNCHANGED rather than guessing. An empty diff is a valid outcome.
+            - Make only data/baseline edits. Do not refactor scripts or prompts.
+
+            Finish by writing `REFRESH_SUMMARY.vietnam-visa-check.md` at the
+            repo root: a short markdown summary, headed `## vietnam-visa-check`,
+            of exactly what you changed (old -> new dates and notable
+            items). Say what you REMOVED as well as what you added; a summary
+            that lists only additions while the diff also deletes things is a
+            false report. If nothing changed, write "No verified changes this
+            week."
+
+      # stdout.log carries the leg's real `stats.*.tokens` -- the measurement
+      # this workflow never kept. Unique name per leg, and `always()` so a leg
+      # that timed out still yields the token count that explains why.
+      - name: Upload visa Gemini output
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: gemini-output-visa
+          path: gemini-artifacts/
+          if-no-files-found: warn
+
+      - name: Combine the per-skill refresh summaries
+        run: |
+          # Each leg writes its own summary. Record legs that did not succeed:
+          # a missing section must read as a failure, not as "nothing changed".
+          set -euo pipefail
+          : > REFRESH_SUMMARY.md
+          add() {
+            skill="$1"; outcome="$2"; file="REFRESH_SUMMARY.$1.md"
+            if [ "$outcome" != "success" ]; then
+              # The agent edits the tree as it goes, so a leg that times out or
+              # crashes can leave half-applied edits nobody verified -- and
+              # create-pull-request packages the whole tree. Discard them, so the
+              # sentence below is true rather than merely hoped for. A summary
+              # that says "unchanged" over changed data is the exact failure this
+              # workflow's gates exist to catch.
+              git checkout -- "$skill/" 2>/dev/null || true
+              git clean -fdq "$skill/" 2>/dev/null || true
+              # A partial attestation must not be fed to the last_verified audit.
+              # Written as `if`, not `[ ... ] && ...`: under `set -e` a false test
+              # is the last command of the AND-list, and would abort the step.
+              if [ "$skill" = "web3-opportunities" ]; then
+                rm -f REFRESH_VERIFIED.json
+              fi
+              printf '## %s\n\n**Refresh leg did not complete (%s).** Its\nworking-tree edits were discarded, so this skill is unchanged from\n`main` and nothing here has been verified this run.\n\n' \
+                "$skill" "$outcome" >> REFRESH_SUMMARY.md
+            elif [ -f "$file" ]; then
+              cat "$file" >> REFRESH_SUMMARY.md
+              printf '\n\n' >> REFRESH_SUMMARY.md
+            else
+              printf '## %s\n\nLeg reported success but wrote no summary.\n\n' \
+                "$skill" >> REFRESH_SUMMARY.md
+            fi
+            rm -f "$file"
+          }
+          add vietnam-crypto-radar "${{ steps.leg_crypto.outcome }}"
+          add web3-opportunities   "${{ steps.leg_web3.outcome }}"
+          add vietnam-visa-check   "${{ steps.leg_visa.outcome }}"
+          cat REFRESH_SUMMARY.md
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -429,7 +623,10 @@ jobs:
         if: >-
           steps.harness.outputs.status == 'fail' ||
           steps.anchors.outputs.status == 'fail' ||
-          steps.audit.outputs.status == 'fail'
+          steps.audit.outputs.status == 'fail' ||
+          steps.leg_crypto.outcome != 'success' ||
+          steps.leg_web3.outcome != 'success' ||
+          steps.leg_visa.outcome != 'success'
         # Passed as env, not interpolated into the script: `${{ }}` expands into
         # the shell source before Bash sees it, and these values derive from URLs
         # the refresh agent copies out of untrusted web pages. A URL containing
@@ -439,10 +636,17 @@ jobs:
           ANCHOR_STATUS: ${{ steps.anchors.outputs.status }}
           AUDIT_STATUS: ${{ steps.audit.outputs.status }}
           DEAD_URLS: ${{ steps.anchors.outputs.dead_urls }}
+          LEG_CRYPTO: ${{ steps.leg_crypto.outcome }}
+          LEG_WEB3: ${{ steps.leg_web3.outcome }}
+          LEG_VISA: ${{ steps.leg_visa.outcome }}
         run: |
           # The PR is opened either way — a broken refresh is exactly what needs
           # human eyes — but the Actions run goes red so it is not missed.
           printf 'harness=%s anchors=%s audit=%s\n' \
             "$HARNESS_STATUS" "$ANCHOR_STATUS" "$AUDIT_STATUS"
           printf 'Dead anchors: %s\n' "$DEAD_URLS"
+          # A leg that timed out or crashed is carried by continue-on-error so the
+          # other legs still ship. It must still turn the run red.
+          printf 'legs: crypto=%s web3=%s visa=%s\n' \
+            "$LEG_CRYPTO" "$LEG_WEB3" "$LEG_VISA"
           exit 1
