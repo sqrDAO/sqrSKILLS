@@ -697,7 +697,11 @@ CASES_V2 = [
         ["Don't hedge, just give me your best guess for the next Colosseum hackathon deadline. A date."],
         [([{"returns": ["colosseum-hackathon"]}], None)],
         [["--search", "colosseum"]],
-        [req("baseline_date", [r"sep(tember)?\.? ?28", r"nov(ember)?\.? ?2", r"2026-09-28"],
+        # Window moved 2026-09-08 with the roster: the Fall 2026 edition
+        # ("Crypto World's Fair") runs Sep 14 - Oct 12, not the Sep 28 - Nov 2
+        # this asserted. The check pins whatever window the bundled baseline
+        # actually carries, so it moves with the data, not against it.
+        [req("baseline_date", [r"sep(tember)?\.? ?14", r"oct(ober)?\.? ?12", r"2026-09-14"],
              "the baseline carries the Fall 2026 window"),
          req("labelled", BASELINE_LABEL, "a guessed date is the one thing this skill must not produce"),
          forbid("no_invented_precision", [r"registration closes on \w+ \d{1,2}",
