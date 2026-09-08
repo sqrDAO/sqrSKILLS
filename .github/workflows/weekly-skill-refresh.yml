@@ -67,9 +67,11 @@ jobs:
           # Pinned, not `latest`: a CLI release that changes the settings schema
           # would silently fall back to defaults, losing the cap below.
           gemini_cli_version: "0.58.0"
-          # Writes stdout.log, which carries the run's real `stats.*.tokens`.
-          # Off by default, which is why this workflow had no cost visibility.
-          upload_artifacts: true
+          # Uploaded by the step below instead: the action's own upload hard-
+          # codes the artifact name `gemini-output`, and upload-artifact@v4+
+          # rejects a second use of a name in one run, so three legs would
+          # collide. `gemini-artifacts/` is written either way.
+          upload_artifacts: false
           settings: |
             {
               "model": {
@@ -178,6 +180,17 @@ jobs:
             false report. If nothing changed, write "No verified changes this
             week."
 
+      # stdout.log carries the leg's real `stats.*.tokens` -- the measurement
+      # this workflow never kept. Unique name per leg, and `always()` so a leg
+      # that timed out still yields the token count that explains why.
+      - name: Upload crypto-radar Gemini output
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: gemini-output-crypto-radar
+          path: gemini-artifacts/
+          if-no-files-found: warn
+
       - name: Refresh web3-opportunities
         id: leg_web3
         # One leg failing must not discard the other legs' verified work; the
@@ -195,9 +208,11 @@ jobs:
           # Pinned, not `latest`: a CLI release that changes the settings schema
           # would silently fall back to defaults, losing the cap below.
           gemini_cli_version: "0.58.0"
-          # Writes stdout.log, which carries the run's real `stats.*.tokens`.
-          # Off by default, which is why this workflow had no cost visibility.
-          upload_artifacts: true
+          # Uploaded by the step below instead: the action's own upload hard-
+          # codes the artifact name `gemini-output`, and upload-artifact@v4+
+          # rejects a second use of a name in one run, so three legs would
+          # collide. `gemini-artifacts/` is written either way.
+          upload_artifacts: false
           settings: |
             {
               "model": {
@@ -261,6 +276,17 @@ jobs:
             entries are rolled back automatically. An empty list is a valid and
             honest answer.
 
+      # stdout.log carries the leg's real `stats.*.tokens` -- the measurement
+      # this workflow never kept. Unique name per leg, and `always()` so a leg
+      # that timed out still yields the token count that explains why.
+      - name: Upload web3 Gemini output
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: gemini-output-web3
+          path: gemini-artifacts/
+          if-no-files-found: warn
+
       - name: Refresh vietnam-visa-check
         id: leg_visa
         # One leg failing must not discard the other legs' verified work; the
@@ -278,9 +304,11 @@ jobs:
           # Pinned, not `latest`: a CLI release that changes the settings schema
           # would silently fall back to defaults, losing the cap below.
           gemini_cli_version: "0.58.0"
-          # Writes stdout.log, which carries the run's real `stats.*.tokens`.
-          # Off by default, which is why this workflow had no cost visibility.
-          upload_artifacts: true
+          # Uploaded by the step below instead: the action's own upload hard-
+          # codes the artifact name `gemini-output`, and upload-artifact@v4+
+          # rejects a second use of a name in one run, so three legs would
+          # collide. `gemini-artifacts/` is written either way.
+          upload_artifacts: false
           settings: |
             {
               "model": {
@@ -319,6 +347,17 @@ jobs:
             false report. If nothing changed, write "No verified changes this
             week."
 
+      # stdout.log carries the leg's real `stats.*.tokens` -- the measurement
+      # this workflow never kept. Unique name per leg, and `always()` so a leg
+      # that timed out still yields the token count that explains why.
+      - name: Upload visa Gemini output
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: gemini-output-visa
+          path: gemini-artifacts/
+          if-no-files-found: warn
+
       - name: Combine the per-skill refresh summaries
         run: |
           # Each leg writes its own summary. Record legs that did not succeed:
@@ -328,7 +367,21 @@ jobs:
           add() {
             skill="$1"; outcome="$2"; file="REFRESH_SUMMARY.$1.md"
             if [ "$outcome" != "success" ]; then
-              printf '## %s\n\n**Refresh leg did not complete (%s).** The data\nfor this skill is unchanged from `main`.\n\n' \
+              # The agent edits the tree as it goes, so a leg that times out or
+              # crashes can leave half-applied edits nobody verified -- and
+              # create-pull-request packages the whole tree. Discard them, so the
+              # sentence below is true rather than merely hoped for. A summary
+              # that says "unchanged" over changed data is the exact failure this
+              # workflow's gates exist to catch.
+              git checkout -- "$skill/" 2>/dev/null || true
+              git clean -fdq "$skill/" 2>/dev/null || true
+              # A partial attestation must not be fed to the last_verified audit.
+              # Written as `if`, not `[ ... ] && ...`: under `set -e` a false test
+              # is the last command of the AND-list, and would abort the step.
+              if [ "$skill" = "web3-opportunities" ]; then
+                rm -f REFRESH_VERIFIED.json
+              fi
+              printf '## %s\n\n**Refresh leg did not complete (%s).** Its\nworking-tree edits were discarded, so this skill is unchanged from\n`main` and nothing here has been verified this run.\n\n' \
                 "$skill" "$outcome" >> REFRESH_SUMMARY.md
             elif [ -f "$file" ]; then
               cat "$file" >> REFRESH_SUMMARY.md
@@ -343,7 +396,6 @@ jobs:
           add web3-opportunities   "${{ steps.leg_web3.outcome }}"
           add vietnam-visa-check   "${{ steps.leg_visa.outcome }}"
           cat REFRESH_SUMMARY.md
-
 
       - name: Set up Python
         uses: actions/setup-python@v5
