@@ -44,7 +44,10 @@ frontmatter is also stripped by the export round-trip (no `version`, no
 - `python3 scripts/check_unanchored.py --since origin/main` -> no new unanchored
   instrument
 - `git diff --stat origin/main -- vietnam-crypto-radar/` -> `SKILL.md` only
-- `grep -c "nanobot" vietnam-crypto-radar/SKILL.md` -> 1
+- frontmatter is unchanged but for `version` ->
+  `diff <(git show origin/main:vietnam-crypto-radar/SKILL.md | sed -n '2,/^---$/p' |`
+  `sed '$d' | grep -v '^version:') <(sed -n '2,/^---$/p' vietnam-crypto-radar/SKILL.md |`
+  `sed '$d' | grep -v '^version:')` -> no output
 
 ## Notes
 The export's factual claims about Decision 2895's conflicting issue date and the
