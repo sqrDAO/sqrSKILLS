@@ -1,6 +1,6 @@
 ---
 name: vietnam-crypto-radar
-version: 0.5.1
+version: 0.6.0
 description: Produce up-to-date intelligence briefings on Vietnam's crypto/digital-asset landscape — laws, decrees, circulars, licensing, tax, accounting, administrative penalties, the pilot exchange market, local controlled technology trials such as Da Nang's crypto/fiat sandbox, city blockchain schemes (Da Nang's Đề án to 2030 and DNC-Chain), Vietnam's International Financial Centre at Ho Chi Minh City and Da Nang, and enforcement. Use this skill WHENEVER the user asks "what's new with Vietnam crypto," wants a regulatory update, asks about a specific instrument (e.g. the DTI Law, Resolution 05, Decree 284, or a TT-BTC circular), wants to know the status of the pilot/VASP licensing, asks about crypto tax or penalties in Vietnam, or needs a briefing for a partner/investor/founder on the VN digital-asset regime. It also covers the retail/consumer reality (see `references/adoption.md`) — why on-chain adoption is top-5 in the world yet you can't pay rent in USDT, which offshore exchanges Vietnamese people actually use (Binance, OKX, Bybit, Bitget, Gate.io, MEXC), whether crypto is spendable day-to-day, and whether crypto cards (Bitget/OKX/SafePal) work here — and maps the VN Web3 ecosystem players as context (communities, builders, student/education programs, events, flagship projects; see `references/ecosystem.md`). Trigger even when the user doesn't say the word "skill" — phrases like "VN crypto reg," "is X legal in Vietnam now," "Vietnam exchange license," "Vietnam crypto fines," "any movement on the sandbox," "Da Nang crypto sandbox," "Da Nang blockchain plan," "what is DNC-Chain," "can I tokenize RWAs in Vietnam," "what is the Vietnam IFC," "which exchanges are popular in Vietnam," "can I pay with crypto/USDT in Vietnam," "do crypto cards work in Vietnam," "who are the Vietnam web3 communities," or "catch me up on Vietnam digital assets" all apply. Prefer this over answering from memory, because the regime is moving fast and stale answers are worse than no answer.
 allowed-tools:
   - Read
@@ -28,7 +28,7 @@ This skill is not legal advice. It produces intelligence; compliance decisions n
 2. **Sweep the sources.** Read `references/sources.md` and pull from sources in tier order — Tier 1 (primary government) first, then Tier 2 (law-firm/analyst trackers), then Tier 3 (crypto-native, fast but noisy). Bias queries to material dated after the baseline's `LAST VERIFIED`. Use the prebuilt query bank in `sources.md` before improvising.
 3. **Diff.** For each finding, ask: is this already in the baseline? If yes, skip. If no or changed, it's a candidate update.
 4. **Verify before promoting a candidate to fact.** Apply the verification discipline below. Crypto media routinely reports drafts, rumors, and "officials say" as if enacted. Do not repeat that mistake.
-5. **Classify status** for every instrument: `EFFECTIVE` / `ENACTED` / `DRAFT` / `PROPOSED` / `EXPECTED` / `REPORTED` / `NEEDS_PRIMARY_SOURCE` / `RUMORED`. This single column is the most valuable thing in the briefing.
+5. **Classify status** for every instrument: `EFFECTIVE` / `ENACTED` / `DRAFT` / `PROPOSED` / `EXPECTED` / `REPORTED` / `NEEDS_PRIMARY_SOURCE` / `CONFLICTING` / `RUMORED`. This single column is the most valuable thing in the briefing.
 6. **Write the briefing** using the output template below.
 7. **Offer to update the baseline.** If you confirmed real changes, offer to rewrite `references/baseline.md` with the new state and a fresh `LAST VERIFIED` date, so the next run starts from a better diff point. This is what keeps the skill compounding instead of decaying.
 
@@ -39,7 +39,13 @@ Vietnam's process emits a lot of *draft* circulars and ministerial soundbites th
 - It cites a **specific instrument number** (e.g. Law 71/2025/QH15, Resolution 05/2025/NQ-CP, Circular 32/2026/TT-BTC, Decision 96/QĐ-BTC) AND a Tier-1 primary source or a named law firm confirms it is signed/issued, **or**
 - At least **two independent Tier-2** sources (different firms/outlets) corroborate it.
 
-Everything else is labeled `DRAFT`, `PROPOSED`, or `RUMORED` and clearly flagged. When primary and crypto-native sources conflict, the primary source wins. Always prefer the instrument number over a paraphrase — "Circular 32/2026/TT-BTC" beats "the new tax rule." If you cannot find the instrument number, say the number is unconfirmed.
+**The full-text rule, and it overrides both of the above.** Whenever the output quotes, relies on, or denies a **specific article, khoản or điểm**, open the full text of that provision and read it before writing the sentence. The baseline is a starting point for the diff, never a source to cite from, and neither is a Tier-1 press summary of the provision. "I could not find it in a related instrument" and "the press describes no such rule" are not findings about what an article says: absence of confirmation in the wrong document is not disproof. If the full text cannot be reached, say the provision was not read and label the point `NEEDS_PRIMARY_SOURCE`, rather than asserting or denying it.
+
+This rule was learned the expensive way. Three legal errors reached a report sent to Da Nang city leadership, and all three traced to the same habit of trusting a summary: a real 6-month clause was denied as a rumour, a nationality condition was invented inside a capital requirement, and a licensing ceiling was read as closing a province permanently. None was caught by re-reading the report. All three were caught by someone opening the original text.
+
+Everything else is labeled `DRAFT`, `PROPOSED`, or `RUMORED` and clearly flagged. When primary and crypto-native sources conflict, the primary source wins. When two otherwise credible sources give different dates or numbers for the same instrument, label it `CONFLICTING`, list both with their sources, and report only the part that is solid; do not silently pick a side. Always prefer the instrument number over a paraphrase — "Circular 32/2026/TT-BTC" beats "the new tax rule." If you cannot find the instrument number, say the number is unconfirmed.
+
+Every instrument carries **two dates, an issue date and an effective date**, and they are frequently different. Never report one where the reader needs the other, and never inherit a date across instruments that arrived as a group: Nghị quyết 222/2025/QH15 was passed 27 Jun 2025 and took effect 1 Sep 2025, while its implementing decrees 323, 324 and 329/2025/NĐ-CP were signed and effective 18 Dec 2025.
 
 Distinguish three things that get sloppily merged:
 - **Property/asset recognition** (crypto is legally ownable, transferable, inheritable — YES since the DTI Law).
@@ -50,6 +56,15 @@ And keep the three permission regimes apart — they have different issuers and 
 - **A municipal controlled trial** (Da Nang, under Nghị quyết 55/2024/NQ-HĐND) — a time-limited technology-trial certificate for a named solution at named sites.
 - **The national pilot** (Resolution 05/2025/NQ-CP, Decision 96/QĐ-BTC) — the only route to a licensed crypto-asset trading market.
 - **The IFC** (Nghị quyết 222/2025/QH15, Nghị định 323/2025/NĐ-CP) — a special-mechanism zone at HCMC and Da Nang whose Da Nang site is *oriented* toward digital-asset products. Orientation is not authorization.
+
+## Load-bearing provisions of Resolution 05/2025/NQ-CP
+
+These are the articles that decide real answers, and each has already been paraphrased wrongly at least once. They are reproduced here so the correction survives even when the baseline is stale. Still open the full text before quoting any of them.
+
+- **Điều 7 khoản 2, the 6-month clause. It is real.** Full text: *"Sau thời hạn 6 tháng kể từ khi tổ chức cung cấp dịch vụ tài sản mã hóa đầu tiên được cấp phép, nhà đầu tư trong nước giao dịch tài sản mã hóa không thông qua tổ chức cung cấp dịch vụ tài sản mã hóa do Bộ Tài chính cấp phép tùy theo tính chất, mức độ vi phạm sẽ bị xử lý vi phạm hành chính hoặc truy cứu trách nhiệm hình sự theo quy định pháp luật."* It lives in Resolution 05, not in Decree 284, so not finding it in Decree 284 proves nothing. Two limits travel with it, and omitting either makes the advice wrong in the opposite direction: the clock starts at the **first licence issued**, not at the resolution's effective date, so it has not started while no provider is licensed; and it reaches **only** domestic investors trading outside a licensed provider. It grants no immunity for anything else. Unlicensed service provision, unlicensed advertising and the rest of Decree 284 have been penalised since 1 September 2026, independently.
+- **Điều 8 khoản 3 điểm a, the 65% condition.** *"Có tối thiểu 65% vốn điều lệ do các cổ đông, thành viên là tổ chức góp vốn"*, of which more than 35% must come from at least two institutions that are banks, securities firms, fund managers, insurers or technology companies. **There is no nationality condition here.** "65% from domestic institutions" is a fabrication; the restriction on foreign investors is a separate 49% cap in điểm d.
+- **Điều 11, licence amendment.** It sets out the procedure for amending a licence, expressly including *"Trường hợp thay đổi địa chỉ trụ sở chính"*. So the ceiling of **05 licensed providers** narrows the door for a *new* applicant in a given province, but it does not lock a province out for the pilot's duration: an already-licensed provider can relocate its head office. Never write that a locality's door is "closed for the whole 5 years".
+- **The 05-provider ceiling itself** is the constraint that shapes every locality's room to manoeuvre. Quote it whenever a question turns on whether a city or a company can get a licence.
 
 ## Output template
 
@@ -67,8 +82,9 @@ Each item: [STATUS] — headline — instrument number — what it changes — s
 If nothing material changed, say so plainly (that is a valid, useful answer).
 
 ## Instrument tracker
-A compact status table: Instrument | What it governs | Status | Effective date.
+A compact status table: Instrument | What it governs | Status | Issued | Effective.
 Pull the standing rows from baseline.md, update statuses, add new rows.
+Never leave the effective column blank; write "not stated in source" if unknown.
 
 ## Market & licensing
 Pilot exchange progress, VASP licensing shortlist/approvals, capital thresholds,
@@ -91,7 +107,7 @@ Builder-facing and direct. Crypto-native register is fine and expected (GM, BUID
 
 ## Reference files
 
-- `references/baseline.md` — current regime snapshot + anchor facts + the `LAST VERIFIED` date you diff against. **Read first, every run.** Offer to update it after confirming changes.
+- `references/baseline.md` — current regime snapshot + anchor facts + the `LAST VERIFIED` date you diff against. **Read first, every run.** It stores instrument *summaries*, not operative article text, so it is a diff anchor and never a citation source: see the full-text rule above. Offer to update it after confirming changes, and whenever you do read an article's full text, write that article into the baseline so the next run starts better.
 - `references/sources.md` — the tiered source registry: where to look, what each covers, suggested cadence, and the verification rule restated. Read when sweeping for updates.
 - `references/glossary.md` — Vietnamese legal-instrument types (Luật/Nghị định/Nghị quyết/Thông tư/Quyết định), the regulators and who owns what, and VN-specific crypto terminology. Read when you need to explain or correctly label an instrument.
 - `references/adoption.md` — the **retail/consumer reality**: the adoption paradox (top-5 on-chain adoption vs. no lawful merchant payments), how spending actually works (crypto→VND QR gateways, cards), which **offshore exchanges** VN retail actually uses (Binance/OKX/Bybit/Bitget/Gate/MEXC) and how they sit outside the pilot perimeter, and crypto-card availability (Bitget/OKX/SafePal). **Context only — separate from the regulatory diff loop**, but anchored to the same property/payment/tradable distinction. Read on demand for "can I pay with crypto here," "which exchange is popular," or "do crypto cards work" questions, not for a regulatory update.
@@ -101,7 +117,8 @@ Builder-facing and direct. Crypto-native register is fine and expected (GM, BUID
 
 - "What's new with VN crypto?" → full diff run, output briefing.
 - "Is [X] legal in Vietnam now?" → load baseline, answer with the property/payment/tradable distinction, verify currency of the point, cite the instrument.
-- "Status of the pilot / exchange licenses?" → sweep Tier-1 + Tier-2, fill Market & licensing section.
+- "Status of the pilot / exchange licenses?" → sweep Tier-1 + Tier-2, fill Market & licensing section. Lead with the **05-provider ceiling** and Điều 8 khoản 3's capital conditions, quoting điểm a without adding a nationality condition.
+- "Can [city] get an exchange / is the door closed for us?" → the ceiling of 05 narrows the door for a new applicant, but **Điều 11** lets an already-licensed provider move its head office, so no locality is permanently locked out. Give both halves.
 - "What is happening in the Da Nang crypto sandbox?" → load `baseline.md` for all six
   local controlled-trial decisions — 1181 (Basal Pay) and 2895 (MIMO), both still running,
   plus 3809–3812 from 22 Aug 2026 — and `adoption.md` for the crypto→VND use cases. Six is
@@ -109,7 +126,10 @@ Builder-facing and direct. Crypto-native register is fine and expected (GM, BUID
   enumerated, so check for newer approvals before answering. The 2025 approvals (1181, 2895)
   were issued under **Nghị quyết 55/2024/NQ-HĐND**; they cannot rest on 20/2026, which
   postdates them. Which of the two the 22 Aug 2026 batch sits under is **not established** —
-  say so rather than picking one. State explicitly that a Da Nang technology-trial approval
+  say so rather than picking one. Decision 2895's issue date is **CONFLICTING**: 31 Dec 2025
+  per the city portal, 06 Dec 2025 per the căn cứ line of licence 1724/GP-SKHCN. Cite the
+  number and the trial period 18 Dec 2025 to 17 Dec 2028, and do not assert an issue date
+  until the signed decision is read. State explicitly that a Da Nang technology-trial approval
   is not a national CASP/exchange license and does not legalize direct crypto merchant
   payments nationwide. The six trials are **approved and within their trial periods**; that
   is what the decisions evidence. Do not upgrade that to verified user-facing operation
@@ -122,16 +142,20 @@ Builder-facing and direct. Crypto-native register is fine and expected (GM, BUID
   as already operating — attribute that to the roadmap, not to independent evidence; SP9 (crypto-asset
   and RWA issuance, custody, trading) and SP10 (blockchain crowdfunding) run under the **IFC**
   and are at coordination stage, not approved. Flag that DNC-Chain itself will not host a
-  crypto exchange, and that one Tier-2 outlet misfiled that constraint under Tier 4.
-- "What is the Vietnam IFC / can I tokenize RWAs there?" → Nghị quyết 222/2025/QH15 and
-  Nghị định 323, 324 & 329/2025/NĐ-CP: one centre, two sites (HCMC and Da Nang), with the
-  Da Nang site *oriented* toward controlled testing of new financial models and digital-asset
-  products. Orientation is not a licence and not an operating market — no digital-asset member
-  admission is on record. Disambiguate "IFC" from the World Bank's International Finance
+  crypto exchange, and that one Tier-2 outlet misfiled that constraint under Tier 4. The scheme
+  commits the city to five governance instruments and a Layer-1 selection across **2026 to 2027**,
+  so nothing there is overdue yet: report "no public information on progress", never "behind schedule",
+  unless a stated milestone has actually passed.
+- "What is the Vietnam IFC / can I tokenize RWAs there?" → Nghị quyết 222/2025/QH15 (passed
+  27 Jun 2025, in force 1 Sep 2025) and Nghị định 323, 324 & 329/2025/NĐ-CP (signed and effective
+  18 Dec 2025; do not collapse the four into a single date): one centre, two sites (HCMC and
+  Da Nang), with the Da Nang site *oriented* toward controlled testing of new financial models and
+  digital-asset products. Orientation is not a licence and not an operating market — no digital-asset
+  member admission is on record. Disambiguate "IFC" from the World Bank's International Finance
   Corporation, which appears in the same coverage. Da Nang's ~US$4bn infrastructure-tokenisation
   proposal is PROPOSED / SINGLE-SOURCE; do not present it as a programme.
 - "Vietnam crypto tax?" → Tax corner; trace the rule through Law 109/2025/QH15, Decree 253/2026/NĐ-CP, and Circulars 32, 41 & 87/2026/TT-BTC; include Decree 254/2026/NĐ-CP when e-invoicing is relevant; flag the individual-PIT withholding mechanism's operational status.
-- "What are the penalties / can I use an unlicensed exchange?" → load baseline, verify Decree 284/2026/NĐ-CP is in force for the date asked, distinguish organization and individual fine ceilings, and state whether the conduct falls inside the pilot rules before quoting a penalty.
+- "What are the penalties / can I use an unlicensed exchange?" → load baseline, verify Decree 284/2026/NĐ-CP is in force for the date asked, distinguish organization and individual fine ceilings, and state whether the conduct falls inside the pilot rules before quoting a penalty. For a **domestic investor trading offshore**, give the Điều 7 khoản 2 clause with both of its limits: the 6-month period runs from the first licence, not from any calendar date, and it covers only that conduct. Never answer this one from the baseline alone.
 - "Brief a partner/investor on VN digital assets" → full template, lead with the asset-recognition + pilot story, keep it tight.
 - "Who are the VN Web3 communities / builders / events?" → read `references/ecosystem.md`, answer from the map (communities, education, events, flagships), and offer a live refresh. This is context, not a regulatory diff — skip the baseline loop. Point builders to the `web3-opportunities` skill for apply-able programs.
 - "Can I pay rent / buy things with USDT in Vietnam?" / "Why isn't crypto usable if adoption is so high?" → read `references/adoption.md`, lead with the payment ban + adoption-paradox framing (§1–2), explain the gateway/card workarounds. Verify the SBV payment line is current. This is consumer context, not a regulatory diff.
