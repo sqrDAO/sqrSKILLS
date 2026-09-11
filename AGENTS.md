@@ -199,7 +199,9 @@ A defect in a skill's *script* does not belong in the split. It goes to `tests/`
 plus a backlog spec — the split validates instructions, not code.
 
 `evals/README.md` has the full loop, which skills are eligible for one, and how
-to calibrate a new split before spending a run on it.
+to calibrate a new split before spending a run on it. The `skill-evolution` skill
+defers to these eligibility, generated-ground-truth, and run-integrity rules; its
+external-kit case fields do not replace this repository's harness schema.
 
 ## Backlog Workflow
 
@@ -288,6 +290,7 @@ Required sections are **Goal**, **Files**, **Acceptance**, and **Verify**.
 | `vietnam-crypto-radar` | Web access or equivalent research tools | None |
 | `luma-calendar` | `LUMA_API_KEY` | None |
 | `business-model-to-market` | None | None |
+| `skill-evolution` | None for audits (local file tools) | Existing evaluation harness/runner for gates |
 | `web3-legal-agreements` | Web access or equivalent research tools for current-law verification | None |
 
 ## Versioning

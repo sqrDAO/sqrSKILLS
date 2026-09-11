@@ -40,6 +40,10 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Recently shipped
 
+- `skill-evolution` — imported audit and gating workflow with optional toolkit
+  guidance, isolated author records, and Opus-reviewed project-rule precedence.
+  Approved for completion and merge in #57.
+
 - `vietnam-legal-advisor` — domestic legal drafting and review, portable entity
   placeholders, dated source checks, corrected withholding/economics guidance,
   and preservation of signed originals. Approved for merge in #56.
