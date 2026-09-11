@@ -2,7 +2,7 @@
 
 [![Install via skills.sh](https://img.shields.io/badge/skills.sh-install-green)](https://skills.sh/sqrdao/sqrSKILLS)
 
-Open-source [Agent Skills](https://agentskills.io/home) published by [sqrDAO](https://sqrdao.com). Covers Telegram integration, location search, personal knowledge management, Luma events, Vietnam visa checks, Vietnam crypto regulation briefings, Web3 builder opportunities, business-model and go-to-market planning, and domestic Vietnamese legal drafting and review.
+Open-source [Agent Skills](https://agentskills.io/home) published by [sqrDAO](https://sqrdao.com). Covers Telegram integration, location search, personal knowledge management, Luma events, Vietnam visa checks, Vietnam crypto regulation briefings, Web3 builder opportunities, business-model and go-to-market planning, Web3 investment agreements and deal structuring, and domestic Vietnamese legal drafting and review.
 
 ## Installation
 
@@ -24,6 +24,7 @@ npx skills add sqrdao/sqrSKILLS@telegram-group-summary
 npx skills add sqrdao/sqrSKILLS@luma-calendar
 npx skills add sqrdao/sqrSKILLS@web3-opportunities
 npx skills add sqrdao/sqrSKILLS@business-model-to-market
+npx skills add sqrdao/sqrSKILLS@web3-legal-agreements
 ```
 
 `npx skills add` installs to all supported agents automatically where the skills installer has an adapter (Claude Code, Codex, Gemini CLI, OpenClaw, Hermes, Nanobot, and others).
@@ -41,6 +42,8 @@ npx skills add sqrdao/sqrSKILLS@business-model-to-market
 - [**luma-calendar**](./luma-calendar/) — Manage Luma events and guests via the Luma API: list events, create events, view registrants, and add guests. Requires `LUMA_API_KEY`.
 - [**web3-opportunities**](./web3-opportunities/) — Curated, filterable catalog of Web3 builder/founder opportunities (accelerators, incubators, grants, hackathons, bounties, retroactive funding, fellowships) split by type, stage/dilution, chain/ecosystem, and geography, with a SEA/Vietnam highlight. Bundled offline roster + optional live enrichment of deadlines and cohort status (roster corrections verified 31 August 2026).
 - [**business-model-to-market**](./business-model-to-market/) — Take a venture from a blank page to closed deals: opportunity brainstorms and weighted decision matrices, the nine-block Business Model Canvas, mission, ICP and buyer personas, sales methodologies (BANT, MEDDIC/MEDDPICC, Value Selling, Challenger), the 8-stage sales cycle, cold outreach, objection handling, and Web3 partnership goal matrices. Emits an 11-tab spreadsheet deliverable (needs `openpyxl`). Formerly `gtm-playbook`.
+
+- [**web3-legal-agreements**](./web3-legal-agreements/) — Structure, draft, review, redline, and compare Web3 investment agreements (SAFE, SAFT, token warrants, and side letters), plus escrow, forfeiture, and platform terms. Includes six references, a review checklist, and a ToS scaffold. Drafting support for counsel review; legal and market assertions require primary-source verification; includes a dated US source register and jurisdiction-specific review guidance.
 
 ## Requirements
 
@@ -60,6 +63,7 @@ npx skills add sqrdao/sqrSKILLS@business-model-to-market
 | luma-calendar | `LUMA_API_KEY` | — |
 | web3-opportunities | — | — |
 | business-model-to-market | — | — (spreadsheet output needs the `openpyxl` Python package) |
+| web3-legal-agreements | Web search/fetch for current-law verification; no environment variables | Companion legal/spreadsheet skills, when available |
 
 Set these through your agent's environment/configuration mechanism (for example a shell profile, project `.env`, Claude Code env file, Codex environment, Hermes/OpenClaw config, or your runtime's equivalent).
 

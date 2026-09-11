@@ -40,6 +40,10 @@ from `todo.<slug>.md` to `done.<slug>.md`.
   placeholders, dated source checks, corrected withholding/economics guidance,
   and preservation of signed originals. Approved for merge in #56.
 
+- `web3-legal-agreements` — approved addition of the supplied agreement-structuring
+  skill, six references, two templates, portable metadata and companion-skill
+  fallbacks, installation docs, and review corrections. Shipped in #55.
+
 - `refresh-cost-controls` — the weekly refresh ran one Gemini session over all
   three skills, so every turn of every skill paid the whole ~178 KB corpus; one
   run spent 41.9 min to produce a 66-insertion diff. Now one invocation per
