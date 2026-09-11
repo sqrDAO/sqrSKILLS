@@ -11,7 +11,7 @@ plus an explicit supported-runtime contract.
    header and updated_at is returned with chat_id only. This prevents recency
    information from reaching the agent even when available. Fix: recognize
    updated_at as the canonical metadata field, retaining documented legacy
-   variants where useful. [Nanobot writer and reader](https://raw.githubusercontent.com/HKUDS/nanobot/main/nanobot/session/manager.py).
+   variants where useful. [Nanobot writer and reader](https://raw.githubusercontent.com/HKUDS/nanobot/a2e33893e1ca95f5a06af86ec2438ef3c5958540/nanobot/session/manager.py) (retrieved 2026-09-11).
 
 2. **P3 — Results depend on directory enumeration order.**
    `scripts/list_chats.py:58` obtains unsorted names, and `_merge` at line 161

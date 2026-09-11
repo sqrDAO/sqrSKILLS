@@ -18,8 +18,10 @@ lookup-before-send workflow; correct serialization and literal-text handling.
    `scripts/send.py:173` prints `Message sent to chat -1001`, reproduced with
    the send function mocked. Keyword fan-out emits prose at lines 146–153, with
    failures only on stderr. Structured callers cannot reliably associate partial
-   success with each recipient or avoid retrying already-successful recipients.
-   Fix: one JSON result with per-chat success/error records and message IDs;
+   success with each recipient and message ID once the completed JSON response
+   is received. A lost response can still cause duplicate sends because the
+   Telegram API offers no client-supplied idempotency key. Fix: one JSON result
+   with per-chat success/error records and message IDs;
    keep progress and diagnostics on stderr. The lower-level send discards the
    returned message ID at lines 77–79, so preserve it as part of that change.
 
@@ -37,10 +39,6 @@ lookup-before-send workflow; correct serialization and literal-text handling.
 - Ambiguous names need explicit disambiguation before selecting a single target;
   the existing prohibition on invented IDs does not define this (`SKILL.md:83`).
   Proposed prompt behavior is UNGATED; no real wrong-recipient send was observed.
-- A known exact chat ID should remain usable even if local discovery is empty.
-  No-match does not prove the bot has never interacted with the group: the
-  configured source may be absent, stale, or unavailable.
-
 ## Common rubric
 
 | Dimension | /5 | Evidence |

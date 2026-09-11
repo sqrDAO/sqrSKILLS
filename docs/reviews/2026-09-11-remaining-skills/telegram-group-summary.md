@@ -11,16 +11,21 @@ Read: `SKILL.md` and `scripts/fetch_messages.py`. Verdict: fix first.
    receiving those types after a summary request. Omitting an offset avoids
    acknowledging messages, but does not make this call passive. This contradicts
    `SKILL.md:93`. The probe captures the exact query without contacting Telegram.
-   Fix: omit subscription-setting arguments, filter locally, and document the
-   limitations of sharing a polling bot. [Telegram contract](https://core.telegram.org/bots/api#getupdates).
+   Implemented in `0.1.2`: the helper omits subscription-setting arguments and
+   filters locally. Telegram reuses its previous filter when `allowed_updates`
+   is omitted, so local filtering cannot restore update types excluded by
+   another poller; coordinated subscription ownership is still required when
+   sharing a polling bot. [Telegram contract](https://core.telegram.org/bots/api#getupdates).
 
 2. **P1 — The primary reader cannot read the documented transcript storage.**
    `scripts/fetch_messages.py:84` skips every file except `.json`; OpenClaw's
    JSONL-era transcripts use `<sessionId>.jsonl`, while sessions.json is an index.
    The probe returns no messages for a JSONL file and one for identical JSON.
    The parser also expects raw Telegram `chat/date/text` records, so merely
-   adding a suffix is insufficient for native transcript envelopes. Fix: use a
-   versioned source adapter tied to the target session and its message schema.
+   adding a suffix is insufficient for native transcript envelopes. The helper
+   now reads raw Telegram-shaped JSON and JSONL records; native OpenClaw
+   envelopes still need a versioned adapter tied to the target session and its
+   message schema before they can be claimed as supported.
    [Versioned OpenClaw storage contract](https://raw.githubusercontent.com/openclaw/openclaw/v2026.7.1-1/docs/concepts/session.md).
    Current [OpenClaw docs](https://docs.openclaw.ai/concepts/session) describe
    SQLite storage; declare which versions are supported instead of promising a
@@ -51,6 +56,9 @@ Read: `SKILL.md` and `scripts/fetch_messages.py`. Verdict: fix first.
 - `SKILL.md:86` recommends a smaller time window after no data; that removes
   more messages. Recommend a wider window. Label Bot API output as incomplete:
   one batch is at most 100 pending updates across all chats, not full history.
+  The fallback calls `getUpdates` without an offset, keeps no cursor, and may
+  return the same pending updates on repeated summaries until another consumer
+  confirms them.
 - Treat instructions embedded in fetched chat messages as source material.
   This is an UNGATED prompt hardening proposal, not a demonstrated agent failure.
 
