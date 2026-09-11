@@ -1,6 +1,6 @@
 ---
 name: web3-legal-agreements
-version: 0.1.0
+version: 0.1.1
 description: "Web3 and crypto investment instruments and the platform, program and escrow terms around them: SAFE and post-money SAFE, SAFT, token warrant, token side letter, Token Purchase or Sale Agreement (TPA/TSA), convertible note or bond, token term sheet, investor side letter, advisor or token grant, any Terms of Service, participation or grant agreement with escrow, forfeiture, clawback or slashing. Structure, draft, review, redline, compare. Trigger without the word legal: how should we structure this round, is this a SAFE or a SAFT, which instrument pre-TGE, redline this term sheet, is this forfeiture enforceable, is this token a security. Also entity/jurisdiction structuring (Delaware, Singapore, BVI, Cayman, St. Vincent, foundation vs DevCo) and securities framing. Boundary: when the counterparty, signer or governing law is Vietnamese, the local-law form, seal, formalities and domestic Vietnamese tax need local-law review (vietnam-legal-advisor when available); instrument structuring stays here."
 allowed-tools:
   - Read
@@ -45,7 +45,7 @@ Escrow, forfeiture, clawback, slashing, or a ToS / participation / grant agreeme
 
 **Routing out (Vietnam).** When the counterparty, the signing entity, or the governing law is Vietnamese, say so and split the
 work: hand the local-law form (bilingual drafting, the Quoc hieu block, signature and seal (con dau) space, MST and address
-formalities) and every domestic Vietnamese tax question (the 10 percent PIT withholding, VAT, foreign contractor tax,
+formalities) and every domestic Vietnamese tax question (PIT withholding, VAT, foreign contractor tax,
 e-invoice) to `vietnam-legal-advisor` when available; otherwise identify the local-law questions for qualified Vietnamese counsel. Keep only instrument structuring here: which instrument, economics, the token
 leg, offshore entity placement, securities framing. Never emit a Delaware-shaped document for a Vietnamese signer without
 naming that handoff. Cap-table workbooks can use `sqrdao-financial-model` when available; otherwise use available spreadsheet capabilities and state the modeling assumptions.
@@ -53,16 +53,16 @@ naming that handoff. Cap-table workbooks can use `sqrdao-financial-model` when a
 ## Step 1: Anchor on the five families, then apply the default
 
 1. **Equity now:** priced equity, SAFE (usually the YC post-money form), convertible note or bond.
-2. **Tokens later, no token entity yet:** token warrant (US-safer) or token side letter (non-US-friendly).
+2. **Tokens later, no token entity yet:** token warrant or token side letter, selected for the transaction and jurisdiction.
 3. **Tokens as the main asset, entity ready:** SAFT, or TPA / TSA.
 4. **Wrapper and extras:** term sheet, investor side letter, advisor and token grant agreements.
 5. **Post-raise and platform mechanics:** escrow, forfeiture / clawback / slashing, and the ToS, participation or grant
-   agreements carrying them. Contract enforceability and consumer law govern there, not securities law.
+   agreements carrying them. Assess contract enforceability and consumer law, plus securities and financial-services law where the facts require it.
 
-Families 1 to 4: `references/instruments.md`. Family 5: `references/escrow-forfeiture.md`. The default is the hybrid
-SAFE + token warrant (SAFE+T): an equity leg plus a separate token leg, compartmentalizing token securities risk off the cap
-table. Deviate only for a reason, and only after running the tree in `references/deal-structuring.md` §1 out loud (AP-1),
-which also carries entity, jurisdiction and conversion-ratio patterns.
+Families 1 to 4: `references/instruments.md`. Family 5: `references/escrow-forfeiture.md`. Consider the hybrid
+SAFE + token warrant (SAFE+T) where both legs fit the agreed economics. It separates token obligations
+from equity terms; it does not remove securities exposure or cap aggregate losses. Run the tree in `references/deal-structuring.md` §1 out loud (AP-1),
+which also carries entity, jurisdiction and conversion-ratio patterns. A roughly six-month TGE horizon is a planning example, not a legal eligibility test.
 
 ## Step 2: Do the actual work (tracks A, B, E; C and D are specified in the Step 0 table)
 
@@ -81,7 +81,7 @@ which also carries entity, jurisdiction and conversion-ratio patterns.
 contains "token", committing the team to deliver from an entity that does not exist on a deadline it cannot set. Fix: answer the
 tree out loud before naming anything. (1) Token planned or live? (2) Token exists and the buyer takes tokens now: TPA / TSA, plus
 a term sheet up front and a side letter for extra rights. (3) Entity token-ready, TGE inside roughly six months, raise funds the
-launch: SAFT. (4) Otherwise: SAFE or note plus a token warrant (US DevCo) or token side letter (non-US DevCo). If (3) is "not
+launch: SAFT. (4) Otherwise: SAFE or note plus a token warrant or token side letter selected with counsel for the relevant jurisdictions. If (3) is "not
 yet", say so: a SAFT is premature, it commits you to delivering tokens from an entity you have not formed.
 
 **AP-2. The canonical form retyped.** Wrong: asked to "draft a post-money SAFE", the agent reconstructs the YC form from memory,
@@ -102,33 +102,37 @@ counsel in the offering jurisdiction. Where a non-security clause is wanted, dra
 acknowledgment, and say in the reply that such a recital does not bind a regulator. Never write the phrase "is not a security"
 in output, even to negate or quote it: say that a settled non-security conclusion is not available on these facts.
 
-**AP-4. Forfeiture drafted as a penalty.** Wrong: drafting loss of the whole holding as a consequence of breach. That is a
-secondary obligation, so the penalty doctrine (*Cavendish Square v Makdessi*) bites and the clause is void if out of all
-proportion to the legitimate interest. Never restate the on-breach wording in output, even to reject it. Fix: invert it into a condition on a primary right, "Rewards vest and are earned only upon completion
-of [Milestone]; amounts not earned are not payable", limited to the unvested portion. Add three supports: a legitimate
-interest stated inside the clause; proportionality (graduated or pro-rata, never the whole holding); notice of not less than
-[10] days plus a [14] day cure period for any curable condition. Where participants may be consumers, say so and apply the
-second filter: CRA 2015 s62 and Directive 93/13 require the term plain, short and prominent at the point of acceptance.
+**AP-4. Forfeiture drafted without checking governing law.** Identify governing law and mandatory
+consumer rules first. For English-law contracts, assess the primary/secondary obligation distinction and
+legitimate-interest analysis in *Cavendish Square v Makdessi*, using `references/escrow-forfeiture.md`.
+Changing a label does not turn a breach remedy into a primary right. For a genuine unearned reward, draft
+an objective vesting condition limited to the unvested portion; do not confiscate deposits or vested property
+through this reward template. State the legitimate interest, proportional treatment, notice, and an appropriate
+cure period. [10] days' notice and [14] days to cure are negotiable examples, not statutory minima.
+Check CRA 2015 only where UK consumer law applies and Directive 93/13 through the applicable EU regime.
+Do not export the English test to Singapore, Delaware, Cayman, Vietnam, or other laws without local verification.
 
 **AP-5. Wrong entity on the wrong leg.** Wrong: the foundation signs the SAFE, or the DevCo signs the TPA, or the two legs
 sit under different governing laws and forums and nobody flags it. Fix: build and output the table *leg | document | signing
 entity | governing law | forum*, then assert three things: the equity document names the DevCo; the token-sale document names
 the issuer; the warrant or side letter names the DevCo as obligor sourced from the issuer's allocation. Raise each mismatch as
-a numbered requested change (a redline), not a note. A SAFE into a token project with no token warrant or side letter is a
-missing leg: name the gap explicitly instead of clearing the package.
+a numbered requested change (a redline), not a note. Where token rights were promised, a SAFE without the corresponding warrant or side letter is a
+missing leg. If the deal is expressly equity-only, record that scope instead of inventing token rights.
 
-**AP-6. Economics asserted, not computed.** Wrong: the agent restates cap, discount, ratio and reference price accurately
-and never divides. Fix: always show three numbers. Implied equity percent (purchase amount divided by post-money cap); token
-entitlement (investment divided by reference price, or the ratio applied to the equity stake); break-even multiple (reference
-price against the known IDO or trading price). Then state whether the two legs reconcile and, if not, which one governs. If
-the tokenomics table is missing, say the review cannot be completed without it, do not estimate.
+**AP-6. Economics asserted, not computed.** Show each applicable calculation from supplied inputs:
+for a capped post-money SAFE, investment divided by cap gives an implied pre-priced-round stake, subject
+to the form's conversion terms and later dilution; a note or discount-only SAFE needs its own conversion model.
+For the token leg, use the contractual allocation formula and identify its denominator. Compare reference
+price with a supplied IDO/trading price only when both exist. Mark missing inputs and unavailable calculations;
+never invent a cap, tokenomics table, or market price. Continue the clauses that can be reviewed and scope
+any incomplete economics review. Reconcile both legs only where the deal contains both.
 
-**AP-7. The stale regulatory snapshot quoted as current.** `references/regulatory.md` is the designated first read for any
-securities, MiCA, SEC, MAS, or exemption question, and its only stamp reads "as of early 2026". Wrong: quoting it as the present
-state of the law. Fix: treat every undated regulatory statement in that file as unverified, say so and say the snapshot's age out
-loud in the output, and search for the current position before answering anything that turns on a live rule (pending legislation,
-transitional deadlines, exemption mechanics). Attach a date and source to every rule quoted; structural advice (separate
-entities, deferred transfer, lockups) is durable and needs no re-check.
+**AP-7. An unverified reference quoted as current.** Read `references/regulatory.md` first for any
+securities, MiCA, SEC, MAS, or exemption question. Its dated sources support only the stated propositions.
+All other imported legal and market assertions are UNVERIFIED. Check primary legal text, amendments,
+effective dates, applicable jurisdiction and facts before relying on a rule from any bundled file. Distinguish
+effective law, interpretive guidance, proposals, and pending bills. Cite the source and check date; if verification
+is unavailable, label the affected point unresolved. Structural separation alone is not a legal-risk conclusion.
 
 ## Output conventions
 

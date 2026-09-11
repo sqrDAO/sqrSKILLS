@@ -1,5 +1,8 @@
 # Instruments Reference
 
+> UNVERIFIED except for specifically dated, cited propositions. Check current primary
+> sources and transaction facts before relying on legal or market assertions.
+
 Deep dive on every instrument used in crypto fundraising. Each entry covers what
 it is, the mechanics, when to use it, the key negotiable terms, the tradeoffs,
 and where to get the canonical form. Read the entry for whichever instrument is
@@ -21,30 +24,25 @@ in play; you do not need to read the whole file.
 
 ## 1. Post-money SAFE
 
-**What it is.** A Simple Agreement for Future Equity: the investor pays now for
-the right to shares later, with no interest and no maturity date. It converts to
-equity when a priced round, liquidity event, or dissolution happens. The
-post-money version (YC, 2018) fixes the investor's ownership percentage at the
-moment of conversion, so dilution between SAFEs is borne by the founders rather
-than shared. This is the near-universal early-stage equity instrument.
+**What it is.** A SAFE provides contractual rights before an equity financing.
+For a capped post-money SAFE, investment divided by cap gives implied ownership
+before new priced-round money and related dilution, subject to the form's terms.
+Liquidity and dissolution events have payout rules, not automatic equity conversion.
 
-**Mechanics.**
-- Investor pays the Purchase Amount.
-- On an Equity Financing, the SAFE converts into the greater of shares at the
-  lowest price of the new preferred or shares at the "Safe Price" (Purchase
-  Amount divided by the price implied by the valuation cap).
-- On a Liquidity Event, the investor takes the greater of the Purchase Amount
-  back (cash-out) or the as-converted common value.
-- On a Dissolution Event, the investor is entitled to the Purchase Amount, with
-  a defined liquidation priority.
+**Mechanics.** At equity financing, apply the actual form's share-price and
+capitalization definitions. A share count is investment divided by the applicable
+price; do not confuse that quotient with the price itself. Liquidity and dissolution
+payouts remain subject to priority and available proceeds.
+
+Source checked 2026-09-11: `https://www.ycombinator.com/safe` and its linked forms.
+Use the applicable current form; these paragraphs are an explanation, not a substitute.
 
 **Key terms.** Post-money valuation cap; discount; MFN (most favored nation);
 pro-rata rights (removed as a default in the post-money form, restored via a
 separate Pro Rata Side Letter). See `key-terms-glossary.md`.
 
 **When to use.** Any early equity raise where a token is not the point, or as
-the equity leg of a hybrid token deal. The default form is cap-only (no
-discount) for roughly 85 percent of the market.
+the equity leg of a hybrid token deal. Choose the cap, discount, or MFN variant based on the agreed terms.
 
 **Tradeoffs.** Founder-simple, fast, no repayment obligation. Post-money caps
 are quietly more dilutive to founders than pre-money because each SAFE holder's
@@ -99,9 +97,7 @@ books.
 
 **What it is.** A right (not an obligation) for the investor to acquire a defined
 allocation of future tokens, usually at a nominal or zero exercise price,
-exercisable at or after the Token Generation Event (TGE). It is the token-leg
-instrument of choice in institutional rounds and is increasingly replacing the
-informal side letter.
+exercisable at or after the Token Generation Event (TGE). It can be used as the token leg alongside an equity instrument.
 
 **Mechanics.**
 - Issued in connection with an equity investment (a SAFE, note, or investment
@@ -120,12 +116,11 @@ exercise price; exercise window; lockup; vesting; transfer restrictions;
 definition of Token Launch / TGE.
 
 **When to use.** Pre-TGE, when a token is planned but not yet issuable, and
-especially when the developer company is US-based (the warrant structure keeps
-the token-distribution obligation cleaner than a side letter). Staple it to the
-equity instrument.
+where the proposed warrant terms fit the transaction and jurisdiction.
+Document its relationship to the equity instrument.
 
-**Tradeoffs.** Investor's maximum loss on the token leg is the warrant cost, and
-the founder is not forced to sell tokens before the network is ready. More
+**Tradeoffs.** Deferred token delivery does not cap total losses at the warrant cost.
+Assess bundled consideration, exercise obligations, and the actual delivery covenants. More
 drafting than a side letter. Guard against warrant holders disrupting circulating
 supply at launch.
 
@@ -152,10 +147,9 @@ warrant by design.
 Contributors' Allocation"; transfer restrictions; most-favored-terms provisions
 if another token instrument (SAFT, TPA) is later signed with better terms.
 
-**When to use.** Very early, tokenomics unfinished, and (importantly) when the
-developer company is outside the US, where putting the distribution obligation
-on the company is less problematic. If the developer company is US-based, prefer
-a token warrant instead.
+**When to use.** Very early, while tokenomics are unfinished, if a contractual allocation
+promise fits the agreed economics. Compare with a warrant under the actual
+jurisdictions and facts; non-US incorporation is not a safety conclusion.
 
 **Tradeoffs.** Fast and flexible, but the looseness cuts both ways: fewer hard
 commitments for the investor to rely on, and the delivery mechanics depend on a
@@ -182,8 +176,8 @@ entity capable of issuing.
   percent less taxes and expenses).
 
 **Key terms.** Purchase Amount; token price / valuation; TGE deadline; delivery
-conditions; lockup and vesting; refund on dissolution; the non-security framing
-and legal-opinion requirement.
+conditions; lockup and vesting; refund on dissolution; applicable-test risk analysis, fact-supported purchaser representations
+that do not bind regulators, and the legal-opinion requirement.
 
 **When to use.** Entity is token-ready, the raise is a token raise, and the TGE
 is on a defined horizon. Less appropriate when the token design is still open
@@ -191,8 +185,7 @@ is on a defined horizon. Less appropriate when the token design is still open
 
 **Tradeoffs.** Clean when the token is the actual product being sold, but it
 carries the most direct securities risk of the token instruments because the
-investor pays cash for a future token with an expectation of profit. The
-non-security framing is a position, not a guarantee. See `regulatory.md`.
+investor pays cash for a future token with an expectation of profit. Representations and legal opinions do not eliminate exposure. See `regulatory.md`.
 
 ---
 
@@ -205,8 +198,9 @@ delivery of a SAFT. Used at or close to the TGE.
 **Mechanics.**
 - Defines the token, the network, total supply, reference price per token,
   accepted consideration (commonly USDC / USDT), and the buyer's allocation.
-- Heavy on disclaimers and risk factors, an express non-security / utility-token
-  framing, and a binding arbitration clause.
+- Heavy on disclaimers and risk factors, fact-supported purchaser representations and acknowledgments
+  under the applicable test, and a dispute-resolution clause. Representations do
+  not bind regulators; retain any legal-opinion covenant and residual-risk warning.
 - Full definitions, reps and warranties, tokenomics-change consent rights,
   vesting (for example six-month lockup then linear monthly vesting over 24
   months), and information rights.
@@ -292,10 +286,10 @@ services are genuine to support the tax and securities characterization.
 Real deals combine instruments. The common patterns:
 
 - **SAFE + token side letter.** Equity via the SAFE; token upside via the side
-  letter's pro-rata formula. Good for pre-TGE, non-US developer companies.
-- **SAFE / note + token warrant.** The 2025-2026 institutional default (SAFE+T).
+  letter's pro-rata formula. Consider pre-TGE where the terms fit the jurisdiction and transaction.
+- **SAFE / note + token warrant.** A possible hybrid (SAFE+T).
   Equity converts on a priced round; the warrant delivers a defined or pro-rata
-  token allocation at TGE. US-safer.
+  token allocation at TGE under its conditions. Neither leg is insulated from securities analysis.
 - **Convertible note / bond + token warrant.** The note converts to equity at a
   pre-money valuation with a discount; the warrant then converts equity exposure
   into a token allocation, sometimes at a fixed ratio (for example, equity
@@ -305,7 +299,7 @@ Real deals combine instruments. The common patterns:
   sale: the term sheet aligns economics, the TPA does the sale, the side letter
   adds lead-investor rights.
 
-When you see one leg, ask where the other leg is. A SAFE with no token document
-in a token project is a gap; a token warrant with no equity instrument is
+When you see one leg, ask where the other leg is. If token rights were promised, a SAFE with no token document
+is a gap; an expressly equity-only deal need not grant token rights; a token warrant with no equity instrument is
 unusual. Reconcile the two legs so the investor's total economics (percentage of
 equity and percentage of tokens) are internally consistent.

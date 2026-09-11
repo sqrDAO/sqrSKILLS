@@ -1,17 +1,18 @@
 # Key Terms Glossary
 
-Precise definitions and rough 2025-2026 market ranges for the negotiable terms.
-Ranges are directional, not advice; they move with market conditions, stage, and
-leverage. Always show the math when a term affects money.
+> UNVERIFIED except for specifically dated, cited propositions. Check current primary
+> sources and transaction facts before relying on legal or market assertions.
+
+Definitions and illustrative negotiating ranges. The ranges are not verified
+market benchmarks; source current comparisons before labeling a term market or
+off-market. Always show the math when a term affects money.
 
 ## Equity-leg economics
 
 **Post-money valuation cap.** The maximum company valuation at which a SAFE or
 note converts, measured after all the round's SAFE money is counted. Investor's
 implied ownership is roughly Purchase Amount divided by the cap. A $50k check at
-a $4M post-money cap implies about 1.25 percent. 2025 directional median for
-seed: roughly a $10M cap for a $1M raise, but this varies widely by traction and
-sector.
+a $4M post-money cap implies about 1.25 percent. This is an arithmetic illustration, not evidence of a market median.
 
 **Discount.** A percentage reduction off the priced-round price per share that
 the SAFE or note holder pays. Typical: 20 percent (investor pays 80 percent of
@@ -104,9 +105,9 @@ liquidity, at a strike price. Keep it legally independent of the side letter.
 
 ## Framing and legal terms
 
-**Non-security / utility-token framing.** Language asserting the token is not a
-security and the instrument is not an offer of securities. A negotiating and
-risk position, not a legal conclusion. See `regulatory.md`.
+**Non-security / utility-token framing.** Fact-supported purchaser representations and risk
+acknowledgments under the applicable test. They do not bind regulators or
+eliminate exposure; avoid settled classification assertions. See `regulatory.md`.
 
 **Legal-opinion covenant.** An undertaking (common in Singapore-linked token
 deals) to deliver, within a set period, a counsel opinion on compliance with

@@ -1,5 +1,8 @@
 # Deal Structuring Reference
 
+> UNVERIFIED except for specifically dated, cited propositions. Check current primary
+> sources and transaction facts before relying on legal or market assertions.
+
 The decision tree for picking an instrument, how the hybrid structures fit
 together, and how to structure the entities and jurisdictions underneath them.
 
@@ -36,18 +39,14 @@ instrument family.
    equity instrument plus a token leg:
    - Equity leg: **SAFE** (default) or **convertible note / bond** (if the
      investor or jurisdiction wants debt seniority and a maturity).
-   - Token leg: **token warrant** if the developer company is US-based;
-     **token side letter** if it is non-US and you want maximum flexibility.
+   - Token leg: **token warrant** or **token side letter**, depending on allocation
+     certainty, flexibility, enforceability, and the jurisdictions involved.
 
-**Default when unsure:** SAFE + token warrant (the SAFE+T hybrid). It is the
-current institutional standard because it keeps token securities risk off the
-corporate cap table.
-
-Trends to keep in mind (2025-2026): token warrants are becoming the standard
-token leg in institutional rounds, displacing informal side letters; hybrid
-equity-plus-token rounds are becoming the default rather than the exception; and
-clearer token classification in more jurisdictions is slowly reducing the need
-for aggressive offshore structuring.
+**Candidate hybrid:** SAFE + token warrant (SAFE+T) separates equity terms and token
+obligations. Select it only after checking the intended economics, entity capacity,
+and counsel's transaction-specific analysis. It does not eliminate securities
+exposure or establish a limit on aggregate losses. No market-share or adoption
+trend is verified by this reference.
 
 ---
 
@@ -74,8 +73,8 @@ Always state which side you are optimizing for at the top of the analysis.
 
 Crypto deals usually involve two entities: a development company (DevCo) that
 holds the IP and employs the team, and a token issuer (a foundation or an
-offshore company) that launches and distributes the token. Separating them
-compartmentalizes token risk away from the operating equity.
+offshore company) that launches and distributes the token. Separate documents can clarify each entity's obligations;
+separation alone does not shield either entity from legal exposure.
 
 Common building blocks seen in practice:
 
@@ -85,7 +84,7 @@ Common building blocks seen in practice:
   Pte Ltd, a Finnish Oy, a Hong Kong Ltd, or an EU entity. The equity
   instrument (SAFE, note, bond) is signed by this entity.
 - **Token issuer (token leg):** frequently an offshore company or a foundation
-  in a token-friendly jurisdiction. Singapore (Pte Ltd or foundation), BVI,
+  in a token-friendly jurisdiction. Singapore (an appropriate locally recognized legal form), BVI,
   Cayman, and St. Vincent and the Grenadines are all common issuers. The SAFT or
   TPA is signed by this entity; the token warrant or side letter obliges the
   DevCo to arrange delivery from the issuer's allocation.
@@ -98,9 +97,10 @@ Jurisdiction notes:
 - The YC post-money SAFE has an international variant for Canada, Cayman, and
   Singapore companies, with an optional country side letter. Use that instead of
   forcing the Delaware form onto a non-US entity.
-- Singapore is a common hub: the Payment Services Act and the Securities and
-  Futures Act govern token activity, and a Singapore counsel legal opinion on
-  compliance is a frequent covenant in token term sheets.
+- For Singapore, investigate whether the Payment Services Act, Securities and
+  Futures Act, or other rules apply to the token and activities, considering
+  licensing, exemptions, and current law. Use `regulatory.md` and qualified
+  Singapore counsel; do not assume every token activity falls under both Acts.
 - Match the governing law and arbitration seat in the document to the entity and
   the parties. A token sale by a Singapore issuer typically uses Singapore law
   and a Singapore or SIAC arbitration seat.

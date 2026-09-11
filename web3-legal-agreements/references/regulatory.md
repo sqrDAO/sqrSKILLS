@@ -1,5 +1,8 @@
 # Regulatory Reference
 
+> UNVERIFIED except for specifically dated, cited propositions. Check current primary
+> sources and transaction facts before relying on legal or market assertions.
+
 Securities and regulatory framing for token raises. This is risk analysis to make
 the user sharper before counsel, not a legal opinion. Never state that a token
 "is" or "is not" a security as a settled fact; frame it as risk under the
@@ -27,30 +30,41 @@ timing (pre-TGE vs post-decentralization) matters so much.
 **Instrument-level exposure.**
 - A SAFT is a cash-for-future-token bet on the team's efforts: relatively high
   securities risk, mitigated only partly by utility framing.
-- A token warrant limits the investor's downside to the warrant cost and defers
-  the token transfer, but the analysis still applies at exercise.
+- A token warrant may defer delivery. Assess issuance, offer, sale, exercise,
+  transfer, underlying tokens, and bundled consideration on their actual facts;
+  neither deferred delivery nor a nominal warrant price removes exposure.
 - A TPA at or after a functional launch has a better utility posture but is
   exposed to money-transmission and consumer rules.
 - The equity leg (SAFE, note) is a conventional security handled through the
   usual exemptions.
 
-**Exemptions commonly used.** Regulation D 506(b) (no general solicitation) and
-506(c) (general solicitation allowed, all purchasers must be verified
-accredited). Most US crypto raises in 2025 used 506(c) when they wanted to
-announce the raise publicly. Regulation S is used for offshore offerings to
-non-US persons. The choice turns on whether the raise is publicly announced and
-who the buyers are.
+**Offering checks.** Identify registration or a fact-supported exemption for each
+leg before the offer or sale. Verify purchaser eligibility, solicitation controls,
+resale/transfer restrictions, and jurisdictions. Investigate Regulation D 506(b),
+506(c), and Regulation S where relevant; do not infer compliance from an investor's
+nationality or from delaying delivery. Verify the current conditions from primary text.
 
-**Current US direction (as of early 2026).** The posture has shifted toward
-clearer, more accommodating rules. SEC leadership under Chair Atkins has pushed a
-token taxonomy, and in a January 28, 2026 staff statement the SEC set out a basic
-taxonomy of tokenized securities, reiterating the principle that securities
-remain securities however they are represented and that economic reality trumps
-labels. The GENIUS Act (stablecoins) became law in July 2025; the CLARITY Act
-(market structure) and related measures have advanced in Congress; the SEC and
-CFTC continue to coordinate. The direction is more clarity, not less scrutiny:
-"utility token" labels do not defeat an economic-reality analysis. Treat any
-specific rule as needing a fresh check, since this area is moving quickly.
+**Dated US source register (checked 2026-09-11; not a blanket current-law opinion).**
+- The January 28, 2026 statement concerns tokenized securities and is staff guidance:
+  `https://www.sec.gov/newsroom/speeches-statements/corp-fin-statement-tokenized-securities-012826-statement-tokenized-securities`.
+- The broader SEC interpretation with accompanying CFTC guidance was issued March 17,
+  effective March 23, 2026. It distinguishes assets from investment-contract transactions;
+  delayed delivery does not postpone the offer/sale analysis (section IV):
+  `https://www.sec.gov/rules-regulations/2026/03/s7-2026-09` and
+  `https://www.sec.gov/files/rules/interp/2026/33-11412.pdf`.
+- GENIUS Act, Public Law 119-27, was approved July 18, 2025. Section 20 sets the
+  general effective date at the earlier of 18 months after enactment or 120 days
+  after implementing final regulations; other provisions have separate timing.
+  Verify those regulations and the provision at issue before calling a duty operative:
+  `https://www.congress.gov/bill/119th-congress/senate-bill/1582/text`.
+- CLARITY is a legislative-status check, not an assumed exemption. The retrieved
+  Congress record shows House passage and Senate referral, not enactment; it may
+  lag subsequent action, so verify live status before use:
+  `https://www.congress.gov/bill/119th-congress/house-bill/3633`.
+
+Keep enacted law, operative provisions, agency interpretations, staff guidance,
+and proposals distinct. The source dates above do not establish that later rules
+or amendments have been exhaustively checked.
 
 ## European Union: MiCA
 
@@ -64,23 +78,22 @@ should be checked against MiCA classification and white-paper duties.
 
 ## Singapore and Asia-Pacific
 
-Singapore is a frequent hub for token issuers. The Payment Services Act and the
-Securities and Futures Act are the primary regimes; a Singapore counsel legal
-opinion on compliance (often naming the Payment Services Act, Securities and
-Futures Act, and any gambling or gaming law for game tokens) is a common term-
-sheet covenant. Hong Kong has a stablecoin regime in force as of 2025; Japan and
-others run progressive licensing. Match the issuer jurisdiction to a real
-compliance path, not just a favorable label.
+For Singapore, establish the token's rights, the activities performed, and the
+parties' locations. Investigate applicable Payment Services Act, Securities and
+Futures Act, and other licensing or exemption requirements under current law.
+Do not apply both Acts to every token activity automatically. Seek qualified
+Singapore counsel's analysis; this file does not verify a Singapore exemption.
+Apply the same jurisdiction-specific process elsewhere in Asia-Pacific.
 
 ## Practical framing guidance
 
-- Use the non-security / utility framing where genuinely supportable, but present
-  it as a position that reduces (not eliminates) risk, and pair it with the
-  legal-opinion covenant.
+- Draft only fact-supported purchaser representations and acknowledgments under
+  the applicable test. They do not bind regulators or eliminate exposure. Retain
+  any legal-opinion covenant; neither labels nor opinions guarantee classification.
 - Prefer structures that defer token transfer until the network is more
   functional (warrants, lockups, vesting) to improve the utility posture.
-- Keep the equity leg and token leg in separate entities and documents so token
-  risk does not contaminate the cap table.
+- Separate equity and token obligations where appropriate, while analyzing
+  exposure across the entire transaction and all entities involved.
 - Verify accredited-investor / offering-exemption compliance for the equity leg
   in the relevant jurisdiction.
 - For anything that turns on a specific rule or a live deal, stop and route to

@@ -1,5 +1,8 @@
 # Escrow, Forfeiture, and Platform / Program Terms Reference
 
+> UNVERIFIED except for specifically dated, cited propositions. Check current primary
+> sources and transaction facts before relying on legal or market assertions.
+
 Covers three related things the investment instruments do not: how value is held
 in escrow and released, when a forfeiture actually sticks, and how to draft or
 review the platform and program terms (Terms of Service, participation
@@ -25,8 +28,7 @@ Reach here for: milestone or vesting escrow, deposit or stake forfeiture,
 unclaimed-reward or airdrop expiry, staking slashing, grant clawback, launchpad
 or IDO allocation forfeiture, program-participation terms (accelerator,
 residency, hackathon, bounty), and any platform Terms of Service that holds user
-funds or imposes a loss condition. The governing legal question is usually not
-securities law; it is contract enforceability (the penalty and forfeiture
+funds or imposes a loss condition. The governing legal question is usually contract enforceability (the penalty and forfeiture
 doctrines) plus, for anything consumer-facing, unfair-terms and transparency law.
 
 ---
@@ -77,7 +79,7 @@ counterparty is a business or a consumer and by governing law.
 
 ### The primary vs secondary obligation distinction (the drafting lever)
 
-The penalty doctrine only bites on a **secondary** obligation, meaning a
+Under English law, the penalty doctrine applies on a **secondary** obligation, meaning a
 consequence imposed for **breach** of contract. A term that adjusts the primary
 bargain (a conditional right, a price adjustment, or a benefit that was never
 earned unless a condition is met) is generally outside the doctrine. So a
@@ -86,7 +88,7 @@ condition on a primary right) is far more robust than "on breach, you forfeit"
 (a penalty on breach). This distinction is the single most important drafting
 lever.
 
-### Common law (England, Singapore, and similar)
+### English law; verify other jurisdictions independently
 
 The modern test comes from Cavendish Square Holding BV v Makdessi (2015), which
 replaced the old Dunlop "genuine pre-estimate of loss" test. A clause triggered
@@ -108,11 +110,11 @@ reasonable measure tied to the harm or the legitimate interest, not a punitive
 penalty. Grossly disproportionate forfeitures risk being struck as penalties, and
 some contexts add statutory or equitable limits. Confirm the specific state law.
 
-### Consumer contracts (the stricter lane)
+### Consumer contracts (where the relevant regime applies)
 
 If the counterparty is a consumer (most retail platform users), a second filter
-applies on top of the penalty doctrine: unfair-terms law. Under the UK Consumer
-Rights Act 2015 (and the EU Unfair Terms Directive 93/13), a term is not binding
+applies on top of the penalty doctrine: unfair-terms law. Where applicable, under the UK Consumer
+Rights Act 2015 or the relevant national implementation of EU Directive 93/13, a term is not binding
 if, contrary to good faith, it causes a significant imbalance in the parties'
 rights to the consumer's detriment; terms must also be transparent and, where
 relevant, prominent. ParkingEye v Beavis (2015) shows a charge can survive both
@@ -197,3 +199,9 @@ When drafting or redlining, apply these to maximize enforceability:
 - Consumer unfair terms: UK Consumer Rights Act 2015 s62; EU Directive 93/13.
 - Escrow: standard escrow-agent, multisig, and smart-contract patterns; confirm
   custody / money-transmission licensing in the holder's jurisdiction.
+
+English-law source checked 2026-09-11: `https://www.supremecourt.uk/cases/uksc-2013-0280`
+(*Cavendish*, judgment of 4 November 2015). Substance governs the distinction;
+renaming a breach remedy does not determine the result. Do not assume this test
+is the law of Singapore, Delaware, Cayman, Vietnam, or any other jurisdiction.
+Assess securities and financial-services overlays for token-related terms too.

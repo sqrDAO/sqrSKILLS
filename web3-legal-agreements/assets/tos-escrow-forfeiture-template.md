@@ -1,5 +1,8 @@
 # ToS / Participation Agreement Template: Escrow and Forfeiture (skeleton)
 
+> UNVERIFIED except for specifically dated, cited propositions. Check current primary
+> sources and transaction facts before relying on legal or market assertions.
+
 A neutral, fill-in skeleton for a platform Terms of Service or program
 participation agreement that holds assets in escrow and imposes forfeiture. It is
 a starting scaffold, not a finished contract and not legal advice. Fill every
@@ -14,9 +17,9 @@ Drafting notes are marked `>> NOTE:` and should be removed from the final draft.
 ## 1. Parties and acceptance
 - **Operator:** [legal entity name, number, jurisdiction, registered address].
 - **User / Participant:** the person or entity accepting these terms.
-- **Acceptance:** By [creating an account / depositing assets / entering the
-  Program], you agree to these Terms and the documents incorporated by reference
-  in Section 12.
+- **Acceptance:** By actively selecting [an unchecked agreement checkbox / an "I agree"
+  button] after being given access to these Terms and the Section 12 documents,
+  you accept them. Account creation, deposit, or program entry alone is not acceptance.
 >> NOTE: Use affirmative click-through acceptance, not passive browsewrap. If
 users may be consumers, say so and meet the transparency and prominence duties.
 
@@ -55,14 +58,12 @@ stronger than "forfeited on breach" (a penalty). Prefer 4.1's framing wherever
 possible.
 
 ## 5. Forfeiture
-5.1 **Forfeiture Events.** The following result in loss of [unvested Assets /
-Deposit / allocation]: [list precisely].
+5.1 **Forfeiture Events.** The following result in loss of [unvested, unearned Rewards]: [list precisely].
 5.2 **Legitimate interest.** This forfeiture exists to [protect other
 participants / preserve network or program integrity / ensure fair allocation];
 it is not a penalty and is proportionate to that interest.
 5.3 **Proportionality.** Forfeiture is limited to [unvested / pro-rata / the
-portion tied to the unmet condition], not the User's entire holding, except
-[narrow, justified exceptions].
+portion tied to the unmet condition], excluding deposits and already vested property.
 5.4 **Notice and cure.** Before forfeiture, the Operator will give [X days] notice
 and, where applicable, a cure period of [X days].
 >> NOTE: For consumer users, keep this clause plain, proportionate, and prominent,
@@ -77,15 +78,17 @@ to Section 5, IP and confidentiality, code of conduct.]
 own-account and risk acknowledgments for any token rewards.]
 
 ## 8. Risk disclosures and disclaimers
-[Token/asset risk, no-investment-advice, non-security framing where supportable
-(cross-check regulatory.md), technology and smart-contract risk, no warranty.]
+[Token/asset risk, no-investment-advice, fact-supported purchaser representations
+and acknowledgments under the applicable classification test; these do not bind
+regulators or eliminate exposure. Cross-check regulatory.md and retain any
+legal-opinion covenant. Technology/smart-contract risk and warranty provisions.]
 
 ## 9. Limitation of liability and indemnity
 [Cap, carve-outs, indemnity, consumer-law carve-outs that cannot be excluded.]
 
 ## 10. Changes to these Terms
-[How amendments are made and notified; when continued use equals acceptance;
-consumer-fair change control.]
+[How amendments are notified and affirmatively accepted where required;
+consumer-fair change control, without retroactive loss of vested rights.]
 
 ## 11. Governing law and dispute resolution
 Governing law: [jurisdiction]. Disputes: [courts / arbitration seat and rules];

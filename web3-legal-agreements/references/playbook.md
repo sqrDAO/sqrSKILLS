@@ -1,7 +1,10 @@
 # Deal Playbook
 
+> UNVERIFIED except for specifically dated, cited propositions. Check current primary
+> sources and transaction facts before relying on legal or market assertions.
+
 Practical posture for using these instruments, for both sides of the table, plus
-the market-standard structures worth reaching for instead of starting from a
+illustrative structures to consider instead of starting from a
 blank page. This is project-neutral: it works for any Web3 team raising and any
 investor writing a check. State which side you are optimizing for at the top of
 every analysis; the instrument is the same, the posture flips.
@@ -41,8 +44,8 @@ runway and control:
 - **Keep token commitments flexible pre-TGE.** Use a warrant or side letter that
   does not lock final tokenomics; avoid fixed TGE dates you cannot hit (use a
   deadline, for example "no later than 12 months", if a date is needed).
-- **Contain token risk.** Keep the token leg in a separate entity and document
-  from the corporate cap table.
+- **Identify obligations.** Document the token and equity legs separately where
+  appropriate, without treating separation as immunity from securities exposure.
 - **Cap investor governance.** Narrow tokenomics-change consent and information
   rights to what a lead reasonably needs; resist broad vetoes.
 - **Match the instrument to stage.** Do not sign a SAFT before the entity is
@@ -50,13 +53,13 @@ runway and control:
 
 ## Common executed structures (reach for these first)
 
-These are battle-tested market archetypes. Start from the closest one rather than
+These are illustrative deal archetypes, not verified market standards. Start from the closest one rather than
 a blank page.
 
 - **SAFT (raise-for-token, TGE delivery).** For a token-ready issuer raising to
   launch: purchase amount and token price in an exhibit, TGE within a defined
-  window, refund on dissolution, non-security framing with a legal-opinion
-  posture. Reach for this when the entity is ready and the raise is a token raise.
+  window, refund on dissolution, applicable-test risk analysis, purchaser representations that do not bind
+  regulators, and a legal-opinion covenant; none eliminates exposure. Reach for this when the entity is ready and the raise is a token raise.
 - **Post-money SAFE + token side letter.** For an early (often US-incorporated)
   company: equity on the standard YC post-money SAFE, token upside via a side
   letter defining a pro-rata share of the team / contributor allocation. Reach

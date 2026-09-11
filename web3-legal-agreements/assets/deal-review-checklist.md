@@ -1,5 +1,8 @@
 # Deal Review Checklist (Track B working template)
 
+> UNVERIFIED except for specifically dated, cited propositions. Check current primary
+> sources and transaction facts before relying on legal or market assertions.
+
 Work top to bottom on any incoming agreement. For each item, record: what the
 document says, whether it is market / off-market / dangerous, and the specific
 change to request. Skip items that do not apply to the instrument type.
@@ -11,8 +14,8 @@ change to request. Skip items that do not apply to the instrument type.
       DevCo vs the token issuer.
 - [ ] Governing law and dispute-resolution seat noted.
 - [ ] Which side am I optimizing for (investor / founder)? Stated at the top.
-- [ ] Binding vs non-binding confirmed (term sheets: confirm only confidentiality
-      / exclusivity bind).
+- [ ] Binding vs non-binding confirmed (term sheets: identify every expressly binding provision,
+      including any confidentiality, exclusivity, costs, law, or dispute provisions).
 
 ## 1. Economics (equity leg)
 - [ ] Purchase amount correct.
@@ -49,7 +52,11 @@ change to request. Skip items that do not apply to the instrument type.
 - [ ] Transfer / assignment restrictions (and affiliate carve-out).
 
 ## 5. Risk and framing
-- [ ] Non-security / utility framing present and supportable.
+- [ ] Applicable-test classification risk assessed; any purchaser representation is fact-supported
+      and acknowledges that it does not bind regulators.
+- [ ] Registration or offering-exemption route identified with purchaser-eligibility
+      evidence (including accreditation or Regulation S conditions where applicable),
+      solicitation, resale/transfer, and jurisdiction controls checked against current law.
 - [ ] Legal-opinion covenant present (especially Singapore issuers: Payment
       Services Act, Securities and Futures Act, gaming law if applicable).
 - [ ] Reps and warranties balanced (issuer vs investor).
@@ -59,7 +66,7 @@ change to request. Skip items that do not apply to the instrument type.
       token sale).
 
 ## 6. Reconciliation and side agreements
-- [ ] Equity percentage and token percentage computed and internally consistent.
+- [ ] Applicable equity and token calculations computed; missing inputs and equity-only scope noted.
 - [ ] All side letters and advisor allocations listed; effect on the base deal
       noted.
 - [ ] Governing law consistent across the equity and token legs.
