@@ -1,6 +1,6 @@
 ---
 name: skill-evolution
-version: 0.1.0
+version: 0.1.1
 allowed-tools:
   - Read
   - Write
@@ -13,9 +13,9 @@ description: "Audit, build, improve, or gate an agent skill using the three-laye
 
 This workflow adapts [WikiSkill](https://arxiv.org/html/2608.27454v1): retain accumulated diagnosis and measure candidate instructions against a validation set. Its reported results describe its experimental setup, not a guarantee for every skill. Numeric workflow budgets below are starting heuristics, not universal requirements.
 
-This package contains only this prompt. An external `skill-evolution-kit` may provide `wiki_init.py`, `gate.py`, `run_with_skill.sh`, `install.sh`, templates, patterns, eval sets, and patches; none are bundled here. If a kit is available, inspect its actual files and interface before using it. Otherwise use the project's existing harness, or deliver an audit and gate design labelled UNGATED; do not invent commands or claim a run. Building a harness is a separate task.
+This package contains only this prompt. An external `skill-evolution-kit` may provide `wiki_init.py`, `gate.py`, `run_with_skill.sh`, `install.sh`, templates, patterns, eval sets, and patches; none are bundled here. If a kit is available, inspect its actual files and interface before using it. Otherwise use the project's existing harness, or deliver an audit and gate design labelled UNGATED; do not invent commands or claim a run. Building a harness is a separate task. Read the project's evaluation documentation before using its harness: eligibility, ground-truth generation, case schema, artifact support, and run-integrity rules take precedence over the external-kit examples below. Fields such as `guards` and `needs_key` are illustrative; adapt them to the actual schema without weakening those rules.
 
-Map Read/Write/Edit to local file tools and Bash to shell execution; tool metadata grants no additional permissions. Follow project rules for specs, validation, and completion. An import or inspection does not authorize an evaluation campaign or library-wide edits. Run only relevant helpers whose effects fit the task; use isolated fixtures for mutating scripts.
+Map Read/Write/Edit to local file tools and Bash to shell execution; tool metadata grants no additional permissions. The Python permission covers Python helpers only; optional shell runners need separately available shell execution permission. Follow project rules for specs, validation, and completion. An import or inspection does not authorize an evaluation campaign or library-wide edits. Run only relevant helpers whose effects fit the task; use isolated fixtures for mutating scripts.
 
 ## Research motivation
 
@@ -104,7 +104,7 @@ Run cases with the skill injected in full (using an inspected runner, such as an
 - Some proposal tools carry only SKILL.md; inspect what yours includes. Fixes in scripts, references, assets or CSS have to ship as files.
 - Model-specific workarounds can transfer poorly (paper §4.2.2): one model's spreadsheet skill dropped another from 50.5 to 18.1. Keep general procedure and workaround in separate, labeled sections.
 - The wiki has no pruning mechanism. Plan a consolidation pass.
-- Strict gating discards neutral changes that would have enabled a later gain. Relax it deliberately, never by default.
+- Strict gating can discard neutral changes that would have enabled a later gain. Follow any project-mandated gate; relax it only with explicit user authorization to change that policy, never as an agent implementation choice.
 
 ## Verification before handoff
 
