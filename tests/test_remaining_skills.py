@@ -68,6 +68,19 @@ class TelegramSummaryTests(unittest.TestCase):
 
 
 class TelegramSendAndListTests(unittest.TestCase):
+    def test_literal_placeholder_text_survives_code_protection(self):
+        for marker in ("@@CODE0@@", "@@CODE999@@", "@@@CODE0@@"):
+            with self.subTest(marker=marker):
+                self.assertEqual(marker, SEND.markdown_to_html(marker))
+                self.assertEqual(
+                    marker + " and <code>x_y_z</code>",
+                    SEND.markdown_to_html(marker + " and `x_y_z`"),
+                )
+        self.assertEqual(
+            "@@CODE0@@ <pre><code>@@@CODE1@@\na_b_c\n</code></pre>",
+            SEND.markdown_to_html("@@CODE0@@ ```python\n@@@CODE1@@\na_b_c\n```"),
+        )
+
     def test_code_spans_are_literal(self):
         self.assertEqual("<code>user_name_here</code>", SEND.markdown_to_html("`user_name_here`"))
         self.assertIn("a_b_c = 1", SEND.markdown_to_html("```python\na_b_c = 1\n```"))

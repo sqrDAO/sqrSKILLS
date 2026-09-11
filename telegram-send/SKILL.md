@@ -1,6 +1,6 @@
 ---
 name: telegram-send
-version: 0.1.2
+version: 0.1.3
 description: |
   Send a message to a Telegram group or channel this agent's Telegram bot can access. Use this skill whenever the user asks to send, post, or broadcast a message to a Telegram group or channel. Trigger phrases: "send a message to [group]", "post to Telegram", "broadcast to [channel]", "message the [group name] Telegram group". Requires TELEGRAM_BOT_TOKEN.
 allowed-tools:

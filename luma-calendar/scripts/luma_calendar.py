@@ -158,7 +158,7 @@ def main():
     p.add_argument("--description", help="Event description (plain text or HTML)")
     p.add_argument(
         "--geo-address-json",
-        help='Venue address as JSON object, e.g. \'{"city":"Hanoi","country":"VN","full_address":"123 Main St"}\'',
+        help='Venue address as JSON object, e.g. \'{"type":"manual","address":"123 Main St, Hanoi, VN"}\'',
     )
     p.add_argument("--url", help="Custom URL slug for the event page")
 

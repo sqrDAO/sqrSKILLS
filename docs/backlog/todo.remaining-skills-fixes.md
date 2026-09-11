@@ -21,8 +21,13 @@ speculative prompt improvements explicitly ungated.
 - Corresponding `SKILL.md` and references (edited) — align commands/contracts;
   bump SemVer patch versions.
 - `tests/test_remaining_skills.py` (new) — offline regression coverage.
+- `README.md`, `docs/backlog/PRIORITY.md` (edited) — support scope and status.
 
 ## Acceptance
+- [ ] Summary documentation limits local history support to raw Telegram JSON/JSONL;
+      native OpenClaw transcripts and SQLite require an export or separate adapter.
+- [ ] Literal placeholder-like text cannot collide with protected code regions.
+- [ ] Luma CLI venue example matches the documented manual-address shape.
 - [ ] No read-only summary call changes Telegram `allowed_updates`; valid UTC
       filtering, captions, channel posts, JSONL records, and limits work.
 - [ ] Code spans remain literal; send/list outputs are valid JSON and deterministic.
@@ -46,3 +51,5 @@ speculative prompt improvements explicitly ungated.
 - Implement confirmed code defects first; audit-only proposals remain recorded in
   the review and are not silently promoted into this change.
 - The review PR is #59; append implementation commits to its branch.
+- Review follow-ups verified: 204 tests run (202 passed, 2 optional skips);
+  all 12 focused tests pass with openpyxl. Validator/unanchored/diff checks pass.

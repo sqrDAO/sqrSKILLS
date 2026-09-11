@@ -2,7 +2,8 @@
 """
 Fetch messages from a Telegram group for summarization.
 
-Primary source: OpenClaw's local state directory (stored message history).
+Primary source: raw Telegram JSON/JSONL exports in OPENCLAW_STATE_DIR.
+Native OpenClaw session envelopes and SQLite stores are not supported.
 Fallback: Telegram Bot API getUpdates (pending unprocessed messages only).
 
 Usage:
@@ -75,7 +76,7 @@ def _extract_from_value(value, target_chat_id: int, since_ts: "float | None") ->
 
 
 def _messages_from_openclaw_state(target_chat_id: int, limit: int, since_ts: "float | None") -> list:
-    """Walk OpenClaw's state directory looking for stored Telegram messages."""
+    """Read raw Telegram JSON/JSONL exports from the configured directory."""
     if limit <= 0:
         return []
     state_dir = os.environ.get("OPENCLAW_STATE_DIR", "/twin-data/state")
@@ -164,7 +165,7 @@ def fetch_messages(chat_id: int, limit: int, since_ts: "float | None") -> dict:
         print(
             "No messages found. Possible reasons:\n"
             "  • Bot uses webhooks (OpenClaw default) — getUpdates returns nothing.\n"
-            "  • No messages from this group are stored in local state.\n"
+            "  • No matching raw Telegram JSON/JSONL history; native OpenClaw stores are unsupported.\n"
             "  • chat_id is incorrect — run list_groups.py to verify.\n"
             "  • --since-hours filter may be too narrow.",
             file=sys.stderr,

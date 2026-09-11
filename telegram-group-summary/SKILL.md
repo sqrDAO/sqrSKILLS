@@ -1,6 +1,6 @@
 ---
 name: telegram-group-summary
-version: 0.1.2
+version: 0.1.3
 description: |
   Summarize recent activity in a Telegram group. Use this skill when the user asks to
   summarize a Telegram group, recap what's been discussed, get a digest of a channel,
@@ -21,7 +21,7 @@ Fetch messages from a Telegram group and produce a structured summary.
 ## Required Environment Variables
 
 - `TELEGRAM_BOT_TOKEN` — Telegram bot token (some runtimes may auto-inject it for Telegram-connected agents)
-- `OPENCLAW_STATE_DIR` — (optional) path to OpenClaw's state directory; defaults to `/twin-data/state`
+- `OPENCLAW_STATE_DIR` — (optional) directory containing raw Telegram JSON/JSONL history exports; defaults to `/twin-data/state` (a deployment convention, not a universal OpenClaw path)
 
 `$SKILL_DIR` in the commands below means this skill's installed directory. If your agent does not set it automatically, replace it with the path to this `telegram-group-summary` directory before running commands.
 
@@ -49,8 +49,16 @@ Optional flags:
 - `--since-hours N` — only include messages from the last N hours (e.g. `--since-hours 168` for 7 days)
 
 The script tries two sources in order:
-1. **OpenClaw state files** — walks `$OPENCLAW_STATE_DIR` for any stored Telegram message data (primary)
+1. **Raw Telegram history files** — walks `$OPENCLAW_STATE_DIR` for `.json` and `.jsonl` files containing Telegram message objects (primary)
 2. **Bot API `getUpdates`** — falls back to pending unprocessed updates from the Telegram Bot API
+
+Local records must contain numeric `chat.id` (or `chat_id`), an epoch-seconds
+`date`, and `text` or `caption`; `message_id` and `from` are optional. JSON may
+wrap these records in objects/arrays; JSONL contains one JSON value per line.
+Native OpenClaw session envelopes, the `sessions.json` index, and SQLite stores
+are **not supported**. Obtain a raw Telegram export in this schema before using
+local history from such installations. The legacy output label `openclaw_state`
+identifies the directory source, not native OpenClaw compatibility.
 
 The output JSON has this shape:
 ```json
@@ -82,6 +90,7 @@ Format the summary in clear markdown so the user can skim it quickly.
 
 If `source` is `"none"` in the output, inform the user that no messages were found and suggest:
 - Verify the group with `list_groups.py`
+- Check that local history uses the supported raw Telegram schema. Empty output from an unsupported store does not mean the group has no history.
 - The bot may be running in webhook mode — messages processed live aren't available via `getUpdates`
 - Try a wider `--since-hours` window in case the filter is too narrow
 

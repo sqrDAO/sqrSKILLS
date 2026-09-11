@@ -7,8 +7,9 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-Implementation in progress: `remaining-skills-fixes` — scoped fixes for the
-confirmed runtime defects from the remaining-skills review.
+Implementation awaiting approval: `remaining-skills-fixes` — PR #59 includes
+runtime fixes and review follow-ups for history support, code placeholders,
+and the Luma venue example; repository checks pass.
 
 Review awaiting disposition: `remaining-skills-review` — audit of the three
 Telegram skills, nearby search, Luma, and business-model-to-market. Findings and

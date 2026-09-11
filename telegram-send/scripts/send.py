@@ -24,14 +24,17 @@ from html import escape as html_escape
 def markdown_to_html(text: str) -> str:
     """Convert standard markdown to Telegram HTML format."""
     protected = []
+    prefix = "@@CODE"
+    while prefix in text:
+        prefix = "@" + prefix
 
     def stash_fence(match):
         protected.append(f"<pre><code>{html_escape(match.group(1), quote=False)}</code></pre>")
-        return f"@@CODE{len(protected) - 1}@@"
+        return f"{prefix}{len(protected) - 1}@@"
 
     def stash_inline(match):
         protected.append(f"<code>{html_escape(match.group(1), quote=False)}</code>")
-        return f"@@CODE{len(protected) - 1}@@"
+        return f"{prefix}{len(protected) - 1}@@"
 
     # Protect code before escaping and applying prose emphasis.
     text = re.sub(r"```(?:\w+\n)?(.*?)```", stash_fence, text, flags=re.DOTALL)
@@ -49,7 +52,7 @@ def markdown_to_html(text: str) -> str:
     # Strikethrough: ~~text~~
     text = re.sub(r"~~(.+?)~~", r"<s>\1</s>", text, flags=re.DOTALL)
 
-    return re.sub(r"@@CODE(\d+)@@", lambda m: protected[int(m.group(1))], text)
+    return re.sub(re.escape(prefix) + r"(\d+)@@", lambda m: protected[int(m.group(1))], text)
 
 
 def send_message(bot_token: str, chat_id: int, text: str) -> dict:
