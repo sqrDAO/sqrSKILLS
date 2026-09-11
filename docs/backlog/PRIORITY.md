@@ -7,7 +7,6 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-
 1. `crypto-radar-full-text-rule` — an export of the skill authored outside this
    repo carries SKILL.md hardening that never landed here: the full-text rule,
    Resolution 05's load-bearing articles, and `CONFLICTING`. Three legal errors
@@ -35,6 +34,10 @@ from `todo.<slug>.md` to `done.<slug>.md`.
    it differs per check.
 
 ## Recently shipped
+
+- `remaining-skills-review` and `remaining-skills-fixes` — audited six skills,
+  fixed confirmed runtime defects and Opus review findings, and verified all
+  207 tests with openpyxl. User approved completion and merge in #59.
 
 - `web3-ivan-opportunities` — YZi terms/deadline refresh, three verified founder
   programs, Forma caveats, restored alias lookup, and a data-derived India count

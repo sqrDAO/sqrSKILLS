@@ -18,23 +18,28 @@ import sys
 import urllib.error
 import urllib.parse
 import urllib.request
+from html import escape as html_escape
 
 
 def markdown_to_html(text: str) -> str:
     """Convert standard markdown to Telegram HTML format."""
-    # Escape HTML special characters first
-    text = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    protected = []
+    prefix = "@@CODE"
+    while prefix in text:
+        prefix = "@" + prefix
 
-    # Fenced code blocks (``` ... ```) — must run before inline code
-    text = re.sub(
-        r"```(?:\w+\n)?(.*?)```",
-        lambda m: f"<pre><code>{m.group(1)}</code></pre>",
-        text,
-        flags=re.DOTALL,
-    )
+    def stash_fence(match):
+        protected.append(f"<pre><code>{html_escape(match.group(1), quote=False)}</code></pre>")
+        return f"{prefix}{len(protected) - 1}@@"
 
-    # Inline code
-    text = re.sub(r"`([^`]+)`", r"<code>\1</code>", text)
+    def stash_inline(match):
+        protected.append(f"<code>{html_escape(match.group(1), quote=False)}</code>")
+        return f"{prefix}{len(protected) - 1}@@"
+
+    # Protect code before escaping and applying prose emphasis.
+    text = re.sub(r"```(?:\w+\n)?(.*?)```", stash_fence, text, flags=re.DOTALL)
+    text = re.sub(r"`([^`]+)`", stash_inline, text)
+    text = html_escape(text, quote=False)
 
     # Bold: **text** or __text__
     text = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", text, flags=re.DOTALL)
@@ -47,10 +52,10 @@ def markdown_to_html(text: str) -> str:
     # Strikethrough: ~~text~~
     text = re.sub(r"~~(.+?)~~", r"<s>\1</s>", text, flags=re.DOTALL)
 
-    return text
+    return re.sub(re.escape(prefix) + r"(\d+)@@", lambda m: protected[int(m.group(1))], text)
 
 
-def send_message(bot_token: str, chat_id: int, text: str) -> None:
+def send_message(bot_token: str, chat_id: int, text: str) -> dict:
     base_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
     html_text = markdown_to_html(text)
 
@@ -72,12 +77,12 @@ def send_message(bot_token: str, chat_id: int, text: str) -> None:
     try:
         result = _post(parse_mode="HTML", body_text=html_text)
         if result.get("ok"):
-            return
+            return result.get("result", result)
         error = result.get("description", "Unknown error")
         if "parse" in error.lower() or "entities" in error.lower():
             result = _post()
             if result.get("ok"):
-                return
+                return result.get("result", result)
             raise RuntimeError(result.get("description", "Unknown error"))
         raise RuntimeError(error)
     except urllib.error.HTTPError as e:
@@ -88,7 +93,7 @@ def send_message(bot_token: str, chat_id: int, text: str) -> None:
             if "parse" in description.lower() or "entities" in description.lower():
                 result = _post()
                 if result.get("ok"):
-                    return
+                    return result.get("result", result)
             raise RuntimeError(description)
         except (json.JSONDecodeError, KeyError):
             raise RuntimeError(f"HTTP {e.code}: {body}")
@@ -121,7 +126,7 @@ def main():
         except Exception:
             pass
     if not bot_token:
-        print("Error: TELEGRAM_BOT_TOKEN is not set", file=sys.stderr)
+        print(json.dumps({"ok": False, "error": "TELEGRAM_BOT_TOKEN is not set"}))
         sys.exit(1)
 
     if parsed.keyword:
@@ -129,7 +134,7 @@ def main():
             parser.error("--keyword mode expects exactly: --keyword <substr> <message>")
         message = parsed.args[0].replace("\\n", "\n")
         if not message.strip():
-            print("Error: message cannot be empty", file=sys.stderr)
+            print(json.dumps({"ok": False, "error": "message cannot be empty"}))
             sys.exit(1)
 
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -140,19 +145,20 @@ def main():
         matches = [g for g in groups if g.get("name") and keyword_lower in g["name"].lower()]
 
         if not matches:
-            print(f"No groups found matching keyword: {parsed.keyword!r}", file=sys.stderr)
+            print(json.dumps({"ok": False, "error": f"No groups found matching keyword: {parsed.keyword!r}"}))
             sys.exit(1)
 
-        print(f"Sending to {len(matches)} group(s) matching {parsed.keyword!r}...")
         failed = False
+        results = []
         for g in matches:
             try:
-                send_message(bot_token, g["chat_id"], message)
-                print(f"  Sent to {g['name']!r} ({g['chat_id']})")
+                sent = send_message(bot_token, g["chat_id"], message)
+                results.append({"chat_id": g["chat_id"], "name": g.get("name"), "ok": True, "message": sent})
             except Exception as e:
-                print(f"  Error sending to {g['name']!r} ({g['chat_id']}): {e}", file=sys.stderr)
+                results.append({"chat_id": g["chat_id"], "name": g.get("name"), "ok": False, "error": str(e)})
+                print(f"Error sending to {g['name']!r} ({g['chat_id']}): {e}", file=sys.stderr)
                 failed = True
-
+        print(json.dumps({"ok": not failed, "results": results}, ensure_ascii=False))
         sys.exit(1 if failed else 0)
 
     else:
@@ -165,13 +171,14 @@ def main():
             sys.exit(1)
         message = parsed.args[1].replace("\\n", "\n")
         if not message.strip():
-            print("Error: message cannot be empty", file=sys.stderr)
+            print(json.dumps({"ok": False, "chat_id": chat_id, "error": "message cannot be empty"}))
             sys.exit(1)
 
         try:
-            send_message(bot_token, chat_id, message)
-            print(f"Message sent to chat {chat_id}")
+            sent = send_message(bot_token, chat_id, message)
+            print(json.dumps({"ok": True, "chat_id": chat_id, "message": sent}, ensure_ascii=False))
         except Exception as e:
+            print(json.dumps({"ok": False, "chat_id": chat_id, "error": str(e)}, ensure_ascii=False))
             print(f"Error: {e}", file=sys.stderr)
             sys.exit(1)
 

@@ -1,6 +1,6 @@
 ---
 name: telegram-send
-version: 0.1.1
+version: 0.1.3
 description: |
   Send a message to a Telegram group or channel this agent's Telegram bot can access. Use this skill whenever the user asks to send, post, or broadcast a message to a Telegram group or channel. Trigger phrases: "send a message to [group]", "post to Telegram", "broadcast to [channel]", "message the [group name] Telegram group". Requires TELEGRAM_BOT_TOKEN.
 allowed-tools:
@@ -60,7 +60,7 @@ Example:
 python3 "$SKILL_DIR/scripts/send.py" -1001234567890 "Meeting at 3pm today!"
 ```
 
-Exits 0 on success, 1 on failure (error written to stderr).
+Prints one JSON result on stdout and exits 0 on success, 1 on failure (diagnostics go to stderr).
 
 ### Send to all groups matching a keyword
 
@@ -76,7 +76,7 @@ Example:
 python3 "$SKILL_DIR/scripts/send.py" --keyword crypto "Market update: BTC up 5%!"
 ```
 
-Exits 0 if all sends succeeded, 1 if any failed. Per-group results are printed to stdout; errors go to stderr.
+Prints one JSON result containing per-group success/error records. Exits 0 if all sends succeeded, 1 if any failed.
 
 ## Usage Instructions
 
@@ -96,7 +96,7 @@ Exits 0 if all sends succeeded, 1 if any failed. Per-group results are printed t
 - Only groups that have sent at least one message to this bot/agent are discoverable.
 - `name` is resolved via the Telegram Bot API (`getChat`) using `TELEGRAM_BOT_TOKEN`. If the bot has been removed from a group, `name` will be `null` — the `chat_id` is still valid for sending if the bot is re-added.
 - The bot must still be a member of the group for the send to succeed.
-- Messages support standard Markdown formatting: `**bold**`, `*italic*`, `_italic_`, `` `code` ``, ` ```code blocks``` `, `~~strikethrough~~`. These are converted to Telegram HTML before sending.
+- Messages support standard Markdown formatting: `**bold**`, `*italic*`, `_italic_`, `` `code` ``, ` ```code blocks``` `, `~~strikethrough~~`. Code spans are preserved literally while prose is converted to Telegram HTML.
 
 ## Related Skills
 

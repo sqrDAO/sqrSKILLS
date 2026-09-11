@@ -2,7 +2,8 @@
 """
 Fetch messages from a Telegram group for summarization.
 
-Primary source: OpenClaw's local state directory (stored message history).
+Primary source: raw Telegram JSON/JSONL exports in OPENCLAW_STATE_DIR.
+Native OpenClaw session envelopes and SQLite stores are not supported.
 Fallback: Telegram Bot API getUpdates (pending unprocessed messages only).
 
 Usage:
@@ -28,7 +29,9 @@ def _normalize_message(msg: dict) -> "dict | None":
         if not text:
             return None
         date_ts = float(msg["date"])
-        date_iso = datetime.datetime.utcfromtimestamp(date_ts).strftime("%Y-%m-%dT%H:%M:%SZ")
+        date_iso = datetime.datetime.fromtimestamp(
+            date_ts, datetime.timezone.utc
+        ).strftime("%Y-%m-%dT%H:%M:%SZ")
 
         from_field = msg.get("from") or {}
         if isinstance(from_field, dict):
@@ -57,7 +60,7 @@ def _extract_from_value(value, target_chat_id: int, since_ts: "float | None") ->
         # Check if this dict looks like a Telegram message
         chat = value.get("chat")
         chat_id = (chat.get("id") if isinstance(chat, dict) else None) or value.get("chat_id")
-        if "text" in value and "date" in value and chat_id == target_chat_id:
+        if ("text" in value or "caption" in value) and "date" in value and chat_id == target_chat_id:
             normalized = _normalize_message(value)
             if normalized and (since_ts is None or normalized["date_ts"] >= since_ts):
                 messages.append(normalized)
@@ -73,21 +76,27 @@ def _extract_from_value(value, target_chat_id: int, since_ts: "float | None") ->
 
 
 def _messages_from_openclaw_state(target_chat_id: int, limit: int, since_ts: "float | None") -> list:
-    """Walk OpenClaw's state directory looking for stored Telegram messages."""
-    state_dir = os.environ.get("OPENCLAW_STATE_DIR", "")
+    """Read raw Telegram JSON/JSONL exports from the configured directory."""
+    if limit <= 0:
+        return []
+    state_dir = os.environ.get("OPENCLAW_STATE_DIR", "/twin-data/state")
     if not os.path.isdir(state_dir):
         return []
 
     messages = []
     for root, _dirs, files in os.walk(state_dir):
         for fname in files:
-            if not fname.endswith(".json"):
+            if not fname.endswith((".json", ".jsonl")):
                 continue
             fpath = os.path.join(root, fname)
             try:
-                with open(fpath) as f:
-                    data = json.load(f)
-                messages.extend(_extract_from_value(data, target_chat_id, since_ts))
+                with open(fpath, encoding="utf-8") as f:
+                    if fname.endswith(".jsonl"):
+                        for line in f:
+                            if line.strip():
+                                messages.extend(_extract_from_value(json.loads(line), target_chat_id, since_ts))
+                    else:
+                        messages.extend(_extract_from_value(json.load(f), target_chat_id, since_ts))
             except Exception:
                 continue
 
@@ -95,26 +104,25 @@ def _messages_from_openclaw_state(target_chat_id: int, limit: int, since_ts: "fl
     seen: set = set()
     deduped = []
     for m in messages:
-        key = m.get("message_id") or m["text"][:60]
+        key = (m.get("message_id"), m["date_ts"], m["text"])
         if key not in seen:
             seen.add(key)
             deduped.append(m)
 
-    deduped.sort(key=lambda m: m["date_ts"])
+    deduped.sort(key=lambda m: (m["date_ts"], str(m.get("message_id") or ""), m["text"]))
     return deduped[-limit:]
 
 
 def _messages_from_bot_api(target_chat_id: int, limit: int, since_ts: "float | None") -> list:
     """Fetch pending updates from Bot API, filtered by chat_id (non-destructive — no offset advance)."""
+    if limit <= 0:
+        return []
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
     if not bot_token:
         print("Warning: TELEGRAM_BOT_TOKEN not set — skipping Bot API fallback", file=sys.stderr)
         return []
 
-    url = (
-        f"https://api.telegram.org/bot{bot_token}/getUpdates"
-        "?limit=100&allowed_updates=%5B%22message%22%5D"
-    )
+    url = f"https://api.telegram.org/bot{bot_token}/getUpdates?limit=100"
     try:
         req = urllib.request.Request(url, method="GET")
         with urllib.request.urlopen(req, timeout=15) as resp:
@@ -129,7 +137,7 @@ def _messages_from_bot_api(target_chat_id: int, limit: int, since_ts: "float | N
 
     messages = []
     for update in data.get("result", []):
-        msg = update.get("message")
+        msg = update.get("message") or update.get("channel_post")
         if not msg:
             continue
         chat = msg.get("chat", {})
@@ -139,11 +147,13 @@ def _messages_from_bot_api(target_chat_id: int, limit: int, since_ts: "float | N
         if normalized and (since_ts is None or normalized["date_ts"] >= since_ts):
             messages.append(normalized)
 
-    messages.sort(key=lambda m: m["date_ts"])
+    messages.sort(key=lambda m: (m["date_ts"], str(m.get("message_id") or ""), m["text"]))
     return messages[-limit:]
 
 
 def fetch_messages(chat_id: int, limit: int, since_ts: "float | None") -> dict:
+    if limit <= 0:
+        raise ValueError("limit must be a positive integer")
     messages = _messages_from_openclaw_state(chat_id, limit, since_ts)
     source = "openclaw_state"
 
@@ -155,7 +165,7 @@ def fetch_messages(chat_id: int, limit: int, since_ts: "float | None") -> dict:
         print(
             "No messages found. Possible reasons:\n"
             "  • Bot uses webhooks (OpenClaw default) — getUpdates returns nothing.\n"
-            "  • No messages from this group are stored in local state.\n"
+            "  • No matching raw Telegram JSON/JSONL history; native OpenClaw stores are unsupported.\n"
             "  • chat_id is incorrect — run list_groups.py to verify.\n"
             "  • --since-hours filter may be too narrow.",
             file=sys.stderr,
@@ -174,6 +184,11 @@ def fetch_messages(chat_id: int, limit: int, since_ts: "float | None") -> dict:
             "latest": messages[-1]["date"],
         }
     return result
+
+
+def cutoff_timestamp(since_hours: float) -> float:
+    """Return a UTC epoch cutoff, independent of the host's local timezone."""
+    return datetime.datetime.now(datetime.timezone.utc).timestamp() - since_hours * 3600
 
 
 def main():
@@ -199,15 +214,19 @@ def main():
 
     since_ts = None
     if args.since_hours is not None:
-        cutoff = datetime.datetime.utcnow() - datetime.timedelta(hours=args.since_hours)
-        since_ts = cutoff.timestamp()
+        since_ts = cutoff_timestamp(args.since_hours)
 
-    result = fetch_messages(args.chat_id, args.limit, since_ts)
+    try:
+        result = fetch_messages(args.chat_id, args.limit, since_ts)
+    except ValueError as exc:
+        print(json.dumps({"ok": False, "error": str(exc)}))
+        return 1
     # Strip internal date_ts field before output
     for msg in result["messages"]:
         msg.pop("date_ts", None)
     print(json.dumps(result, indent=2))
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

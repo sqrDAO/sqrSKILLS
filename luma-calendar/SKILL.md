@@ -1,6 +1,6 @@
 ---
 name: luma-calendar
-version: 0.1.1
+version: 0.1.3
 description: |
   Manage Luma events and guests via the Luma public API. Use this skill whenever
   the user asks to list, create, or view Luma events; check who registered for an
@@ -94,11 +94,11 @@ python3 "$SKILL_DIR/scripts/luma_calendar.py" add-guests \
 | Flag | Required | Description |
 |---|---|---|
 | `--name` | Yes | Event name |
-| `--start-at` | No | Start time (ISO 8601, e.g. `2026-06-01T10:00:00Z`) |
+| `--start-at` | Yes | Start time (ISO 8601, e.g. `2026-06-01T10:00:00Z`) |
 | `--end-at` | No | End time (ISO 8601) |
-| `--timezone` | No | Timezone name (e.g. `Asia/Ho_Chi_Minh`, `America/New_York`) |
+| `--timezone` | Yes | IANA timezone name (e.g. `Asia/Ho_Chi_Minh`, `America/New_York`) |
 | `--description` | No | Event description (plain text or HTML) |
-| `--geo-address-json` | No | Venue address as a JSON object, e.g. `{"city":"Hanoi","country":"VN","full_address":"123 Main St"}` |
+| `--geo-address-json` | No | Venue address as a JSON object, e.g. `{"type":"manual","address":"123 Main St, Hanoi, VN"}` |
 | `--url` | No | Custom URL slug for the event page |
 
 ### Parameters: `get-guests` / `add-guests`
@@ -113,12 +113,12 @@ python3 "$SKILL_DIR/scripts/luma_calendar.py" add-guests \
 
 All subcommands print a JSON object to stdout. Key fields:
 
-- `get-calendar` / `get-event`: returns the object directly with fields like `api_id`, `name`, `start_at`, `url`
+- `get-calendar` / `get-event`: returns the object directly with fields like `api_id`/`event_id`, `name`, `start_at`, `slug`
 - `list-events`: returns `{"entries": [...], "has_more": bool, "next_cursor": "..."}`
 - `get-guests`: returns `{"entries": [...], "has_more": bool, "next_cursor": "..."}`
 - `add-guests` / `create-event`: returns the created/updated resource
 
-On error, prints the API error JSON and exits with code 1.
+On HTTP, transport, credential, or decoding error, prints a structured JSON error and exits with code 1.
 
 ## Prerequisites
 

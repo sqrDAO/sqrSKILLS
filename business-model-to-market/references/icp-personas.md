@@ -97,7 +97,7 @@ Answer these once, for the company, before persona work.
 6. **Are they Purse Holders (financial approver)?**
    - 6a. If yes: what do they need to see in order to allocate budget to your solution?
    - 6b. If no: who is the Purse Holder, and what do they need to see to allocate budget?
-     - 6bi. What is the route to Budget? Existing budget line, reallocation, new budget request, or unbudgeted discretionary spend. These four have completely different timelines, and the fourth is the only one that can close this quarter.
+     - 6bi. What is the route to Budget? Existing budget line, reallocation, new budget request, or unbudgeted discretionary spend. These four have different timelines; whether any can close this quarter depends on the buyer's process.
 
 The pain-to-budget chain, restated: pain, initiative, decision maker, purse holder, budget route. A persona missing any link is a user, not a buyer. That is fine, users matter, but do not forecast revenue against them.
 

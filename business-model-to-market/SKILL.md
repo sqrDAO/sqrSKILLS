@@ -1,6 +1,6 @@
 ---
 name: business-model-to-market
-version: 0.2.0
+version: 0.2.2
 description: 'Take a venture from a blank page to closed deals: pick which idea to pursue, model the whole business on one page, then build the go-to-market that sells it. Covers idea brainstorms and weighted decision matrices; the nine-block Business Model Canvas (value propositions, segments, channels, relationships, revenue, activities, resources, partners, costs); mission; ICP and buyer persona mapping; qualifying questions; sales methodology selection (BANT/PNUB, MEDDIC/MEDDPICC, Value Selling, Challenger); the 8-stage sales cycle; cold outreach; objection handling; and Web3 partnership matrices. Use it whenever the user mentions business model, business model canvas, BMC, value proposition, revenue model, cost structure, GTM, go-to-market, ICP, buyer persona, sales playbook, qualification, pipeline, cold email, objection handling, BD, or partnership strategy, even if they never say go-to-market, and when choosing between ideas or writing a problem statement, including blockchain opportunity assessment.'
 allowed-tools:
   - Bash(python3 *)
@@ -97,7 +97,7 @@ Default to markdown in the conversation for discussion, and a spreadsheet when t
 python3 "$SKILL_DIR/scripts/build_gtm_workbook.py" answers.json -o GTM_filled.xlsx
 ```
 
-Run `python3 "$SKILL_DIR/scripts/build_gtm_workbook.py" --schema` to print the exact JSON shape it expects, including the `business_model_canvas` and `partnership_goals` tabs. The script preserves the template's layout and only writes into the answer cells, so a partially filled `answers.json` produces a partially filled workbook with the rest left blank for the team.
+Run `python3 "$SKILL_DIR/scripts/build_gtm_workbook.py" --schema` to print the exact JSON shape it expects, including the `business_model_canvas` and `partnership_goals` tabs. The script generates the documented workbook layout and writes supplied answers into it, so a partially filled `answers.json` produces a partially filled workbook with the rest left blank for the team.
 
 **Subsets.** `--canvas-only` emits just the Business Model Canvas tab. `--partnership-only` emits just the Partnership Goals tab. `--ideation-only` emits just the Opportunity Brainstorm and Decision Matrix tabs, the usual starting point for a workshop.
 
