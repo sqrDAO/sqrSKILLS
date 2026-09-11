@@ -31,7 +31,7 @@ Use for a discrete, project-scoped engagement of an individual. Structure:
 - Scope of work (often via an attached Phu luc / appendix listing tasks).
 - Term with a notice period to stop (example: 30 days' notice, subject to the agreed terms).
 - Fee and payment: monthly amount, transfer method, pay date, and the PIT
-  treatment. Note that a fee stated "including PIT" means the 10% withholding is
+  treatment. Note that a fee stated "including PIT" means applicable withholding is
   carved out of that number; a fee stated net means the company grosses up. Be
   explicit which it is (see `tax-compliance.md`).
 - Obligations and rights of each party; quality and remedy on complaint.
@@ -53,7 +53,7 @@ companies, bilingual VN/EN, and typically adds:
   materials, financial model, advisory through a closing), scoped to a period
   after which it is deemed complete.
 - **Service charge** as a fixed VND fee or a percentage of transaction value,
-  stated inclusive of 10% VAT where the provider is VAT-registered; payment window
+  stating VAT inclusion and the verified service/date-specific rate; payment window
   (example: within 7 days of invoice, subject to the agreed terms).
 - If success-fee-based, define "transaction value" precisely and whether staged
   transactions are billed pro rata.

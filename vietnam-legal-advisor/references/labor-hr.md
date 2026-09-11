@@ -132,8 +132,8 @@ This is the single highest-risk HR issue for a founder-run company that uses
 service contracts (HDDV) for ongoing roles.
 
 - A **service contract (HDDV)** with an individual is a commercial engagement:
-  no social insurance, and PIT handled by **10% withholding** on payments over
-  VND 2,000,000 (see `tax-compliance.md`). It is appropriate for genuinely
+  insurance and withholding treatment determined by the actual relationship,
+  residence, income type, and payment-date rules (see `tax-compliance.md`). It is appropriate for genuinely
   independent, project-scoped, self-directed work.
 - If the reality is ongoing, directed, supervised, fixed-schedule work at the
   company's place, the relationship can be **deemed a labor contract** regardless

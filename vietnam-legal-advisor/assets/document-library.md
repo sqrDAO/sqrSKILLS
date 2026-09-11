@@ -50,10 +50,9 @@ attorney). Close-out documents add `BBNT` (acceptance minutes, numbered
 `So: [nn]/DNTT`). An example contract number takes the shape
 `[nnnn]/[YYYY]/HDDV/[PARTY-A]-[PARTY-B]`.
 
-**Signature block, every document below.** Leave about 103 pt of clear vertical
-space between the caption `(Ky, ghi ro ho ten va dong dau)` and the printed name,
-and never under 102 pt: that is how wide a round company seal is. Never shrink it
-to save a page.
+**Signature block.** Confirm signatory authority and whether a seal is required or
+used. If used, measure it and provide sufficient clearance (about 103 pt is an
+example for a roughly 36 mm seal). Keep the block whole; verify the actual render.
 See `references/signed-document-form.md`.
 
 ## Archive map (patterns to reuse)
@@ -108,7 +107,7 @@ state PIT treatment, cite Civil Code 2015 not 2005.
 
 Same header and structure as A, but Ben B is a company (name, MST, rep), add
 Commercial Law 2005 (36/2005/QH11) to "Can cu", define the Service Package and
-completion, state the fee inclusive of 10% VAT, add IP ownership of deliverables
+completion, state VAT inclusion and [verified applicable VAT rate], add IP ownership of deliverables
 and a governing-language clause (Vietnamese governs). Use the confirmed company letterhead.
 
 ## Skeleton C: Cooperation agreement / MOU

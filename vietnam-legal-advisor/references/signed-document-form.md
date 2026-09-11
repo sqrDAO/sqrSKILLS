@@ -8,6 +8,9 @@ A Vietnamese instrument is judged on its face before it is read. This file cover
 the form rules for documents that a director signs and stamps, and the production
 checks that have to pass before one is sent for signature.
 
+Apply edits to unsigned working copies only. Preserve signed originals and
+previously sent versions; proposed corrections need a separately identified draft.
+
 Read this before producing any contract, annex, minutes, decision, power of
 attorney, or official letter. It applies on top of the national-header rules in
 `SKILL.md` Step 2.
@@ -107,13 +110,13 @@ Match the instrument family rather than applying one rule everywhere.
 
 ## 6. The signature block and the physical seal
 
-**The signing space is a physical constraint, not a layout preference.**
+**Measure the actual seal when one is used.** The example dimensions below are
+layout guidance for a roughly 36 mm stamp, not a legal minimum or universal size.
 
-- A Vietnamese round company seal is about 36 mm across, which is roughly 102 pt.
-  That width is the floor: under it the stamp cannot physically sit clear of the
-  printed name.
+- For an example 36 mm seal, the diameter is about 102 pt.
+  Confirm the actual stamp dimensions and placement clearance.
 - **Use about 103 pt of clear space** between the signature caption and the
-  printed name, and never go below the seal's own 102 pt. Keep the number in one
+  printed name for that example seal; adapt to the actual seal and signing method. Keep the number in one
   place in whatever builds the document, so it cannot drift per file.
 - **Derive that number by measuring the executed contract, and measure it again
   before you defend it.** One engagement carried 115 pt for five days on a note
@@ -242,15 +245,15 @@ build-level subsetting difference, not a layout change. Extracted-text column
 positions shift by a space or two between renderer builds, so compare
 whitespace-insensitively.
 
-**Font substitution: layout yes, identity no.** Times New Roman is generally
-absent on Linux, and the substitute is metric compatible, so pagination and line
-breaks from such a render are trustworthy. The embedded font identity is not: a
-PDF produced that way carries the substitute, not Times New Roman. Re-render on a
-machine that has the real font before sending anything for signature.
+**Font substitution requires verification.** A substitute may change metrics,
+line breaks, and pagination. Compare the rendered output visually and inspect
+embedded fonts. Do not infer layout equivalence from a font name or a matching
+page count alone; render with the intended font when exact fidelity is required.
 
-**Patch every copy.** A client-facing form usually exists in its authoritative
-folder and again inside whatever package was sent. A script that fixes one leaves
-the other asserting the opposite.
+**Version working copies deliberately.** Update only the unsigned working
+files authorized for revision. Preserve executed originals and historical sent
+packages. Create a clearly labeled replacement package rather than rewriting
+what was previously signed or sent.
 
 ## 9. Pre-send checklist
 
@@ -260,11 +263,12 @@ the other asserting the opposite.
 - [ ] `Can cu` chain current and complete.
 - [ ] Header and footer match the instrument family; a cong van inherits the
       executed original's absence of them.
-- [ ] Signing space ~103 pt and never under 102 pt, carried as row height, block
+- [ ] Signing space accommodates the actual seal if used, carried as row height, block
       not split across a page break; measured off the render, not off the source.
 - [ ] Rendered and page-counted after the last edit; no stranded signature page.
 - [ ] Rendered with the real typeface installed before the PDF is sent.
 - [ ] Tone-mark style matches this corpus; full diacritics; no em dashes.
 - [ ] Personal data left blank; no internal or cost material inside a
       client-facing document.
-- [ ] Every copy of the document in every folder carries the same revision.
+- [ ] Authorized unsigned working copies carry the intended revision; signed
+      originals and historical sent packages remain preserved.

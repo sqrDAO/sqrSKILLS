@@ -1,7 +1,7 @@
 ---
 name: vietnam-legal-advisor
-version: 0.1.0
-description: "Draft, review, explain, and structure DOMESTIC Vietnamese legal documents and the local-law approach around them: company formation and changes (LLC charter, business registration, capital transfer, rep office, power of attorney), labor and HR (labor contract, probation, termination, severance, social insurance), commercial contracts (service/consulting HDDV, cooperation agreements, MOUs), contract execution and close-out (bien ban nghiem thu, phu luc adjusting value or scope, cong van de nghi thanh toan, milestone evidence), the form (the thuc) of anything a director signs and seals, and tax (PIT, 10% withholding, contractor-vs-employee risk, VAT, e-invoice). Use WHENEVER the user has a Vietnamese-law document or question, even if they do not say \"legal\": draft a service contract, review a hop dong, terminate an employee, close out a milestone, adjust a contract value by phu luc, request a tranche payment, no room for the seal. Counterpart to web3-legal-agreements, which owns crypto."
+version: 0.1.1
+description: "Draft, review, explain, and structure DOMESTIC Vietnamese legal documents and the local-law approach around them: company formation and changes (LLC charter, business registration, capital transfer, rep office, power of attorney), labor and HR (labor contract, probation, termination, severance, social insurance), commercial contracts (service/consulting HDDV, cooperation agreements, MOUs), contract execution and close-out (bien ban nghiem thu, phu luc adjusting value or scope, cong van de nghi thanh toan, milestone evidence), the form (the thuc) of anything a director signs and seals, and tax (PIT withholding, contractor-vs-employee risk, VAT, e-invoice). Use WHENEVER the user has a Vietnamese-law document or question, even if they do not say \"legal\": draft a service contract, review a hop dong, terminate an employee, close out a milestone, adjust a contract value by phu luc, request a tranche payment, no room for the seal. Counterpart to web3-legal-agreements, which owns crypto."
 allowed-tools:
   - Read
   - Write
@@ -55,17 +55,16 @@ for a tax position. Say this plainly at the end; do not bury it.
 
 ## Scope and boundary
 
-This skill owns **domestic Vietnamese business law**: entity, labor, commercial
-contracts, and the tax/compliance basics around them. Anything crypto belongs to
-the `web3-legal-agreements` skill, not this one. That includes crypto investment
-instruments (SAFE, post-money SAFE, SAFT, token warrant, token side letter,
-TPA/TSA, convertible), token/securities framing, offshore entity structuring
-(Singapore, BVI, Cayman, foundation vs DevCo), **and** the domestic crypto-asset
-regime (the Law on Digital Technology Industry, the payment ban, crypto licensing
-and crypto tax). If a Vietnamese-law question turns on crypto, use that companion when available;
-for domestic regulatory developments, `vietnam-crypto-radar` can also help when
-available. Neither companion is required or bundled. If absent, identify the
-crypto questions for qualified counsel and continue the domestic document work.
+This skill handles domestic Vietnamese entity, labor, commercial-document, and
+ordinary tax/compliance work, including the local form and execution of a contract
+with a crypto-related counterparty. Keep those domestic tasks here.
+
+Use `web3-legal-agreements` when available for investment-instrument economics,
+token rights, offshore structuring, and securities framing. Use `vietnam-crypto-radar`
+when available for Vietnam's crypto regulatory developments. Split mixed requests
+by issue; do not pass the same domestic drafting question back and forth between
+skills. Both companions are optional. If unavailable, continue the domestic work
+and identify specialist crypto issues for counsel.
 
 ## Step 0: The 2025-2026 rewrite you must account for first
 
@@ -90,11 +89,11 @@ document against it. The five that bite most often:
    **2026 PIT reform (Law 109/2025/QH15)** changed contribution rates, caps,
    deductions, and brackets. Any payroll or contract-salary math from 2024 is out
    of date.
-5. **An individual's MST is now their CCCD.** Under khoan 7 Dieu 35 of the Law on
-   Tax Administration 38/2019/QH14 and **Thong tu 86/2024/TT-BTC**, the so dinh
-   danh ca nhan replaces the ma so thue for individuals from **1 July 2025**. A
-   party block carrying a filled CCCD next to a blank `Ma so thue ca nhan` is one
-   field printed twice, not missing data.
+5. **Individual tax identifiers need verification.** Check whether the person's
+   tax record uses a personal identification number under the applicable regime,
+   including matching and transition conditions. Do not assume every individual
+   has a CCCD or that an unverified number can populate both fields. Use blanks
+   for missing identifiers and follow the personal-data handling rule below.
 
 Do not silently "fix" a user's document to the new rules without saying so. Flag
 what is stale, then correct it.
@@ -150,32 +149,32 @@ the credibility of the draft.
   service contract).
 - **The "Can cu" (legal-basis) chain.** Contracts and decisions open with a
   bulleted list of the laws they rest on. These citations MUST be current. Use
-  the live list in `references/legal-updates-2025-2026.md`; do not copy an old
+  the candidate citation list in `references/legal-updates-2025-2026.md`; do not copy an old
   Civil Code or Enterprise Law number from a prior template. The most common
   correct anchors now are the Civil Code 2015 (91/2015/QH13), the Commercial Law
   2005 (36/2005/QH11), the Enterprise Law 2020 as amended by 76/2025/QH15, and
   the Labor Code 2019 (45/2019/QH14).
 - **Parties block.** Ben A / Ben B with full legal name, tax code (MST), head-
   office address in the new two-tier format, and legal representative with title.
-  For an individual, use CCCD number and permanent address; **their MST is that
-  same CCCD** (Step 0 item 5), so fill it and cite the basis instead of leaving it
-  blank. Never invent a CCCD or tax code: where a number genuinely was not
-  supplied, leave a clear blank placeholder like `[CCCD: __________]`.
+  For an individual, identify the required identity/tax fields and leave personal
+  values blank for the user to complete. A review can explain a duplicate field
+  without copying or inferring its value. Never invent a CCCD or tax code.
+
+
 - **Bilingual layout.** The default is Vietnamese first, English mirror,
-  either paragraph-under-paragraph or a two-column table. The Vietnamese text is
-  the governing text; say so in a language clause. Keep the English a faithful
+  either paragraph-under-paragraph or a two-column table. Confirm the governing language with the user and applicable law; state the
+  agreed language in a language clause. Keep the English a faithful
   mirror, American English spelling. **The exception is contractual traffic to a
   Vietnamese counterparty**: acceptance minutes, annexes and payment letters go
   out Vietnamese only. Say so once, so a later consistency pass does not add an
   English mirror to a document the parties already signed.
-- **Signature and seal block.** Two-party documents are made in `02 ban` (two
-  originals) of equal value, one per party. The company signs with the legal
-  representative's name and the round company seal (con dau). **Leave real room
-  for the stamp: about 103 pt of clear vertical space between the signature
-  caption and the printed name, and never under 102 pt.** A round seal is roughly
-  102 pt across, so a tighter gap cannot physically be stamped, and page count is never a reason to
-  shrink it. The block must not split across a page break. Full spec in
-  `references/signed-document-form.md`.
+- **Signature and seal block.** Confirm signatory authority, number of originals,
+  and whether a seal is used or required for this document. For a physical seal,
+  measure the actual stamp and leave enough clear space; about 103 pt is an example
+  for a roughly 36 mm seal, not a statutory minimum or a universal stamp size.
+  Keep the block together and check the rendered document. Use
+  `references/signed-document-form.md` for the layout method.
+
 - **Form follows the contract, not a brand.** Anything a director signs and seals
   takes its typeface, sizes, margins, tables and headers from the executed
   contract it hangs off, never from a presentation or marketing style. If an
@@ -190,14 +189,13 @@ into another.
 
 ## Three traps that have already shipped
 
-**AP-1. A withholding threshold copied out of a counterparty's template.**
-Wrong: leaving `Ben A co trach nhiem khau tru thue thu nhap ca nhan 10% doi voi
-tung lan chi tra tu 5.000.000 dong tro len` in a draft, and pricing a fee at
-4.990.000 to sit under it. Fix: the threshold is **2.000.000** (diem i khoan 1
-Dieu 25 Thong tu 111/2013/TT-BTC). State the 2.000.000 rule as the default, let a
-valid **Mau 08/CK-TNCN** (Thong tu 80/2021/TT-BTC) suspend it, and make Ben B
-indemnify the company if that commitment proves untrue. A fee tuned to a round
-number is the tell: check it against `references/tax-compliance.md` first.
+**AP-1. A withholding rule copied from a template.** Check residence, income type,
+contract relationship, payment amount, payment date, and any valid commitment
+before selecting withholding treatment. The historical Article 25(1)(i) rule uses
+**VND 2,000,000 or more**, not strictly more, for covered payments. See the dated
+source and applicability limits in `references/tax-compliance.md`; verify amendments
+and current implementation before applying it. Do not infer an exemption from a
+fee deliberately set below a template threshold, or add an indemnity automatically.
 
 **AP-2. Taking the event's dates as the person's dates.** Wrong: writing
 `ngay 12 va 13/08/2026 tai Ha Noi` into one speaker's contract because those are
@@ -252,8 +250,8 @@ State the handoff at the end of the output, matched to the specific document.
 
 ## Output conventions
 
-- Bilingual Vietnamese/English for any document meant to be signed or filed;
-  Vietnamese governs. Close-out documents to a Vietnamese counterparty are
+- Default to bilingual Vietnamese/English for drafts; confirm filing-language
+  requirements and the agreed governing-language clause. Close-out documents to a Vietnamese counterparty are
   Vietnamese only. Explanations and analysis to the user are in English.
 - American English spelling in the English text.
 - Do not use em-dashes anywhere in output; use commas, colons, parentheses,
@@ -283,7 +281,7 @@ Load the file that matches the domain; do not load all of them.
   sequencing, deduction and VAT mechanics, evidence and audience rules.
 - `references/signed-document-form.md` - the thuc for anything signed and
   sealed: how to derive the form from an executed contract, a measured baseline,
-  the ~103 pt signing space and the seal geometry behind it, and the production
+  measured signing space and seal geometry, and the production
   checks (page count, render, font substitution, text-drift guard) that have to
   pass before a document goes for signature.
 - `references/tax-compliance.md` - PIT, the 10% service-contract withholding, VAT

@@ -7,8 +7,6 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-- `vietnam-legal-advisor` — import the supplied domestic legal drafting skill,
-  generalize company defaults, and document current-source verification.
 
 1. `crypto-radar-full-text-rule` — an export of the skill authored outside this
    repo carries SKILL.md hardening that never landed here: the full-text rule,
@@ -37,6 +35,10 @@ from `todo.<slug>.md` to `done.<slug>.md`.
    it differs per check.
 
 ## Recently shipped
+
+- `vietnam-legal-advisor` — domestic legal drafting and review, portable entity
+  placeholders, dated source checks, corrected withholding/economics guidance,
+  and preservation of signed originals. Approved for merge in #56.
 
 - `refresh-cost-controls` — the weekly refresh ran one Gemini session over all
   three skills, so every turn of every skill paid the whole ~178 KB corpus; one

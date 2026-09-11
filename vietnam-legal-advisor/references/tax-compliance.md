@@ -28,24 +28,34 @@ declaration. Figures move yearly; check `legal-updates-2025-2026.md`.
 - Deductions from 2026: personal **VND 15,500,000/month**; per dependent
   **VND 6,200,000/month**. Compulsory insurance withheld from the employee is
   deductible before PIT.
-- Rough effect: a resident with one dependent owes no PIT until monthly income
-  exceeds about VND 28,600,000 after insurance.
+- Arithmetic illustration using the two deductions above: VND 15,500,000 +
+  VND 6,200,000 = **VND 21,700,000**, not VND 28,600,000. This is the deduction
+  total after compulsory insurance, not a gross-salary threshold. Verify the
+  applicable deductions and other relief for the relevant tax year.
+
 - The company is the **withholding agent** for employee PIT: deduct, declare,
   remit. It does not bear the tax out of pocket unless a net-salary contract is
   used, in which case it grosses up.
 
 ## 2. The 10% service-contract withholding
 
-For payments to a **non-employee individual** under a service contract (HDDV):
-- If a payment is **over VND 2,000,000**, the paying company **withholds 10% PIT**
-  and remits it, as a provisional prepayment for the individual.
-- At year end the individual aggregates this income and finalizes at progressive
-  rates; the 10% already paid is credited, with any shortfall paid on
-  finalization.
-- **Contract drafting consequence:** a fee stated "da bao gom thue TNCN" (PIT
-  included) means the 10% comes out of the stated number, so the individual nets
-  90%. A fee stated net means the company grosses up so the individual receives
-  the full number. Make the contract say which; do not infer the agreed tax basis.
+Article 25(1)(i) of Circular 111/2013/TT-BTC describes 10% withholding on covered
+wages/remuneration paid to resident individuals without a labor contract or with
+a labor contract shorter than three months, where each payment is **VND 2,000,000
+or more**. It is not a rule for every business contractor or non-resident.
+
+Source reviewed 2026-09-11: government-published tax-authority explanation of the
+provision, dated 4 April 2022:
+`https://chinhsachonline.chinhphu.vn/doanh-nghiep-phai-khau-tru-thue-truoc-khi-tra-cho-ca-nhan-61934.htm`.
+Original circular: `https://datafiles.chinhphu.vn/cpp/files/vbpq/2013/09/tt-111.pdf`.
+These historical sources establish the inclusive boundary; they do not verify all
+2026 amendments or payment-date implementation. Check current primary text before
+applying it, and check all conditions for any commitment to suspend withholding.
+
+Where 10% withholding applies, a PIT-inclusive amount of 2,000,000 leaves
+1,800,000 after withholding; a net amount of 2,000,000 requires division by 0.9
+before rounding. State whether the agreed fee is gross or net. Annual finalization,
+credits, and exceptions depend on the individual's facts; route them to the accountant.
 
 ## 3. Employee vs contractor (tax angle)
 
@@ -53,7 +63,8 @@ The tax cost differs sharply by classification, which is why misclassification i
 audited:
 - **Employee:** company pays employer social contributions (21.5%), withholds
   employee 10.5% and progressive PIT.
-- **Contractor (HDDV):** no social insurance; flat 10% PIT withholding.
+- **Contractor (HDDV):** determine actual employment/business status first;
+  do not infer insurance exclusion or withholding treatment from the title alone.
 - Treating a de facto employee as a contractor to save contributions is the exact
   fact pattern that triggers back taxes, a **20% penalty** on underpaid PIT, and
   **0.03%/day** interest, plus reverted labor obligations. See `labor-hr.md`
@@ -62,8 +73,8 @@ audited:
 ## 4. VAT and e-invoice
 
 - Standard VAT is **10%** (reduced rates apply to specified goods/services and in
-  temporary stimulus periods). Consulting/service fees from a VAT-registered
-  provider are usually quoted inclusive of 10% VAT; state it in the fee clause.
+  temporary stimulus periods). Use the verified rate for the service and invoice date,
+  and state whether the quoted fee includes VAT. Do not default every service to 10%.
 - **E-invoices are mandatory.** Issue the e-invoice within the required window
   after the taxable event. Keep the company's standard invoicing block ready (see
   section 6). A service provider must issue a compliant e-invoice for its fees.

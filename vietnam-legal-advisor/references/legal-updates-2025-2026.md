@@ -92,12 +92,13 @@ in headers.
     dependent deduction **VND 6,200,000/month** per registered dependent.
   - Resident progressive schedule simplified from **7 brackets to 5** (still
     5% to 35%). Non-residents: flat **20%** on Vietnam-sourced income.
-  - Practical effect: a resident with one dependent has no PIT until monthly
-    income exceeds roughly VND 28,600,000 after compulsory insurance.
-- **Service-contract (HDDV) withholding is unchanged in mechanism:** payments to a
-  non-employee individual **over VND 2,000,000** per payment are subject to **10%
-  PIT withholding** by the paying company, credited at annual finalization. See
-  `tax-compliance.md`.
+  - Arithmetic illustration: the listed personal and one-dependent deductions
+    total VND 21,700,000 after compulsory insurance. This is not a gross-salary
+    threshold; verify eligibility and tax-year rules before using those amounts.
+- **Withholding needs a payment-date check.** The historical Article 25(1)(i)
+  rule includes payments of exactly VND 2,000,000 for covered resident
+  individuals. See `tax-compliance.md` for the source, conditions, and limits;
+  do not assume the 2026 implementation is unchanged.
 
 ## 5. The current "Can cu" citation list
 
