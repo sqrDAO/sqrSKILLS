@@ -36,6 +36,10 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Recently shipped
 
+- `web3-ivan-opportunities` — YZi terms/deadline refresh, three verified founder
+  programs, Forma caveats, restored alias lookup, and a data-derived India count
+  rubric. Reviewed with Opus 5 and completed in #58.
+
 - `skill-evolution` — imported audit and gating workflow with optional toolkit
   guidance, isolated author records, and Opus-reviewed project-rule precedence.
   Approved for completion and merge in #57.

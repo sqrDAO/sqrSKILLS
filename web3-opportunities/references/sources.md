@@ -32,6 +32,35 @@ Each roster entry's `url` is its Tier-1 source. Key ones:
 | Filecoin devgrants | https://github.com/filecoin-project/devgrants | Open proposals/RFPs |
 | Gitcoin | https://www.gitcoin.co/ | Grant rounds, bounties |
 | Immunefi | https://immunefi.com/ | Live bug bounties |
+| YZi Labs EASY Residency | https://www.yzilabs.com/easy-residency | Season deadline, investment and Thailand attendance |
+| Founders, Inc. Blueprint II | https://f.inc/blueprint · https://f.inc/blueprint/faq | Hardware/frontier focus, investment and attendance costs |
+| Fabric R[3]sidency | https://r3sidency.fabric.vc/ | London cohort, investment and deadline |
+| Forge Residency | https://www.forgeresidency.com/cohorts/2 · https://www.forgeresidency.com/apply?cohort=2 | Goa dates, covered costs, no-equity terms and deposit |
+
+### September 11, 2026 founder-program review
+
+Discovery signal: [Ivan's five-program roundup](https://x.com/ivan_nomadz/status/2098387505225597359).
+Official pages checked on September 11 govern the roster snapshots. The review
+adds Blueprint II separately from the general Founders, Inc. entry, plus Fabric
+and Forge; YZi's existing entry is refreshed. Blueprint and Forge are broader
+founder programs, so product fit still matters for a Web3 applicant.
+
+- **YZi:** the official S5 page now gives September 21 at 23:59 GMT-7 and up to
+  $500K per team. The September 13 date in the post matches the calendar date
+  of the prior bundled deadline in GMT-7; September 21 supersedes that snapshot.
+  The post's $2.5M figure is not supported by the current official terms.
+- **Forge:** official pages support covered costs and no equity; the roundup's
+  grant-pool and credit amounts remain unconfirmed and are not catalog awards.
+- **Forma — discovery candidate, not yet in the roster:** the
+  [official residency page](https://www.forma.city/residency) advertises a $10K
+  scholarship, Bristol/London dates of October 5–November 10, 2026, and rolling
+  applications ending September 20. Housing is internally inconsistent: the
+  headline and housing FAQ include it, but the funding FAQ excludes it. Equity
+  terms are unstated. Confirm both with the organizer before assigning a
+  dilution facet or treating housing as covered. The program accepts all sectors.
+
+These are dated snapshots, not a full-roster freshness attestation. No unrelated
+entry's `last_verified` date was raised.
 
 ## Tier 2 — Aggregators / directories (discovery)
 

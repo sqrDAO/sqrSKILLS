@@ -400,3 +400,16 @@ class LoosenedCheckDiscriminationTest(unittest.TestCase):
                                 f"{case_id}/{check_id} still fails a correct answer")
                 self.assertFalse(grade_checks(wrong, [check])[0]["passed"],
                                  f"{case_id}/{check_id} no longer catches its wrong answer")
+
+
+class IndiaCountRefreshTest(unittest.TestCase):
+    def test_count_assertion_tracks_roster_changes(self):
+        from build_web3_cases import CASES_V2, fill
+        case = next(c for c in CASES_V2 if c["id"] == "v2-14")
+        check = next(c for c in case["checks"] if c["id"] == "count_or_list")
+        for count in (3, 5, 12):
+            with self.subTest(count=count):
+                built = {**check, "patterns": fill(check["patterns"], "2026-09-11", [count])}
+                self.assertTrue(grade_checks(f"There are {count} India entries.", [built])[0]["passed"])
+                for stale in ("four", "4"):
+                    self.assertFalse(grade_checks(f"There are {stale} India entries.", [built])[0]["passed"])
