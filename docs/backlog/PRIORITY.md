@@ -7,10 +7,6 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-- `skill-evolution` — import the supplied prompt with portable metadata, optional
-  toolkit guidance, isolated author records, and documented evaluation limits.
-  Current user-requested addition; pending approval.
-
 
 1. `crypto-radar-full-text-rule` — an export of the skill authored outside this
    repo carries SKILL.md hardening that never landed here: the full-text rule,
@@ -39,6 +35,10 @@ from `todo.<slug>.md` to `done.<slug>.md`.
    it differs per check.
 
 ## Recently shipped
+
+- `skill-evolution` — imported audit and gating workflow with optional toolkit
+  guidance, isolated author records, and Opus-reviewed project-rule precedence.
+  Approved for completion and merge in #57.
 
 - `vietnam-legal-advisor` — domestic legal drafting and review, portable entity
   placeholders, dated source checks, corrected withholding/economics guidance,

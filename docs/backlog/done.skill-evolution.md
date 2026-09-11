@@ -48,3 +48,4 @@ about project gates and harness compatibility.
   disclosed and the paper opened separately; no behavior improvement claimed.
 - Post-review validation: all 191 tests, repository validator, unanchored check,
   and whitespace check pass; prompt version 0.1.1.
+- User approved marking done and merging PR #57 on 2026-09-11.
