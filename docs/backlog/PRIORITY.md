@@ -7,6 +7,10 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
+Review awaiting disposition: `remaining-skills-review` — audit of the three
+Telegram skills, nearby search, Luma, and business-model-to-market. Findings and
+isolated reproductions are in `docs/reviews/2026-09-11-remaining-skills/`;
+implementation priority follows from the review and is not yet agreed.
 
 1. `crypto-radar-full-text-rule` — an export of the skill authored outside this
    repo carries SKILL.md hardening that never landed here: the full-text rule,

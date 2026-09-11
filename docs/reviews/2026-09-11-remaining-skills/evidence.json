@@ -1,0 +1,119 @@
+{
+  "places_wrong_city": {
+    "query": "London",
+    "expected": [
+      51.5074,
+      -0.1278
+    ],
+    "actual": [
+      21.0285,
+      105.8542
+    ]
+  },
+  "places_query_types": {
+    "bookstore": "bookstore",
+    "barber": "bar",
+    "vegan restaurant": "restaurant",
+    "coworking space": "coworking_space"
+  },
+  "places_outage": {
+    "successful": true,
+    "count": 0,
+    "error_count": 0
+  },
+  "places_radius_widened": {
+    "requested_meters": 500,
+    "attempted_meters": [
+      500,
+      1500
+    ],
+    "returned_distance": 1112
+  },
+  "summary_cutoff": {
+    "timezone": "Asia/Ho_Chi_Minh",
+    "error_hours": -7.0
+  },
+  "summary_jsonl_skipped": [],
+  "summary_json_positive_control": 1,
+  "summary_caption_skipped": [],
+  "summary_zero_limit_count": 1,
+  "summary_polling": {
+    "request_query": "limit=100&allowed_updates=%5B%22message%22%5D",
+    "channel_messages_returned": 0
+  },
+  "send_markdown": {
+    "`user_name_here`": "<code>user<i>name</i>here</code>",
+    "```python\na_b_c = 1\n```": "<pre><code>a<i>b</i>c = 1\n</code></pre>",
+    "**bold**": "<b>bold</b>"
+  },
+  "send_stdout": "Message sent to chat -1001",
+  "chat_order": [
+    [
+      {
+        "chat_id": -1001
+      },
+      {
+        "chat_id": -1002
+      }
+    ],
+    [
+      {
+        "chat_id": -1002
+      },
+      {
+        "chat_id": -1001
+      }
+    ]
+  ],
+  "group_order": [
+    [
+      {
+        "chat_id": -1001
+      },
+      {
+        "chat_id": -1002
+      }
+    ],
+    [
+      {
+        "chat_id": -1002
+      },
+      {
+        "chat_id": -1001
+      }
+    ]
+  ],
+  "luma_upcoming_request": {
+    "path": "/v1/calendar/list-events",
+    "params": null
+  },
+  "luma_transport_error": "URLError",
+  "workbook_false_value": "TBD",
+  "workbook_missing_score": {
+    "raw_score": 0,
+    "weighted": "=B6*B$5",
+    "rank": "=RANK(D6,D$6:D$6)"
+  },
+  "workbook_builds": {
+    "all": {
+      "sheets": 11,
+      "expected": 11,
+      "stdout_is_json": false
+    },
+    "--canvas-only": {
+      "sheets": 1,
+      "expected": 1,
+      "stdout_is_json": false
+    },
+    "--partnership-only": {
+      "sheets": 1,
+      "expected": 1,
+      "stdout_is_json": false
+    },
+    "--ideation-only": {
+      "sheets": 2,
+      "expected": 2,
+      "stdout_is_json": false
+    }
+  }
+}
