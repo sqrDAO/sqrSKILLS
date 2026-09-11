@@ -7,7 +7,7 @@ defects safely, and leave prioritized findings and proposed fixes for review.
 
 ## Files
 - `docs/reviews/2026-09-11-remaining-skills/` (new) — per-skill audits and offline probes.
-- `docs/backlog/todo.remaining-skills-review.md` (new) — scope and verification record.
+- `docs/backlog/done.remaining-skills-review.md` (new) — scope and verification record.
 - `docs/backlog/PRIORITY.md` (edited) — track the review awaiting user disposition.
 
 ## Acceptance
@@ -29,6 +29,7 @@ defects safely, and leave prioritized findings and proposed fixes for review.
 ## Notes
 - Review baseline: main commit `4d1bbb6`.
 - Existing legal, visa, Web3, wiki, and evaluation backlog findings are not duplicated.
-- Leave this spec as todo pending explicit completion approval.
+- User approved completion and merge in PR #59.
 - Verified: six audits and isolated probes complete; validator, 192 tests,
-  unanchored check, and whitespace check pass. Skills remain unchanged.
+  unanchored check, and whitespace check pass at the audit baseline.
+- Subsequent behavior fixes are tracked in `done.remaining-skills-fixes.md`.

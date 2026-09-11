@@ -59,8 +59,8 @@ was performed. No speculative prompt edits or new evaluation campaign was run.
 - Script probes reproduced the findings; positive controls include JSON history,
   basic bold conversion, and the four workbook generation modes.
 
-The confirmed script defects are being addressed under the separate
-`todo.remaining-skills-fixes.md` spec. The audit files and `evidence.json` remain
+The confirmed script defects were addressed under the separate
+`done.remaining-skills-fixes.md` spec, approved for completion in PR #59. The audit files and `evidence.json` remain
 the pre-fix baseline record; the probe script is updated alongside the fixes so
 it can verify the corrected behavior. Prompt improvements remain labelled
 UNGATED unless a permitted measurement supports them.

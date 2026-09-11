@@ -7,17 +7,6 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-Implementation awaiting approval: `remaining-skills-fixes` — PR #59 includes
-runtime fixes and review follow-ups for history support, code placeholders,
-and the Luma venue example; repository checks pass.
-Opus follow-ups fix short-location cache matching, radius enforcement, stage
-references, probe clock freezing, and empty workbook values; all 207 tests pass.
-
-Review awaiting disposition: `remaining-skills-review` — audit of the three
-Telegram skills, nearby search, Luma, and business-model-to-market. Findings and
-isolated reproductions are in `docs/reviews/2026-09-11-remaining-skills/`;
-implementation priority follows from the review and is not yet agreed.
-
 1. `crypto-radar-full-text-rule` — an export of the skill authored outside this
    repo carries SKILL.md hardening that never landed here: the full-text rule,
    Resolution 05's load-bearing articles, and `CONFLICTING`. Three legal errors
@@ -45,6 +34,10 @@ implementation priority follows from the review and is not yet agreed.
    it differs per check.
 
 ## Recently shipped
+
+- `remaining-skills-review` and `remaining-skills-fixes` — audited six skills,
+  fixed confirmed runtime defects and Opus review findings, and verified all
+  207 tests with openpyxl. User approved completion and merge in #59.
 
 - `web3-ivan-opportunities` — YZi terms/deadline refresh, three verified founder
   programs, Forma caveats, restored alias lookup, and a data-derived India count

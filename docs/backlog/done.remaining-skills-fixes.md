@@ -28,20 +28,20 @@ speculative prompt improvements explicitly ungated.
       free-text results are filtered by exact distance before ranking.
 - [x] Canvas stage references agree with SKILL.md; probe freezes the active clock;
       empty workbook containers remain TBD while false/zero remain explicit.
-- [ ] Summary documentation limits local history support to raw Telegram JSON/JSONL;
+- [x] Summary documentation limits local history support to raw Telegram JSON/JSONL;
       native OpenClaw transcripts and SQLite require an export or separate adapter.
-- [ ] Literal placeholder-like text cannot collide with protected code regions.
-- [ ] Luma CLI venue example matches the documented manual-address shape.
-- [ ] No read-only summary call changes Telegram `allowed_updates`; valid UTC
+- [x] Literal placeholder-like text cannot collide with protected code regions.
+- [x] Luma CLI venue example matches the documented manual-address shape.
+- [x] No read-only summary call changes Telegram `allowed_updates`; valid UTC
       filtering, captions, channel posts, JSONL records, and limits work.
-- [ ] Code spans remain literal; send/list outputs are valid JSON and deterministic.
-- [ ] Nearby cache never selects coordinates from an unrelated location; API
+- [x] Code spans remain literal; send/list outputs are valid JSON and deterministic.
+- [x] Nearby cache never selects coordinates from an unrelated location; API
       errors and effective radius are truthful.
-- [ ] Luma uses current public routes and required create fields; transport errors
+- [x] Luma uses current public routes and required create fields; transport errors
       remain structured JSON.
-- [ ] Workbook preserves false/zero answers and does not rank incomplete scores.
-- [ ] Existing behavior remains covered by all repository checks.
-- [ ] NOT: add live API calls, send messages/guests, change legal/visa datasets,
+- [x] Workbook preserves false/zero answers and does not rank incomplete scores.
+- [x] Existing behavior remains covered by all repository checks.
+- [x] NOT: add live API calls, send messages/guests, change legal/visa datasets,
       or run a prompt evaluation campaign.
 
 ## Verify
@@ -59,3 +59,4 @@ speculative prompt improvements explicitly ungated.
   all 12 focused tests pass with openpyxl. Validator/unanchored/diff checks pass.
 - Opus fixes verified: all 207 tests pass with openpyxl, all four workbook modes
   reopen, probe cutoff error is 0.0 hours; validator/unanchored/diff checks pass.
+- User approved completion and merge in PR #59.
