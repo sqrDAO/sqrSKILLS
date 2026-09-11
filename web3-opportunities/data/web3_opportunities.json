@@ -1,7 +1,7 @@
 {
   "_meta": {
     "document_type": "structured_web3_opportunity_roster",
-    "last_updated": "2026-09-08",
+    "last_updated": "2026-09-11",
     "data_freshness": "Program existence, type, chain/ecosystem, region, and dilution posture are evergreen and verified through June 2026. TIME-SENSITIVE fields (application deadlines, open/closed cohort status, current prize pool / check size, cadence) are baseline snapshots and MUST be re-verified live before the user applies or acts.",
     "coverage": "Global. Every entry is region-tagged. Southeast Asia / Vietnam-relevant entries carry sea_relevant: true.",
     "schema_version": "1.1.0",
@@ -83,19 +83,19 @@
     },
     {
       "id": "yzi-labs",
-      "name": "YZi Labs (formerly Binance Labs)",
+      "name": "YZi Labs — EASY Residency",
       "type": "incubator",
       "stage": ["pre-seed", "mvp", "growth"],
       "dilution": "dilutive",
       "chains": ["multi-chain"],
       "regions": ["global", "sea", "remote"],
-      "typical_check_or_prize": "$500,000",
-      "cadence": "rolling",
+      "typical_check_or_prize": "Up to $500,000 per team: $150,000 for 5% equity via SAFE plus $350,000 on an uncapped SAFE",
+      "cadence": "cohort-based (10 weeks: 5 online, 5 in Thailand)",
       "status": "open",
-      "url": "https://www.yzilabs.com/",
-      "notes": "EASY Residency Season 5 applications close September 14, 2026 at 14:59 (GMT+8). The season is 10 weeks, split between online and in-person in Thailand.",
+      "url": "https://www.yzilabs.com/easy-residency",
+      "notes": "EASY Residency Season 5: official page checked 2026-09-11 lists September 21 at 23:59 GMT-7 as the deadline, superseding the earlier bundled date and the discovery post. Web3, AI and biotech teams; accommodation, meals and workspace covered during the Thailand phase; founders pay flights. The post's $2.5M figure is not supported by current official terms.",
       "sea_relevant": true,
-      "last_verified": "2026-08-31"
+      "last_verified": "2026-09-11"
     },
     {
         "id": "base-batches-accelerator",
@@ -688,6 +688,54 @@
       "notes": "The last VietBUIDL Hackathon was in 2025. No 2026 edition has been announced.",
       "sea_relevant": true,
       "last_verified": "2026-08-31"
+    },
+    {
+      "id": "founders-inc-blueprint",
+      "name": "Founders, Inc. — Blueprint II",
+      "type": "accelerator",
+      "stage": ["idea", "pre-seed"],
+      "dilution": "dilutive",
+      "chains": ["multi-chain"],
+      "regions": ["us", "global"],
+      "typical_check_or_prize": "$150,000 for 5% via SAFE (no MFN); access to over $1M in provider credits",
+      "cadence": "cohort-based",
+      "status": "open",
+      "url": "https://f.inc/blueprint",
+      "notes": "Hardware and frontier technology program, not a general crypto accelerator; relevant to Web3 teams only where their product fits that focus. Blueprint II runs September 30–December 11, 2026 in San Francisco. Apply by September 14; FAQ specifies 11:59PM PST (confirm timezone with organizer). Full-time in-person attendance; international founders may apply. Travel, housing and living costs are not covered. Terms: https://f.inc/blueprint/faq . Separate from the broader founders-inc campus entry.",
+      "sea_relevant": false,
+      "last_verified": "2026-09-11"
+    },
+    {
+      "id": "fabric-r3sidency",
+      "name": "Fabric Ventures — R[3]sidency x Construct",
+      "type": "accelerator",
+      "stage": ["pre-seed", "mvp"],
+      "dilution": "dilutive",
+      "chains": ["multi-chain"],
+      "regions": ["europe"],
+      "typical_check_or_prize": "$300,000 investment plus over $100,000 in credits and ecosystem perks; equity percentage/instrument not published on the program page",
+      "cadence": "cohort-based (12 weeks)",
+      "status": "open",
+      "url": "https://r3sidency.fabric.vc/",
+      "notes": "2026 London residency cohort for Web3, AI and deep-tech builders. Applications due September 15 (timezone not specified); eight teams, October through January, with a New York demo day/investor roadshow. In-person London participation required. This is an investment, not a grant; obtain the actual investment terms before accepting.",
+      "sea_relevant": false,
+      "last_verified": "2026-09-11"
+    },
+    {
+      "id": "forge-residency",
+      "name": "Forge Residency — Alexandria (cohort 02)",
+      "type": "incubator",
+      "stage": ["idea", "pre-seed", "mvp"],
+      "dilution": "non-dilutive",
+      "chains": ["multi-chain"],
+      "regions": ["india"],
+      "typical_check_or_prize": "Housing, meals, mentorship and demo day; AI/infrastructure credits offered with no confirmed amount",
+      "cadence": "cohort-based",
+      "status": "open",
+      "url": "https://www.forgeresidency.com/cohorts/2",
+      "notes": "Founder house within Edge City India for technical builders, not a chain-specific grant. Mandrem, Goa, October 11–November 1, 2026; deadline September 15 (end of day; timezone unspecified). No remote option. Official application FAQ says no equity, tuition or attendance fee; a place-holding deposit is refunded on arrival: https://www.forgeresidency.com/apply?cohort=2 . The discovery post's $150K grant pool and $200K AI credits were not confirmed on official pages.",
+      "sea_relevant": false,
+      "last_verified": "2026-09-11"
     }
   ]
 }

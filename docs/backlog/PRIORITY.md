@@ -7,6 +7,10 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
+0. `web3-ivan-opportunities` — verify five founder programs from the September 11
+   roundup, correct YZi terms/deadline, and add supported residency snapshots.
+   Review pending approval.
+
 
 1. `crypto-radar-full-text-rule` — an export of the skill authored outside this
    repo carries SKILL.md hardening that never landed here: the full-text rule,
