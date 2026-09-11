@@ -2,7 +2,7 @@
 
 [![Install via skills.sh](https://img.shields.io/badge/skills.sh-install-green)](https://skills.sh/sqrdao/sqrSKILLS)
 
-Open-source [Agent Skills](https://agentskills.io/home) published by [sqrDAO](https://sqrdao.com). Covers Telegram integration, location search, personal knowledge management, Luma events, Vietnam visa checks, Vietnam crypto regulation briefings, Web3 builder opportunities, business-model and go-to-market planning, and Web3 investment agreements and deal structuring.
+Open-source [Agent Skills](https://agentskills.io/home) published by [sqrDAO](https://sqrdao.com). Covers Telegram integration, location search, personal knowledge management, Luma events, Vietnam visa checks, Vietnam crypto regulation briefings, Web3 builder opportunities, business-model and go-to-market planning, Web3 investment agreements and deal structuring, and domestic Vietnamese legal drafting and review.
 
 ## Installation
 
@@ -18,6 +18,7 @@ npx skills add sqrdao/sqrSKILLS@list-telegram-chats
 npx skills add sqrdao/sqrSKILLS@nearby-places-search
 npx skills add sqrdao/sqrSKILLS@llm-wiki
 npx skills add sqrdao/sqrSKILLS@vietnam-visa-check
+npx skills add sqrdao/sqrSKILLS@vietnam-legal-advisor
 npx skills add sqrdao/sqrSKILLS@vietnam-crypto-radar
 npx skills add sqrdao/sqrSKILLS@telegram-group-summary
 npx skills add sqrdao/sqrSKILLS@luma-calendar
@@ -35,6 +36,7 @@ npx skills add sqrdao/sqrSKILLS@web3-legal-agreements
 - [**nearby-places-search**](./nearby-places-search/) — Real-time place search via Google Places API. Returns results with addresses, ratings, and Maps links. Requires `GOOGLE_PLACES_API_KEY`.
 - [**llm-wiki**](./llm-wiki/) — Personal compounding knowledge base. Ingest sources, query compiled knowledge, and keep pages consistent. Based on [Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f).
 - [**vietnam-visa-check**](./vietnam-visa-check/) — Vietnam visa and entry requirements for any nationality. Fully offline — policy data is bundled (arrival-policy corrections verified 14 August 2026; policy data refreshed 17 August 2026).
+- [**vietnam-legal-advisor**](./vietnam-legal-advisor/) — Draft, review, and explain domestic Vietnamese corporate, labor, commercial, tax, and contract close-out documents. Includes seven references and a document library with blank company fields. Bundled legal statements are unverified and require current primary-source checks; drafts support counsel/accountant review.
 - [**vietnam-crypto-radar**](./vietnam-crypto-radar/) — Up-to-date intelligence briefings on Vietnam's crypto/digital-asset regulation: laws, decrees, tax, the national pilot exchange market, local controlled technology trials, city blockchain schemes, the International Financial Centre at Ho Chi Minh City and Da Nang, and enforcement. Diffs against a dated baseline so you always know what's new (baseline verified 31 August 2026; Da Nang and IFC material updated 4 September 2026).
 - [**telegram-group-summary**](./telegram-group-summary/) — Fetch messages from a Telegram group and produce a structured summary: topics, decisions, action items, and tone. Requires `TELEGRAM_BOT_TOKEN`.
 - [**luma-calendar**](./luma-calendar/) — Manage Luma events and guests via the Luma API: list events, create events, view registrants, and add guests. Requires `LUMA_API_KEY`.
@@ -55,6 +57,7 @@ npx skills add sqrdao/sqrSKILLS@web3-legal-agreements
 | nearby-places-search | `GOOGLE_PLACES_API_KEY` | — |
 | llm-wiki | — | `WIKI_DIR` (defaults to `./wiki/`) |
 | vietnam-visa-check | — | — |
+| vietnam-legal-advisor | Web search/fetch for current-law verification; no environment variables | Document tools for Word/PDF rendering; companion skills when available |
 | vietnam-crypto-radar | — | — |
 | telegram-group-summary | `TELEGRAM_BOT_TOKEN` | `OPENCLAW_STATE_DIR` |
 | luma-calendar | `LUMA_API_KEY` | — |

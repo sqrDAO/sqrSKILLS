@@ -7,6 +7,7 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
+
 1. `crypto-radar-full-text-rule` — an export of the skill authored outside this
    repo carries SKILL.md hardening that never landed here: the full-text rule,
    Resolution 05's load-bearing articles, and `CONFLICTING`. Three legal errors
@@ -35,9 +36,13 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Recently shipped
 
+- `vietnam-legal-advisor` — domestic legal drafting and review, portable entity
+  placeholders, dated source checks, corrected withholding/economics guidance,
+  and preservation of signed originals. Approved for merge in #56.
+
 - `web3-legal-agreements` — approved addition of the supplied agreement-structuring
   skill, six references, two templates, portable metadata and companion-skill
-  fallbacks, and installation docs. Prepared on `feat/web3-legal-agreements`.
+  fallbacks, installation docs, and review corrections. Shipped in #55.
 
 - `refresh-cost-controls` — the weekly refresh ran one Gemini session over all
   three skills, so every turn of every skill paid the whole ~178 KB corpus; one
