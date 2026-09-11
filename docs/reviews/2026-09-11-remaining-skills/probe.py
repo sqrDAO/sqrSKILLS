@@ -67,16 +67,13 @@ def main():
                 patch.object(places, '_places_request', side_effect=urllib.error.URLError('fixture outage')):
             result = places.search_nearby_places('cafe', 'fixture')
             evidence['places_outage'] = {
-                'successful': result['successful'], 'count': result['data']['total_count'],
-                'error_count': result['data']['error_count']}
-        remote = {'displayName': {'text': 'Outside radius'},
-                  'location': {'latitude': 0.01, 'longitude': 0}, 'googleMapsUri': 'https://example.com'}
+                'successful': result['successful'], 'error': result['error']}
         with patch.object(places, 'geocode_location', return_value=(0, 0)), \
-                patch.object(places, '_google_nearby_search', side_effect=[[], [remote]]) as calls:
+                patch.object(places, '_google_nearby_search', return_value=[]) as calls:
             result = places.search_nearby_places('cafe', 'fixture', 500)
-            evidence['places_radius_widened'] = {
-                'requested_meters': 500, 'attempted_meters': [c.args[3] for c in calls.call_args_list],
-                'returned_distance': result['data']['results'][0]['response']['data']['places'][0]['distance_meters']}
+            evidence['places_radius_honored'] = {
+                'requested_meters': 500, 'attempted_meters': [calls.call_args.args[4]],
+                'result_count': result['data']['total_count']}
 
         original_tz = os.environ.get('TZ')
         try:
@@ -105,12 +102,12 @@ def main():
 
         message = {'message_id': 1, 'chat': {'id': -1001}, 'text': 'hello', 'date': 1700000000}
         (root / 'history.jsonl').write_text(json.dumps(message) + '\n', encoding='utf-8')
-        evidence['summary_jsonl_skipped'] = summary._messages_from_openclaw_state(-1001, 100, None)
+        evidence['summary_jsonl_messages'] = summary._messages_from_openclaw_state(-1001, 100, None)
         (root / 'history.json').write_text(json.dumps([message]), encoding='utf-8')
         evidence['summary_json_positive_control'] = len(summary._messages_from_openclaw_state(-1001, 100, None))
         caption = dict(message)
         caption['caption'] = caption.pop('text')
-        evidence['summary_caption_skipped'] = summary._extract_from_value(caption, -1001, None)
+        evidence['summary_caption_messages'] = summary._extract_from_value(caption, -1001, None)
         evidence['summary_zero_limit_count'] = len(summary._messages_from_openclaw_state(-1001, 0, None))
         response = io.BytesIO(json.dumps({'ok': True, 'result': [{'channel_post': message}]}).encode())
         with patch('urllib.request.urlopen', return_value=response) as api:
@@ -122,7 +119,7 @@ def main():
         evidence['send_markdown'] = {
             text: send.markdown_to_html(text)
             for text in ['`user_name_here`', '```python\na_b_c = 1\n```', '**bold**']}
-        with patch.object(send, 'send_message'), \
+        with patch.object(send, 'send_message', return_value={'message_id': 1}), \
                 patch.object(sys, 'argv', ['send.py', '-1001', 'fixture']):
             out = io.StringIO()
             with contextlib.redirect_stdout(out):
@@ -149,8 +146,9 @@ def main():
         evidence['luma_upcoming_request'] = {'path': api.call_args.args[0], 'params': api.call_args.args[1]}
         with patch('urllib.request.urlopen', side_effect=urllib.error.URLError('fixture outage')):
             try:
-                luma.api_get('/v1/user/get-self')
-            except Exception as exc:
+                with contextlib.redirect_stdout(io.StringIO()):
+                    luma.api_get('/v1/users/get-self')
+            except (Exception, SystemExit) as exc:
                 evidence['luma_transport_error'] = type(exc).__name__
 
         if not workbook.HAVE_OPENPYXL:

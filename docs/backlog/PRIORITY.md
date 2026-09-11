@@ -7,6 +7,9 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
+Implementation in progress: `remaining-skills-fixes` — scoped fixes for the
+confirmed runtime defects from the remaining-skills review.
+
 Review awaiting disposition: `remaining-skills-review` — audit of the three
 Telegram skills, nearby search, Luma, and business-model-to-market. Findings and
 isolated reproductions are in `docs/reviews/2026-09-11-remaining-skills/`;

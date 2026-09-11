@@ -1,6 +1,6 @@
 ---
 name: telegram-group-summary
-version: 0.1.1
+version: 0.1.2
 description: |
   Summarize recent activity in a Telegram group. Use this skill when the user asks to
   summarize a Telegram group, recap what's been discussed, get a digest of a channel,
@@ -83,14 +83,14 @@ Format the summary in clear markdown so the user can skim it quickly.
 If `source` is `"none"` in the output, inform the user that no messages were found and suggest:
 - Verify the group with `list_groups.py`
 - The bot may be running in webhook mode — messages processed live aren't available via `getUpdates`
-- Try a smaller `--since-hours` window in case the filter is too broad
+- Try a wider `--since-hours` window in case the filter is too narrow
 
 ## Notes
 
 - **Bot privacy mode** — By default, Telegram bots in groups only receive messages directed at them (commands or replies). To summarize general group conversation, the bot must have privacy mode disabled (BotFather → `/mybots` → Bot Settings → Group Privacy → Turn off) or be a group admin. Without this, both data sources will only contain bot-directed messages, not the full chat history.
-- Only `text` and `caption` fields are captured — photo/file messages without a caption are skipped.
+- `text` and `caption` fields are captured from ordinary messages and channel posts — photo/file messages without a caption are skipped.
 - Summaries are produced by the active agent from raw message data — no external summarization API is used.
-- The `getUpdates` fallback is non-destructive (no offset is advanced), so it won't affect normal message processing.
+- The `getUpdates` fallback does not advance the offset or change `allowed_updates`; it is limited to pending updates and is not a complete history export.
 
 ## Related Skills
 

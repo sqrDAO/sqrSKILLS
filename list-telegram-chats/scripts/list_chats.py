@@ -29,9 +29,8 @@ def _telegram_bot_token() -> str:
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
     if token:
         return token
-    config_path = os.environ.get(
-        "NANOBOT_CONFIG",
-        os.path.expanduser("~/.nanobot/config.json"),
+    config_path = os.path.expanduser(
+        os.environ.get("NANOBOT_CONFIG", "~/.nanobot/config.json")
     )
     try:
         with open(config_path) as f:
@@ -78,7 +77,7 @@ def _chats_from_nanobot_sessions() -> dict:
                 first_line = f.readline()
             if first_line:
                 meta = json.loads(first_line)
-                last_updated = meta.get("last_updated") or meta.get("timestamp")
+                last_updated = meta.get("updated_at") or meta.get("last_updated") or meta.get("timestamp")
         except Exception:
             pass
 
@@ -91,7 +90,10 @@ def _chats_from_nanobot_sessions() -> dict:
         else:
             private_chats.append(entry)
 
-    return {"groups": groups, "private_chats": private_chats}
+    return {
+        "groups": sorted(groups, key=lambda e: e["chat_id"]),
+        "private_chats": sorted(private_chats, key=lambda e: e["chat_id"]),
+    }
 
 
 def _chats_from_openclaw_sessions() -> dict:
@@ -131,7 +133,10 @@ def _chats_from_openclaw_sessions() -> dict:
         else:
             private_chats.append(entry)
 
-    return {"groups": groups, "private_chats": private_chats}
+    return {
+        "groups": sorted(groups, key=lambda e: e["chat_id"]),
+        "private_chats": sorted(private_chats, key=lambda e: e["chat_id"]),
+    }
 
 
 def _chats_from_backend() -> dict:
@@ -155,7 +160,10 @@ def _chats_from_backend() -> dict:
     chats = data.get("chats", [])
     groups = [c for c in chats if c.get("chat_id", 0) < 0]
     private_chats = [c for c in chats if c.get("chat_id", 0) > 0]
-    return {"groups": groups, "private_chats": private_chats}
+    return {
+        "groups": sorted(groups, key=lambda e: e["chat_id"]),
+        "private_chats": sorted(private_chats, key=lambda e: e["chat_id"]),
+    }
 
 
 def _merge(a: dict, b: dict) -> dict:
@@ -171,7 +179,10 @@ def _merge(a: dict, b: dict) -> dict:
         if entry["chat_id"] not in seen:
             seen.add(entry["chat_id"])
             private_chats.append(entry)
-    return {"groups": groups, "private_chats": private_chats}
+    return {
+        "groups": sorted(groups, key=lambda e: e["chat_id"]),
+        "private_chats": sorted(private_chats, key=lambda e: e["chat_id"]),
+    }
 
 
 def _resolve_names(chats: list) -> list:

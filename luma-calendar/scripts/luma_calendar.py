@@ -18,7 +18,7 @@ BASE_URL = "https://public-api.luma.com"
 def get_api_key():
     key = os.environ.get("LUMA_API_KEY", "").strip()
     if not key:
-        print("Error: LUMA_API_KEY environment variable is not set", file=sys.stderr)
+        print(json.dumps({"ok": False, "error": "LUMA_API_KEY environment variable is not set"}))
         sys.exit(1)
     return key
 
@@ -32,13 +32,16 @@ def api_get(path, params=None):
     try:
         with urllib.request.urlopen(req, timeout=15) as resp:
             return json.loads(resp.read().decode())
-    except urllib.error.HTTPError as e:
-        body = e.read().decode()
-        try:
-            err = json.loads(body)
-        except Exception:
-            err = {"error": body}
-        print(json.dumps(err, indent=2))
+    except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, OSError, json.JSONDecodeError) as e:
+        if isinstance(e, urllib.error.HTTPError):
+            body = e.read().decode(errors="replace")
+            try:
+                err = json.loads(body)
+            except Exception:
+                err = {"error": body or str(e)}
+        else:
+            err = {"error": str(e)}
+        print(json.dumps({"ok": False, "error": err}, ensure_ascii=False))
         sys.exit(1)
 
 
@@ -55,23 +58,26 @@ def api_post(path, body):
     try:
         with urllib.request.urlopen(req, timeout=15) as resp:
             return json.loads(resp.read().decode())
-    except urllib.error.HTTPError as e:
-        err_body = e.read().decode()
-        try:
-            err = json.loads(err_body)
-        except Exception:
-            err = {"error": err_body}
-        print(json.dumps(err, indent=2))
+    except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, OSError, json.JSONDecodeError) as e:
+        if isinstance(e, urllib.error.HTTPError):
+            err_body = e.read().decode(errors="replace")
+            try:
+                err = json.loads(err_body)
+            except Exception:
+                err = {"error": err_body or str(e)}
+        else:
+            err = {"error": str(e)}
+        print(json.dumps({"ok": False, "error": err}, ensure_ascii=False))
         sys.exit(1)
 
 
 def cmd_get_self(args):
-    result = api_get("/v1/user/get-self")
+    result = api_get("/v1/users/get-self")
     print(json.dumps(result, indent=2))
 
 
 def cmd_get_calendar(args):
-    result = api_get("/v1/calendar/get")
+    result = api_get("/v1/calendars/get")
     print(json.dumps(result, indent=2))
 
 
@@ -83,25 +89,21 @@ def cmd_list_events(args):
         params["before"] = args.before
     if args.pagination_cursor:
         params["pagination_cursor"] = args.pagination_cursor
-    result = api_get("/v1/calendar/list-events", params or None)
+    result = api_get("/v1/calendars/events/list", params or None)
     print(json.dumps(result, indent=2))
 
 
 def cmd_get_event(args):
-    result = api_get("/v1/event/get", {"api_id": args.api_id})
+    result = api_get("/v1/events/get", {"event_id": args.api_id})
     print(json.dumps(result, indent=2))
 
 
 def cmd_create_event(args):
-    body = {"name": args.name}
-    if args.start_at:
-        body["start_at"] = args.start_at
+    body = {"name": args.name, "start_at": args.start_at, "timezone": args.timezone}
     if args.end_at:
         body["end_at"] = args.end_at
-    if args.timezone:
-        body["timezone"] = args.timezone
     if args.description:
-        body["description"] = args.description
+        body["description_md"] = args.description
     if args.geo_address_json:
         try:
             body["geo_address_json"] = json.loads(args.geo_address_json)
@@ -109,16 +111,16 @@ def cmd_create_event(args):
             print(f"Error: --geo-address-json is not valid JSON: {e}", file=sys.stderr)
             sys.exit(1)
     if args.url:
-        body["url"] = args.url
-    result = api_post("/v1/event/create", body)
+        body["slug"] = args.url
+    result = api_post("/v1/events/create", body)
     print(json.dumps(result, indent=2))
 
 
 def cmd_get_guests(args):
-    params = {"event_api_id": args.event_api_id}
+    params = {"event_id": args.event_api_id}
     if args.pagination_cursor:
         params["pagination_cursor"] = args.pagination_cursor
-    result = api_get("/v1/event/get-guests", params)
+    result = api_get("/v1/events/guests/list", params)
     print(json.dumps(result, indent=2))
 
 
@@ -128,8 +130,8 @@ def cmd_add_guests(args):
     except json.JSONDecodeError as e:
         print(f"Error: --guests is not valid JSON: {e}", file=sys.stderr)
         sys.exit(1)
-    body = {"event_api_id": args.event_api_id, "guests": guests}
-    result = api_post("/v1/event/add-guests", body)
+    body = {"event_id": args.event_api_id, "guests": guests}
+    result = api_post("/v1/events/guests/add", body)
     print(json.dumps(result, indent=2))
 
 
@@ -150,9 +152,9 @@ def main():
 
     p = sub.add_parser("create-event", help="Create a new event")
     p.add_argument("--name", required=True, help="Event name")
-    p.add_argument("--start-at", help="Start time (ISO 8601, e.g. 2026-06-01T10:00:00Z)")
+    p.add_argument("--start-at", required=True, help="Start time (ISO 8601, e.g. 2026-06-01T10:00:00Z)")
     p.add_argument("--end-at", help="End time (ISO 8601)")
-    p.add_argument("--timezone", help="Timezone name (e.g. Asia/Ho_Chi_Minh, America/New_York)")
+    p.add_argument("--timezone", required=True, help="IANA timezone (e.g. Asia/Ho_Chi_Minh, America/New_York)")
     p.add_argument("--description", help="Event description (plain text or HTML)")
     p.add_argument(
         "--geo-address-json",

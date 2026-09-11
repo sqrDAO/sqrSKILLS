@@ -80,12 +80,12 @@ The canvas is not a parallel exercise. It hands specific inputs to specific stag
 
 | Canvas block | Feeds | Where |
 |---|---|---|
-| Value Propositions | Offer definition | Stage 2 / `icp-personas.md` (qualifying: your solution) |
-| Customer Segments | ICP and persona tiering | Stage 3 / `icp-personas.md` |
+| Value Propositions | Offer definition | Stage 3 / `icp-personas.md` (qualifying: your solution) |
+| Customer Segments | ICP and persona tiering | Stage 4 / `icp-personas.md` |
 | Channels | Attention plan **and** the sales cycle's Delivery/After-sales stages | Stages 4 and 6 / `sales-cycle.md` |
 | Customer Relationships | Relationship mode and its cost, which shapes methodology and cadence | Stages 5 and 7 |
 | Revenue Streams | Willingness-to-pay and pricing, the economic spine of qualification | Stage 3 (target-market economics) |
-| Key Partners | Partnership goal matrix | Stage 8 / `partnership-goals.md` |
+| Key Partners | Partnership goal matrix | Stage 9 / `partnership-goals.md` |
 | Key Activities / Resources / Cost | The reality check GTM has no other home for | This file |
 
 Run the mapping in both directions during an audit. A persona in the plan with no matching customer segment on the canvas is a segment you are selling to but have not modeled. A revenue stream on the canvas that no persona is qualified against is money you have drawn but not sourced.

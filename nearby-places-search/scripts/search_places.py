@@ -98,15 +98,23 @@ def lookup_coords_in_memory(location):
 
     for fpath in candidates:
         try:
-            text = open(fpath).read()
+            with open(fpath, encoding="utf-8") as handle:
+                text = handle.read()
         except OSError:
             continue
-        if not any(w in text.lower() for w in search_words):
-            continue
-        match = coords_pattern.search(text)
-        if match:
+        sections = re.split(r"(?=^\s*#{1,6}\s+.+$)", text, flags=re.MULTILINE)
+        matches = []
+        for section in sections:
+            heading = re.match(r"^\s*#{1,6}\s+(.+)$", section)
+            haystack = section.lower()
+            score = sum(1 for word in search_words if word in haystack)
+            match = coords_pattern.search(section)
+            if match and score == len(search_words):
+                matches.append((score, heading.group(1) if heading else "", match))
+        if matches:
+            _, heading, match = max(matches, key=lambda item: (item[0], item[1].lower()))
             lat, lon = float(match.group(1)), float(match.group(2))
-            print(f"Memory fallback: found coordinates in {os.path.basename(fpath)}: {lat}, {lon}", file=sys.stderr)
+            print(f"Memory fallback: found coordinates for {heading or location} in {os.path.basename(fpath)}: {lat}, {lon}", file=sys.stderr)
             return lat, lon
 
     return None
@@ -176,15 +184,7 @@ def get_place_type(query):
     q = query.lower().strip()
     if q in GOOGLE_PLACES_TYPE_MAP:
         return GOOGLE_PLACES_TYPE_MAP[q]
-    # Partial / substring match — longest wins
-    best = None
-    for term, ptype in GOOGLE_PLACES_TYPE_MAP.items():
-        if term in q and (best is None or len(term) > len(best[0])):
-            best = (term, ptype)
-    if best:
-        return best[1]
-    # Default: pass the query as-is (Google Places accepts many type strings)
-    return q.replace(" ", "_")
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -230,7 +230,7 @@ def _rank_places(raw_places, center_lat, center_lon, top_n=10):
         score = 0.5 * proximity_score + 0.5 * rating_score
         scored.append((score, dist, p))
 
-    scored.sort(key=lambda x: x[0], reverse=True)
+    scored.sort(key=lambda x: (-x[0], x[1], str(x[2].get("id", ""))))
 
     result = []
     for _, dist, p in scored[:top_n]:
@@ -240,7 +240,7 @@ def _rank_places(raw_places, center_lat, center_lon, top_n=10):
     return result
 
 
-def _google_nearby_search(lat, lon, place_type, radius_meters, limit=20):
+def _google_nearby_search(lat, lon, query, place_type, radius_meters, limit=20):
     """Call Google Places Nearby Search and return raw place dicts."""
     body = {
         "locationRestriction": {
@@ -249,12 +249,20 @@ def _google_nearby_search(lat, lon, place_type, radius_meters, limit=20):
                 "radius": float(radius_meters),
             }
         },
-        "includedTypes": [place_type],
         "maxResultCount": limit,
         "rankPreference": "DISTANCE",
     }
+    if place_type:
+        body["includedTypes"] = [place_type]
+    else:
+        body = {
+            "textQuery": query,
+            "pageSize": limit,
+            "locationBias": {"circle": {"center": {"latitude": lat, "longitude": lon}, "radius": float(radius_meters)}},
+        }
     field_mask = ",".join([
         "places.displayName",
+        "places.id",
         "places.formattedAddress",
         "places.location",
         "places.googleMapsUri",
@@ -262,12 +270,9 @@ def _google_nearby_search(lat, lon, place_type, radius_meters, limit=20):
         "places.priceLevel",
         "places.businessStatus",
     ])
-    try:
-        result = _places_request(PLACES_NEARBY_URL, body, field_mask)
-        return result.get("places", [])
-    except Exception as e:
-        print(f"Google Places nearby search error: {e}", file=sys.stderr)
-        return []
+    url = PLACES_NEARBY_URL if place_type else PLACES_TEXT_URL
+    result = _places_request(url, body, field_mask)
+    return result.get("places", [])
 
 
 def place_to_dict(place):
@@ -285,6 +290,10 @@ def place_to_dict(place):
         "googleMapsUrl": maps_url,
         "location": {"lat": lat, "lng": lon},
     }
+    if "id" in place:
+        result["id"] = place["id"]
+    if "businessStatus" in place:
+        result["businessStatus"] = place["businessStatus"]
     if "rating" in place:
         result["rating"] = place["rating"]
     if "priceLevel" in place:
@@ -299,12 +308,14 @@ def place_to_dict(place):
 # ---------------------------------------------------------------------------
 
 def search_nearby_places(query, location, radius_meters=1000):
+    if radius_meters <= 0 or radius_meters > 50000:
+        return {"successful": False, "error": "radius_meters must be between 1 and 50000"}
     if not GOOGLE_PLACES_API_KEY:
-        return {"error": "GOOGLE_PLACES_API_KEY is not set. Add it to the container environment or to workspace/.google-places.env"}
+        return {"successful": False, "error": "GOOGLE_PLACES_API_KEY is not set. Add it to the container environment or to workspace/.google-places.env"}
 
     coords = geocode_location(location)
     if not coords:
-        return {"error": f"Could not geocode location: {location}"}
+        return {"successful": False, "error": f"Could not geocode location: {location}"}
 
     lat, lon = coords
     print(f"Coordinates: {lat}, {lon}", file=sys.stderr)
@@ -312,11 +323,11 @@ def search_nearby_places(query, location, radius_meters=1000):
     place_type = get_place_type(query)
     print(f"Google Places type: {place_type}", file=sys.stderr)
 
-    raw_places = _google_nearby_search(lat, lon, place_type, radius_meters)
-
-    if not raw_places:
-        print(f"No results at {radius_meters}m, widening to {radius_meters * 3}m...", file=sys.stderr)
-        raw_places = _google_nearby_search(lat, lon, place_type, radius_meters * 3)
+    try:
+        raw_places = _google_nearby_search(lat, lon, query, place_type, radius_meters)
+    except Exception as e:
+        print(f"Google Places search error: {e}", file=sys.stderr)
+        return {"successful": False, "error": str(e)}
 
     ranked = _rank_places(raw_places, lat, lon, top_n=10)
     places = [place_to_dict(p) for p in ranked]

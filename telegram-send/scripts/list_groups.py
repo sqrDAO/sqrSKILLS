@@ -183,6 +183,7 @@ def list_groups(resolve_names: bool = True) -> list:
             groups.append(g)
     if not groups:
         groups = _groups_from_backend()
+    groups = sorted(groups, key=lambda g: g["chat_id"])
     if resolve_names:
         return _resolve_names(groups)
     return groups

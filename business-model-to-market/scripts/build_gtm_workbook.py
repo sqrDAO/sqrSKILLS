@@ -56,8 +56,9 @@ def section(ws, row, text, span=6):
 
 def pair(ws, row, label, value, col=1):
     ws.cell(row=row, column=col, value=label).font = LABEL
-    cell = ws.cell(row=row, column=col + 1, value=value if value else TBD)
-    cell.font = BODY if value else MUTED
+    present = value is not None and value != ""
+    cell = ws.cell(row=row, column=col + 1, value=value if present else TBD)
+    cell.font = BODY if present else MUTED
     cell.alignment = WRAP
     return row + 1
 
@@ -135,7 +136,7 @@ def tab_decision_matrix(wb, data):
 
     ws.cell(row=WEIGHT_ROW, column=1, value="Factor Weighting").font = LABEL
     for f, rc in zip(factors, raw_cols):
-        c = ws.cell(row=WEIGHT_ROW, column=rc, value=f.get("weight", 0))
+        c = ws.cell(row=WEIGHT_ROW, column=rc, value=f.get("weight"))
         c.font = INPUT_FONT  # blue: hardcoded input the user will change
     ws.cell(row=WEIGHT_ROW, column=total_col,
             value="=SUM(" + ",".join(f"{get_column_letter(c)}{WEIGHT_ROW}" for c in raw_cols) + ")").font = BODY
@@ -148,15 +149,16 @@ def tab_decision_matrix(wb, data):
         scores = idea.get("scores", [])
         for j, rc in enumerate(raw_cols):
             rl = get_column_letter(rc)
-            v = scores[j] if j < len(scores) else 0
+            v = scores[j] if j < len(scores) else None
             ws.cell(row=row, column=rc, value=v).font = INPUT_FONT
             # anchor the weight row: the shipped template omits the $ and mis-scores Factor 1
-            ws.cell(row=row, column=rc + 1, value=f"={rl}{row}*{rl}${WEIGHT_ROW}").font = BODY
+            ws.cell(row=row, column=rc + 1, value=f'=IF(OR({rl}{row}="",{rl}${WEIGHT_ROW}=""),"",{rl}{row}*{rl}${WEIGHT_ROW})').font = BODY
+        weighted = ",".join(f"{get_column_letter(c + 1)}{row}" for c in raw_cols)
         ws.cell(row=row, column=total_col,
-                value="=SUM(" + ",".join(f"{get_column_letter(c + 1)}{row}" for c in raw_cols) + ")").font = LABEL
+                value=f'=IF(COUNT({weighted})={len(raw_cols)},SUM({weighted}),"")').font = LABEL
         tl = get_column_letter(total_col)
         ws.cell(row=row, column=rank_col,
-                value=f"=RANK({tl}{row},{tl}${FIRST}:{tl}${last})").font = BODY
+                value=f'=IF({tl}{row}="","",RANK({tl}{row},{tl}${FIRST}:{tl}${last}))').font = BODY
 
     note = ("Flip test: change the weight you are least sure of by +/-10. "
             "If the winner changes, the result rests on that judgment. "
@@ -499,10 +501,13 @@ def main():
     keys = [k for k, _ in builders] if only else list(SCHEMA)
     filled = [k for k in keys if data.get(k)]
     missing = [k for k in keys if not data.get(k)]
-    print(f"Wrote {args.output}")
-    print(f"  filled sections:  {', '.join(filled) or 'none'}")
-    if missing:
-        print(f"  left blank (TBD): {', '.join(missing)}")
+    print(json.dumps({
+        "ok": True,
+        "output": args.output,
+        "sheets": [name for name, _ in builders],
+        "filled_sections": filled,
+        "missing_sections": missing,
+    }, ensure_ascii=False))
     return 0
 
 
