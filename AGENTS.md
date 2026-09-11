@@ -284,6 +284,7 @@ Required sections are **Goal**, **Files**, **Acceptance**, and **Verify**.
 | `telegram-group-summary` | `TELEGRAM_BOT_TOKEN` for Bot API fallback | `OPENCLAW_STATE_DIR` |
 | `llm-wiki` | None | `WIKI_DIR` |
 | `vietnam-visa-check` | None | None |
+| `vietnam-legal-advisor` | Web access or equivalent research tools for current-law verification | None |
 | `vietnam-crypto-radar` | Web access or equivalent research tools | None |
 | `luma-calendar` | `LUMA_API_KEY` | None |
 | `business-model-to-market` | None | None |

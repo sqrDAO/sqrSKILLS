@@ -7,6 +7,9 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
+- `vietnam-legal-advisor` — import the supplied domestic legal drafting skill,
+  generalize company defaults, and document current-source verification.
+
 1. `crypto-radar-full-text-rule` — an export of the skill authored outside this
    repo carries SKILL.md hardening that never landed here: the full-text rule,
    Resolution 05's load-bearing articles, and `CONFLICTING`. Three legal errors
