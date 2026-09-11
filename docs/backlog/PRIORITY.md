@@ -7,6 +7,10 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
+- `skill-evolution` — import the supplied prompt with portable metadata, optional
+  toolkit guidance, isolated author records, and documented evaluation limits.
+  Current user-requested addition; pending approval.
+
 
 1. `crypto-radar-full-text-rule` — an export of the skill authored outside this
    repo carries SKILL.md hardening that never landed here: the full-text rule,

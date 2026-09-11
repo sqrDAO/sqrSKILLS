@@ -288,6 +288,7 @@ Required sections are **Goal**, **Files**, **Acceptance**, and **Verify**.
 | `vietnam-crypto-radar` | Web access or equivalent research tools | None |
 | `luma-calendar` | `LUMA_API_KEY` | None |
 | `business-model-to-market` | None | None |
+| `skill-evolution` | None for audits (local file tools) | Existing evaluation harness/runner for gates |
 | `web3-legal-agreements` | Web access or equivalent research tools for current-law verification | None |
 
 ## Versioning

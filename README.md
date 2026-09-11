@@ -2,7 +2,7 @@
 
 [![Install via skills.sh](https://img.shields.io/badge/skills.sh-install-green)](https://skills.sh/sqrdao/sqrSKILLS)
 
-Open-source [Agent Skills](https://agentskills.io/home) published by [sqrDAO](https://sqrdao.com). Covers Telegram integration, location search, personal knowledge management, Luma events, Vietnam visa checks, Vietnam crypto regulation briefings, Web3 builder opportunities, business-model and go-to-market planning, Web3 investment agreements and deal structuring, and domestic Vietnamese legal drafting and review.
+Open-source [Agent Skills](https://agentskills.io/home) published by [sqrDAO](https://sqrdao.com). Covers Telegram integration, location search, personal knowledge management, Luma events, Vietnam visa checks, Vietnam crypto regulation briefings, Web3 builder opportunities, business-model and go-to-market planning, Web3 investment agreements and deal structuring, domestic Vietnamese legal drafting and review, and skill auditing and evolution.
 
 ## Installation
 
@@ -25,6 +25,7 @@ npx skills add sqrdao/sqrSKILLS@luma-calendar
 npx skills add sqrdao/sqrSKILLS@web3-opportunities
 npx skills add sqrdao/sqrSKILLS@business-model-to-market
 npx skills add sqrdao/sqrSKILLS@web3-legal-agreements
+npx skills add sqrdao/sqrSKILLS@skill-evolution
 ```
 
 `npx skills add` installs to all supported agents automatically where the skills installer has an adapter (Claude Code, Codex, Gemini CLI, OpenClaw, Hermes, Nanobot, and others).
@@ -45,6 +46,8 @@ npx skills add sqrdao/sqrSKILLS@web3-legal-agreements
 
 - [**web3-legal-agreements**](./web3-legal-agreements/) — Structure, draft, review, redline, and compare Web3 investment agreements (SAFE, SAFT, token warrants, and side letters), plus escrow, forfeiture, and platform terms. Includes six references, a review checklist, and a ToS scaffold. Drafting support for counsel review; legal and market assertions require primary-source verification; includes a dated US source register and jurisdiction-specific review guidance.
 
+- [**skill-evolution**](./skill-evolution/) — Audit, build, and improve agent skills using raw traces, a persistent author wiki, and validation gates. Prompt-only: includes evaluation design and harness fault checks; no toolkit or runner is bundled.
+
 ## Requirements
 
 - Python 3.10+
@@ -64,6 +67,7 @@ npx skills add sqrdao/sqrSKILLS@web3-legal-agreements
 | web3-opportunities | — | — |
 | business-model-to-market | — | — (spreadsheet output needs the `openpyxl` Python package) |
 | web3-legal-agreements | Web search/fetch for current-law verification; no environment variables | Companion legal/spreadsheet skills, when available |
+| skill-evolution | Local file tools; no environment variables for audits | Existing evaluation harness and agent runner for measured gates; external toolkit is not bundled |
 
 Set these through your agent's environment/configuration mechanism (for example a shell profile, project `.env`, Claude Code env file, Codex environment, Hermes/OpenClaw config, or your runtime's equivalent).
 
