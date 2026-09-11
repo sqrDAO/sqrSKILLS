@@ -46,7 +46,9 @@ and Forge; YZi's existing entry is refreshed. Blueprint and Forge are broader
 founder programs, so product fit still matters for a Web3 applicant.
 
 - **YZi:** the official S5 page now gives September 21 at 23:59 GMT-7 and up to
-  $500K per team. The post's September 13 and $2.5M are not the verified offer.
+  $500K per team. The September 13 date in the post matches the calendar date
+  of the prior bundled deadline in GMT-7; September 21 supersedes that snapshot.
+  The post's $2.5M figure is not supported by the current official terms.
 - **Forge:** official pages support covered costs and no equity; the roundup's
   grant-pool and credit amounts remain unconfirmed and are not catalog awards.
 - **Forma — discovery candidate, not yet in the roster:** the

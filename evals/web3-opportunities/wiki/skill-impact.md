@@ -139,3 +139,20 @@ Two consequences for whoever picks this up:
    out-of-catalog, with no amounts, dates or status, and told to verify — a
    violation of "never invent programs", or the best available answer? Left
    failing pending a decision, rather than excused into a pass.
+
+
+## 2026-09-11 — PR #58 harness correction (no instruction change)
+
+Adding Forge raised the India query from four rows to five. Regeneration updated
+v2-14 truth but left its authored `four`/`4` acceptance patterns stale. Opus 5
+review found this; the counterexample is “There are 4 India entries” passing the
+count check while the query returns five. Replace the literal count alternatives
+with `<TRUTH_COUNT>` and remove the fixed count from the explanation. Preserve
+the existing named-list alternative; this remains a limited count-or-list check.
+A regression exercises correct numeric counts 3, 5, and 12 and rejects stale
+`four`/`4` answers for each. This repairs the rubric, not skill behavior; do not
+compare historical scores across this repair as evidence of skill improvement.
+
+The same review confirmed that dropping “formerly Binance Labs” made v2-10's
+canonical search return no rows. Restoring the alias fixes catalog retrieval;
+regenerated truth again returns `yzi-labs`. SKILL.md changes only release metadata.

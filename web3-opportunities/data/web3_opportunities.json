@@ -83,7 +83,7 @@
     },
     {
       "id": "yzi-labs",
-      "name": "YZi Labs — EASY Residency",
+      "name": "YZi Labs (formerly Binance Labs) — EASY Residency",
       "type": "incubator",
       "stage": ["pre-seed", "mvp", "growth"],
       "dilution": "dilutive",
@@ -691,7 +691,7 @@
     },
     {
       "id": "founders-inc-blueprint",
-      "name": "Founders, Inc. — Blueprint II",
+      "name": "Founders, Inc. — Blueprint II (hardware / frontier tech)",
       "type": "accelerator",
       "stage": ["idea", "pre-seed"],
       "dilution": "dilutive",

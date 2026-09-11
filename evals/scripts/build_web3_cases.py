@@ -660,8 +660,8 @@ CASES_V2 = [
         [([{"region": ["india"]}], None)],
         [["--region", "india"]],
         [req("names", [r"ethglobal", r"dorahacks", r"hashed emergent", r"solana"],
-             "four entries carry the india region tag"),
-         req("count_or_list", [r"\bfour\b", r"\b4\b", r"hashed emergent"],
+             "surface entries returned by the india region query"),
+         req("count_or_list", [r"\b<TRUTH_COUNT>\b", r"hashed emergent"],
              "the india set is small and specific")],
     ),
     case2(

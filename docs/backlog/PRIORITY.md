@@ -7,10 +7,6 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-0. `web3-ivan-opportunities` — verify five founder programs from the September 11
-   roundup, correct YZi terms/deadline, and add supported residency snapshots.
-   Review pending approval.
-
 
 1. `crypto-radar-full-text-rule` — an export of the skill authored outside this
    repo carries SKILL.md hardening that never landed here: the full-text rule,
@@ -39,6 +35,10 @@ from `todo.<slug>.md` to `done.<slug>.md`.
    it differs per check.
 
 ## Recently shipped
+
+- `web3-ivan-opportunities` — YZi terms/deadline refresh, three verified founder
+  programs, Forma caveats, restored alias lookup, and a data-derived India count
+  rubric. Reviewed with Opus 5 and completed in #58.
 
 - `skill-evolution` — imported audit and gating workflow with optional toolkit
   guidance, isolated author records, and Opus-reviewed project-rule precedence.
