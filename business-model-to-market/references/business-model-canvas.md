@@ -82,9 +82,9 @@ The canvas is not a parallel exercise. It hands specific inputs to specific stag
 |---|---|---|
 | Value Propositions | Offer definition | Stage 3 / `icp-personas.md` (qualifying: your solution) |
 | Customer Segments | ICP and persona tiering | Stage 4 / `icp-personas.md` |
-| Channels | Attention plan **and** the sales cycle's Delivery/After-sales stages | Stages 4 and 6 / `sales-cycle.md` |
-| Customer Relationships | Relationship mode and its cost, which shapes methodology and cadence | Stages 5 and 7 |
-| Revenue Streams | Willingness-to-pay and pricing, the economic spine of qualification | Stage 3 (target-market economics) |
+| Channels | Attention plan **and** the sales cycle's Delivery/After-sales stages | Stages 5 and 7 / `sales-cycle.md` |
+| Customer Relationships | Relationship mode and its cost, which shapes methodology and cadence | Stages 6 and 8 |
+| Revenue Streams | Willingness-to-pay and pricing, the economic spine of qualification | Stage 4 (target-market economics) |
 | Key Partners | Partnership goal matrix | Stage 9 / `partnership-goals.md` |
 | Key Activities / Resources / Cost | The reality check GTM has no other home for | This file |
 

@@ -56,7 +56,7 @@ def section(ws, row, text, span=6):
 
 def pair(ws, row, label, value, col=1):
     ws.cell(row=row, column=col, value=label).font = LABEL
-    present = value is not None and value != ""
+    present = value is not None and value != "" and value != [] and value != {}
     cell = ws.cell(row=row, column=col + 1, value=value if present else TBD)
     cell.font = BODY if present else MUTED
     cell.alignment = WRAP

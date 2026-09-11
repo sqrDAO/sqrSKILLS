@@ -92,6 +92,8 @@ def lookup_coords_in_memory(location):
             candidates.append(os.path.join(memory_dir, fname))
 
     search_words = [w.lower() for w in re.split(r"\W+", location) if len(w) > 2]
+    if not search_words:
+        return None
     coords_pattern = re.compile(
         r"[Cc]oordinates[:\s]+(-?\d+\.\d+)[,\s]+(-?\d+\.\d+)"
     )
@@ -329,7 +331,19 @@ def search_nearby_places(query, location, radius_meters=1000):
         print(f"Google Places search error: {e}", file=sys.stderr)
         return {"successful": False, "error": str(e)}
 
-    ranked = _rank_places(raw_places, lat, lon, top_n=10)
+    # Text Search's locationBias is advisory. Enforce the requested circle
+    # before ranking, using unrounded distances and only known coordinates.
+    within_radius = []
+    for place in raw_places:
+        loc = place.get("location") or {}
+        plat, plon = loc.get("latitude"), loc.get("longitude")
+        if not isinstance(plat, (int, float)) or not isinstance(plon, (int, float)):
+            continue
+        if not (-90 <= plat <= 90 and -180 <= plon <= 180):
+            continue
+        if _haversine_meters(lat, lon, plat, plon) <= radius_meters:
+            within_radius.append(place)
+    ranked = _rank_places(within_radius, lat, lon, top_n=10)
     places = [place_to_dict(p) for p in ranked]
 
     return {

@@ -24,6 +24,10 @@ speculative prompt improvements explicitly ungated.
 - `README.md`, `docs/backlog/PRIORITY.md` (edited) — support scope and status.
 
 ## Acceptance
+- [x] Opus follow-up: short location tokens cannot select arbitrary cache entries;
+      free-text results are filtered by exact distance before ranking.
+- [x] Canvas stage references agree with SKILL.md; probe freezes the active clock;
+      empty workbook containers remain TBD while false/zero remain explicit.
 - [ ] Summary documentation limits local history support to raw Telegram JSON/JSONL;
       native OpenClaw transcripts and SQLite require an export or separate adapter.
 - [ ] Literal placeholder-like text cannot collide with protected code regions.
@@ -53,3 +57,5 @@ speculative prompt improvements explicitly ungated.
 - The review PR is #59; append implementation commits to its branch.
 - Review follow-ups verified: 204 tests run (202 passed, 2 optional skips);
   all 12 focused tests pass with openpyxl. Validator/unanchored/diff checks pass.
+- Opus fixes verified: all 207 tests pass with openpyxl, all four workbook modes
+  reopen, probe cutoff error is 0.0 hours; validator/unanchored/diff checks pass.

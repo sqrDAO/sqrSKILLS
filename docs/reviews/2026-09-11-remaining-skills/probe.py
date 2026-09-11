@@ -82,6 +82,10 @@ def main():
             now = datetime.datetime(2026, 9, 11, 12, tzinfo=datetime.timezone.utc)
             class FrozenDateTime(datetime.datetime):
                 @classmethod
+                def now(cls, tz=None):
+                    return now.astimezone(tz) if tz else now.astimezone().replace(tzinfo=None)
+
+                @classmethod
                 def utcnow(cls):
                     return now.replace(tzinfo=None)
             with patch.object(summary.datetime, 'datetime', FrozenDateTime), \
@@ -93,6 +97,7 @@ def main():
             expected = now.timestamp() - 86400
             evidence['summary_cutoff'] = {'timezone': os.environ['TZ'],
                                          'error_hours': (actual - expected) / 3600}
+            assert actual == expected, 'Summary cutoff must be independent of host timezone'
         finally:
             if original_tz is None:
                 os.environ.pop('TZ', None)

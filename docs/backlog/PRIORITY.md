@@ -10,6 +10,8 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 Implementation awaiting approval: `remaining-skills-fixes` — PR #59 includes
 runtime fixes and review follow-ups for history support, code placeholders,
 and the Luma venue example; repository checks pass.
+Opus follow-ups fix short-location cache matching, radius enforcement, stage
+references, probe clock freezing, and empty workbook values; all 207 tests pass.
 
 Review awaiting disposition: `remaining-skills-review` — audit of the three
 Telegram skills, nearby search, Luma, and business-model-to-market. Findings and

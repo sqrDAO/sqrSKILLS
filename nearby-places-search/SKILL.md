@@ -1,6 +1,6 @@
 ---
 name: nearby-places-search
-version: 0.1.2
+version: 0.1.3
 description: |
   Real-time place search using Google Places API. Use this skill — instead of web search — whenever the user asks to find a physical place, business, or venue near a location. Trigger phrases: "find cafes near", "coffee shops near", "restaurants near", "ATMs near", "within walking distance", "nearby", "near [place/address]", "close to", "around [location]". Returns live results with addresses, ratings, and direct Maps links. Requires GOOGLE_PLACES_API_KEY. Always prefer this over a web search for any location-based place discovery query.
 allowed-tools:
@@ -33,6 +33,10 @@ python3 "$SKILL_DIR/scripts/search_places.py" "<query>" "<location>" [--radius_m
 - `query`: Type of place to search for (e.g., "coffee shop", "restaurant", "ATM")
 - `location`: Address or place name (e.g., "London", "Times Square")
 - `--radius_meters` (optional): Search radius in meters (1–50000). Default: 1000; the requested bound is honored.
+
+Results are filtered by exact distance before ranking, including free-text
+searches; entries without valid coordinates are omitted. Short location names
+without a token longer than two characters bypass the memory cache and use geocoding.
 
 ### Examples
 

@@ -98,6 +98,36 @@ class TelegramSendAndListTests(unittest.TestCase):
 
 
 class NearbyPlacesTests(unittest.TestCase):
+    def test_short_locations_fall_through_to_geocoding(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(PLACES, "WORKSPACE_DIR", tmp):
+            Path(tmp, "MEMORY.md").write_text("# Hanoi\nCoordinates: 21.0285, 105.8542\n", encoding="utf-8")
+            for location in ("LA", "NY", "D1", ""):
+                with self.subTest(location=location), patch.object(
+                    PLACES, "_geocode_via_places", return_value=(34.05, -118.24)
+                ) as geocode:
+                    self.assertIsNone(PLACES.lookup_coords_in_memory(location))
+                    self.assertEqual((34.05, -118.24), PLACES.geocode_location(location))
+                    geocode.assert_called_once_with(location)
+
+    def test_free_text_radius_filters_before_ranking_without_rounding(self):
+        import math
+
+        def place(name, meters):
+            return {"id": name, "location": {"latitude": math.degrees(meters / 6371000), "longitude": 0}}
+
+        inside = [place("center", 0), place("inside", 499.9)]
+        outside = [place("outside", 500.1), place("far", 111195), {"id": "unknown"}]
+        with patch.object(PLACES, "GOOGLE_PLACES_API_KEY", "fixture"), \
+                patch.object(PLACES, "geocode_location", return_value=(0, 0)), \
+                patch.object(PLACES, "_places_request", return_value={"places": outside + inside}) as request, \
+                patch.object(PLACES, "_rank_places", wraps=PLACES._rank_places) as rank:
+            result = PLACES.search_nearby_places("vegan restaurant", "fixture", 500)
+        self.assertEqual(PLACES.PLACES_TEXT_URL, request.call_args.args[0])
+        self.assertEqual(inside, rank.call_args.args[0])
+        rows = result["data"]["results"][0]["response"]["data"]["places"]
+        self.assertEqual(["center", "inside"], [row["id"] for row in rows])
+        self.assertEqual(2, result["data"]["total_count"])
+
     def test_memory_coordinates_are_scoped_to_the_matching_section(self):
         with tempfile.TemporaryDirectory() as tmp, patch.object(PLACES, "WORKSPACE_DIR", tmp):
             Path(tmp, "MEMORY.md").write_text("# Hanoi\nCoordinates: 21.0285, 105.8542\n\n# London\nCoordinates: 51.5074, -0.1278\n", encoding="utf-8")
@@ -139,6 +169,17 @@ class LumaTests(unittest.TestCase):
 
 @unittest.skipUnless(WORKBOOK.HAVE_OPENPYXL, "openpyxl is an optional workbook dependency")
 class WorkbookTests(unittest.TestCase):
+    def test_empty_containers_are_tbd_and_false_zero_survive(self):
+        from openpyxl import Workbook
+        ws = Workbook().active
+        for row, (value, expected) in enumerate(
+            (([], "TBD"), ({}, "TBD"), (None, "TBD"), ("", "TBD"), (False, False), (0, 0)), 1
+        ):
+            with self.subTest(value=value):
+                WORKBOOK.pair(ws, row, "Answer", value)
+                self.assertEqual(expected, ws.cell(row, 2).value)
+                self.assertIs(type(expected), type(ws.cell(row, 2).value))
+
     def test_false_answer_is_not_tbd(self):
         from openpyxl import Workbook
         wb = Workbook()
