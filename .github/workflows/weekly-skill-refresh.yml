@@ -459,7 +459,13 @@ jobs:
           name: refresh-data-visa
           path: ${{ runner.temp }}/refresh-input/visa
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
       - name: Collect permitted research outputs
+        id: collect
         env:
           LEG_CRYPTO: ${{ needs.crypto.result }}
           LEG_WEB3: ${{ needs.web3.result }}
@@ -467,11 +473,6 @@ jobs:
         run: |
           python3 scripts/collect_refresh.py --artifacts "$RUNNER_TEMP/refresh-input" \
             --crypto "$LEG_CRYPTO" --web3 "$LEG_WEB3" --visa "$LEG_VISA"
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
 
       - name: Hold the refresh to what it verified
         id: audit
@@ -504,10 +505,20 @@ jobs:
           EOF
           rm -f REFRESH_VERIFIED.json
 
+      - name: Regenerate evaluation cases from audited data
+        id: regenerate
+        continue-on-error: true
+        run: |
+          python3 evals/scripts/build_visa_cases.py
+          python3 evals/scripts/build_web3_cases.py
+
       - name: Run the skill harness
         id: harness
+        env:
+          REGENERATION_OUTCOME: ${{ steps.regenerate.outcome }}
         run: |
           status=pass
+          [ "$REGENERATION_OUTCOME" = success ] || status=fail
           python3 scripts/validate_skills.py > /tmp/validate.json || status=fail
           # An instrument number the refresh added with no anchor beside it.
           # check_anchors.py below cannot see this: it fetches URLs that exist,
@@ -590,6 +601,22 @@ jobs:
             echo "title=Weekly skill refresh — ${run_date} — no verified changes" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Refuse to clobber an open refresh PR
+        env:
+          GH_TOKEN: ${{ secrets.REFRESH_PAT || secrets.GITHUB_TOKEN }}
+        run: |
+          open_pr="$(gh pr list --head automation/weekly-skill-refresh \
+                       --state open --json number --jq '.[0].number // empty')"
+          if [ -n "$open_pr" ]; then
+            {
+              echo "::error::Refresh PR #${open_pr} is still open on"
+              echo "automation/weekly-skill-refresh. This run would force-push over"
+              echo "it, discarding any corrections made on that branch. Merge or"
+              echo "close #${open_pr} first, then re-run this workflow."
+            } >&2
+            exit 1
+          fi
+
       - name: Open pull request
         id: pr
         uses: peter-evans/create-pull-request@v6
@@ -606,6 +633,9 @@ jobs:
             vietnam-crypto-radar/
             web3-opportunities/
             vietnam-visa-check/
+            evals/vietnam-visa-check/cases.jsonl
+            evals/web3-opportunities/cases.jsonl
+            evals/web3-opportunities/cases-v2.jsonl
           commit-message: "chore: weekly refresh of time-sensitive skill baselines"
           title: "${{ steps.pr_meta.outputs.title }}"
           body: |
@@ -623,6 +653,7 @@ jobs:
 
             | Check | Result |
             |---|---|
+            | Research legs and artifact validation | **${{ steps.collect.outputs.status }}** — crypto=${{ steps.collect.outputs.crypto }}, web3=${{ steps.collect.outputs.web3 }}, visa=${{ steps.collect.outputs.visa }} |
             | Skill harness (validator + tests + anchors on new instruments) | **${{ steps.harness.outputs.status }}** |
             | Source anchors resolve | **${{ steps.anchors.outputs.status }}** — ${{ steps.anchors.outputs.checked }} checked, ${{ steps.anchors.outputs.dead }} dead, ${{ steps.anchors.outputs.unverified }} unverified |
             | Verification honesty | **${{ steps.audit.outputs.status }}** — ${{ steps.audit.outputs.changed }} entries changed, ${{ steps.audit.outputs.attested }} re-verified unchanged, **${{ steps.audit.outputs.reverted }} unsupported dates rolled back** |
@@ -649,6 +680,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           SHA: ${{ steps.pr.outputs.pull-request-head-sha }}
+          RESEARCH_STATUS: ${{ steps.collect.outputs.status }}
           HARNESS_STATUS: ${{ steps.harness.outputs.status }}
           ANCHOR_STATUS: ${{ steps.anchors.outputs.status }}
           AUDIT_STATUS: ${{ steps.audit.outputs.status }}
@@ -667,6 +699,7 @@ jobs:
               -f description="$3" \
               -f target_url="$RUN_URL" >/dev/null
           }
+          publish "Refresh / research legs" "$RESEARCH_STATUS" "research completion and artifact validation"
           publish "Refresh / harness" "$HARNESS_STATUS" "validator + unittest"
           publish "Refresh / anchors" "$ANCHOR_STATUS" \
             "$ANCHOR_CHECKED checked, $ANCHOR_DEAD dead"
@@ -675,6 +708,7 @@ jobs:
 
       - name: Fail the run if the refresh did not pass its checks
         if: >-
+          steps.collect.outputs.status != 'pass' ||
           steps.harness.outputs.status == 'fail' ||
           steps.anchors.outputs.status == 'fail' ||
           steps.audit.outputs.status == 'fail' ||
@@ -686,6 +720,7 @@ jobs:
         # the refresh agent copies out of untrusted web pages. A URL containing
         # $(...) would otherwise execute here.
         env:
+          RESEARCH_STATUS: ${{ steps.collect.outputs.status }}
           HARNESS_STATUS: ${{ steps.harness.outputs.status }}
           ANCHOR_STATUS: ${{ steps.anchors.outputs.status }}
           AUDIT_STATUS: ${{ steps.audit.outputs.status }}
@@ -696,6 +731,7 @@ jobs:
         run: |
           # The PR is opened either way — a broken refresh is exactly what needs
           # human eyes — but the Actions run goes red so it is not missed.
+          printf 'research=%s\n' "$RESEARCH_STATUS"
           printf 'harness=%s anchors=%s audit=%s\n' \
             "$HARNESS_STATUS" "$ANCHOR_STATUS" "$AUDIT_STATUS"
           printf 'Dead anchors: %s\n' "$DEAD_URLS"

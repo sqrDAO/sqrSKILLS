@@ -2,6 +2,7 @@
 """Import completed refresh artifacts into a separate, trusted checkout."""
 import argparse
 import json
+import os
 from pathlib import Path
 import re
 import sys
@@ -26,50 +27,82 @@ def read_regular(root, relative):
     return path.read_bytes()
 
 
+def version_field(document):
+    """Locate exactly one version field inside YAML frontmatter, never the body."""
+    lines = document.splitlines(keepends=True)
+    if not lines or lines[0].rstrip(b'\r\n') != b'---':
+        raise ValueError('missing SKILL.md frontmatter')
+    offset, fields = len(lines[0]), []
+    for line in lines[1:]:
+        if line.rstrip(b'\r\n') == b'---':
+            break
+        if line.startswith(b'version:'):
+            match = VERSION.fullmatch(line.rstrip(b'\r\n'))
+            if not match:
+                raise ValueError('invalid SKILL.md version field')
+            fields.append((offset, offset + len(line), tuple(map(int, match.groups()))))
+        offset += len(line)
+    else:
+        raise ValueError('unterminated SKILL.md frontmatter')
+    if len(fields) != 1:
+        raise ValueError('SKILL.md needs exactly one frontmatter version')
+    return fields[0]
+
+
 def validate_skill(before, after):
-    old, new = VERSION.search(before), VERSION.search(after)
-    if not old or not new or VERSION.sub(b'version: VERSION', before) != VERSION.sub(b'version: VERSION', after):
+    old_start, old_end, old_version = version_field(before)
+    new_start, new_end, new_version = version_field(after)
+    if (before[:old_start], before[old_end:]) != (after[:new_start], after[new_end:]):
         raise ValueError('research may change only the SKILL.md version')
-    old_version = tuple(map(int, old.groups()))
-    new_version = tuple(map(int, new.groups()))
     if new_version not in (old_version, (*old_version[:2], old_version[2] + 1)):
         raise ValueError('research version must be unchanged or one PATCH increment')
 
 
 def collect(checkout, artifacts, outcomes):
-    """Validate all inputs before writing; never read a failed leg's files."""
-    pending, summaries, imported = {}, [], []
+    """Validate each leg atomically; rejected legs cannot discard healthy work."""
+    pending, summaries, imported, rejected = {}, [], [], {}
+    effective = dict(outcomes)
     for leg, (skill, data) in LEGS.items():
         outcome = outcomes[leg]
         if outcome != 'success':
             summaries.append(f'## {skill}\n\n**Refresh leg did not complete ({outcome}).** '
                              'No outputs were imported; this skill is unchanged from the checkout baseline.\n')
             continue
-        root = artifacts / leg
-        skill_path, data_path = f'{skill}/SKILL.md', f'{skill}/{data}'
-        skill_bytes = read_regular(root, skill_path)
-        data_bytes = read_regular(root, data_path)
-        validate_skill((checkout / skill_path).read_bytes(), skill_bytes)
-        if data.endswith('.json'):
-            json.loads(data_bytes)
-        summary = read_regular(root, f'REFRESH_SUMMARY.{skill}.md').decode('utf-8')
-        if not summary.strip():
-            raise ValueError(f'empty summary for {skill}')
-        if leg == 'web3':
-            attestation = read_regular(root, 'REFRESH_VERIFIED.json')
-            document = json.loads(attestation)
-            if not isinstance(document, dict) or not isinstance(document.get('web3_opportunities'), list) or any(
-                not isinstance(item, str) for item in document['web3_opportunities']
-            ):
-                raise ValueError('invalid Web3 attestation')
-            pending['REFRESH_VERIFIED.json'] = attestation
-        pending[skill_path], pending[data_path] = skill_bytes, data_bytes
+        try:
+            root = artifacts / leg
+            skill_path, data_path = f'{skill}/SKILL.md', f'{skill}/{data}'
+            skill_bytes = read_regular(root, skill_path)
+            data_bytes = read_regular(root, data_path)
+            validate_skill((checkout / skill_path).read_bytes(), skill_bytes)
+            if data.endswith('.json'):
+                json.loads(data_bytes)
+            summary = read_regular(root, f'REFRESH_SUMMARY.{skill}.md').decode('utf-8')
+            if not summary.strip():
+                raise ValueError(f'empty summary for {skill}')
+            leg_files = {skill_path: skill_bytes, data_path: data_bytes}
+            if leg == 'web3':
+                attestation = read_regular(root, 'REFRESH_VERIFIED.json')
+                document = json.loads(attestation)
+                if not isinstance(document, dict) or not isinstance(document.get('web3_opportunities'), list) or any(
+                    not isinstance(item, str) for item in document['web3_opportunities']
+                ):
+                    raise ValueError('invalid Web3 attestation')
+                leg_files['REFRESH_VERIFIED.json'] = attestation
+        except (OSError, ValueError) as exc:
+            effective[leg] = 'rejected'
+            rejected[leg] = str(exc)
+            summaries.append(f'## {skill}\n\n**Refresh output rejected.** '
+                             'No outputs were imported; this skill is unchanged from the checkout baseline. '
+                             'See collection diagnostics in the workflow log.\n')
+            continue
+        pending.update(leg_files)
         summaries.append(summary)
         imported.append(skill)
     pending['REFRESH_SUMMARY.md'] = ('\n\n'.join(summaries) + '\n').encode('utf-8')
     for relative, content in pending.items():
         (checkout / relative).write_bytes(content)
-    return {'ok': True, 'imported': imported, 'outcomes': outcomes}
+    return {'ok': all(value == 'success' for value in effective.values()),
+            'imported': imported, 'outcomes': effective, 'rejected': rejected}
 
 
 def main():
@@ -84,7 +117,16 @@ def main():
         print(str(exc), file=sys.stderr)
         print(json.dumps({'ok': False, 'error': str(exc)}))
         return 1
+    for leg, error in result['rejected'].items():
+        print(f'{leg}: {error}', file=sys.stderr)
+    if output := os.environ.get('GITHUB_OUTPUT'):
+        with open(output, 'a', encoding='utf-8') as handle:
+            handle.write('status=' + ('pass' if result['ok'] else 'fail') + '\n')
+            for leg, outcome in result['outcomes'].items():
+                handle.write(f'{leg}={outcome}\n')
     print(json.dumps(result))
+    # Collection completed, even if a leg was rejected. Packaging must continue
+    # for healthy legs; the workflow publishes status=fail and fails at the end.
     return 0
 
 

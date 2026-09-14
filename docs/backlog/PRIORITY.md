@@ -8,7 +8,8 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 ## Open queue
 
 - `refresh-isolation-and-recovery` — active correction of PR 60: restore reviewed
-  data, isolate research jobs from packaging, and validate both evaluation splits.
+  data, isolate research jobs from packaging, and address five confirmed Opus 5
+  findings in rejection handling, publication guards/statuses and eval regeneration.
 
 1. `crypto-radar-full-text-rule` — an export of the skill authored outside this
    repo carries SKILL.md hardening that never landed here: the full-text rule,

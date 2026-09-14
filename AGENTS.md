@@ -240,8 +240,12 @@ before merging any refresh branch whose content has landed by another route.
 
 Weekly research legs run on separate runners and publish outputs only after success.
 A separate packaging job imports only allowed data files and version-only PATCH
-changes through `scripts/collect_refresh.py`, then audits freshness, runs the full
-harness (including both generated evaluation-split checks), and checks anchors.
+changes through `scripts/collect_refresh.py`. Malformed outputs reject only their
+own leg; research failures and rejections publish a failing PR status while healthy
+legs still package. The packaging job audits freshness, regenerates the three
+allowlisted evaluation case files, runs the full harness (including both generated
+evaluation-split checks), and checks anchors. It repeats the open-PR guard directly
+before publication to protect corrections opened while research was running.
 Never move research back into the packaging checkout: a timed-out process can
 survive step cancellation and write after cleanup or validation. Failed legs have
 no artifacts imported, and temporary summaries/attestations are not PR contents.
