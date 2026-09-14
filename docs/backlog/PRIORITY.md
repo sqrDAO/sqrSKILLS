@@ -7,10 +7,6 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-- `refresh-isolation-and-recovery` — active correction of PR 60: restore reviewed
-  data, isolate research jobs from packaging, and address five confirmed Opus 5
-  findings in rejection handling, publication guards/statuses and eval regeneration.
-
 1. `crypto-radar-full-text-rule` — an export of the skill authored outside this
    repo carries SKILL.md hardening that never landed here: the full-text rule,
    Resolution 05's load-bearing articles, and `CONFLICTING`. Three legal errors
@@ -38,6 +34,12 @@ from `todo.<slug>.md` to `done.<slug>.md`.
    it differs per check.
 
 ## Recently shipped
+
+- `refresh-isolation-and-recovery` — restored the reviewed baselines after PR 60,
+  isolated research from packaging, and fixed five confirmed Opus 5 findings.
+  Malformed legs preserve healthy work; PR statuses expose research failures;
+  evaluation cases regenerate from audited data; publication rechecks the guard.
+  User approved completion and merge in #60; 221 tests pass with four skips.
 
 - `remaining-skills-review` and `remaining-skills-fixes` — audited six skills,
   fixed confirmed runtime defects and Opus review findings, and verified all

@@ -17,7 +17,7 @@ research processes from changing data after cleanup, audit, or validation.
 - `REFRESH_SUMMARY.web3-opportunities.md` (deleted) — remove leaked scratch output.
 - `REFRESH_VERIFIED.json` (deleted) — remove leaked attestation.
 - `AGENTS.md` (edited) — document isolation and complete refresh validation.
-- `docs/backlog/PRIORITY.md` (edited) — track this correction pending approval.
+- `docs/backlog/PRIORITY.md` (edited) — record this approved correction as shipped.
 
 ## Acceptance
 - [x] Malformed artifacts reject only their own leg; healthy outputs still package.
@@ -32,7 +32,7 @@ research processes from changing data after cleanup, audit, or validation.
 - [x] Both generated evaluation splits are checked by the inline harness.
 - [x] Open refresh PR guard runs before research, avoiding wasted work.
 - [x] PR 60 is corrected on its existing branch and checks are rerun.
-- [x] NOT: merge PR, rename spec before approval, or weaken regression tests.
+- [x] NOT: merge PR or rename spec before approval, or weaken regression tests.
 
 ## Verify
 - `python3 scripts/validate_skills.py` → passes.
@@ -61,3 +61,5 @@ GitHub Skill Harness passed for correction d90e06e (run 34820855499).
 Opus follow-up validation: 221 tests pass (same four skips), including executions
 of the workflow guard, status publisher and regeneration shell blocks. Validator,
 unanchored check, both split checks and actionlint pass; baseline diff stays empty.
+
+User approved completion, done rename and merge on 14 September 2026.
