@@ -35,6 +35,12 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Recently shipped
 
+- `refresh-isolation-and-recovery` — restored the reviewed baselines after PR 60,
+  isolated research from packaging, and fixed five confirmed Opus 5 findings.
+  Malformed legs preserve healthy work; PR statuses expose research failures;
+  evaluation cases regenerate from audited data; publication rechecks the guard.
+  User approved completion and merge in #60; 221 tests pass with four skips.
+
 - `remaining-skills-review` and `remaining-skills-fixes` — audited six skills,
   fixed confirmed runtime defects and Opus review findings, and verified all
   207 tests with openpyxl. User approved completion and merge in #59.

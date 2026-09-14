@@ -39,22 +39,53 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  refresh:
+  # Research never shares a filesystem with packaging. A timed-out CLI may leave
+  # children alive until runner teardown; those children cannot alter this job.
+  preflight:
     runs-on: ubuntu-latest
-    # Hard ceiling on the whole job. The per-step timeouts and `maxSessionTurns`
-    # below are the intended bounds; this one is the backstop that survives a CLI
-    # settings-schema change. Without any of them the agent runs `--yolo` against
-    # the open web until GitHub's 6-hour default.
-    timeout-minutes: 75
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      # `create-pull-request` force-pushes `automation/weekly-skill-refresh`.
+      # Corrections to a refresh are now made ON that branch rather than on a
+      # fork of it (see AGENTS.md, "Correcting a refresh"), so a force-push
+      # while last week's PR is still open would destroy review work. It would
+      # also leave the repository in the state that closed #47: because `main`
+      # squash-merges, a corrected refresh branch never becomes an ancestor of
+      # `main`, so a stale PR stays open and reverts those corrections if
+      # merged. Refuse to proceed instead, and say which PR is in the way.
+      - name: Refuse to clobber an open refresh PR
+        env:
+          GH_TOKEN: ${{ secrets.REFRESH_PAT || secrets.GITHUB_TOKEN }}
+        run: |
+          open_pr="$(gh pr list --head automation/weekly-skill-refresh \
+                       --state open --json number --jq '.[0].number // empty')"
+          if [ -n "$open_pr" ]; then
+            {
+              echo "::error::Refresh PR #${open_pr} is still open on"
+              echo "automation/weekly-skill-refresh. This run would force-push over"
+              echo "it, discarding any corrections made on that branch. Merge or"
+              echo "close #${open_pr} first, then re-run this workflow."
+            } >&2
+            exit 1
+          fi
+
+
+  crypto:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+        with:
+          persist-credentials: false
       - name: Refresh vietnam-crypto-radar
         id: leg_crypto
-        # One leg failing must not discard the other legs' verified work; the
-        # combine step below records which ran and the final step still fails.
-        continue-on-error: true
         timeout-minutes: 25
         uses: google-github-actions/run-gemini-cli@f77273f4c914e4bf38440cf36a0369cb64a37489  # v0.1.22
         env:
@@ -180,22 +211,37 @@ jobs:
             false report. If nothing changed, write "No verified changes this
             week."
 
-      # stdout.log carries the leg's real `stats.*.tokens` -- the measurement
-      # this workflow never kept. Unique name per leg, and `always()` so a leg
-      # that timed out still yields the token count that explains why.
-      - name: Upload crypto-radar Gemini output
+      - name: Upload completed research
+        uses: actions/upload-artifact@v6
+        with:
+          name: refresh-data-crypto
+          path: |
+            vietnam-crypto-radar/SKILL.md
+            vietnam-crypto-radar/references/baseline.md
+            REFRESH_SUMMARY.vietnam-crypto-radar.md
+          if-no-files-found: error
+
+      - name: Upload crypto Gemini output
         if: always()
         uses: actions/upload-artifact@v6
         with:
-          name: gemini-output-crypto-radar
+          name: gemini-output-crypto
           path: gemini-artifacts/
           if-no-files-found: warn
 
+  web3:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Refresh web3-opportunities
         id: leg_web3
-        # One leg failing must not discard the other legs' verified work; the
-        # combine step below records which ran and the final step still fails.
-        continue-on-error: true
         timeout-minutes: 20
         uses: google-github-actions/run-gemini-cli@f77273f4c914e4bf38440cf36a0369cb64a37489  # v0.1.22
         env:
@@ -276,9 +322,17 @@ jobs:
             entries are rolled back automatically. An empty list is a valid and
             honest answer.
 
-      # stdout.log carries the leg's real `stats.*.tokens` -- the measurement
-      # this workflow never kept. Unique name per leg, and `always()` so a leg
-      # that timed out still yields the token count that explains why.
+      - name: Upload completed research
+        uses: actions/upload-artifact@v6
+        with:
+          name: refresh-data-web3
+          path: |
+            web3-opportunities/SKILL.md
+            web3-opportunities/data/web3_opportunities.json
+            REFRESH_SUMMARY.web3-opportunities.md
+            REFRESH_VERIFIED.json
+          if-no-files-found: error
+
       - name: Upload web3 Gemini output
         if: always()
         uses: actions/upload-artifact@v6
@@ -287,11 +341,19 @@ jobs:
           path: gemini-artifacts/
           if-no-files-found: warn
 
+  visa:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Refresh vietnam-visa-check
         id: leg_visa
-        # One leg failing must not discard the other legs' verified work; the
-        # combine step below records which ran and the final step still fails.
-        continue-on-error: true
         timeout-minutes: 10
         uses: google-github-actions/run-gemini-cli@f77273f4c914e4bf38440cf36a0369cb64a37489  # v0.1.22
         env:
@@ -347,9 +409,16 @@ jobs:
             false report. If nothing changed, write "No verified changes this
             week."
 
-      # stdout.log carries the leg's real `stats.*.tokens` -- the measurement
-      # this workflow never kept. Unique name per leg, and `always()` so a leg
-      # that timed out still yields the token count that explains why.
+      - name: Upload completed research
+        uses: actions/upload-artifact@v6
+        with:
+          name: refresh-data-visa
+          path: |
+            vietnam-visa-check/SKILL.md
+            vietnam-visa-check/data/vietnam_immigration_policy.json
+            REFRESH_SUMMARY.vietnam-visa-check.md
+          if-no-files-found: error
+
       - name: Upload visa Gemini output
         if: always()
         uses: actions/upload-artifact@v6
@@ -358,49 +427,52 @@ jobs:
           path: gemini-artifacts/
           if-no-files-found: warn
 
-      - name: Combine the per-skill refresh summaries
-        run: |
-          # Each leg writes its own summary. Record legs that did not succeed:
-          # a missing section must read as a failure, not as "nothing changed".
-          set -euo pipefail
-          : > REFRESH_SUMMARY.md
-          add() {
-            skill="$1"; outcome="$2"; file="REFRESH_SUMMARY.$1.md"
-            if [ "$outcome" != "success" ]; then
-              # The agent edits the tree as it goes, so a leg that times out or
-              # crashes can leave half-applied edits nobody verified -- and
-              # create-pull-request packages the whole tree. Discard them, so the
-              # sentence below is true rather than merely hoped for. A summary
-              # that says "unchanged" over changed data is the exact failure this
-              # workflow's gates exist to catch.
-              git checkout -- "$skill/" 2>/dev/null || true
-              git clean -fdq "$skill/" 2>/dev/null || true
-              # A partial attestation must not be fed to the last_verified audit.
-              # Written as `if`, not `[ ... ] && ...`: under `set -e` a false test
-              # is the last command of the AND-list, and would abort the step.
-              if [ "$skill" = "web3-opportunities" ]; then
-                rm -f REFRESH_VERIFIED.json
-              fi
-              printf '## %s\n\n**Refresh leg did not complete (%s).** Its\nworking-tree edits were discarded, so this skill is unchanged from\n`main` and nothing here has been verified this run.\n\n' \
-                "$skill" "$outcome" >> REFRESH_SUMMARY.md
-            elif [ -f "$file" ]; then
-              cat "$file" >> REFRESH_SUMMARY.md
-              printf '\n\n' >> REFRESH_SUMMARY.md
-            else
-              printf '## %s\n\nLeg reported success but wrote no summary.\n\n' \
-                "$skill" >> REFRESH_SUMMARY.md
-            fi
-            rm -f "$file"
-          }
-          add vietnam-crypto-radar "${{ steps.leg_crypto.outcome }}"
-          add web3-opportunities   "${{ steps.leg_web3.outcome }}"
-          add vietnam-visa-check   "${{ steps.leg_visa.outcome }}"
-          cat REFRESH_SUMMARY.md
+  refresh:
+    needs: [preflight, crypto, web3, visa]
+    if: ${{ always() && !cancelled() && needs.preflight.result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Download completed crypto research
+        if: needs.crypto.result == 'success'
+        uses: actions/download-artifact@v5
+        with:
+          name: refresh-data-crypto
+          path: ${{ runner.temp }}/refresh-input/crypto
+
+      - name: Download completed web3 research
+        if: needs.web3.result == 'success'
+        uses: actions/download-artifact@v5
+        with:
+          name: refresh-data-web3
+          path: ${{ runner.temp }}/refresh-input/web3
+
+      - name: Download completed visa research
+        if: needs.visa.result == 'success'
+        uses: actions/download-artifact@v5
+        with:
+          name: refresh-data-visa
+          path: ${{ runner.temp }}/refresh-input/visa
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
+
+      - name: Collect permitted research outputs
+        id: collect
+        env:
+          LEG_CRYPTO: ${{ needs.crypto.result }}
+          LEG_WEB3: ${{ needs.web3.result }}
+          LEG_VISA: ${{ needs.visa.result }}
+        run: |
+          python3 scripts/collect_refresh.py --artifacts "$RUNNER_TEMP/refresh-input" \
+            --crypto "$LEG_CRYPTO" --web3 "$LEG_WEB3" --visa "$LEG_VISA"
 
       - name: Hold the refresh to what it verified
         id: audit
@@ -433,10 +505,20 @@ jobs:
           EOF
           rm -f REFRESH_VERIFIED.json
 
+      - name: Regenerate evaluation cases from audited data
+        id: regenerate
+        continue-on-error: true
+        run: |
+          python3 evals/scripts/build_visa_cases.py
+          python3 evals/scripts/build_web3_cases.py
+
       - name: Run the skill harness
         id: harness
+        env:
+          REGENERATION_OUTCOME: ${{ steps.regenerate.outcome }}
         run: |
           status=pass
+          [ "$REGENERATION_OUTCOME" = success ] || status=fail
           python3 scripts/validate_skills.py > /tmp/validate.json || status=fail
           # An instrument number the refresh added with no anchor beside it.
           # check_anchors.py below cannot see this: it fetches URLs that exist,
@@ -451,9 +533,12 @@ jobs:
           if ! python3 -m unittest discover -s tests -v > /tmp/tests.txt 2>&1; then
             status=fail
           fi
+          python3 evals/scripts/build_visa_cases.py --check || status=fail
+          python3 evals/scripts/build_web3_cases.py --check || status=fail
           echo "status=$status" >> "$GITHUB_OUTPUT"
+          cat /tmp/unanchored.json
           cat /tmp/validate.json
-          tail -40 /tmp/tests.txt
+          cat /tmp/tests.txt
 
       - name: Check source anchors resolve
         id: anchors
@@ -516,14 +601,6 @@ jobs:
             echo "title=Weekly skill refresh — ${run_date} — no verified changes" >> "$GITHUB_OUTPUT"
           fi
 
-      # `create-pull-request` force-pushes `automation/weekly-skill-refresh`.
-      # Corrections to a refresh are now made ON that branch rather than on a
-      # fork of it (see AGENTS.md, "Correcting a refresh"), so a force-push
-      # while last week's PR is still open would destroy review work. It would
-      # also leave the repository in the state that closed #47: because `main`
-      # squash-merges, a corrected refresh branch never becomes an ancestor of
-      # `main`, so a stale PR stays open and reverts those corrections if
-      # merged. Refuse to proceed instead, and say which PR is in the way.
       - name: Refuse to clobber an open refresh PR
         env:
           GH_TOKEN: ${{ secrets.REFRESH_PAT || secrets.GITHUB_TOKEN }}
@@ -552,6 +629,13 @@ jobs:
           # closed PR leaves nothing stale behind. The guard step above is what
           # protects an *open* one.
           delete-branch: true
+          add-paths: |
+            vietnam-crypto-radar/
+            web3-opportunities/
+            vietnam-visa-check/
+            evals/vietnam-visa-check/cases.jsonl
+            evals/web3-opportunities/cases.jsonl
+            evals/web3-opportunities/cases-v2.jsonl
           commit-message: "chore: weekly refresh of time-sensitive skill baselines"
           title: "${{ steps.pr_meta.outputs.title }}"
           body: |
@@ -569,6 +653,7 @@ jobs:
 
             | Check | Result |
             |---|---|
+            | Research legs and artifact validation | **${{ steps.collect.outputs.status }}** — crypto=${{ steps.collect.outputs.crypto }}, web3=${{ steps.collect.outputs.web3 }}, visa=${{ steps.collect.outputs.visa }} |
             | Skill harness (validator + tests + anchors on new instruments) | **${{ steps.harness.outputs.status }}** |
             | Source anchors resolve | **${{ steps.anchors.outputs.status }}** — ${{ steps.anchors.outputs.checked }} checked, ${{ steps.anchors.outputs.dead }} dead, ${{ steps.anchors.outputs.unverified }} unverified |
             | Verification honesty | **${{ steps.audit.outputs.status }}** — ${{ steps.audit.outputs.changed }} entries changed, ${{ steps.audit.outputs.attested }} re-verified unchanged, **${{ steps.audit.outputs.reverted }} unsupported dates rolled back** |
@@ -595,6 +680,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           SHA: ${{ steps.pr.outputs.pull-request-head-sha }}
+          RESEARCH_STATUS: ${{ steps.collect.outputs.status }}
           HARNESS_STATUS: ${{ steps.harness.outputs.status }}
           ANCHOR_STATUS: ${{ steps.anchors.outputs.status }}
           AUDIT_STATUS: ${{ steps.audit.outputs.status }}
@@ -613,6 +699,7 @@ jobs:
               -f description="$3" \
               -f target_url="$RUN_URL" >/dev/null
           }
+          publish "Refresh / research legs" "$RESEARCH_STATUS" "research completion and artifact validation"
           publish "Refresh / harness" "$HARNESS_STATUS" "validator + unittest"
           publish "Refresh / anchors" "$ANCHOR_STATUS" \
             "$ANCHOR_CHECKED checked, $ANCHOR_DEAD dead"
@@ -621,32 +708,35 @@ jobs:
 
       - name: Fail the run if the refresh did not pass its checks
         if: >-
+          steps.collect.outputs.status != 'pass' ||
           steps.harness.outputs.status == 'fail' ||
           steps.anchors.outputs.status == 'fail' ||
           steps.audit.outputs.status == 'fail' ||
-          steps.leg_crypto.outcome != 'success' ||
-          steps.leg_web3.outcome != 'success' ||
-          steps.leg_visa.outcome != 'success'
+          needs.crypto.result != 'success' ||
+          needs.web3.result != 'success' ||
+          needs.visa.result != 'success'
         # Passed as env, not interpolated into the script: `${{ }}` expands into
         # the shell source before Bash sees it, and these values derive from URLs
         # the refresh agent copies out of untrusted web pages. A URL containing
         # $(...) would otherwise execute here.
         env:
+          RESEARCH_STATUS: ${{ steps.collect.outputs.status }}
           HARNESS_STATUS: ${{ steps.harness.outputs.status }}
           ANCHOR_STATUS: ${{ steps.anchors.outputs.status }}
           AUDIT_STATUS: ${{ steps.audit.outputs.status }}
           DEAD_URLS: ${{ steps.anchors.outputs.dead_urls }}
-          LEG_CRYPTO: ${{ steps.leg_crypto.outcome }}
-          LEG_WEB3: ${{ steps.leg_web3.outcome }}
-          LEG_VISA: ${{ steps.leg_visa.outcome }}
+          LEG_CRYPTO: ${{ needs.crypto.result }}
+          LEG_WEB3: ${{ needs.web3.result }}
+          LEG_VISA: ${{ needs.visa.result }}
         run: |
           # The PR is opened either way — a broken refresh is exactly what needs
           # human eyes — but the Actions run goes red so it is not missed.
+          printf 'research=%s\n' "$RESEARCH_STATUS"
           printf 'harness=%s anchors=%s audit=%s\n' \
             "$HARNESS_STATUS" "$ANCHOR_STATUS" "$AUDIT_STATUS"
           printf 'Dead anchors: %s\n' "$DEAD_URLS"
-          # A leg that timed out or crashed is carried by continue-on-error so the
-          # other legs still ship. It must still turn the run red.
+          # Packaging runs after failed research jobs so successful legs can ship.
+          # A failed or timed-out leg must still turn the overall run red.
           printf 'legs: crypto=%s web3=%s visa=%s\n' \
             "$LEG_CRYPTO" "$LEG_WEB3" "$LEG_VISA"
           exit 1
