@@ -25,8 +25,8 @@ research processes from changing data after cleanup, audit, or validation.
 - [x] Only permitted data and version-only SKILL changes can be imported.
 - [x] Both generated evaluation splits are checked by the inline harness.
 - [x] Open refresh PR guard runs before research, avoiding wasted work.
-- [ ] PR 60 is corrected on its existing branch and checks are rerun.
-- [ ] NOT: merge PR, rename spec before approval, or weaken regression tests.
+- [x] PR 60 is corrected on its existing branch and checks are rerun.
+- [x] NOT: merge PR, rename spec before approval, or weaken regression tests.
 
 ## Verify
 - `python3 scripts/validate_skills.py` → passes.
@@ -48,3 +48,4 @@ Validation: 213 tests pass (three optional openpyxl tests
 and one unavailable historical-revision test skipped); both generated
 splits are current; actionlint 1.7.12 and the unanchored check pass.
 Anchor check: 109 checked, 0 dead, 5 unverified.
+GitHub Skill Harness passed for correction d90e06e (run 34820855499).
