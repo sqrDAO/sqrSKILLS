@@ -1,7 +1,7 @@
 {
   "_meta": {
     "document_type": "structured_web3_opportunity_roster",
-    "last_updated": "2026-09-14",
+    "last_updated": "2026-09-11",
     "data_freshness": "Program existence, type, chain/ecosystem, region, and dilution posture are evergreen and verified through June 2026. TIME-SENSITIVE fields (application deadlines, open/closed cohort status, current prize pool / check size, cadence) are baseline snapshots and MUST be re-verified live before the user applies or acts.",
     "coverage": "Global. Every entry is region-tagged. Southeast Asia / Vietnam-relevant entries carry sea_relevant: true.",
     "schema_version": "1.1.0",
@@ -623,7 +623,7 @@
       "url": "https://unihackfest.vn/",
       "notes": "The national qualifying round is running through September, with the Grand Finale on September 26 in HCMC. unihackfest.vn returns 403 to plain fetchers (bot-protected, 200 in a browser), so do not mark it dead on a failed automated fetch.",
       "sea_relevant": true,
-      "last_verified": "2026-09-14"
+      "last_verified": "2026-09-07"
     },
     {
       "id": "rmit-fintech-club",
@@ -703,7 +703,7 @@
       "url": "https://f.inc/blueprint",
       "notes": "Hardware and frontier technology program, not a general crypto accelerator; relevant to Web3 teams only where their product fits that focus. Blueprint II runs September 30–December 11, 2026 in San Francisco. Apply by September 14; FAQ specifies 11:59PM PST (confirm timezone with organizer). Full-time in-person attendance; international founders may apply. Travel, housing and living costs are not covered. Terms: https://f.inc/blueprint/faq . Separate from the broader founders-inc campus entry.",
       "sea_relevant": false,
-      "last_verified": "2026-09-14"
+      "last_verified": "2026-09-11"
     },
     {
       "id": "fabric-r3sidency",
@@ -719,7 +719,7 @@
       "url": "https://r3sidency.fabric.vc/",
       "notes": "2026 London residency cohort for Web3, AI and deep-tech builders. Applications due September 15 (timezone not specified); eight teams, October through January, with a New York demo day/investor roadshow. In-person London participation required. This is an investment, not a grant; obtain the actual investment terms before accepting.",
       "sea_relevant": false,
-      "last_verified": "2026-09-14"
+      "last_verified": "2026-09-11"
     },
     {
       "id": "forge-residency",
@@ -735,7 +735,7 @@
       "url": "https://www.forgeresidency.com/cohorts/2",
       "notes": "Founder house within Edge City India for technical builders, not a chain-specific grant. Mandrem, Goa, October 11–November 1, 2026; deadline September 15 (end of day; timezone unspecified). No remote option. Official application FAQ says no equity, tuition or attendance fee; a place-holding deposit is refunded on arrival: https://www.forgeresidency.com/apply?cohort=2 . The discovery post's $150K grant pool and $200K AI credits were not confirmed on official pages.",
       "sea_relevant": false,
-      "last_verified": "2026-09-14"
+      "last_verified": "2026-09-11"
     }
   ]
 }
