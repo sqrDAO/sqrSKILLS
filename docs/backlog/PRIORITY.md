@@ -32,6 +32,10 @@ from `todo.<slug>.md` to `done.<slug>.md`.
    this half was deferred because sentence-scoping the excuse costs web3 v1
    iter1 its 1.0 and makes `v2-22` a stable failure. The unit is a section, and
    it differs per check.
+5. `vietnam-legal-advisor-danang-tax-exemption` — new reference on the Da Nang
+   So KH&CN confirmation under Nghi quyet 24/2026/NQ-HĐND (startup, semiconductor,
+   AI tax exemptions), built from the DSAC briefing deck and labelled
+   single-source until the signed text is checked.
 
 ## Recently shipped
 

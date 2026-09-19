@@ -16,6 +16,7 @@ declaration. Figures move yearly; check `legal-updates-2025-2026.md`.
 5. Foreign contractor tax (FCT)
 6. Invoicing details for the entity
 7. What to route to the accountant
+8. Da Nang tax-exemption confirmation (pointer)
 
 ---
 
@@ -111,3 +112,13 @@ Do not fill these fields from unrelated documents or example companies.
 
 Every tax-touching output ends by naming this handoff and the not-a-lawyer /
 not-a-tax-advisor line.
+
+## 8. Da Nang tax-exemption confirmation (pointer)
+
+A Da Nang startup, startup-support organization, semiconductor enterprise or AI
+enterprise does not claim the Resolution 136/2024/QH15 exemptions directly: it
+first needs a confirmation letter from the Da Nang So Khoa hoc va Cong nghe under
+Nghi quyet 24/2026/NQ-HDND (effective 10 June 2026, replacing 53/2024 and 59/2024).
+That letter is an eligibility finding, not a tax amount; the exemption is then
+declared and finalized with the tax authority through the accountant. Criteria,
+dossiers and deadlines: `danang-tax-exemption-confirmation.md`.
