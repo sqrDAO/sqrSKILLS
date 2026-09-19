@@ -154,8 +154,11 @@ One set per procedure. All six forms sit inside the resolution itself: Appendix 
 - [ ] Copyright or IP certificates, if any
 
 **Form I-02 content.** The description must name the Dieu 3 priority field the
-activity falls in (footnote 6 of the form). Footnote 7 asks for revenue growth of
-at least 20% over two consecutive years, so report both years' revenue there.
+activity falls in (footnote 6 of the form). Per the deck, footnote 7 mentions
+revenue growth of at least 20% over two consecutive years. Until the signed text is
+checked, treat this as a reporting item: where the applicant has two years of
+revenue, report both there; do not present the 20% test as an eligibility or filing
+requirement, and do not tell a pre-revenue startup it cannot file (section 12).
 Forms I-03 and II-03 are the confirmation letters DOST issues; the applicant does
 not fill them in.
 
@@ -267,7 +270,9 @@ The Director of DOST signs, **not** the Chairman of the City People's Committee.
   Flag any citation of NQ 53/2024 or 59/2024 as stale.
 - **Draft (Job A):** Forms I-01, I-02, II-01 and II-02 are in the resolution's
   appendices; start from the official form, not a skeleton. In the I-02
-  description, name the Dieu 3 priority field and give two years of revenue.
+  description, name the Dieu 3 priority field; give two years of revenue where
+  the applicant has them, without treating the 20% growth note as a condition
+  (section 12).
 - **Structure (Job D):** for a company doing both AI and startup activity, compare
   Procedure A (21 working days) with Procedure B2 (10 working days) and the
   benefit each unlocks under section 2.
