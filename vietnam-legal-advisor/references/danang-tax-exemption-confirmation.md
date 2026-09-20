@@ -14,9 +14,17 @@
   names "Nghi quyet 24/2026/NQ-HĐND" as setting the tax-exemption conditions and
   criteria for innovative startups and semiconductor and AI enterprises. It gives
   no dates, articles or procedure.
-- Signed text not retrieved. The Da Nang open-data path that serves other 2026
-  city resolutions (`congdulieu.vn/cdldnfiles/vanbandn/2026/`) returned HTTP 403
-  for this number. Look for it there, on `danang.gov.vn`, or in a legal database.
+- Signed text not retrieved, re-checked 2026-09-20. The Da Nang open-data path
+  that serves other 2026 city resolutions
+  (`congdulieu.vn/cdldnfiles/vanbandn/2026/`) returns HTTP **404** for this
+  number, not 403: the host serves neighbouring resolutions to an ordinary
+  browser request but holds only a subset of the series. Also checked without
+  success: the legal-database CDN filename pattern across the plausible signing
+  and gazette dates, `vbpl.vn` and the People's Council document index (both
+  JavaScript-only or behind a login), the city portal's "policies effective
+  June 2026" list (24/2026 is absent), and the Da Nang startup portal's guidance
+  page (server error). A JavaScript-capable browser session on `vbpl.vn` or a
+  copy from the 07/8/2026 event document library are the open routes.
 - Press articles attach "5-year CIT exemption" and "5-year PIT exemption" to this
   resolution. Those figures come from the national resolutions, not from
   NQ 24. Do not quote them on NQ 24's authority (see section 2).
