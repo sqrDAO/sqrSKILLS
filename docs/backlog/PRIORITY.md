@@ -35,6 +35,13 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Recently shipped
 
+- `vietnam-legal-advisor-danang-tax-exemption` — Da Nang tax-exemption
+  confirmation reference (Nghi quyet 24/2026/NQ-HĐND): eligibility, conditions,
+  dossiers, channels, council, deadlines and signing authority, labelled
+  REPORTED / SINGLE-SOURCE until the signed text is checked. Skill bumped to
+  0.2.0. CodeRabbit's Form I-02 finding fixed. User approved completion and
+  merge in #61.
+
 - `refresh-isolation-and-recovery` — restored the reviewed baselines after PR 60,
   isolated research from packaging, and fixed five confirmed Opus 5 findings.
   Malformed legs preserve healthy work; PR statuses expose research failures;

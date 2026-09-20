@@ -1,7 +1,7 @@
 ---
 name: vietnam-legal-advisor
-version: 0.1.1
-description: "Draft, review, explain, and structure DOMESTIC Vietnamese legal documents and the local-law approach around them: company formation and changes (LLC charter, business registration, capital transfer, rep office, power of attorney), labor and HR (labor contract, probation, termination, severance, social insurance), commercial contracts (service/consulting HDDV, cooperation agreements, MOUs), contract execution and close-out (bien ban nghiem thu, phu luc adjusting value or scope, cong van de nghi thanh toan, milestone evidence), the form (the thuc) of anything a director signs and seals, and tax (PIT withholding, contractor-vs-employee risk, VAT, e-invoice). Use WHENEVER the user has a Vietnamese-law document or question, even if they do not say \"legal\": draft a service contract, review a hop dong, terminate an employee, close out a milestone, adjust a contract value by phu luc, request a tranche payment, no room for the seal. Counterpart to web3-legal-agreements, which owns crypto."
+version: 0.2.0
+description: "Draft, review, explain, and structure DOMESTIC Vietnamese legal documents and the local-law approach around them: company formation and changes (LLC charter, business registration, capital transfer, rep office, power of attorney), labor and HR (labor contract, probation, termination, severance, social insurance), commercial contracts (service/consulting HDDV, cooperation agreements, MOUs), contract execution and close-out (bien ban nghiem thu, phu luc adjusting value or scope, cong van de nghi thanh toan, milestone evidence), the form (the thuc) of anything a director signs and seals, tax (PIT withholding, contractor-vs-employee risk, VAT, e-invoice), and the Da Nang tax-exemption confirmation for innovative startups, semiconductor and AI firms (Nghi quyet 24/2026/NQ-HDND, So KH&CN). Use WHENEVER the user has a Vietnamese-law document or question, even if they do not say \"legal\": draft a service contract, review a hop dong, terminate an employee, close out a milestone, adjust a contract value by phu luc, request a tranche payment, no room for the seal, does my Da Nang startup or AI company qualify for the tax exemption. Counterpart to web3-legal-agreements, which owns crypto."
 allowed-tools:
   - Read
   - Write
@@ -122,6 +122,7 @@ The domain routes to one reference file:
 | Execution / close-out | nghiem thu, bien ban, danh muc ho so, phu luc, dieu chinh gia tri, khau tru, de nghi thanh toan, quyet toan, milestone evidence | `references/contract-execution.md` |
 | Form of a signed document | the thuc, font and margins, quoc hieu block, signing space, seal, page count, header and footer | `references/signed-document-form.md` |
 | Tax / compliance | PIT, 10% withholding, VAT, e-invoice, foreign contractor tax, invoicing info | `references/tax-compliance.md` |
+| Da Nang tax-exemption confirmation | NQ 24/2026/NQ-HDND, mien thue khoi nghiep / vi mach ban dan / tri tue nhan tao, So KH&CN xac nhan, Mau I-01 / I-02 / II-01 / II-02, NQ 136/2024/QH15 incentives | `references/danang-tax-exemption-confirmation.md` |
 
 If a document is attached, read it before asking anything. If genuinely unsure of
 scope, ask one scoping question, not five.
@@ -286,6 +287,12 @@ Load the file that matches the domain; do not load all of them.
   pass before a document goes for signature.
 - `references/tax-compliance.md` - PIT, the 10% service-contract withholding, VAT
   and e-invoice, foreign contractor tax, invoicing details.
+- `references/danang-tax-exemption-confirmation.md` - Da Nang Nghi quyet
+  24/2026/NQ-HDND: who can get a So KH&CN confirmation letter for the startup,
+  semiconductor and AI tax exemptions, conditions, dossier checklists, filing
+  channels, the appraisal council, working-day deadlines, and signing authority.
+  REPORTED / SINGLE-SOURCE (a briefing deck, not the signed text). The rates live
+  in Resolutions 136/2024/QH15 and 259/2025/QH15, not in this file.
 - `assets/document-library.md` - a map of the document types with bilingual
   skeletons and blank entity fields; adapt examples from the user's archive only when
   the user supplies or authorizes access to it.
