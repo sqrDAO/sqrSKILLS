@@ -32,12 +32,15 @@ from `todo.<slug>.md` to `done.<slug>.md`.
    this half was deferred because sentence-scoping the excuse costs web3 v1
    iter1 its 1.0 and makes `v2-22` a stable failure. The unit is a section, and
    it differs per check.
-5. `vietnam-legal-advisor-danang-tax-exemption` — new reference on the Da Nang
-   So KH&CN confirmation under Nghi quyet 24/2026/NQ-HĐND (startup, semiconductor,
-   AI tax exemptions), built from the DSAC briefing deck and labelled
-   single-source until the signed text is checked.
 
 ## Recently shipped
+
+- `vietnam-legal-advisor-danang-tax-exemption` — Da Nang tax-exemption
+  confirmation reference (Nghi quyet 24/2026/NQ-HĐND): eligibility, conditions,
+  dossiers, channels, council, deadlines and signing authority, labelled
+  REPORTED / SINGLE-SOURCE until the signed text is checked. Skill bumped to
+  0.2.0. CodeRabbit's Form I-02 finding fixed. User approved completion and
+  merge in #61.
 
 - `refresh-isolation-and-recovery` — restored the reviewed baselines after PR 60,
   isolated research from packaging, and fixed five confirmed Opus 5 findings.
