@@ -1,6 +1,6 @@
 ---
 name: vietnam-crypto-radar
-version: 0.6.1
+version: 0.6.2
 description: >-
   Produce up-to-date intelligence briefings on Vietnam's crypto/digital-asset landscape — laws,
   decrees, circulars, licensing, tax, accounting, administrative penalties, the pilot exchange
