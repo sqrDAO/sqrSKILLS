@@ -13,6 +13,13 @@ LEGS = {
     'visa': ('vietnam-visa-check', 'data/vietnam_immigration_policy.json'),
 }
 VERSION = re.compile(rb'^version: (\d+)\.(\d+)\.(\d+)\r?$', re.MULTILINE)
+# Gemini CLI's file reader cuts any line over 2000 characters and appends
+# "... [truncated]". An agent that writes back what it read loses the tail of
+# the line: the 2026-09-21 refresh dropped half the crypto state of play this way.
+# Research files keep every line under MAX_LINE (validate_skills.py enforces it
+# on main), so an over-long or marker-bearing line in an output is new.
+MAX_LINE = 1500
+TRUNCATION = re.compile(rb'\[[^\]\n]{0,40}truncated[^\]\n]{0,40}\]', re.IGNORECASE)
 
 
 def read_regular(root, relative):
@@ -58,6 +65,15 @@ def validate_skill(before, after):
         raise ValueError('research version must be unchanged or one PATCH increment')
 
 
+def validate_text(relative, before, after):
+    """Reject output that a truncating reader wrote back, marker or not."""
+    if len(TRUNCATION.findall(after)) > len(TRUNCATION.findall(before)):
+        raise ValueError(f'truncation marker added to {relative}: a line was cut on read and written back')
+    for number, line in enumerate(after.decode('utf-8', 'replace').splitlines(), start=1):
+        if len(line) > MAX_LINE:
+            raise ValueError(f'{relative}: line {number} exceeds {MAX_LINE} characters')
+
+
 def collect(checkout, artifacts, outcomes):
     """Validate each leg atomically; rejected legs cannot discard healthy work."""
     pending, summaries, imported, rejected = {}, [], [], {}
@@ -74,6 +90,7 @@ def collect(checkout, artifacts, outcomes):
             skill_bytes = read_regular(root, skill_path)
             data_bytes = read_regular(root, data_path)
             validate_skill((checkout / skill_path).read_bytes(), skill_bytes)
+            validate_text(data_path, (checkout / data_path).read_bytes(), data_bytes)
             if data.endswith('.json'):
                 json.loads(data_bytes)
             summary = read_regular(root, f'REFRESH_SUMMARY.{skill}.md').decode('utf-8')

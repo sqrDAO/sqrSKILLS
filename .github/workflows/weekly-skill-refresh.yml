@@ -202,6 +202,11 @@ jobs:
             - Be conservative: when a fact cannot be verified this run, LEAVE IT
               UNCHANGED rather than guessing. An empty diff is a valid outcome.
             - Make only data/baseline edits. Do not refactor scripts or prompts.
+            - Keep every line you write under 1500 characters; break a long
+              paragraph at sentence ends. If a file you read shows
+              `[truncated]`, you did not see the whole line: re-read that
+              range before editing, and never write the marker back. Output
+              with a truncation marker or an over-long line is rejected.
 
             Finish by writing `REFRESH_SUMMARY.vietnam-crypto-radar.md` at the
             repo root: a short markdown summary, headed `## vietnam-crypto-radar`,
@@ -303,6 +308,11 @@ jobs:
             - Be conservative: when a fact cannot be verified this run, LEAVE IT
               UNCHANGED rather than guessing. An empty diff is a valid outcome.
             - Make only data/baseline edits. Do not refactor scripts or prompts.
+            - Keep every line you write under 1500 characters; break a long
+              paragraph at sentence ends. If a file you read shows
+              `[truncated]`, you did not see the whole line: re-read that
+              range before editing, and never write the marker back. Output
+              with a truncation marker or an over-long line is rejected.
 
             Finish by writing `REFRESH_SUMMARY.web3-opportunities.md` at the
             repo root: a short markdown summary, headed `## web3-opportunities`,
@@ -400,6 +410,11 @@ jobs:
             - Be conservative: when a fact cannot be verified this run, LEAVE IT
               UNCHANGED rather than guessing. An empty diff is a valid outcome.
             - Make only data/baseline edits. Do not refactor scripts or prompts.
+            - Keep every line you write under 1500 characters; break a long
+              paragraph at sentence ends. If a file you read shows
+              `[truncated]`, you did not see the whole line: re-read that
+              range before editing, and never write the marker back. Output
+              with a truncation marker or an over-long line is rejected.
 
             Finish by writing `REFRESH_SUMMARY.vietnam-visa-check.md` at the
             repo root: a short markdown summary, headed `## vietnam-visa-check`,

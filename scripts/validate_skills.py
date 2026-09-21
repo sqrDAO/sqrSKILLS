@@ -13,6 +13,8 @@ import re
 import sys
 from pathlib import Path
 
+from collect_refresh import LEGS, MAX_LINE, TRUNCATION
+
 
 SEMVER = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
 SKILL_NAME = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
@@ -116,6 +118,30 @@ def validate_backlog(root: Path) -> list[str]:
     return errors
 
 
+def validate_refresh_files(root: Path) -> list[str]:
+    """Keep every file a refresh agent reads and rewrites whole on read.
+
+    The agent's file reader truncates long lines; a line it never saw whole
+    cannot be edited without losing its tail.
+    """
+    errors: list[str] = []
+    for skill, data in LEGS.values():
+        for relative in (f"{skill}/SKILL.md", f"{skill}/{data}"):
+            path = root / relative
+            if not path.is_file():
+                errors.append(f"{relative}: refresh target is missing")
+                continue
+            text = path.read_text(encoding="utf-8")
+            if TRUNCATION.search(text.encode("utf-8")):
+                errors.append(f"{relative}: contains a truncation marker")
+            for number, line in enumerate(text.splitlines(), start=1):
+                if len(line) > MAX_LINE:
+                    errors.append(
+                        f"{relative}:{number}: line exceeds {MAX_LINE} characters; wrap it"
+                    )
+    return errors
+
+
 def validate_repository(root: Path) -> tuple[dict[str, int], list[str]]:
     errors: list[str] = []
     skill_dirs = sorted(path.parent for path in root.glob("*/SKILL.md"))
@@ -157,6 +183,7 @@ def validate_repository(root: Path) -> tuple[dict[str, int], list[str]]:
             errors.append(f"{path}: Python syntax error: {exc.msg}")
 
     errors.extend(validate_backlog(root))
+    errors.extend(validate_refresh_files(root))
     counts = {
         "skills": len(skill_dirs),
         "python_files": len(python_files),
