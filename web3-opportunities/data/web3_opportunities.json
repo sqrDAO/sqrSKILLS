@@ -1,7 +1,7 @@
 {
   "_meta": {
     "document_type": "structured_web3_opportunity_roster",
-    "last_updated": "2026-09-11",
+    "last_updated": "2026-09-21",
     "data_freshness": "Program existence, type, chain/ecosystem, region, and dilution posture are evergreen and verified through June 2026. TIME-SENSITIVE fields (application deadlines, open/closed cohort status, current prize pool / check size, cadence) are baseline snapshots and MUST be re-verified live before the user applies or acts.",
     "coverage": "Global. Every entry is region-tagged. Southeast Asia / Vietnam-relevant entries carry sea_relevant: true.",
     "schema_version": "1.1.0",
@@ -41,13 +41,13 @@
       "dilution": "dilutive",
       "chains": ["multi-chain", "ethereum", "solana"],
       "regions": ["global", "us", "remote"],
-      "typical_check_or_prize": "$400,000 to $500,000",
+      "typical_check_or_prize": "$500,000",
       "cadence": "cohort-based (multiple batches/year)",
       "status": "open",
       "url": "https://alliance.xyz/",
       "notes": "Applications for cohort ALL19 (starting Jan 11, 2027) have an early deadline of September 23, 2026 and a regular deadline of November 18, 2026.",
       "sea_relevant": true,
-      "last_verified": "2026-09-08"
+      "last_verified": "2026-09-21"
     },
     {
       "id": "outlier-ventures-basecamp",
@@ -95,7 +95,7 @@
       "url": "https://www.yzilabs.com/easy-residency",
       "notes": "EASY Residency Season 5: official page checked 2026-09-11 lists September 21 at 23:59 GMT-7 as the deadline, superseding the earlier bundled date and the discovery post. Web3, AI and biotech teams; accommodation, meals and workspace covered during the Thailand phase; founders pay flights. The post's $2.5M figure is not supported by current official terms.",
       "sea_relevant": true,
-      "last_verified": "2026-09-11"
+      "last_verified": "2026-09-21"
     },
     {
         "id": "base-batches-accelerator",
@@ -107,11 +107,11 @@
         "regions": ["global", "us", "remote"],
         "typical_check_or_prize": "$100,000",
         "cadence": "cohort-based",
-        "status": "open",
+        "status": "closed",
         "url": "https://www.base.org/batches",
         "notes": "The official Base accelerator for pre-seed teams. Base Batches 004 applications close September 9, 2026 for the 8-week program.",
         "sea_relevant": false,
-        "last_verified": "2026-09-07"
+        "last_verified": "2026-09-21"
     },
     {
       "id": "base-batches",
@@ -143,7 +143,7 @@
       "url": "https://www.colosseum.com/",
       "notes": "The 'Eternal' track is a rolling program for teams who don't want to wait for a hackathon. The next major hackathon is the Fall 2026 edition ('Crypto World's Fair'), running from Sep 14 to Oct 12.",
       "sea_relevant": true,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-09-21"
     },
     {
       "id": "draper-university-web3",
@@ -172,10 +172,10 @@
       "typical_check_or_prize": "Pre-seed check (typically equity) after the residency",
       "cadence": "rolling residencies across global locations",
       "status": "rolling",
-      "url": "https://www.antler.co/",
+      "url": "https://antler.co/",
       "notes": "Web3 is a core focus in general residencies. London applications close Sep 22 for the Fall cohort. Singapore intake is Oct 5.",
       "sea_relevant": true,
-      "last_verified": "2026-08-31"
+      "last_verified": "2026-09-21"
     },
     {
       "id": "founders-inc",
@@ -333,9 +333,9 @@
       "cadence": "multiple events per year",
       "status": "open",
       "url": "https://ethglobal.com/events",
-      "notes": "Upcoming events: ETHOnline (Sep 4-16), ETHGlobal Tokyo (Sep 25-27), ETHGlobal Mumbai (Nov 6-8).",
+      "notes": "Upcoming events: ETHGlobal Tokyo (Sep 25-27), ETHGlobal Mumbai (Nov 5-7).",
       "sea_relevant": false,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-09-21"
     },
     {
       "id": "colosseum-hackathon",
@@ -351,7 +351,7 @@
       "url": "https://www.colosseum.com/hackathon",
       "notes": "The next major event is the Fall 2026 hackathon ('Crypto World's Fair'), running from September 14 to October 12.",
       "sea_relevant": true,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-09-21"
     },
     {
       "id": "dorahacks",
@@ -575,7 +575,7 @@
       "url": "https://superteam.fun/",
       "notes": "Bounties and micro-grants are available on a rolling basis via Superteam Earn. Major ecosystem hackathons have specific deadlines throughout the year.",
       "sea_relevant": true,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-09-21"
     },
     {
       "id": "corelia-academy",
@@ -591,7 +591,7 @@
       "url": "https://corelia.academy/",
       "notes": "UniHackfest 2026 is the main program. The Online National Qualifying Round is September 17-20. The domain is bot-protected \u2014 it returns 403 to plain fetchers but 200 in a browser, so do not mark it dead on a failed automated fetch.",
       "sea_relevant": true,
-      "last_verified": "2026-08-31"
+      "last_verified": "2026-09-21"
     },
     {
       "id": "vbi-academy",
@@ -607,7 +607,7 @@
       "url": "https://vbiacademy.edu.vn/",
       "notes": "The NextX 2026 competition concluded on August 29. Check social media for new developer bootcamp cohorts in late 2026.",
       "sea_relevant": true,
-      "last_verified": "2026-08-31"
+      "last_verified": "2026-09-21"
     },
     {
       "id": "unihackfest",
@@ -623,7 +623,7 @@
       "url": "https://unihackfest.vn/",
       "notes": "The national qualifying round is running through September, with the Grand Finale on September 26 in HCMC. unihackfest.vn returns 403 to plain fetchers (bot-protected, 200 in a browser), so do not mark it dead on a failed automated fetch.",
       "sea_relevant": true,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-09-21"
     },
     {
       "id": "rmit-fintech-club",
@@ -699,11 +699,11 @@
       "regions": ["us", "global"],
       "typical_check_or_prize": "$150,000 for 5% via SAFE (no MFN); access to over $1M in provider credits",
       "cadence": "cohort-based",
-      "status": "open",
+      "status": "closed",
       "url": "https://f.inc/blueprint",
       "notes": "Hardware and frontier technology program, not a general crypto accelerator; relevant to Web3 teams only where their product fits that focus. Blueprint II runs September 30–December 11, 2026 in San Francisco. Apply by September 14; FAQ specifies 11:59PM PST (confirm timezone with organizer). Full-time in-person attendance; international founders may apply. Travel, housing and living costs are not covered. Terms: https://f.inc/blueprint/faq . Separate from the broader founders-inc campus entry.",
       "sea_relevant": false,
-      "last_verified": "2026-09-11"
+      "last_verified": "2026-09-21"
     },
     {
       "id": "fabric-r3sidency",
@@ -715,11 +715,11 @@
       "regions": ["europe"],
       "typical_check_or_prize": "$300,000 investment plus over $100,000 in credits and ecosystem perks; equity percentage/instrument not published on the program page",
       "cadence": "cohort-based (12 weeks)",
-      "status": "open",
+      "status": "closed",
       "url": "https://r3sidency.fabric.vc/",
       "notes": "2026 London residency cohort for Web3, AI and deep-tech builders. Applications due September 15 (timezone not specified); eight teams, October through January, with a New York demo day/investor roadshow. In-person London participation required. This is an investment, not a grant; obtain the actual investment terms before accepting.",
       "sea_relevant": false,
-      "last_verified": "2026-09-11"
+      "last_verified": "2026-09-21"
     },
     {
       "id": "forge-residency",
@@ -731,11 +731,11 @@
       "regions": ["india"],
       "typical_check_or_prize": "Housing, meals, mentorship and demo day; AI/infrastructure credits offered with no confirmed amount",
       "cadence": "cohort-based",
-      "status": "open",
+      "status": "closed",
       "url": "https://www.forgeresidency.com/cohorts/2",
       "notes": "Founder house within Edge City India for technical builders, not a chain-specific grant. Mandrem, Goa, October 11–November 1, 2026; deadline September 15 (end of day; timezone unspecified). No remote option. Official application FAQ says no equity, tuition or attendance fee; a place-holding deposit is refunded on arrival: https://www.forgeresidency.com/apply?cohort=2 . The discovery post's $150K grant pool and $200K AI credits were not confirmed on official pages.",
       "sea_relevant": false,
-      "last_verified": "2026-09-11"
+      "last_verified": "2026-09-21"
     }
   ]
 }
