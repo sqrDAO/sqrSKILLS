@@ -139,6 +139,41 @@ class CollectRefreshTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'PATCH'):
                 collector.validate_skill(before, before.replace(b'1.2.3', version))
 
+    def test_a_line_cut_on_read_and_written_back_is_rejected(self):
+        # The 2026-09-21 shape: the reader stopped at 2000 characters, appended
+        # its marker, and the agent wrote the cut line back as the new paragraph.
+        path = self.artifacts / 'crypto' / 'vietnam-crypto-radar/references/baseline.md'
+        path.write_text('These local trial approvals are not nati... [truncated]\n')
+        result = collector.collect(self.checkout, self.artifacts, self.outcomes)
+        self.assertEqual(result['outcomes']['crypto'], 'rejected')
+        self.assertIn('truncation marker', result['rejected']['crypto'])
+        self.assertEqual((self.checkout / 'vietnam-crypto-radar/references/baseline.md').read_text(),
+                         'Reviewed baseline\n')
+        self.assertIn('vietnam-visa-check', result['imported'])
+
+    def test_other_truncation_marker_shapes_are_rejected(self):
+        for marker in ('[File content truncated: showing lines 1-200]', '[... content truncated ...]'):
+            with self.subTest(marker=marker):
+                with self.assertRaisesRegex(ValueError, 'truncation marker'):
+                    collector.validate_text('data.json', b'{}', f'{{"note": "{marker}"}}'.encode())
+
+    def test_a_marker_already_in_the_baseline_is_not_new(self):
+        before = b'The tool prints "[truncated]" when output is long.\n'
+        collector.validate_text('baseline.md', before, before + b'Added line.\n')
+
+    def test_an_over_long_line_is_rejected_even_without_a_marker(self):
+        # An agent may strip the marker; a line longer than the file-wide limit
+        # is still new, because main keeps every refresh file under it.
+        long_line = ('word ' * collector.MAX_LINE).encode()
+        with self.assertRaisesRegex(ValueError, 'line 2 exceeds'):
+            collector.validate_text('baseline.md', b'short\n', b'short\n' + long_line)
+
+    def test_production_refresh_files_pass_their_own_gate(self):
+        root = Path(__file__).resolve().parents[1]
+        for skill, data in collector.LEGS.values():
+            content = (root / skill / data).read_bytes()
+            collector.validate_text(data, content, content)
+
     def test_production_frontmatter_is_accepted(self):
         root = Path(__file__).resolve().parents[1]
         for skill, _ in collector.LEGS.values():
