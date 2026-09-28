@@ -4,8 +4,8 @@
     "country": "Vietnam",
     "iso_alpha2": "VN",
     "iso_alpha3": "VNM",
-    "last_updated": "2026-08-17",
-    "data_freshness": "Core e-Visa and visa-exemption facts verified through July 2026; health-declaration, Pre-arrival Information pilot, and Timor-Leste agreement facts re-verified against primary government sources on 14 August 2026 and re-confirmed unchanged on 17 August 2026, when Decree 286/2026/ND-CP was added. Future-dated or implementation-specific items should be rechecked against evisa.gov.vn and primary legal sources before legal/compliance use.",
+    "last_updated": "2026-09-28",
+    "data_freshness": "Core e-Visa and visa-exemption facts verified through September 2026, including the reduction of Indonesia's ordinary-passport visa-free stay from 30 days to 14 days effective 15 July 2026. Health-declaration, Pre-arrival Information pilot, and Timor-Leste agreement facts re-verified on 28 September 2026. Decree 286/2026/ND-CP was effective 15 September 2026. Future-dated or implementation-specific items should be rechecked against evisa.gov.vn and primary legal sources before legal/compliance use.",
     "sources": [
       "https://evisa.gov.vn/",
       "https://vietnam.travel/things-to-do/new-visa-exemption-policies-effective-15-august-2025",
@@ -201,12 +201,12 @@
       {
         "country": "Indonesia",
         "iso_alpha2": "ID",
-        "tier": "VISA_FREE_30",
-        "max_stay_days": 30,
+        "tier": "VISA_FREE_14",
+        "max_stay_days": 14,
         "agreement_type": "BILATERAL",
         "valid_from": null,
         "valid_until": null,
-        "conditions": null
+        "conditions": "Reduced from 30 to 14 days starting July 15, 2026. Tourism and family visits only. Business/other purposes require a visa."
       },
       {
         "country": "Laos",

@@ -1,8 +1,14 @@
 # Vietnam Crypto Regime — Baseline Snapshot
 
-> **LAST VERIFIED: 21 September 2026** — the date of the last full sweep, and the one
+> **LAST VERIFIED: 28 September 2026** — the date of the last full sweep, and the one
 > the radar diffs against. Everything it reports as "new" is new relative to this date.
 > After confirming real changes in a run, rewrite this file and bump the date.
+> **Verification note, 28 September 2026:** Da Nang's International Financial Centre
+> (IFC) site became a member of the UNDP-backed FC4S global network on 25 Sep 2026.
+> New tax guidance on invoice timing for crypto-asset services (data-reconciliation
+> date, not payment date) was noted on 23 Sep 2026. The run's claim that
+> Nghị quyết 20/2026/NQ-HĐND took effect 10 Jun 2026 and replaced 55/2024/NQ-HĐND was
+> not adopted: it still rests on a single source, so the entry stays as it was.
 > **Verification note, 21 September 2026:** Added the amended Law on AML, passed
 > 24 August 2026 and effective 1 December 2026, which makes crypto-asset service
 > providers reporting entities (number 23/2026/QH16 on a single Tier-2 source). Also
@@ -224,6 +230,7 @@ regime, or the municipal trial decisions.
 - **Taxable-income classification:** Decree 253/2026/NĐ-CP expressly includes income from transfers of virtual assets, crypto assets, and other digital assets within taxable "other income" under the PIT regime.
 - **General PIT guidance:** Circular 87/2026/TT-BTC implements Law 109 and Decree 253 alongside the crypto-specific Circulars 32 and 41. Check which instrument governs the exact question rather than assuming the general circular displaces the pilot-specific rules.
 - **Electronic invoices:** under Article 6 of Decree 254/2026/NĐ-CP, a crypto-asset business with the required electronic tax interaction, accounting/invoicing software, storage, and data-transmission capability may use e-invoices without a tax-authority code, unless classified as high tax risk or registered for coded invoices.
+- **Invoice timing:** new guidance on 23 Sep 2026 clarified that for services requiring periodic data reconciliation, including crypto-asset services and affiliate marketing, the invoice must be issued at the **time of data reconciliation**, not at the time of payment.
 
 ### Administrative enforcement (Decree 284) — ENACTED, EFFECTIVE 1 SEP 2026
 - **Scope:** violations involving issuance/offerings, market organization, service-provider duties, trading, foreign-investor money transfers, obstruction of inspection, unlawful handling of account data, and AML/CFT/proliferation-financing controls under the pilot.
@@ -249,7 +256,8 @@ regime, or the municipal trial decisions.
 
 - **Pilot acceleration:** **Nghị quyết số 262/NQ-CP** (5 Sep 2026), the resolution of the government's regular August 2026 meeting, assigns the Ministry of Finance at **mục 4.đ** to "[t]riển khai thí điểm thị trường tài sản mã hóa theo Nghị quyết số 05/2025/NQ-CP của Chính phủ, đẩy nhanh tiến độ đưa thị trường thí điểm vào hoạt động". A tasking order, not a new legal regime: it sets no date and licenses nobody. Status: ENACTED / CONFIRMED. The Tier-1 anchor confirms the instrument and its date but does not reproduce mục 4.đ; the clause text is from the Tier-2 full text.
 - **Pilot exchange go-live:** reported target **Q3 2026**, now reinforced by Resolution 262's call for acceleration and a Ministry of Finance statement on 15 Sep 2026 that the first licensed providers are expected to be operational within 2026. Status: EXPECTED / NEEDS_CURRENT_CONFIRMATION.
-- **Reporting & disclosure rules:** The Ministry of Finance began taking public comment on a new **draft Circular on reporting and information disclosure** for the pilot crypto-asset market around 15-16 September 2026. It will govern reporting duties for licensed VASPs. Status: DRAFT / CONFIRMED.
+- **Reporting & disclosure rules:** The Ministry of Finance's public comment period for its **draft Circular on reporting and information disclosure** for the pilot crypto-asset market closed on 26 September 2026. The draft governs reporting duties for licensed VASPs. Status: DRAFT / AWAITING_ISSUANCE.
+- **Da Nang IFC international integration:** On **25 September 2026**, the Da Nang site of Vietnam's IFC officially became a member of the **FC4S (Financial Centres for Sustainability) Network**, a UNDP-coordinated global body for green and sustainable finance. The move signals an intent to align with international standards and access global expertise. Status: ANNOUNCED / CONFIRMED.
 - **Licensing shortlist:** 5 entities are reported to be under final review by the Ministry of Finance, State Bank, and Ministry of Public Security. The list includes: **VIX Crypto Asset Exchange JSC**, **Loc Phat Vietnam Crypto Asset Exchange JSC**, **Vietnam Prosperity Crypto Asset Exchange JSC**, **Techcom Crypto Asset Exchange JSC**, and **Vietnam Digital Assets JSC**. Status: REPORTED, not final approvals.
 - **Digital assets as loan collateral:** Ministry of Finance has proposed allowing SMEs to use digital assets and intellectual property as collateral for bank loans. Status: PROPOSED / NEEDS_PRIMARY_SOURCE.
 - **Supervision framework:** The State Securities Commission (SSC) is actively developing a "System for management and supervision of the crypto-asset trading market" and a "regulatory framework for supervising the crypto-asset market," including staff training with international partners: the SSC ran a "Compliance and Enforcement in the crypto-asset market" programme with Tether and Chainalysis in Hanoi on 21 Jul 2026, with FATF standards, VASP compliance programmes, fund tracing, and illicit P2P networks on the agenda. Status: IN_PROGRESS / CONFIRMED.
@@ -300,6 +308,8 @@ regime, or the municipal trial decisions.
   Investment's Annex IV, Resolution 66.17/2026/NQ-CP, or both doing different work? Both are
   recorded above with a 1 Jul 2026 date and neither anchor explains the other.
 - Has Da Nang selected the **DNC-Chain Layer-1** or issued the scheme's operating regulation?
+- What are the first deliverables or rule changes to come from the **Da Nang IFC's** new
+  membership in the UNDP-backed FC4S network?
 - Has anything advanced on **SP9** (crypto-asset/RWA issuance, custody and trading) or **SP10**
   (blockchain crowdfunding) under the IFC mechanism — an approval, a member admission, or a
   rule specific to digital assets inside the IFC?
