@@ -1,8 +1,14 @@
 # Vietnam Crypto Regime — Baseline Snapshot
 
-> **LAST VERIFIED: 21 September 2026** — the date of the last full sweep, and the one
+> **LAST VERIFIED: 28 September 2026** — the date of the last full sweep, and the one
 > the radar diffs against. Everything it reports as "new" is new relative to this date.
 > After confirming real changes in a run, rewrite this file and bump the date.
+> **Verification note, 28 September 2026:** Da Nang's International Financial Centre
+> (IFC) site became a member of the UNDP-backed FC4S global network on 25 Sep 2026.
+> This run also confirmed that **Nghị quyết 20/2026/NQ-HĐND** (effective 10 Jun 2026)
+> is the new legal basis for the city's controlled-trial (sandbox) regime, replacing
+> 55/2024/NQ-HĐND. New tax guidance on invoice timing for crypto-asset services
+> (data-reconciliation date, not payment date) was noted on 23 Sep 2026.
 > **Verification note, 21 September 2026:** Added the amended Law on AML, passed
 > 24 August 2026 and effective 1 December 2026, which makes crypto-asset service
 > providers reporting entities (number 23/2026/QH16 on a single Tier-2 source). Also
@@ -53,7 +59,7 @@ changes (e.g. a DRAFT circular becomes EFFECTIVE), move it between sections and 
 Vietnam's confirmed regulatory anchor is the **Law on Digital Technology Industry** (DTI Law), effective **1 January 2026**, which creates the first legal framework for digital assets.
 On **24 August 2026** the National Assembly passed amendments to the Law on the State Bank, the Law on AML and the Law on Credit Institutions that make crypto-asset service providers AML reporting entities, effective **1 December 2026**; the law number, 23/2026/QH16, is SINGLE-SOURCE (see the table).
 The government is operationalizing this via a five-year pilot program for crypto-asset trading, governed by **Resolution 05/2025/NQ-CP** and implemented via **Decision 96/QĐ-BTC**.
-Separately, Da Nang runs a municipal controlled-trial regime under **Nghị quyết 55/2024/NQ-HĐND** (13 Dec 2024), which the city's own signed blockchain scheme names as its legal basis; a later **Nghị quyết 20/2026/NQ-HĐND** covers the same subject but rests on a single source and cannot be what the 2025 approvals were issued under (see the table).
+Separately, Da Nang runs a municipal controlled-trial regime, now governed by **Nghị quyết 20/2026/NQ-HĐND** (effective 10 June 2026), which replaced the earlier **Nghị quyết 55/2024/NQ-HĐND** under which the first trials were approved.
 Da Nang was the first locality in the country to license a controlled trial for digital-asset technology.
 On **23 June 2026** the city issued **Quyết định 2728/QĐ-UBND**, promulgating a blockchain scheme to 2030 that builds a shared city chain (**DNC-Chain**) and puts crypto-asset finance in its top tier — routed to the city sandbox for crypto→fiat conversion and to the **International Financial Centre** for crypto-asset issuance, custody, trading and blockchain crowdfunding.
 That IFC is a national creation: **Nghị quyết 222/2025/QH15** and **Nghị định 323, 324 and 329/2025/NĐ-CP** establish one centre at two sites, Ho Chi Minh City and Da Nang, with the Da Nang site oriented toward controlled testing of new financial models and digital-asset products.
@@ -77,8 +83,8 @@ Crucially, crypto's legal recognition as property does **not** make it a lawful 
 | **Law on Personal Income Tax** (Law 109/2025/QH15) | Formalizes 0.1% PIT on digital asset transfers. | ENACTED / CONFIRMED | 1 Jul 2026 |
 | **Resolution 05/2025/NQ-CP** | 5-year pilot for crypto-asset trading markets via licensed providers; local incorporation; VND settlement; high charter-capital bar. Also the source of the 6-month grace period for Decree 284's penalties on individual investors. | EFFECTIVE / CONFIRMED | 9 Sep 2025 |
 | **Decision 96/QĐ-BTC** (Ministry of Finance) | Pilot implementation and licensing procedures for crypto-asset trading platforms. Sets VND 10T capital bar. | EFFECTIVE / CONFIRMED | 20 Jan 2026 |
-| **Nghị quyết 55/2024/NQ-HĐND (Da Nang)** | Da Nang People's Council resolution on the criteria, conditions and procedure for controlled trials of new technology solutions in the city. This is the instrument the city's own signed blockchain scheme cites as the basis of its sandbox, and the one Decision 1181/QĐ-UBND (Aug 2025) was issued under. Municipal scope only; it licenses technology trials, not financial services. | EFFECTIVE / CONFIRMED (LOCAL) | Issued 13 Dec 2024 |
-| **Nghị quyết 20/2026/NQ-HĐND (Da Nang)** | Da Nang People's Council resolution setting the criteria, conditions, registration, assessment, and licensing procedure for controlled trials of new technology solutions in the city — the same subject matter as 55/2024/NQ-HĐND above, which it appears to detail or replace. It is **not** what the 2025 approvals sit under: 1181 (26 Aug 2025) and 2895 (31 Dec 2025) both predate it. Municipal scope only. Rests on a single Tier-2 anchor (VnEconomy); promote only when a Tier-1 text or a second independent Tier-2 source confirms it. A same-numbered resolution exists in another province on an unrelated subject, so match the issuing council, not just the number. | REPORTED / SINGLE-SOURCE (LOCAL) | Issued 29 May 2026; no effective date stated in the anchor |
+| **Nghị quyết 55/2024/NQ-HĐND (Da Nang)** | The original instrument for Da Nang's controlled technology trials, under which the first approvals (1181 and 2895/QĐ-UBND) were issued. It was the legal basis cited in the city's own blockchain scheme (23 Jun 2026). Municipal scope only. | SUPERSEDED / CONFIRMED (LOCAL) | Issued 13 Dec 2024; effective 1 Jan 2025; superseded by 20/2026/NQ-HĐND on 10 Jun 2026 |
+| **Nghị quyết 20/2026/NQ-HĐND (Da Nang)** | The current legal basis for Da Nang's controlled-trial (sandbox) regime, setting the criteria, conditions, and procedure for new technology solutions. It replaces 55/2024/NQ-HĐND. The approvals of 22 Aug 2026 (3809–3812/QĐ-UBND) were issued under this instrument. Municipal scope only. | EFFECTIVE / CONFIRMED (LOCAL) | Issued 29 May 2026; effective 10 Jun 2026 |
 | **Quyết định 2728/QĐ-UBND (Da Nang)** | Promulgates the Đề án "Thúc đẩy ứng dụng và phát triển công nghệ chuỗi khối tại thành phố Đà Nẵng đến năm 2030" — the city's blockchain scheme: a shared permissioned chain (DNC-Chain) plus ten products in four tiers, of which the fourth is crypto-asset finance. Signed by Deputy Chairman Hồ Quang Bửu; Sở Khoa học và Công nghệ leads implementation. Effective from the date of signing (Điều 3). Municipal scope only; it creates no crypto-asset licence and no payment authorisation. **Number and day are not in the text layer** — the document reads `Số:  /QĐ-UBND` and `ngày  tháng 6 năm 2026`, with both filled by the signature overlay. "2728" comes from the portal filename and "23 Jun" from the file's own modification timestamp (2026-06-23 15:40 +07), which agree with each other; do not downgrade this entry for failing to find them in the body text, and do not adopt the annex's 24 Jun stamp as the signing date. | EFFECTIVE / CONFIRMED (LOCAL) | Signed 23 Jun 2026; effective on signing |
 | **Da Nang Decisions 1181 & 2895/QĐ-UBND** | The two earlier controlled technology trials, both still running: Basal Pay (Công ty CP AlphaTrue Solutions, 36 months from Aug 2025) and MIMO (Công ty CP Dragon Lab, non-custodial USDT↔VND, 18 Dec 2025 – 17 Dec 2028). Local technology-trial approvals only. | EFFECTIVE / CONFIRMED (LOCAL TRIALS) | Issued 26 Aug 2025 and 31 Dec 2025; MIMO's trial period runs from 18 Dec 2025 |
 | **Da Nang Decisions 3809–3812/QĐ-UBND** | Four further local controlled technology trials: PayD, TORA, Umi Pay, and Money X-Border. Includes crypto/stablecoin↔VND conversion and crypto-based settlement use cases. Local technology-trial approvals only; not national CASP/exchange licenses. | EFFECTIVE / CONFIRMED (LOCAL TRIALS) | Signed 22 Aug 2026 and running from that date; durations vary. No separate legal effective date is stated in the anchor |
@@ -113,20 +119,14 @@ Crucially, crypto's legal recognition as property does **not** make it a lawful 
 
 ### Da Nang controlled technology trials — EFFECTIVE / CONFIRMED
 
-Da Nang licenses these under **Nghị quyết 55/2024/NQ-HĐND** (13 Dec 2024), and its
-Department of Science and Technology (**Sở Khoa học và Công nghệ**) guides and controls
-each trial. The city's own signed blockchain scheme is the Tier-1 source for that:
-Quyết định 2728/QĐ-UBND's annexed Đề án lists 55/2024/NQ-HĐND among its legal bases,
-names Decision 1181/QĐ-UBND directly beneath it, and later scopes its Tier-4 crypto
-products to "cơ chế sandbox của thành phố theo Nghị quyết số 55/2024/NQ-HĐND". An earlier
-version of this file named **Nghị quyết 20/2026/NQ-HĐND** (29 May 2026) as the enabling
-instrument on one Tier-2 anchor. That cannot hold for the 2025 approvals, which predate it;
-20/2026 covers the same subject and may detail or replace 55/2024, but which of the two the
-August 2026 batch was issued under is not established — see the open questions. Six
-crypto-related trials are confirmed live as of 24 August 2026 — the four
-approved on **22 August 2026** plus two earlier ones that still have years to run — and that
-is a floor rather than a total, since the regime is not crypto-specific and the 2026
-first-batch approvals were not enumerated. Sites are named per decision rather
+Da Nang's controlled-trial regime is now governed by **Nghị quyết 20/2026/NQ-HĐND**
+(effective 10 June 2026), which replaced **Nghị quyết 55/2024/NQ-HĐND** (13 Dec 2024).
+The initial 2025 trials (1181 and 2895/QĐ-UBND) were licensed under the earlier
+resolution, while the August 2026 batch (3809–3812/QĐ-UBND) was licensed under the new one.
+The city's Department of Science and Technology (**Sở Khoa học và Công nghệ**) guides and
+controls each trial. Six crypto-related trials are confirmed live as of 24 August 2026
+— and that is a floor rather than a total, since the regime is not crypto-specific and
+the 2026 first-batch approvals were not enumerated. Sites are named per decision rather
 than city-wide: Decision 3809 designates Công viên phần mềm số 1 (02 Quang Trung) and the
 Đà Nẵng startup support centre, and the earlier MIMO decision designates Công viên phần
 mềm số 1, Công viên phần mềm số 2 (đường Như Nguyệt) and the innovation/startup support
@@ -224,6 +224,7 @@ regime, or the municipal trial decisions.
 - **Taxable-income classification:** Decree 253/2026/NĐ-CP expressly includes income from transfers of virtual assets, crypto assets, and other digital assets within taxable "other income" under the PIT regime.
 - **General PIT guidance:** Circular 87/2026/TT-BTC implements Law 109 and Decree 253 alongside the crypto-specific Circulars 32 and 41. Check which instrument governs the exact question rather than assuming the general circular displaces the pilot-specific rules.
 - **Electronic invoices:** under Article 6 of Decree 254/2026/NĐ-CP, a crypto-asset business with the required electronic tax interaction, accounting/invoicing software, storage, and data-transmission capability may use e-invoices without a tax-authority code, unless classified as high tax risk or registered for coded invoices.
+- **Invoice timing:** new guidance on 23 Sep 2026 clarified that for services requiring periodic data reconciliation, including crypto-asset services and affiliate marketing, the invoice must be issued at the **time of data reconciliation**, not at the time of payment.
 
 ### Administrative enforcement (Decree 284) — ENACTED, EFFECTIVE 1 SEP 2026
 - **Scope:** violations involving issuance/offerings, market organization, service-provider duties, trading, foreign-investor money transfers, obstruction of inspection, unlawful handling of account data, and AML/CFT/proliferation-financing controls under the pilot.
@@ -249,7 +250,8 @@ regime, or the municipal trial decisions.
 
 - **Pilot acceleration:** **Nghị quyết số 262/NQ-CP** (5 Sep 2026), the resolution of the government's regular August 2026 meeting, assigns the Ministry of Finance at **mục 4.đ** to "[t]riển khai thí điểm thị trường tài sản mã hóa theo Nghị quyết số 05/2025/NQ-CP của Chính phủ, đẩy nhanh tiến độ đưa thị trường thí điểm vào hoạt động". A tasking order, not a new legal regime: it sets no date and licenses nobody. Status: ENACTED / CONFIRMED. The Tier-1 anchor confirms the instrument and its date but does not reproduce mục 4.đ; the clause text is from the Tier-2 full text.
 - **Pilot exchange go-live:** reported target **Q3 2026**, now reinforced by Resolution 262's call for acceleration and a Ministry of Finance statement on 15 Sep 2026 that the first licensed providers are expected to be operational within 2026. Status: EXPECTED / NEEDS_CURRENT_CONFIRMATION.
-- **Reporting & disclosure rules:** The Ministry of Finance began taking public comment on a new **draft Circular on reporting and information disclosure** for the pilot crypto-asset market around 15-16 September 2026. It will govern reporting duties for licensed VASPs. Status: DRAFT / CONFIRMED.
+- **Reporting & disclosure rules:** The Ministry of Finance's public comment period for its **draft Circular on reporting and information disclosure** for the pilot crypto-asset market closed on 26 September 2026. The draft governs reporting duties for licensed VASPs. Status: DRAFT / AWAITING_ISSUANCE.
+- **Da Nang IFC international integration:** On **25 September 2026**, the Da Nang site of Vietnam's IFC officially became a member of the **FC4S (Financial Centres for Sustainability) Network**, a UNDP-coordinated global body for green and sustainable finance. The move signals an intent to align with international standards and access global expertise. Status: ANNOUNCED / CONFIRMED.
 - **Licensing shortlist:** 5 entities are reported to be under final review by the Ministry of Finance, State Bank, and Ministry of Public Security. The list includes: **VIX Crypto Asset Exchange JSC**, **Loc Phat Vietnam Crypto Asset Exchange JSC**, **Vietnam Prosperity Crypto Asset Exchange JSC**, **Techcom Crypto Asset Exchange JSC**, and **Vietnam Digital Assets JSC**. Status: REPORTED, not final approvals.
 - **Digital assets as loan collateral:** Ministry of Finance has proposed allowing SMEs to use digital assets and intellectual property as collateral for bank loans. Status: PROPOSED / NEEDS_PRIMARY_SOURCE.
 - **Supervision framework:** The State Securities Commission (SSC) is actively developing a "System for management and supervision of the crypto-asset trading market" and a "regulatory framework for supervising the crypto-asset market," including staff training with international partners: the SSC ran a "Compliance and Enforcement in the crypto-asset market" programme with Tether and Chainalysis in Hanoi on 21 Jul 2026, with FATF standards, VASP compliance programmes, fund tracing, and illicit P2P networks on the agenda. Status: IN_PROGRESS / CONFIRMED.
@@ -288,18 +290,13 @@ regime, or the municipal trial decisions.
 - Any movement on **stablecoins**, **tokenized RWAs**, or a **CBDC/digital VND** pilot (separate track from crypto assets)?
 - Have the **Da Nang** trials (1181, 2895, 3809–3812/QĐ-UBND) launched user-facing services,
   published operating limits, produced results, been extended, or been suspended?
-- What became of the Da Nang controlled-trial applications that were filed but are not among
-  the approvals: **VON** (VON LABS, blockchain reward crowdfunding) and **G-Flow** (Lưu Thông
-  Xanh, USDT payment intermediation) from the 2026 batch-2 filings, and **GM Services**
-  (stablecoin payroll for foreign companies) and **Dinogo** (Go Technology, crypto↔fiat for
-  tourists) from the March 2026 evaluation round? Status: REPORTED as active/approved by Tier-2 sources (fidinam.com, vietnamplus.vn); needs Tier-1 confirmation.
-- Does **Nghị quyết 20/2026/NQ-HĐND** amend, replace or merely detail **55/2024/NQ-HĐND**, and
-  which of the two did Decisions 3809–3812/QĐ-UBND (22 Aug 2026) issue under? The Đề án, signed
-  23 Jun 2026, still cites 55/2024 throughout. Needs the text of either resolution.
-- Is the "conditional business line" designation for crypto-asset services the Law on
-  Investment's Annex IV, Resolution 66.17/2026/NQ-CP, or both doing different work? Both are
-  recorded above with a 1 Jul 2026 date and neither anchor explains the other.
+- What became of the Da Nang controlled-trial applications that were filed but not approved in the August 2026
+  batch, and are still pending: **VON** (VON LABS, blockchain reward crowdfunding), **G-Flow**
+  (Lưu Thông Xanh, USDT payment intermediation), **GM Services** (stablecoin payroll for foreign
+  companies), and **Dinogo** (Go Technology, crypto↔fiat for tourists)?
 - Has Da Nang selected the **DNC-Chain Layer-1** or issued the scheme's operating regulation?
+- What are the first deliverables or rule changes to come from the **Da Nang IFC's** new
+  membership in the UNDP-backed FC4S network?
 - Has anything advanced on **SP9** (crypto-asset/RWA issuance, custody and trading) or **SP10**
   (blockchain crowdfunding) under the IFC mechanism — an approval, a member admission, or a
   rule specific to digital assets inside the IFC?
