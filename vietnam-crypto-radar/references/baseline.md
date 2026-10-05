@@ -1,8 +1,17 @@
 # Vietnam Crypto Regime — Baseline Snapshot
 
-> **LAST VERIFIED: 28 September 2026** — the date of the last full sweep, and the one
+> **LAST VERIFIED: 5 October 2026** — the date of the last full sweep, and the one
 > the radar diffs against. Everything it reports as "new" is new relative to this date.
 > After confirming real changes in a run, rewrite this file and bump the date.
+> **Verification note, 5 October 2026:** The SSC's crypto unit is the **Ban Quản lý
+> thị trường giao dịch tài sản mã hóa** (Crypto Asset Trading Market Management Board),
+> established by Quyết định 3552/QĐ-BTC on 21 Oct 2025 — not a new body; the run reported
+> it as created in late Sep 2026 on an anchor that 404s, and that dating was not adopted.
+> The SSC chair met MAS on 30 Sep 2026 on DR products and crypto-market supervision. Not
+> adopted for lack of a resolving source: promoting Nghị quyết 20/2026/NQ-HĐND on a
+> "Kế hoạch 496/KH-UBND" that no anchor carries; VON, G-Flow, GM Services and Dinogo as
+> approved; a 30 Sep public announcement of 3809–3812; an SSC–IFC meeting on 1 Oct; and
+> new detail on the draft reporting Circular.
 > **Verification note, 28 September 2026:** Da Nang's International Financial Centre
 > (IFC) site became a member of the UNDP-backed FC4S global network on 25 Sep 2026.
 > New tax guidance on invoice timing for crypto-asset services (data-reconciliation
@@ -70,7 +79,7 @@ The operating layer now includes accounting rules in **Circular 15/2026/TT-BTC**
 The tax regime is anchored by the **Law on Personal Income Tax (Law 109/2025/QH15)**, effective **1 July 2026**, which formalizes a 0.1% transaction tax on digital assets.
 The statutory basis for crypto-asset services being a conditional business line is the **Law on Investment (Law 143/2025/QH15)**; its Annex IV is REPORTED to take effect **1 July 2026** on Tier-2 publishers and the Da Nang scheme, since the Tier-1 record carries only the law's 1 March 2026 general commencement (see the table).
 As of August 2026, **Resolution 66.17/2026/NQ-CP** designates crypto services as a "conditional business line," **Resolution 66.23/2026/NQ-CP** creates a temporary AML bridge, **Decree 164/2026/NĐ-CP** mandates asset declaration for public officials, including crypto, and **Decree 296/2026/NĐ-CP** adds economy-wide beneficial-ownership disclosure at business registration.
-Supervision is handled by the new **Crypto Asset Market Supervision Department** under the State Securities Commission (SSC).
+Supervision is handled by the **Crypto Asset Trading Market Management Board** (Ban Quản lý thị trường giao dịch tài sản mã hóa) under the State Securities Commission (SSC), established by **Quyết định 3552/QĐ-BTC** (21 Oct 2025), with its functions set by **Quyết định 979/QĐ-UBCK** (9 Dec 2025).
 Crucially, crypto's legal recognition as property does **not** make it a lawful means of payment; the State Bank's position on this must be verified separately each run.
 
 ---
@@ -260,7 +269,7 @@ regime, or the municipal trial decisions.
 - **Da Nang IFC international integration:** On **25 September 2026**, the Da Nang site of Vietnam's IFC officially became a member of the **FC4S (Financial Centres for Sustainability) Network**, a UNDP-coordinated global body for green and sustainable finance. The move signals an intent to align with international standards and access global expertise. Status: ANNOUNCED / CONFIRMED.
 - **Licensing shortlist:** 5 entities are reported to be under final review by the Ministry of Finance, State Bank, and Ministry of Public Security. The list includes: **VIX Crypto Asset Exchange JSC**, **Loc Phat Vietnam Crypto Asset Exchange JSC**, **Vietnam Prosperity Crypto Asset Exchange JSC**, **Techcom Crypto Asset Exchange JSC**, and **Vietnam Digital Assets JSC**. Status: REPORTED, not final approvals.
 - **Digital assets as loan collateral:** Ministry of Finance has proposed allowing SMEs to use digital assets and intellectual property as collateral for bank loans. Status: PROPOSED / NEEDS_PRIMARY_SOURCE.
-- **Supervision framework:** The State Securities Commission (SSC) is actively developing a "System for management and supervision of the crypto-asset trading market" and a "regulatory framework for supervising the crypto-asset market," including staff training with international partners: the SSC ran a "Compliance and Enforcement in the crypto-asset market" programme with Tether and Chainalysis in Hanoi on 21 Jul 2026, with FATF standards, VASP compliance programmes, fund tracing, and illicit P2P networks on the agenda. Status: IN_PROGRESS / CONFIRMED.
+- **Supervision framework:** The State Securities Commission (SSC) is actively developing a "System for management and supervision of the crypto-asset trading market" and a "regulatory framework for supervising the crypto-asset market," including staff training with international partners: the SSC ran a "Compliance and Enforcement in the crypto-asset market" programme with Tether and Chainalysis in Hanoi on 21 Jul 2026, with FATF standards, VASP compliance programmes, fund tracing, and illicit P2P networks on the agenda. On 30 Sep 2026 the SSC chair met MAS (Singapore) on depositary-receipt products and asked MAS to share experience on crypto-asset legal frameworks, exchange supervision and AML. Status: IN_PROGRESS / CONFIRMED.
 - **Law on AML (Amended):** ENACTED — passed 24 Aug 2026, effective 1 Dec 2026; number 23/2026/QH16 is SINGLE-SOURCE. See the table above. Watch for the promulgated text on vanban.chinhphu.vn to confirm the number, and for implementing guidance.
 - **Decision 1413/QĐ-TTg:** Signed 27 Jul 2026; approves the comprehensive financial market reform project to 2045, which lists the crypto-asset market among its target markets. Status: ENACTED / CONFIRMED (Tier 1).
   - Sub-claim — that its task-allocation appendix assigns MOF a **Law on Digital Assets and Crypto Assets** on the 2028-2029 legislative agenda — rests on a single Tier-2 legal publisher reading the appendix; Tier-1 coverage and general press confirm the Decision but not this detail. Status: REPORTED / SINGLE-SOURCE. Promote only when a second independent Tier-2 source or the appendix text itself confirms it.
@@ -280,7 +289,7 @@ regime, or the municipal trial decisions.
 - **State Bank of Vietnam (SBV)** — payments, monetary policy, AML; owner of the "not a means of payment" line.
 - **Ministry of Public Security (MPS)** — AML enforcement, fraud/scam crackdowns.
 - **General Department of Taxation** (under MOF) — tax administration, declaration/withholding.
-- **State Securities Commission (SSC)** (under MOF) — market-conduct supervision, licensing via one-stop shop. Houses the **Crypto Asset Market Supervision Department**.
+- **State Securities Commission (SSC)** (under MOF) — market-conduct supervision, licensing via one-stop shop. Houses the **Crypto Asset Trading Market Management Board** (Ban Quản lý thị trường giao dịch tài sản mã hóa).
 
 ---
 
@@ -379,6 +388,8 @@ confirmed on 3 August 2026 and are due for a re-check.
 - **Vietnam Briefing (Tier 2):** `https://www.vietnam-briefing.com/news/vietnam-passes-first-ever-law-on-digital-technology-industry.html/`
 - **Thoi bao Tai chinh Viet Nam — SSC compliance/enforcement training with Tether and Chainalysis, 21 Jul 2026, Hanoi (Tier 2, Ministry of Finance newspaper):** `https://thoibaotaichinhvietnam.vn/dao-tao-nang-cao-nang-luc-quan-ly-giam-sat-va-thuc-thi-tren-thi-truong-tai-san-ma-hoa-201020.html` (Confirmed 19 Aug 2026) — replaces an SSC portal link that now 404s.
 - **BNEWS / Vietnam News Agency — same training (Tier 2, independent corroboration):** `https://bnews.vn/nang-cao-nang-luc-quan-ly-va-giam-sat-thi-truong-tai-san-ma-hoa/429710.html` (Confirmed 19 Aug 2026)
+- **Tin nhanh chứng khoán — SSC crypto board established by Quyết định 3552/QĐ-BTC, functions by 979/QĐ-UBCK (Tier 2):** `https://www.tinnhanhchungkhoan.vn/thanh-lap-ban-quan-ly-thi-truong-giao-dich-tai-san-ma-hoa-post382019.html` (Confirmed 5 Oct 2026)
+- **Thoi bao Tai chinh Viet Nam — SSC–MAS bilateral meeting, 30 Sep 2026 (Tier 2, Ministry of Finance newspaper):** `https://thoibaotaichinhvietnam.vn/uy-ban-chung-khoan-nha-nuoc-va-mas-tang-cuong-hop-tac-thuc-day-ket-noi-thi-truong-von-viet-nam-singapore-204626.html` (Confirmed 5 Oct 2026)
 - **MOF News — SSC to build supervision rules (Tier 1):** `https://www.mof.gov.vn/webcenter/portal/btcvn/pages_r/l/tin-bo-tai-chinh?dDocName=MOFUCM288593`
 
 ---
