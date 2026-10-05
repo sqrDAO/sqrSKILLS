@@ -35,7 +35,6 @@ skill's JSON roster — this file is the narrative context and cross-links to it
 |---|---|---|---|
 | **Corelia Academy** | Campus-embedded Web3 education: workshops, bootcamps (Van Lang University, Viet My College), Move/Sui + dApp + Web3-researcher tracks; certificates. Runs UniHackfest. | Active | [corelia.academy](https://corelia.academy/) |
 | **UniHackfest** | National student hackathon journey (by Corelia): build real AI & Web3 products in 14 weeks, then pitch. | Active | [unihackfest.vn](https://unihackfest.vn/) |
-| **VBI Academy** | Grassroots, free hands-on blockchain dev training; widely cited as the top-1 VN Web3 developer school. | Active as of a Dec 2025 MEXC partnership; its own site (vbiacademy.edu.vn) returned 404 on 5 Oct 2026 | [MEXC × VBI Academy, 11 Dec 2025](https://markets.financialcontent.com/custercountychief/article/gnwcq-2025-12-11-mexc-signs-strategic-partnership-with-vbi-academy-to-launch-the-digital-asset-program) |
 | **RMIT Vietnam FinTech Club / Hack-A-Venture** | VN's first student-led FinTech club; nationwide hackathon applying AI / blockchain / cybersecurity to UN SDG problems. | Active | [rmithackaventure.com](https://www.rmithackaventure.com/) |
 | **HUST BK Fintech Hackday** | Student fintech hackathon by Hanoi University of Science & Technology (Bach Khoa) + A-Star Group. | Active | [fintech.hust.edu.vn](https://fintech.hust.edu.vn/get-involved/hackday) |
 | **Blockchain4Youth (B4Y)** | Bitget-run global youth education program ($10M to 2028); active in VN; targets 1M students/early-career by 2026 via courses, campus lectures, hackathons. Global, not VN-specific — verify current VN cohort/URL live. | Active (global) | Bitget program |
@@ -91,8 +90,8 @@ These came up in research but are dead or off-topic. Do not add them back to the
 
 ## Cross-reference
 
-- Apply-able opportunities from this map (Corelia Academy, UniHackfest, VBI Academy, Superteam
-  Vietnam, RMIT Hack-A-Venture, HUST BK Fintech Hackday, Vietnam Aptos Hackathon, VietBUIDL,
+- Apply-able opportunities from this map (Corelia Academy, UniHackfest, Superteam Vietnam,
+  RMIT Hack-A-Venture, HUST BK Fintech Hackday, Vietnam Aptos Hackathon, VietBUIDL,
   plus Ronin/Kyros grants) are catalogued in the **`web3-opportunities`** skill and queryable
   via `query_opportunities.py --sea`.
 - For the legal/tax/licensing picture these players operate under, see `baseline.md`.

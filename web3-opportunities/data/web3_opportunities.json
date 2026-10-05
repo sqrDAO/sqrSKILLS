@@ -594,22 +594,6 @@
       "last_verified": "2026-09-28"
     },
     {
-      "id": "vbi-academy",
-      "name": "VBI Academy (Vietnam Blockchain Innovation Academy)",
-      "type": "education",
-      "stage": ["idea", "pre-seed"],
-      "dilution": "non-dilutive",
-      "chains": ["multi-chain"],
-      "regions": ["sea"],
-      "typical_check_or_prize": "Developer training",
-      "cadence": "periodic cohorts",
-      "status": "open",
-      "url": "https://markets.financialcontent.com/custercountychief/article/gnwcq-2025-12-11-mexc-signs-strategic-partnership-with-vbi-academy-to-launch-the-digital-asset-program",
-      "notes": "The Crypto Asset Arena program ran in July-August 2026 with 1.6B VND in prizes. Technical developer series on Rust, Solidity, and Move continue weekly on community channels. Its own site, vbiacademy.edu.vn, returned 404 on 5 Oct 2026; the url points at the Dec 2025 MEXC partnership release until a working homepage is found.",
-      "sea_relevant": true,
-      "last_verified": "2026-09-28"
-    },
-    {
       "id": "unihackfest",
       "name": "UniHackfest (Vietnam national student hackathon)",
       "type": "hackathon",

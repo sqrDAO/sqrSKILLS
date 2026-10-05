@@ -129,7 +129,7 @@ _Bundled baseline as of <data_as_of>. Verify time-sensitive fields (*) live befo
 
 ## SEA / Vietnam highlight
 - <entries where sea_relevant = true; includes VN student/education programs
-  (Corelia Academy, UniHackfest, VBI Academy) and community ramps (Superteam Vietnam)>
+  (Corelia Academy, UniHackfest) and community ramps (Superteam Vietnam)>
 
 ## Next steps
 - The 2-3 best fits to verify live now (deadline / open cohort), and which source to check.
