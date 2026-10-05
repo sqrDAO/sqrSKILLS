@@ -60,22 +60,61 @@ else:
         self.assertNotEqual(blocked.returncode, 0)
         self.assertIn('still open', blocked.stderr)
 
-    def test_research_failure_publishes_red_even_with_green_data_checks(self):
-        env = {**self.env, 'RESEARCH_STATUS': 'fail', 'HARNESS_STATUS': 'pass',
-               'ANCHOR_STATUS': 'pass', 'AUDIT_STATUS': 'pass', 'ANCHOR_DEAD': '0',
-               'ANCHOR_CHECKED': '10', 'AUDIT_REVERTED': '0', 'SHA': 'test',
-               'GITHUB_REPOSITORY': 'example/repo', 'RUN_URL': 'https://example.com/run'}
+    def publish(self, **overrides):
+        env = {**self.env, 'SKIPPED': 'none', 'REPEAT': '', 'GATE_STATUS': 'pass',
+               'HARNESS_STATUS': 'pass', 'ANCHOR_STATUS': 'pass', 'AUDIT_STATUS': 'pass',
+               'ANCHOR_DEAD': '0', 'ANCHOR_ROT': '0', 'ANCHOR_CHECKED': '10',
+               'AUDIT_REVERTED': '0', 'SHA': 'test', 'GITHUB_REPOSITORY': 'example/repo',
+               'RUN_URL': 'https://example.com/run', **overrides}
         block = step_blocks('Publish check results onto the PR')[0]
-        self.assertIn('RESEARCH_STATUS: ${{ steps.collect.outputs.status }}', block)
         subprocess.run(['bash', '-e', '-c', shell(block)], env=env, check=True, capture_output=True)
         calls = [json.loads(line) for line in (self.root / 'calls.jsonl').read_text().splitlines()]
-        research = next(call for call in calls if 'context=Refresh / research legs' in call)
+        return next(call for call in calls if 'context=Refresh / research legs' in call)
+
+    def test_a_skipped_leg_is_named_but_not_red(self):
+        # 5 Oct 2026: web3 timed out and crypto failed its tests, and the whole
+        # refresh went red although the visa leg was fine. A single miss is now
+        # reported in the status and the title, not failed.
+        research = self.publish(SKIPPED='web3-opportunities (failure)')
+        self.assertIn('state=success', research)
+        self.assertIn('description=not refreshed: web3-opportunities (failure)', research)
+
+    def test_a_skill_missing_two_weeks_running_is_red(self):
+        research = self.publish(SKIPPED='web3-opportunities (failure)', REPEAT='web3-opportunities')
         self.assertIn('state=failure', research)
-        for call in calls:
-            if call != research:
-                self.assertIn('state=success', call)
         failure = step_blocks('Fail the run if the refresh did not pass its checks')[0]
-        self.assertIn("steps.collect.outputs.status != 'pass'", failure)
+        self.assertIn("steps.pr_meta.outputs.repeat != ''", failure)
+        self.assertIn("steps.gate.outputs.status != 'pass'", failure)
+        self.assertNotIn('needs.web3.result', failure.split('env:')[0])
+
+    def pr_meta(self, previous, **legs):
+        repo = self.root / 'repo'
+        repo.mkdir()
+        subprocess.run(['git', 'init', '-q'], cwd=repo, check=True)
+        output = self.root / 'output'
+        env = {**self.env, 'TEST_OPEN_PR': previous, 'GITHUB_OUTPUT': str(output),
+               'LEG_CRYPTO': 'success', 'LEG_WEB3': 'success', 'LEG_VISA': 'success',
+               'GATE_REJECTED': '', **legs}
+        block = step_blocks('Build pull request metadata')[0]
+        subprocess.run(['bash', '-e', '-c', shell(block)], cwd=repo, env=env, check=True, capture_output=True)
+        return dict(line.split('=', 1) for line in output.read_text().splitlines())
+
+    def test_title_names_what_did_not_refresh(self):
+        meta = self.pr_meta('Weekly skill refresh — 2026-10-05 — vietnam-visa-check',
+                            LEG_WEB3='failure', GATE_REJECTED='crypto')
+        self.assertIn('not refreshed: vietnam-crypto-radar (rejected), web3-opportunities (failure)',
+                      meta['title'])
+        self.assertEqual(meta['repeat'], '')
+
+    def test_a_repeat_miss_is_detected_from_last_weeks_title(self):
+        previous = 'Weekly skill refresh — 2026-10-05 — x — not refreshed: web3-opportunities (failure)'
+        meta = self.pr_meta(previous, LEG_WEB3='failure', LEG_VISA='failure')
+        self.assertEqual(meta['repeat'], 'web3-opportunities')
+
+    def test_all_legs_green_has_nothing_skipped(self):
+        meta = self.pr_meta('')
+        self.assertEqual(meta['skipped'], 'none')
+        self.assertTrue(meta['title'].endswith('— no verified changes'))
 
     def test_changed_roster_regenerates_only_allowlisted_case_files(self):
         for directory in ('evals', 'web3-opportunities', 'vietnam-visa-check'):

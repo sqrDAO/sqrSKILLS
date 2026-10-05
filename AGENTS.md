@@ -241,11 +241,21 @@ before merging any refresh branch whose content has landed by another route.
 Weekly research legs run on separate runners and publish outputs only after success.
 A separate packaging job imports only allowed data files and version-only PATCH
 changes through `scripts/collect_refresh.py`. Malformed outputs reject only their
-own leg; research failures and rejections publish a failing PR status while healthy
-legs still package. The packaging job audits freshness, regenerates the three
-allowlisted evaluation case files, runs the full harness (including both generated
-evaluation-split checks), and checks anchors. It repeats the open-PR guard directly
-before publication to protect corrections opened while research was running.
+own leg. The packaging job audits freshness, then `scripts/gate_refresh.py` tries
+each changed leg alone on top of `main` (validator, unit tests, unanchored check,
+regenerated splits, and the anchors that leg newly cites) and reverts any leg that
+fails, keeping its diff in the `refresh-rejected` artifact. The gated tree then
+gets the full harness and an anchor check run `--since HEAD`, so only an anchor the
+refresh added can fail it; one already on `main` is link rot, reported as a
+warning. It repeats the open-PR guard directly before publication to protect
+corrections opened while research was running.
+
+A leg that timed out, crashed, or was dropped by the gate does not turn the run
+red: the healthy legs ship, and the PR title ends `not refreshed: <skill>
+(<reason>)`. The same skill missing two weeks running does turn it red, as does
+any check failing on the tree that ships. To review a rejected leg, download its
+patch from the run's `refresh-rejected` artifact; the gate's reasons are in the
+PR body and as warnings on the run.
 Never move research back into the packaging checkout: a timed-out process can
 survive step cancellation and write after cleanup or validation. Failed legs have
 no artifacts imported, and temporary summaries/attestations are not PR contents.

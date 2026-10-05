@@ -12,6 +12,12 @@ no DNS record at all. Those fail the run. A host that is alive but refuses us
 resets) are reported as unverified but do not fail, so a bot-hostile host or an
 offline runner cannot block a refresh. Use --strict to fail on those too.
 
+A redirect that lands on an article with an unrelated slug is also dead: some
+news sites route by numeric id alone, so an invented slug still answers 200.
+
+With --since REF, only an anchor absent at REF can fail. One already present is
+link rot the current change did not cause; it is reported with "new": false.
+
 The command prints one JSON result to stdout. Human-readable diagnostics are
 written to stderr so CI and other agents can consume the result reliably.
 """
@@ -24,7 +30,9 @@ import json
 import re
 import socket
 import ssl
+import subprocess
 import sys
+import tempfile
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -100,6 +108,37 @@ def collect(root: Path, targets: tuple[str, ...]) -> list[tuple[str, str]]:
     return unique
 
 
+# The files collect() reads, by repository path, so the same anchors can be read
+# out of an earlier revision.
+ANCHOR_FILES = (
+    "vietnam-crypto-radar/references/baseline.md",
+    "vietnam-crypto-radar/references/sources.md",
+    "vietnam-visa-check/data/vietnam_immigration_policy.json",
+    "web3-opportunities/data/web3_opportunities.json",
+)
+
+
+def collect_at(root: Path, ref: str, targets: tuple[str, ...]) -> set[str]:
+    """Anchor URLs as they stood at a git revision.
+
+    A dead anchor the refresh just wrote is the refresh's fault and rejects it.
+    One that was already in the files is link rot, which the refresh did not
+    cause and cannot be blamed for -- reporting the two the same way is what
+    turned a week of ordinary rot into a red run.
+    """
+    with tempfile.TemporaryDirectory() as temp:
+        base = Path(temp)
+        for relative in ANCHOR_FILES:
+            shown = subprocess.run(
+                ["git", "show", f"{ref}:{relative}"],
+                cwd=root, capture_output=True,
+            )
+            if shown.returncode == 0:
+                (base / relative).parent.mkdir(parents=True, exist_ok=True)
+                (base / relative).write_bytes(shown.stdout)
+        return {url for url, _ in collect(base, targets)}
+
+
 # A document that is gone says so. Everything else 4xx means the host is alive
 # and declining to serve us, which is not evidence about the document.
 DEFINITIVELY_GONE = (404, 410)
@@ -169,6 +208,36 @@ def hostname_resolves(url: str) -> bool:
     return True
 
 
+# Path segments that carry no meaning when comparing two article slugs.
+SLUG_NOISE = re.compile(r"^(?:[a-z]{0,4}\d+|html?|htm|vnp|chn|antd|aspx|php)$")
+
+
+def slug_words(url: str) -> set[str]:
+    """Words in the last path segment, e.g. `ubck-lam-viec-...-post397123.html`."""
+    segments = [part for part in urllib.parse.urlsplit(url).path.split("/") if part]
+    if not segments:
+        return set()
+    words = re.split(r"[-_.]+", urllib.parse.unquote(segments[-1]).lower())
+    return {word for word in words if word and not SLUG_NOISE.match(word)}
+
+
+def redirected_to_another_article(url: str, final: str) -> bool:
+    """True when a redirect lands on an article with an unrelated slug.
+
+    Several Vietnamese news sites route by the numeric id alone and redirect
+    any slug to the article that owns the id. An agent that invents a slug
+    around a real id therefore gets a 200 for a page about something else: the
+    5 Oct 2026 refresh cited an SSC-MAS meeting at a URL that 301s to a Hanoi
+    urban-planning story. Both sides need a real slug (three words or more)
+    and must share almost none of them, so a site that tidies a headline or
+    adds a trailing slash is untouched.
+    """
+    asked, landed = slug_words(url), slug_words(final)
+    if len(asked) < 3 or len(landed) < 3:
+        return False
+    return len(asked & landed) / len(asked | landed) < 0.2
+
+
 def served_as_expected(url: str, response) -> tuple[str, object]:
     """Verdict for a 2xx response, checking the body is the kind of thing cited.
 
@@ -186,6 +255,10 @@ def served_as_expected(url: str, response) -> tuple[str, object]:
     is definitive about what is there, and what is there is not the document.
     """
     status = response.status
+    geturl = getattr(response, "geturl", None)
+    final = (geturl() if geturl else None) or url
+    if redirected_to_another_article(url, final):
+        return "dead", f"{status} redirected-to-another-article ({final})"
     if not urllib.parse.urlsplit(url).path.lower().endswith(".pdf"):
         return "ok", status
 
@@ -259,6 +332,11 @@ def main() -> int:
     parser.add_argument(
         "--strict", action="store_true", help="also fail on unverified anchors"
     )
+    parser.add_argument(
+        "--since",
+        metavar="REF",
+        help="fail only on dead anchors absent at this git revision; older ones are reported as rot",
+    )
     args = parser.parse_args()
 
     targets = tuple(t.strip() for t in args.targets.split(",") if t.strip())
@@ -268,12 +346,15 @@ def main() -> int:
 
     root = Path(__file__).resolve().parent.parent
     anchors = collect(root, targets)
+    existing = collect_at(root, args.since, targets) if args.since else None
 
     dead: list[dict[str, object]] = []
     unverified: list[dict[str, object]] = []
     for url, origin in anchors:
         verdict, status = classify(url, args.timeout, args.attempts)
         record = {"url": url, "status": status, "source": origin}
+        if existing is not None:
+            record["new"] = url not in existing
         if verdict == "dead":
             dead.append(record)
             print(f"DEAD {status} {url}  ({origin})", file=sys.stderr)
@@ -281,7 +362,9 @@ def main() -> int:
             unverified.append(record)
             print(f"WARN {status} {url}  ({origin})", file=sys.stderr)
 
-    ok = not dead and (not unverified or not args.strict)
+    # With --since, only an anchor this change introduced can fail the run.
+    blocking = [r for r in dead if r.get("new", True)]
+    ok = not blocking and (not unverified or not args.strict)
     print(
         json.dumps(
             {
@@ -290,6 +373,7 @@ def main() -> int:
                     "checked": len(anchors),
                     "resolved": len(anchors) - len(dead) - len(unverified),
                     "dead": len(dead),
+                    "new_dead": len(blocking),
                     "unverified": len(unverified),
                 },
                 "dead": dead,

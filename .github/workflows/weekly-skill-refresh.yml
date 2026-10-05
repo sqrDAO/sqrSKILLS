@@ -76,7 +76,7 @@ jobs:
   crypto:
     needs: preflight
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     permissions:
       contents: read
     steps:
@@ -86,7 +86,7 @@ jobs:
           persist-credentials: false
       - name: Refresh vietnam-crypto-radar
         id: leg_crypto
-        timeout-minutes: 25
+        timeout-minutes: 35
         uses: google-github-actions/run-gemini-cli@f77273f4c914e4bf38440cf36a0369cb64a37489  # v0.1.22
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -208,6 +208,23 @@ jobs:
               range before editing, and never write the marker back. Output
               with a truncation marker or an over-long line is rejected.
 
+            Before writing the summary, check your own edit. Running these
+            two commands is allowed even though they live outside
+            `vietnam-crypto-radar/`:
+
+                python3 -m unittest tests.test_vietnam_crypto_radar -v
+                python3 scripts/check_anchors.py --since HEAD --targets baseline
+
+            A failing test means your edit removed or contradicted a fact an
+            earlier correction pinned: restore the wording the test names
+            instead of changing the test. A dead anchor with `"new": true` is
+            one you added: replace it with a URL you opened this run, or drop
+            the claim. A dead anchor with `"new": false` was already in
+            references/baseline.md; replace it if you can find the document's current
+            home. A later step tries this skill's refresh on its own and DROPS
+            THE WHOLE REFRESH if either check fails, so an unfixed failure
+            costs every other change you made this week.
+
             Finish by writing `REFRESH_SUMMARY.vietnam-crypto-radar.md` at the
             repo root: a short markdown summary, headed `## vietnam-crypto-radar`,
             of exactly what you changed (old -> new dates and notable
@@ -237,7 +254,10 @@ jobs:
   web3:
     needs: preflight
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    # The leg grew from 5 to 14 to 20+ minutes over three weeks as the roster
+    # grew, and timed out on 5 Oct 2026. The per-run cap in the prompt is what
+    # bounds it; the headroom here is for a slow day, not for a full sweep.
+    timeout-minutes: 45
     permissions:
       contents: read
     steps:
@@ -247,7 +267,7 @@ jobs:
           persist-credentials: false
       - name: Refresh web3-opportunities
         id: leg_web3
-        timeout-minutes: 20
+        timeout-minutes: 35
         uses: google-github-actions/run-gemini-cli@f77273f4c914e4bf38440cf36a0369cb64a37489  # v0.1.22
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -283,6 +303,11 @@ jobs:
             later workflow step packages your changes into a pull request.
 
             - Read data/web3_opportunities.json and references/sources.md.
+            - Re-check AT MOST 15 entries this run: those with the oldest
+              `last_verified` first, and among equal dates the `open`,
+              `rolling` and `cohort-based` ones before `closed`. The rest
+              wait for next week. A full sweep no longer fits the time limit,
+              and a run that times out ships nothing at all.
             - Live-verify the time-sensitive fields (status, cadence,
               typical_check_or_prize, deadlines). Update changed entries and
               their per-entry `last_verified` to today; update the top-level
@@ -313,6 +338,23 @@ jobs:
               `[truncated]`, you did not see the whole line: re-read that
               range before editing, and never write the marker back. Output
               with a truncation marker or an over-long line is rejected.
+
+            Before writing the summary, check your own edit. Running these
+            two commands is allowed even though they live outside
+            `web3-opportunities/`:
+
+                python3 -m unittest tests.test_web3_opportunities -v
+                python3 scripts/check_anchors.py --since HEAD --targets web3
+
+            A failing test means your edit removed or contradicted a fact an
+            earlier correction pinned: restore the wording the test names
+            instead of changing the test. A dead anchor with `"new": true` is
+            one you added: replace it with a URL you opened this run, or drop
+            the claim. A dead anchor with `"new": false` was already in
+            the roster; replace it if you can find the document's current
+            home. A later step tries this skill's refresh on its own and DROPS
+            THE WHOLE REFRESH if either check fails, so an unfixed failure
+            costs every other change you made this week.
 
             Finish by writing `REFRESH_SUMMARY.web3-opportunities.md` at the
             repo root: a short markdown summary, headed `## web3-opportunities`,
@@ -364,7 +406,7 @@ jobs:
           persist-credentials: false
       - name: Refresh vietnam-visa-check
         id: leg_visa
-        timeout-minutes: 10
+        timeout-minutes: 12
         uses: google-github-actions/run-gemini-cli@f77273f4c914e4bf38440cf36a0369cb64a37489  # v0.1.22
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -415,6 +457,23 @@ jobs:
               `[truncated]`, you did not see the whole line: re-read that
               range before editing, and never write the marker back. Output
               with a truncation marker or an over-long line is rejected.
+
+            Before writing the summary, check your own edit. Running these
+            two commands is allowed even though they live outside
+            `vietnam-visa-check/`:
+
+                python3 -m unittest tests.test_vietnam_visa_check -v
+                python3 scripts/check_anchors.py --since HEAD --targets visa
+
+            A failing test means your edit removed or contradicted a fact an
+            earlier correction pinned: restore the wording the test names
+            instead of changing the test. A dead anchor with `"new": true` is
+            one you added: replace it with a URL you opened this run, or drop
+            the claim. A dead anchor with `"new": false` was already in
+            the policy file; replace it if you can find the document's current
+            home. A later step tries this skill's refresh on its own and DROPS
+            THE WHOLE REFRESH if either check fails, so an unfixed failure
+            costs every other change you made this week.
 
             Finish by writing `REFRESH_SUMMARY.vietnam-visa-check.md` at the
             repo root: a short markdown summary, headed `## vietnam-visa-check`,
@@ -520,6 +579,27 @@ jobs:
           EOF
           rm -f REFRESH_VERIFIED.json
 
+      - name: Drop any leg that fails the harness on its own
+        id: gate
+        run: |
+          # Each changed leg is applied alone on top of main and run through the
+          # validator, tests, unanchored check, regenerated splits, and the
+          # anchors it newly cites. A failing leg is reverted and its diff kept
+          # for review; the healthy legs ship. See scripts/gate_refresh.py.
+          # Not fatal here: packaging must still open the PR. A gate that did not
+          # complete leaves status unset or fail, and the last step turns red.
+          python3 scripts/gate_refresh.py --patches "$RUNNER_TEMP/refresh-rejected" > /tmp/gate.json \
+            || echo "gate_refresh.py exited non-zero" >&2
+          cat /tmp/gate.json
+
+      - name: Upload rejected refresh diffs
+        if: steps.gate.outputs.rejected != ''
+        uses: actions/upload-artifact@v6
+        with:
+          name: refresh-rejected
+          path: ${{ runner.temp }}/refresh-rejected/
+          if-no-files-found: warn
+
       - name: Regenerate evaluation cases from audited data
         id: regenerate
         continue-on-error: true
@@ -561,8 +641,12 @@ jobs:
           # A citation that 404s is not a weak citation, it is no citation.
           # Dead means definitive (404/410 or no DNS record); a bot-hostile host
           # is reported, not failed, so this cannot block on someone's WAF.
+          # --since HEAD: an anchor this refresh added fails the run (the gate
+          # should already have dropped its leg). One that was already on main
+          # is link rot, reported as a warning; failing on it is what made an
+          # unrelated site going down turn the 5 Oct 2026 refresh red.
           status=pass
-          python3 scripts/check_anchors.py > /tmp/anchors.json || status=fail
+          python3 scripts/check_anchors.py --since HEAD > /tmp/anchors.json || status=fail
           echo "status=$status" >> "$GITHUB_OUTPUT"
           # Tolerate a crashed checker: report zeros rather than failing the
           # step outright, since the status above already carries the verdict.
@@ -573,10 +657,13 @@ jobs:
               c, dead = d["counts"], d["dead"]
           except Exception:
               c, dead = {"checked": 0, "dead": 0, "unverified": 0}, []
+          rot = [x for x in dead if not x.get("new", True)]
           print(f"checked={c['checked']}")
           print(f"dead={c['dead']}")
+          print(f"rot={len(rot)}")
           print(f"unverified={c['unverified']}")
           print("dead_urls=" + ("; ".join(x["url"] for x in dead) or "none"))
+          print("rot_urls=" + ("; ".join(x["url"] for x in rot) or "none"))
           EOF
 
       - name: Read refresh summary
@@ -600,6 +687,12 @@ jobs:
 
       - name: Build pull request metadata
         id: pr_meta
+        env:
+          GH_TOKEN: ${{ secrets.REFRESH_PAT || secrets.GITHUB_TOKEN }}
+          LEG_CRYPTO: ${{ steps.collect.outputs.crypto }}
+          LEG_WEB3: ${{ steps.collect.outputs.web3 }}
+          LEG_VISA: ${{ steps.collect.outputs.visa }}
+          GATE_REJECTED: ${{ steps.gate.outputs.rejected }}
         run: |
           run_date="$(date -u +%F)"
           changed_skills="$(
@@ -610,11 +703,35 @@ jobs:
               awk 'BEGIN { sep = "" } { printf "%s%s", sep, $0; sep = ", " }'
           )"
 
-          if [ -n "$changed_skills" ]; then
-            echo "title=Weekly skill refresh — ${run_date} — ${changed_skills}" >> "$GITHUB_OUTPUT"
-          else
-            echo "title=Weekly skill refresh — ${run_date} — no verified changes" >> "$GITHUB_OUTPUT"
-          fi
+          # A leg that timed out, crashed, or was dropped by the gate leaves its
+          # skill un-refreshed. That alone does not turn the run red -- the
+          # healthy legs shipped and the title says what did not -- but the
+          # same skill missing two weeks running does, since then nobody is
+          # refreshing it at all.
+          skipped=""
+          for pair in "crypto:vietnam-crypto-radar" "web3:web3-opportunities" "visa:vietnam-visa-check"; do
+            leg="${pair%%:*}"; skill="${pair#*:}"
+            var="LEG_$(echo "$leg" | tr a-z A-Z)"; outcome="${!var}"
+            case ",$GATE_REJECTED," in *",$leg,"*) outcome=rejected ;; esac
+            [ "$outcome" = success ] || skipped="${skipped:+$skipped, }${skill} (${outcome:-unknown})"
+          done
+          previous="$(gh pr list --head automation/weekly-skill-refresh --state all \
+                        --limit 1 --json title --jq '.[0].title // empty' || true)"
+          repeat=""
+          case "$previous" in
+            *"not refreshed:"*)
+              for skill in vietnam-crypto-radar web3-opportunities vietnam-visa-check; do
+                case "$skipped" in *"$skill ("*)
+                  case "${previous#*not refreshed:}" in *"$skill"*) repeat="${repeat:+$repeat, }$skill" ;; esac ;;
+                esac
+              done ;;
+          esac
+
+          title="Weekly skill refresh — ${run_date} — ${changed_skills:-no verified changes}"
+          [ -z "$skipped" ] || title="${title} — not refreshed: ${skipped}"
+          echo "title=${title}" >> "$GITHUB_OUTPUT"
+          echo "skipped=${skipped:-none}" >> "$GITHUB_OUTPUT"
+          echo "repeat=${repeat}" >> "$GITHUB_OUTPUT"
 
       - name: Refuse to clobber an open refresh PR
         env:
@@ -669,11 +786,16 @@ jobs:
             | Check | Result |
             |---|---|
             | Research legs and artifact validation | **${{ steps.collect.outputs.status }}** — crypto=${{ steps.collect.outputs.crypto }}, web3=${{ steps.collect.outputs.web3 }}, visa=${{ steps.collect.outputs.visa }} |
+            | Per-leg gate | **${{ steps.gate.outputs.status }}** — rejected: ${{ steps.gate.outputs.rejected || 'none' }} |
             | Skill harness (validator + tests + anchors on new instruments) | **${{ steps.harness.outputs.status }}** |
-            | Source anchors resolve | **${{ steps.anchors.outputs.status }}** — ${{ steps.anchors.outputs.checked }} checked, ${{ steps.anchors.outputs.dead }} dead, ${{ steps.anchors.outputs.unverified }} unverified |
+            | Source anchors resolve | **${{ steps.anchors.outputs.status }}** — ${{ steps.anchors.outputs.checked }} checked, ${{ steps.anchors.outputs.dead }} dead (${{ steps.anchors.outputs.rot }} already on main), ${{ steps.anchors.outputs.unverified }} unverified |
             | Verification honesty | **${{ steps.audit.outputs.status }}** — ${{ steps.audit.outputs.changed }} entries changed, ${{ steps.audit.outputs.attested }} re-verified unchanged, **${{ steps.audit.outputs.reverted }} unsupported dates rolled back** |
 
-            Dead anchors: ${{ steps.anchors.outputs.dead_urls }}
+            Not refreshed this week: ${{ steps.pr_meta.outputs.skipped }}
+
+            Gate reasons: ${{ steps.gate.outputs.reasons }}
+
+            Dead anchors already on main (link rot, fix by hand): ${{ steps.anchors.outputs.rot_urls }}
 
             A `last_verified` date is kept only where the entry's content changed
             or the agent attested it re-checked that entry. Anything else is
@@ -695,11 +817,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           SHA: ${{ steps.pr.outputs.pull-request-head-sha }}
-          RESEARCH_STATUS: ${{ steps.collect.outputs.status }}
+          SKIPPED: ${{ steps.pr_meta.outputs.skipped }}
+          REPEAT: ${{ steps.pr_meta.outputs.repeat }}
+          GATE_STATUS: ${{ steps.gate.outputs.status }}
           HARNESS_STATUS: ${{ steps.harness.outputs.status }}
           ANCHOR_STATUS: ${{ steps.anchors.outputs.status }}
           AUDIT_STATUS: ${{ steps.audit.outputs.status }}
           ANCHOR_DEAD: ${{ steps.anchors.outputs.dead }}
+          ANCHOR_ROT: ${{ steps.anchors.outputs.rot }}
           ANCHOR_CHECKED: ${{ steps.anchors.outputs.checked }}
           AUDIT_REVERTED: ${{ steps.audit.outputs.reverted }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
@@ -714,44 +839,73 @@ jobs:
               -f description="$3" \
               -f target_url="$RUN_URL" >/dev/null
           }
-          publish "Refresh / research legs" "$RESEARCH_STATUS" "research completion and artifact validation"
+          # A skill that did not refresh is reported, not failed, unless it also
+          # missed last week. The PR title names it either way.
+          legs=pass
+          [ -z "$REPEAT" ] || legs=fail
+          [ "$GATE_STATUS" = pass ] || legs=fail
+          if [ "$SKIPPED" = none ]; then
+            publish "Refresh / research legs" "$legs" "all three skills refreshed"
+          else
+            # Status descriptions are capped at 140 characters.
+            publish "Refresh / research legs" "$legs" "not refreshed: ${SKIPPED:0:120}"
+          fi
           publish "Refresh / harness" "$HARNESS_STATUS" "validator + unittest"
           publish "Refresh / anchors" "$ANCHOR_STATUS" \
-            "$ANCHOR_CHECKED checked, $ANCHOR_DEAD dead"
+            "$ANCHOR_CHECKED checked, $ANCHOR_DEAD dead ($ANCHOR_ROT already on main)"
           publish "Refresh / verification honesty" "$AUDIT_STATUS" \
             "$AUDIT_REVERTED unsupported dates rolled back"
 
+      - name: Warn about what did not refresh
+        if: steps.pr_meta.outputs.skipped != 'none' || steps.anchors.outputs.rot != '0'
+        env:
+          SKIPPED: ${{ steps.pr_meta.outputs.skipped }}
+          REASONS: ${{ steps.gate.outputs.reasons }}
+          ROT_URLS: ${{ steps.anchors.outputs.rot_urls }}
+        run: |
+          # Annotations, not failures: they show on the run page without
+          # turning it red. Values come from untrusted pages, so they are passed
+          # as env and printed with printf, never interpolated into the script.
+          [ "$SKIPPED" = none ] || printf '::warning::Not refreshed this week: %s\n' "$SKIPPED"
+          [ "$REASONS" = none ] || [ -z "$REASONS" ] || printf '::warning::Gate reasons: %s\n' "$REASONS"
+          [ "$ROT_URLS" = none ] || printf '::warning::Dead anchors already on main: %s\n' "$ROT_URLS"
+
       - name: Fail the run if the refresh did not pass its checks
+        # A leg that timed out or was dropped by the gate is not a failure on
+        # its own: the healthy legs shipped and the PR title says which skill
+        # did not refresh. These are the cases that need a person: a pipeline
+        # step that did not complete, a check failing on the tree that ships,
+        # or the same skill missing two weeks running.
         if: >-
-          steps.collect.outputs.status != 'pass' ||
-          steps.harness.outputs.status == 'fail' ||
-          steps.anchors.outputs.status == 'fail' ||
-          steps.audit.outputs.status == 'fail' ||
-          needs.crypto.result != 'success' ||
-          needs.web3.result != 'success' ||
-          needs.visa.result != 'success'
+          steps.collect.outputs.status == '' ||
+          steps.gate.outputs.status != 'pass' ||
+          steps.harness.outputs.status != 'pass' ||
+          steps.anchors.outputs.status != 'pass' ||
+          steps.audit.outputs.status != 'pass' ||
+          steps.pr_meta.outputs.repeat != ''
         # Passed as env, not interpolated into the script: `${{ }}` expands into
         # the shell source before Bash sees it, and these values derive from URLs
         # the refresh agent copies out of untrusted web pages. A URL containing
         # $(...) would otherwise execute here.
         env:
           RESEARCH_STATUS: ${{ steps.collect.outputs.status }}
+          GATE_STATUS: ${{ steps.gate.outputs.status }}
           HARNESS_STATUS: ${{ steps.harness.outputs.status }}
           ANCHOR_STATUS: ${{ steps.anchors.outputs.status }}
           AUDIT_STATUS: ${{ steps.audit.outputs.status }}
           DEAD_URLS: ${{ steps.anchors.outputs.dead_urls }}
+          REPEAT: ${{ steps.pr_meta.outputs.repeat }}
           LEG_CRYPTO: ${{ needs.crypto.result }}
           LEG_WEB3: ${{ needs.web3.result }}
           LEG_VISA: ${{ needs.visa.result }}
         run: |
           # The PR is opened either way — a broken refresh is exactly what needs
           # human eyes — but the Actions run goes red so it is not missed.
-          printf 'research=%s\n' "$RESEARCH_STATUS"
+          printf 'research=%s gate=%s\n' "$RESEARCH_STATUS" "$GATE_STATUS"
           printf 'harness=%s anchors=%s audit=%s\n' \
             "$HARNESS_STATUS" "$ANCHOR_STATUS" "$AUDIT_STATUS"
           printf 'Dead anchors: %s\n' "$DEAD_URLS"
-          # Packaging runs after failed research jobs so successful legs can ship.
-          # A failed or timed-out leg must still turn the overall run red.
           printf 'legs: crypto=%s web3=%s visa=%s\n' \
             "$LEG_CRYPTO" "$LEG_WEB3" "$LEG_VISA"
+          [ -z "$REPEAT" ] || printf 'Not refreshed two weeks running: %s\n' "$REPEAT"
           exit 1
