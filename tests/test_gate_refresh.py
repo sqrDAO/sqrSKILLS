@@ -79,6 +79,20 @@ class GateRefreshTests(unittest.TestCase):
         # Once for the leg on its own, once for the tree that ships.
         self.assertEqual(len(self.rebuilds), 2)
 
+    def test_a_crash_mid_gate_ships_no_leg(self):
+        self.refresh('crypto', 'refreshed crypto\n')
+        self.refresh('visa', 'refreshed visa\n')
+
+        def check(root, leg):
+            if leg == 'visa':
+                raise RuntimeError('harness exploded')
+            return []
+        result = gate.gate(self.root, self.patches, check=check, rebuild=lambda root: [])
+        self.assertFalse(result['ok'])
+        self.assertIn('gate did not complete', result['problems'][0])
+        self.assertIn('at HEAD', self.read('crypto'))
+        self.assertIn('at HEAD', self.read('visa'))
+
     def test_reasons_cannot_carry_a_newline_into_github_output(self):
         self.assertEqual(gate.one_line('dead: https://x.example/\nstatus=pass'),
                          'dead: https://x.example/ status=pass')

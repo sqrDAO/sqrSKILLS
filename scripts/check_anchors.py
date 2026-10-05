@@ -125,7 +125,16 @@ def collect_at(root: Path, ref: str, targets: tuple[str, ...]) -> set[str]:
     One that was already in the files is link rot, which the refresh did not
     cause and cannot be blamed for -- reporting the two the same way is what
     turned a week of ordinary rot into a red run.
+
+    An unknown revision is an error, not an empty baseline: reading it as
+    "nothing existed" would blame the change for every rotten anchor on main.
     """
+    revision = subprocess.run(
+        ["git", "rev-parse", "--verify", "--quiet", f"{ref}^{{commit}}"],
+        cwd=root, capture_output=True,
+    )
+    if revision.returncode != 0:
+        raise ValueError(f"unavailable --since revision: {ref}")
     with tempfile.TemporaryDirectory() as temp:
         base = Path(temp)
         for relative in ANCHOR_FILES:
@@ -346,7 +355,10 @@ def main() -> int:
 
     root = Path(__file__).resolve().parent.parent
     anchors = collect(root, targets)
-    existing = collect_at(root, args.since, targets) if args.since else None
+    try:
+        existing = collect_at(root, args.since, targets) if args.since else None
+    except (ValueError, OSError) as exc:
+        parser.error(str(exc))
 
     dead: list[dict[str, object]] = []
     unverified: list[dict[str, object]] = []

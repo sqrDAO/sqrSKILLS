@@ -344,8 +344,10 @@ class AnchorsSinceRevisionTests(unittest.TestCase):
         # revision was not read at all.
         self.assertGreater(len(current & at_head), len(current) // 2)
 
-    def test_unknown_revision_collects_nothing(self) -> None:
-        self.assertEqual(set(), check_anchors.collect_at(ROOT, "no-such-ref-xyz", check_anchors.TARGETS))
+    def test_unknown_revision_is_an_error_not_an_empty_baseline(self) -> None:
+        # An empty baseline would mark every rotten anchor on main as new.
+        with self.assertRaises(ValueError):
+            check_anchors.collect_at(ROOT, "no-such-ref-xyz", check_anchors.TARGETS)
 
 
 class AnchorTargetSafetyTests(unittest.TestCase):

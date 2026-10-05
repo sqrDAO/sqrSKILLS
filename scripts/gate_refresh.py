@@ -125,8 +125,18 @@ def gate(root: Path, patches: Path, check=harness, rebuild=regenerate) -> dict:
     legs = changed_legs(root)
     snapshot = {f: (root / f).read_bytes() for leg in legs for f in leg_files(leg)}
     verdicts = {}
-    for leg in legs:
-        verdicts[leg] = apply(root, snapshot, {leg}, rebuild) + check(root, leg)
+    try:
+        for leg in legs:
+            verdicts[leg] = apply(root, snapshot, {leg}, rebuild) + check(root, leg)
+    except Exception as exc:  # noqa: BLE001 - any crash must not ship a half-tried tree
+        # Mid-loop the tree holds one leg with the others reverted, which the
+        # PR step would otherwise package. Ship nothing instead, and fail.
+        problems = [f'gate did not complete ({type(exc).__name__}: {one_line(str(exc))}); no leg shipped']
+        try:
+            problems += apply(root, snapshot, set(), rebuild)
+        except Exception as restore:  # noqa: BLE001
+            problems.append(f'restoring main failed too ({type(restore).__name__})')
+        return {'ok': False, 'changed': legs, 'accepted': [], 'rejected': {}, 'problems': problems}
     accepted = {leg for leg, reasons in verdicts.items() if not reasons}
     rejected = {leg: [one_line(r) for r in reasons] for leg, reasons in verdicts.items() if reasons}
     problems = apply(root, snapshot, accepted, rebuild)
