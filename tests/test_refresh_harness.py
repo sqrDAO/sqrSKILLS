@@ -230,10 +230,16 @@ class CheckAnchorsTests(unittest.TestCase):
 class _FakeResponse:
     """Enough of an http.client.HTTPResponse for served_as_expected."""
 
-    def __init__(self, status: int, content_type: str | None, body: bytes = b"") -> None:
+    def __init__(
+        self, status: int, content_type: str | None, body: bytes = b"", url: str | None = None
+    ) -> None:
         self.status = status
         self.headers = {} if content_type is None else {"Content-Type": content_type}
         self._body = body
+        self._url = url
+
+    def geturl(self) -> str | None:
+        return self._url
 
     def read(self, size: int = -1) -> bytes:
         return self._body if size < 0 else self._body[:size]
@@ -283,6 +289,65 @@ class PdfAnchorContentTests(unittest.TestCase):
             _FakeResponse(200, "text/html; charset=utf-8", b"<!DOCTYPE"),
         )
         self.assertEqual("ok", verdict)
+
+
+class RedirectedSlugTests(unittest.TestCase):
+    """A news site that routes by id alone answers 200 for an invented slug.
+
+    The 5 Oct 2026 refresh cited an SSC-MAS meeting at a URL that 301s to an
+    unrelated Hanoi planning story, and the checker called it resolved.
+    """
+
+    INVENTED = (
+        "https://www.tinnhanhchungkhoan.vn/"
+        "ubck-lam-viec-voi-co-quan-quan-ly-tien-te-singapore-mas-post397123.html"
+    )
+    LANDED = (
+        "https://www.tinnhanhchungkhoan.vn/"
+        "ha-noi-lay-y-kien-nhan-dan-ve-dieu-chinh-tong-the-quy-hoach-phan-khu-do-thi-song-hong-post397123.html"
+    )
+
+    def verdict(self, url: str, landed: str | None) -> tuple[str, object]:
+        return check_anchors.served_as_expected(url, _FakeResponse(200, "text/html", url=landed))
+
+    def test_redirect_to_an_unrelated_article_is_dead(self) -> None:
+        verdict, status = self.verdict(self.INVENTED, self.LANDED)
+        self.assertEqual("dead", verdict)
+        self.assertIn("redirected-to-another-article", str(status))
+
+    def test_unredirected_and_lightly_edited_slugs_are_ok(self) -> None:
+        self.assertEqual("ok", self.verdict(self.INVENTED, None)[0])
+        self.assertEqual("ok", self.verdict(self.INVENTED, self.INVENTED)[0])
+        edited = self.INVENTED.replace("ubck-lam-viec", "ubcknn-lam-viec")
+        self.assertEqual("ok", self.verdict(self.INVENTED, edited)[0])
+
+    def test_short_or_idless_paths_are_never_judged(self) -> None:
+        # A homepage or a `?docid=` query has no slug to compare.
+        self.assertEqual("ok", self.verdict("https://unihackfest.vn/", "https://unihackfest.vn/en/")[0])
+        self.assertEqual(
+            "ok",
+            self.verdict(
+                "https://vanban.chinhphu.vn/?pageid=27160&docid=216242",
+                "https://vanban.chinhphu.vn/default.aspx?pageid=27160&docid=216242",
+            )[0],
+        )
+
+
+class AnchorsSinceRevisionTests(unittest.TestCase):
+    """Only an anchor the change introduced may fail a --since run."""
+
+    def test_anchors_at_a_revision_are_read_from_git(self) -> None:
+        current = {url for url, _ in check_anchors.collect(ROOT, check_anchors.TARGETS)}
+        at_head = check_anchors.collect_at(ROOT, "HEAD", check_anchors.TARGETS)
+        self.assertTrue(at_head)
+        # Most anchors survive any one change; an empty overlap means the
+        # revision was not read at all.
+        self.assertGreater(len(current & at_head), len(current) // 2)
+
+    def test_unknown_revision_is_an_error_not_an_empty_baseline(self) -> None:
+        # An empty baseline would mark every rotten anchor on main as new.
+        with self.assertRaises(ValueError):
+            check_anchors.collect_at(ROOT, "no-such-ref-xyz", check_anchors.TARGETS)
 
 
 class AnchorTargetSafetyTests(unittest.TestCase):
