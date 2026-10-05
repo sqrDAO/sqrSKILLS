@@ -90,7 +90,7 @@ These came up in research but are dead or off-topic. Do not add them back to the
 
 ## Cross-reference
 
-- Apply-able opportunities from this map (Corelia Academy, UniHackfest, Superteam Vietnam,
+- Apply-able opportunities from this map (Corelia Academy, UniHackfest, Team1 Vietnam UniHack, Superteam Vietnam,
   RMIT Hack-A-Venture, HUST BK Fintech Hackday, Vietnam Aptos Hackathon, VietBUIDL,
   plus Ronin/Kyros grants) are catalogued in the **`web3-opportunities`** skill and queryable
   via `query_opportunities.py --sea`.

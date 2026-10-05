@@ -1,7 +1,7 @@
 {
   "_meta": {
     "document_type": "structured_web3_opportunity_roster",
-    "last_updated": "2026-09-28",
+    "last_updated": "2026-10-05",
     "data_freshness": "Program existence, type, chain/ecosystem, region, and dilution posture are evergreen and verified through June 2026. TIME-SENSITIVE fields (application deadlines, open/closed cohort status, current prize pool / check size, cadence) are baseline snapshots and MUST be re-verified live before the user applies or acts.",
     "coverage": "Global. Every entry is region-tagged. Southeast Asia / Vietnam-relevant entries carry sea_relevant: true.",
     "schema_version": "1.1.0",
@@ -12,7 +12,7 @@
     "type": ["accelerator", "incubator", "grant", "hackathon", "bounty", "retroactive_funding", "fellowship", "education"],
     "stage": ["idea", "pre-seed", "mvp", "growth"],
     "dilution": ["dilutive", "non-dilutive", "mixed"],
-    "chain": ["ethereum", "l2", "solana", "polkadot", "cosmos", "near", "sui", "multi-chain"],
+    "chain": ["ethereum", "l2", "solana", "polkadot", "cosmos", "near", "sui", "avalanche", "multi-chain"],
     "region": ["global", "us", "europe", "india", "sea", "latam", "africa", "remote"],
     "status": ["open", "closed", "rolling", "cohort-based", "unknown"]
   },
@@ -608,6 +608,22 @@
       "notes": "The National Grand Finale is scheduled for October 10, 2026, with top student teams from campus-level qualifiers across Vietnam competing for a 100M VND cash prize pool. unihackfest.vn returns 403 to plain fetchers (bot-protected, 200 in a browser), so do not mark it dead on a failed automated fetch.",
       "sea_relevant": true,
       "last_verified": "2026-09-28"
+    },
+    {
+      "id": "team1-vietnam-unihack",
+      "name": "Team1 Vietnam UniHack: 30 Days to Build on Avalanche",
+      "type": "hackathon",
+      "stage": ["idea", "pre-seed"],
+      "dilution": "non-dilutive",
+      "chains": ["avalanche"],
+      "regions": ["sea"],
+      "typical_check_or_prize": "$3,500 prize pool",
+      "cadence": "event-based",
+      "status": "cohort-based",
+      "url": "https://x.com/Team1VN/status/2104919128968761839",
+      "notes": "Student hackathon run by Avalanche's Team1 Vietnam: build on Avalanche over 30 days, 2-30 November 2026, based in Ho Chi Minh City and about 90% online. The $3,500 pool, student eligibility and online share come from the Team1 Vietnam country lead's post of 5 Oct 2026 (x.com/houyaoi/status/2107019003445318118). Judges include Team1 Vietnam, Herond Labs / VNUHCM Innovations Hub, Ton Duc Thang University and MEXC Ventures. Media partners are sqrDAO, Danang Fintech Lab and buildtolaunch; say so when recommending it. No registration link or deadline was public on 5 Oct 2026, so check Team1 Vietnam's channels before telling anyone how to apply. This is not UniHackfest (Corelia x UEF), and not the European UniHack.",
+      "sea_relevant": true,
+      "last_verified": "2026-10-05"
     },
     {
       "id": "rmit-fintech-club",

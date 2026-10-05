@@ -66,7 +66,7 @@ def main() -> None:
     parser.add_argument("--type", action="append", help="accelerator, incubator, grant, hackathon, bounty, retroactive_funding, fellowship, education")
     parser.add_argument("--stage", action="append", help="idea, pre-seed, mvp, growth")
     parser.add_argument("--dilution", action="append", help="dilutive, non-dilutive, mixed (exact match)")
-    parser.add_argument("--chain", action="append", help="ethereum, l2, solana, polkadot, cosmos, near, sui, multi-chain")
+    parser.add_argument("--chain", action="append", help="ethereum, l2, solana, polkadot, cosmos, near, sui, avalanche, multi-chain")
     parser.add_argument("--region", action="append", help="global, us, europe, india, sea, latam, africa, remote")
     parser.add_argument("--status", action="append", help="open, closed, rolling, cohort-based, unknown (time-sensitive)")
     parser.add_argument("--sea", action="store_true", help="restrict to SEA/Vietnam-relevant entries")
