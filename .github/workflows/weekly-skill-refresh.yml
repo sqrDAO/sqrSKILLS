@@ -6,9 +6,9 @@ name: Weekly Skill Refresh
 # where a wrong auto-commit is worse than a stale-but-correct one.
 #
 # Setup required (one time):
-#   1. Add a repository secret named GEMINI_API_KEY
+#   1. Add a repository secret named ANTHROPIC_API_KEY
 #      (Settings → Secrets and variables → Actions → New repository secret).
-#      Get a key from https://aistudio.google.com/apikey.
+#      Get a key from https://console.anthropic.com/settings/keys.
 #   2. Allow Actions to open PRs:
 #      Settings → Actions → General → Workflow permissions →
 #      enable "Allow GitHub Actions to create and approve pull requests".
@@ -87,29 +87,18 @@ jobs:
       - name: Refresh vietnam-crypto-radar
         id: leg_crypto
         timeout-minutes: 35
-        uses: google-github-actions/run-gemini-cli@f77273f4c914e4bf38440cf36a0369cb64a37489  # v0.1.22
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          # Required for headless/CI runs so tool calls auto-approve (YOLO);
-          # without it the CLI treats the checkout as untrusted and exits 1.
-          GEMINI_CLI_TRUST_WORKSPACE: "true"
+        uses: anthropics/claude-code-action@41eb5faa005dce67ae6780c581e34aad9dcbf434  # v1.0.247
         with:
-          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
-          # Pinned, not `latest`: a CLI release that changes the settings schema
-          # would silently fall back to defaults, losing the cap below.
-          gemini_cli_version: "0.58.0"
-          # Uploaded by the step below instead: the action's own upload hard-
-          # codes the artifact name `gemini-output`, and upload-artifact@v4+
-          # rejects a second use of a name in one run, so three legs would
-          # collide. `gemini-artifacts/` is written either way.
-          upload_artifacts: false
-          settings: |
-            {
-              "model": {
-                "name": "gemini-2.5-pro"
-              },
-              "maxSessionTurns": 60
-            }
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Passed explicitly so the action does not try to mint a Claude App
+          # token over OIDC; this job only needs to read the checkout.
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Unattended run: tools are allow-listed rather than prompted for.
+          # Bash is limited to the two self-check commands the prompt names.
+          claude_args: >-
+            --model claude-opus-5-5
+            --max-turns 60
+            --allowedTools "Read,Edit,Write,Glob,Grep,WebFetch,WebSearch,Bash(python3 -m unittest:*),Bash(python3 scripts/check_anchors.py:*)"
           prompt: |
             You are running an unattended WEEKLY refresh of ONE skill in
             this repository: `vietnam-crypto-radar`. Today's date is the
@@ -243,12 +232,12 @@ jobs:
             REFRESH_SUMMARY.vietnam-crypto-radar.md
           if-no-files-found: error
 
-      - name: Upload crypto Gemini output
-        if: always()
+      - name: Upload crypto Claude output
+        if: always() && steps.leg_crypto.outputs.execution_file != ''
         uses: actions/upload-artifact@v6
         with:
-          name: gemini-output-crypto
-          path: gemini-artifacts/
+          name: claude-output-crypto
+          path: ${{ steps.leg_crypto.outputs.execution_file }}
           if-no-files-found: warn
 
   web3:
@@ -268,29 +257,18 @@ jobs:
       - name: Refresh web3-opportunities
         id: leg_web3
         timeout-minutes: 35
-        uses: google-github-actions/run-gemini-cli@f77273f4c914e4bf38440cf36a0369cb64a37489  # v0.1.22
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          # Required for headless/CI runs so tool calls auto-approve (YOLO);
-          # without it the CLI treats the checkout as untrusted and exits 1.
-          GEMINI_CLI_TRUST_WORKSPACE: "true"
+        uses: anthropics/claude-code-action@41eb5faa005dce67ae6780c581e34aad9dcbf434  # v1.0.247
         with:
-          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
-          # Pinned, not `latest`: a CLI release that changes the settings schema
-          # would silently fall back to defaults, losing the cap below.
-          gemini_cli_version: "0.58.0"
-          # Uploaded by the step below instead: the action's own upload hard-
-          # codes the artifact name `gemini-output`, and upload-artifact@v4+
-          # rejects a second use of a name in one run, so three legs would
-          # collide. `gemini-artifacts/` is written either way.
-          upload_artifacts: false
-          settings: |
-            {
-              "model": {
-                "name": "gemini-2.5-flash"
-              },
-              "maxSessionTurns": 50
-            }
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Passed explicitly so the action does not try to mint a Claude App
+          # token over OIDC; this job only needs to read the checkout.
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Unattended run: tools are allow-listed rather than prompted for.
+          # Bash is limited to the two self-check commands the prompt names.
+          claude_args: >-
+            --model claude-haiku-5-5
+            --max-turns 50
+            --allowedTools "Read,Edit,Write,Glob,Grep,WebFetch,WebSearch,Bash(python3 -m unittest:*),Bash(python3 scripts/check_anchors.py:*)"
           prompt: |
             You are running an unattended WEEKLY refresh of ONE skill in
             this repository: `web3-opportunities`. Today's date is the
@@ -385,12 +363,12 @@ jobs:
             REFRESH_VERIFIED.json
           if-no-files-found: error
 
-      - name: Upload web3 Gemini output
-        if: always()
+      - name: Upload web3 Claude output
+        if: always() && steps.leg_web3.outputs.execution_file != ''
         uses: actions/upload-artifact@v6
         with:
-          name: gemini-output-web3
-          path: gemini-artifacts/
+          name: claude-output-web3
+          path: ${{ steps.leg_web3.outputs.execution_file }}
           if-no-files-found: warn
 
   visa:
@@ -407,29 +385,18 @@ jobs:
       - name: Refresh vietnam-visa-check
         id: leg_visa
         timeout-minutes: 12
-        uses: google-github-actions/run-gemini-cli@f77273f4c914e4bf38440cf36a0369cb64a37489  # v0.1.22
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          # Required for headless/CI runs so tool calls auto-approve (YOLO);
-          # without it the CLI treats the checkout as untrusted and exits 1.
-          GEMINI_CLI_TRUST_WORKSPACE: "true"
+        uses: anthropics/claude-code-action@41eb5faa005dce67ae6780c581e34aad9dcbf434  # v1.0.247
         with:
-          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
-          # Pinned, not `latest`: a CLI release that changes the settings schema
-          # would silently fall back to defaults, losing the cap below.
-          gemini_cli_version: "0.58.0"
-          # Uploaded by the step below instead: the action's own upload hard-
-          # codes the artifact name `gemini-output`, and upload-artifact@v4+
-          # rejects a second use of a name in one run, so three legs would
-          # collide. `gemini-artifacts/` is written either way.
-          upload_artifacts: false
-          settings: |
-            {
-              "model": {
-                "name": "gemini-2.5-flash"
-              },
-              "maxSessionTurns": 25
-            }
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Passed explicitly so the action does not try to mint a Claude App
+          # token over OIDC; this job only needs to read the checkout.
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Unattended run: tools are allow-listed rather than prompted for.
+          # Bash is limited to the two self-check commands the prompt names.
+          claude_args: >-
+            --model claude-haiku-5-5
+            --max-turns 25
+            --allowedTools "Read,Edit,Write,Glob,Grep,WebFetch,WebSearch,Bash(python3 -m unittest:*),Bash(python3 scripts/check_anchors.py:*)"
           prompt: |
             You are running an unattended WEEKLY refresh of ONE skill in
             this repository: `vietnam-visa-check`. Today's date is the
@@ -493,12 +460,12 @@ jobs:
             REFRESH_SUMMARY.vietnam-visa-check.md
           if-no-files-found: error
 
-      - name: Upload visa Gemini output
-        if: always()
+      - name: Upload visa Claude output
+        if: always() && steps.leg_visa.outputs.execution_file != ''
         uses: actions/upload-artifact@v6
         with:
-          name: gemini-output-visa
-          path: gemini-artifacts/
+          name: claude-output-visa
+          path: ${{ steps.leg_visa.outputs.execution_file }}
           if-no-files-found: warn
 
   refresh:
@@ -806,7 +773,7 @@ jobs:
             ${{ steps.summary.outputs.body }}
 
             ---
-            🤖 Generated by the weekly-skill-refresh workflow (Gemini CLI).
+            🤖 Generated by the weekly-skill-refresh workflow (Claude Code).
 
       # Creating a commit status is not "triggering a workflow", so unlike the
       # checks themselves this DOES work with the default GITHUB_TOKEN. Without

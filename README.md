@@ -170,8 +170,8 @@ Every Monday it re-researches `vietnam-crypto-radar`, `web3-opportunities`, and
 `vietnam-visa-check` against their dated baselines and opens a pull request with
 any verified changes — nothing is merged automatically.
 
-To enable it on a fork: add a `GEMINI_API_KEY` repository secret (get a key from
-[Google AI Studio](https://aistudio.google.com/apikey)) and allow Actions to
+To enable it on a fork: add an `ANTHROPIC_API_KEY` repository secret (get a key from
+the [Claude Console](https://console.anthropic.com/settings/keys)) and allow Actions to
 create pull requests (Settings → Actions → General → Workflow permissions). The
 workflow can also be triggered manually from the Actions tab.
 
