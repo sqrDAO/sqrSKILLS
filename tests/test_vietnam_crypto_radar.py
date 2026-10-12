@@ -347,11 +347,17 @@ class BaselineFactTest(unittest.TestCase):
         self.assertIn("not a signature date", self.text)
         self.assertNotIn("Tier 1 by signature", self.text)
 
-    def test_resolution_20_is_not_published_as_confirmed_on_one_source(self):
+    def test_resolution_20_confirms_existence_not_effect(self):
         # sources.md requires Tier 1, a named law firm, or two independent Tier-2
-        # sources. Only VnEconomy carries this one, so it stays single-source.
-        self.assertIn("REPORTED / SINGLE-SOURCE (LOCAL)", self.text)
+        # sources. VnEconomy and LuatVietnam both carry the number, council and
+        # date, so the instrument is confirmed; neither was read for its effective
+        # date or repeal status (LuatVietnam paywalls them), so those stay open.
+        self.assertIn(
+            "ISSUED / CONFIRMED (LOCAL); effect and status NEEDS_PRIMARY_SOURCE",
+            self.text,
+        )
         self.assertNotIn("ENACTED / CONFIRMED (LOCAL) | Signed 29 May 2026", self.text)
+        self.assertNotIn("no repeal of 55/2024", self.text)
 
     def test_no_unconfirmed_effective_dates_on_the_da_nang_instruments(self):
         # A reported 10 Jun 2026 effective date for Resolution 20 could not be
