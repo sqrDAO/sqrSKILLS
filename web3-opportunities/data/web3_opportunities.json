@@ -1,7 +1,7 @@
 {
   "_meta": {
     "document_type": "structured_web3_opportunity_roster",
-    "last_updated": "2026-10-05",
+    "last_updated": "2026-10-12",
     "data_freshness": "Program existence, type, chain/ecosystem, region, and dilution posture are evergreen and verified through June 2026. TIME-SENSITIVE fields (application deadlines, open/closed cohort status, current prize pool / check size, cadence) are baseline snapshots and MUST be re-verified live before the user applies or acts.",
     "coverage": "Global. Every entry is region-tagged. Southeast Asia / Vietnam-relevant entries carry sea_relevant: true.",
     "schema_version": "1.1.0",
@@ -189,9 +189,9 @@
       "cadence": "cohort-based",
       "status": "rolling",
       "url": "https://f.inc/",
-      "notes": "The flagship hardware program, Blueprint II, starts on September 30, 2026.",
+      "notes": "The flagship hardware program, Blueprint II, started on September 30, 2026, per the official homepage (checked 2026-10-12), which still shows apply links. No deadline is listed there, so confirm intake with the team.",
       "sea_relevant": false,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-10-12"
     },
     {
       "id": "ethereum-foundation-esp",
@@ -281,13 +281,13 @@
       "dilution": "non-dilutive",
       "chains": ["near"],
       "regions": ["global", "remote", "sea"],
-      "typical_check_or_prize": "Ecosystem grants and program funding",
+      "typical_check_or_prize": "Protocol Rewards (performance-based, up to $10,000 per month for founders); NEAR Horizon accelerator",
       "cadence": "rolling",
       "status": "rolling",
       "url": "https://near.org/founder-hub",
-      "notes": "Funding is now handled through Protocol Rewards (performance-based) and the NEAR Horizon accelerator. Applications are accepted on an ongoing basis.",
+      "notes": "Funding is now handled through Protocol Rewards (performance-based) and the NEAR Horizon accelerator. Applications are accepted on an ongoing basis. The official founder hub (checked 2026-10-12) lists no application deadlines.",
       "sea_relevant": true,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-10-12"
     },
     {
       "id": "sui-foundation-grants",
@@ -319,7 +319,7 @@
       "url": "https://github.com/filecoin-project/devgrants",
       "notes": "The general Open Grants program remains active on a rolling basis. The main Proactive Public Goods Funding (ProPGF) round for 2026 is over.",
       "sea_relevant": false,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-10-12"
     },
     {
       "id": "ethglobal",
@@ -397,9 +397,9 @@
       "cadence": "periodic grant rounds + continuous bounties",
       "status": "open",
       "url": "https://www.gitcoin.co/",
-      "notes": "The platform has transitioned to Gitcoin 3.0. No date has been announced for the next major grants round (GG26). Bounties and smaller funding rounds are active.",
+      "notes": "The platform has transitioned to Gitcoin 3.0. As of 2026-10-12 the official site lists live campaigns (Protocol Guild, TheDAO Security Fund) and no GG26 announcement. Bounty status was not confirmed on the homepage.",
       "sea_relevant": false,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-10-12"
     },
     {
       "id": "immunefi",

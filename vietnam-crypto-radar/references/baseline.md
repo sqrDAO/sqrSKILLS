@@ -1,8 +1,17 @@
 # Vietnam Crypto Regime — Baseline Snapshot
 
-> **LAST VERIFIED: 5 October 2026** — the date of the last full sweep, and the one
+> **LAST VERIFIED: 12 October 2026** — the date of the last full sweep, and the one
 > the radar diffs against. Everything it reports as "new" is new relative to this date.
 > After confirming real changes in a run, rewrite this file and bump the date.
+> **Verification note, 12 October 2026:** On 6 Oct 2026 the Ministry of Finance, answering a
+> reader on the government portal, said no crypto-asset service provider has been licensed yet,
+> so Resolution 05's 6-month clock has still not started. No licence, new decree or circular,
+> DNC-Chain Layer-1 selection or scheme governance instrument was found after 5 Oct 2026.
+> The Da Nang portal's own bulletins (24 Mar and 29 Apr 2026) show VON, G-Flow, GM Services
+> and Dinogo — and a fifth applicant, FIZEN — reached only the evaluation-council stage; no
+> approval or rejection of any of them was found, so all five are recorded as PENDING.
+> A second independent Tier-2 source (LuatVietnam) now carries Nghị quyết 20/2026/NQ-HĐND's
+> number, council, date and subject; its status label is left unchanged (see its row).
 > **Verification note, 5 October 2026:** The SSC's crypto unit is the **Ban Quản lý
 > thị trường giao dịch tài sản mã hóa** (Crypto Asset Trading Market Management Board),
 > established by Quyết định 3552/QĐ-BTC on 21 Oct 2025 — not a new body; the run reported
@@ -93,7 +102,7 @@ Crucially, crypto's legal recognition as property does **not** make it a lawful 
 | **Resolution 05/2025/NQ-CP** | 5-year pilot for crypto-asset trading markets via licensed providers; local incorporation; VND settlement; high charter-capital bar. Also the source of the 6-month grace period for Decree 284's penalties on individual investors. | EFFECTIVE / CONFIRMED | 9 Sep 2025 |
 | **Decision 96/QĐ-BTC** (Ministry of Finance) | Pilot implementation and licensing procedures for crypto-asset trading platforms. Sets VND 10T capital bar. | EFFECTIVE / CONFIRMED | 20 Jan 2026 |
 | **Nghị quyết 55/2024/NQ-HĐND (Da Nang)** | Da Nang People's Council resolution on the criteria, conditions and procedure for controlled trials of new technology solutions in the city. This is the instrument the city's own signed blockchain scheme cites as the basis of its sandbox, and the one Decision 1181/QĐ-UBND (Aug 2025) was issued under. Municipal scope only; it licenses technology trials, not financial services. | EFFECTIVE / CONFIRMED (LOCAL) | Issued 13 Dec 2024 |
-| **Nghị quyết 20/2026/NQ-HĐND (Da Nang)** | Da Nang People's Council resolution setting the criteria, conditions, registration, assessment, and licensing procedure for controlled trials of new technology solutions in the city — the same subject matter as 55/2024/NQ-HĐND above, which it appears to detail or replace. It is **not** what the 2025 approvals sit under: 1181 (26 Aug 2025) and 2895 (31 Dec 2025) both predate it. Municipal scope only. Rests on a single Tier-2 anchor (VnEconomy); promote only when a Tier-1 text or a second independent Tier-2 source confirms it. A same-numbered resolution exists in another province on an unrelated subject, so match the issuing council, not just the number. | REPORTED / SINGLE-SOURCE (LOCAL) | Issued 29 May 2026; no effective date stated in the anchor |
+| **Nghị quyết 20/2026/NQ-HĐND (Da Nang)** | Da Nang People's Council resolution setting the criteria, conditions, registration, assessment, and licensing procedure for controlled trials of new technology solutions in the city — the same subject matter as 55/2024/NQ-HĐND above, which it appears to detail or replace. It is **not** what the 2025 approvals sit under: 1181 (26 Aug 2025) and 2895 (31 Dec 2025) both predate it. Municipal scope only. Rests on a single Tier-2 anchor (VnEconomy); promote only when a Tier-1 text or a second independent Tier-2 source confirms it. On 12 Oct 2026 the LuatVietnam legal database independently confirmed the issuing council (HĐND thành phố Đà Nẵng), the number, the 29 May 2026 date, the signer (Nguyễn Đức Dũng) and the subject; it shows no effective date and no repeal of 55/2024. That meets the two-Tier-2 bar for the instrument's existence only; the label is left unchanged for a reviewer to promote, and the effective date and the relationship to 55/2024 stay open. A same-numbered resolution exists in another province on an unrelated subject, so match the issuing council, not just the number. | REPORTED / SINGLE-SOURCE (LOCAL) | Issued 29 May 2026; no effective date stated in the anchor |
 | **Quyết định 2728/QĐ-UBND (Da Nang)** | Promulgates the Đề án "Thúc đẩy ứng dụng và phát triển công nghệ chuỗi khối tại thành phố Đà Nẵng đến năm 2030" — the city's blockchain scheme: a shared permissioned chain (DNC-Chain) plus ten products in four tiers, of which the fourth is crypto-asset finance. Signed by Deputy Chairman Hồ Quang Bửu; Sở Khoa học và Công nghệ leads implementation. Effective from the date of signing (Điều 3). Municipal scope only; it creates no crypto-asset licence and no payment authorisation. **Number and day are not in the text layer** — the document reads `Số:  /QĐ-UBND` and `ngày  tháng 6 năm 2026`, with both filled by the signature overlay. "2728" comes from the portal filename and "23 Jun" from the file's own modification timestamp (2026-06-23 15:40 +07), which agree with each other; do not downgrade this entry for failing to find them in the body text, and do not adopt the annex's 24 Jun stamp as the signing date. | EFFECTIVE / CONFIRMED (LOCAL) | Signed 23 Jun 2026; effective on signing |
 | **Da Nang Decisions 1181 & 2895/QĐ-UBND** | The two earlier controlled technology trials, both still running: Basal Pay (Công ty CP AlphaTrue Solutions, 36 months from Aug 2025) and MIMO (Công ty CP Dragon Lab, non-custodial USDT↔VND, 18 Dec 2025 – 17 Dec 2028). Local technology-trial approvals only. | EFFECTIVE / CONFIRMED (LOCAL TRIALS) | Issued 26 Aug 2025 and 31 Dec 2025; MIMO's trial period runs from 18 Dec 2025 |
 | **Da Nang Decisions 3809–3812/QĐ-UBND** | Four further local controlled technology trials: PayD, TORA, Umi Pay, and Money X-Border. Includes crypto/stablecoin↔VND conversion and crypto-based settlement use cases. Local technology-trial approvals only; not national CASP/exchange licenses. | EFFECTIVE / CONFIRMED (LOCAL TRIALS) | Signed 22 Aug 2026 and running from that date; durations vary. No separate legal effective date is stated in the anchor |
@@ -173,6 +182,9 @@ described Umi Pay as USDT/USDC↔VND conversion *"kết hợp tiện ích bổ t
 The decision title recorded above names only conversion plus tourism and local services. Either
 the prediction-market element was dropped before approval or it is in scope and unrecorded here.
 Status: UNVERIFIED — confirm against the text of 3811/QĐ-UBND before describing the scope.
+The city portal's 29 Apr 2026 bulletin (Tier 1) also lists Umi Pay *as filed* with a
+"prediction market" add-on, so the element is confirmed at the application stage; whether
+it survived into the approved scope is still unresolved.
 
 ### Da Nang blockchain scheme to 2030 (Quyết định 2728/QĐ-UBND) — EFFECTIVE / CONFIRMED
 
@@ -247,7 +259,7 @@ regime, or the municipal trial decisions.
 - **Unlicensed services or marketing:** VND 180–200 million for organizations that provide or advertise crypto-asset services without the required market-service license; VND 90–100 million for an individual committing the equivalent violation under the decree's one-half rule.
 - **Domestic investor off-platform trading:** the published organizational bracket is VND 30–50 million for trading outside a Ministry of Finance-licensed provider; the equivalent individual bracket is VND 15–25 million under the decree's one-half rule.
 - **Article 9 (domestic investors), as the decree states it:** 30–50 million VND for a domestic investor trading outside a Ministry of Finance-licensed provider (khoản 2 Điều 7 of Resolution 05/2025/NQ-CP), and 70–100 million VND for trading assets offered or issued to foreign investors (khoản 1 Điều 6 of the same resolution). The article sets these brackets outright; no commencement condition appears in its text.
-- **6-month grace period for individual investors is CONFIRMED, and it is Resolution 05's, not Decree 284's.** Penalties under Article 9 for domestic investors trading on unlicensed platforms apply only **6 months after the first domestic crypto-asset service provider is licensed by the Ministry of Finance** — **khoản 2 Điều 7, Nghị quyết 05/2025/NQ-CP**, not anything in Decree 284's own text. That is why the 31 August refresh's version was rejected on 1 September: it asserted the period *as Decree 284's* and cited nothing. As no provider is yet licensed, the clock has not started. Two independent Tier-2 anchors below. Note the tension with the VietnamNet piece anchored below, which describes no grace period; it is a 1/9 explainer about offshore exchanges, not a reading of Điều 7.
+- **6-month grace period for individual investors is CONFIRMED, and it is Resolution 05's, not Decree 284's.** Penalties under Article 9 for domestic investors trading on unlicensed platforms apply only **6 months after the first domestic crypto-asset service provider is licensed by the Ministry of Finance** — **khoản 2 Điều 7, Nghị quyết 05/2025/NQ-CP**, not anything in Decree 284's own text. That is why the 31 August refresh's version was rejected on 1 September: it asserted the period *as Decree 284's* and cited nothing. As no provider is yet licensed, the clock has not started. Two independent Tier-2 anchors below. The Ministry of Finance restated this on 6 Oct 2026 (Tier 1, government portal): no provider was licensed as of that date, and after the 6 months a domestic investor trading outside a licensed provider faces administrative penalties or criminal liability depending on the nature and severity of the violation. Note the tension with the VietnamNet piece anchored below, which describes no grace period; it is a 1/9 explainer about offshore exchanges, not a reading of Điều 7.
 - **Enforcement competence is split by Article 15(4), and it is not "MoF, SSC and the State Bank".** Điểm a assigns Điều 6, 7, 8, **9**, khoản 3 Điều 10, and Điều 11–13 to the authorities in Điều 14 khoản 1, 3, 5, 6 and 7 — the SSC inspectorate and its chair, police units of the Ministry of Public Security, provincial People's Committee chairs, and Ministry of Finance inspection teams. Điểm b assigns **only Điều 10–13** to khoản 2, 4 and 8, which are the State Bank bodies. So the State Bank has **no** Article 9 competence, and any summary omitting the police and provincial People's Committees understates who can penalise a domestic investor.
 - **Implementing circulars are UNVERIFIED.** The same refresh added **Circular 89/2026/TT-BTC**, **Circular 90/2026/TT-BTC** and **Circular 39/2026/TT-NHNN** as supporting guidance without citing any source, and none was confirmed on 1 September 2026. Treat all three numbers as unconfirmed until found on a primary site.
 - **Duration:** effective from 1 September 2026 until Resolution 05/2025/NQ-CP expires. Do not describe these administrative fines as currently effective for conduct before that date without checking transition rules and counsel.
@@ -310,6 +322,16 @@ regime, or the municipal trial decisions.
   Xanh, USDT payment intermediation) from the 2026 batch-2 filings, and **GM Services**
   (stablecoin payroll for foreign companies) and **Dinogo** (Go Technology, crypto↔fiat for
   tourists) from the March 2026 evaluation round? Status: REPORTED as active/approved by Tier-2 sources (fidinam.com, vietnamplus.vn); needs Tier-1 confirmation.
+  The Tier-1 record found on 12 Oct 2026 shows evaluation councils only, not approvals:
+  Quyết định 1015/QĐ-UBND (GM Services) and 1016/QĐ-UBND (Dinogo) in the 24 Mar 2026 bulletin,
+  and 1867/QĐ-UBND for the 2026 batch-2 councils covering VON and G-Flow, assessed against
+  Điều 3 of 55/2024/NQ-HĐND, in the 29 Apr 2026 bulletin. The same March round formed a council
+  for a fifth applicant, **FIZEN** (Công ty CP FIZEN Việt Nam, a crypto payment gateway for
+  international transactions, 1013/QĐ-UBND). No approval or rejection of VON, G-Flow, GM
+  Services, Dinogo or FIZEN was found: status PENDING (undecided), not approved. Do not
+  repeat the Tier-2 "approved" reading without a decision number.
+  The 29 Apr councils sat under 55/2024; that predates 20/2026 and does not settle which
+  resolution the 22 Aug 2026 approvals cite.
 - Does **Nghị quyết 20/2026/NQ-HĐND** amend, replace or merely detail **55/2024/NQ-HĐND**, and
   which of the two did Decisions 3809–3812/QĐ-UBND (22 Aug 2026) issue under? The Đề án, signed
   23 Jun 2026, still cites 55/2024 throughout. Needs the text of either resolution.
@@ -324,6 +346,11 @@ regime, or the municipal trial decisions.
   rule specific to digital assets inside the IFC?
 - Are there **IFC member admissions** at the Da Nang site at all, and do any involve digital
   assets? Nghị định 323/2025/NĐ-CP states the orientation; it does not evidence activity.
+  Partial answer (city portal, 9 Jan 2026, Tier 1): the Da Nang site's executive body awarded
+  membership certificates to its "first" organisations and financial institutions at its
+  opening, without naming them in the text read. Binance, Tether and Bybit appear there only as
+  signatories of the city's cooperation MoUs — not as IFC members. An MoU is not a member
+  admission and not a licence.
 
 ---
 
@@ -390,6 +417,11 @@ confirmed on 3 August 2026 and are due for a re-check.
 - **BNEWS / Vietnam News Agency — same training (Tier 2, independent corroboration):** `https://bnews.vn/nang-cao-nang-luc-quan-ly-va-giam-sat-thi-truong-tai-san-ma-hoa/429710.html` (Confirmed 19 Aug 2026)
 - **Tin nhanh chứng khoán — SSC crypto board established by Quyết định 3552/QĐ-BTC, functions by 979/QĐ-UBCK (Tier 2):** `https://www.tinnhanhchungkhoan.vn/thanh-lap-ban-quan-ly-thi-truong-giao-dich-tai-san-ma-hoa-post382019.html` (Confirmed 5 Oct 2026)
 - **Thoi bao Tai chinh Viet Nam — SSC–MAS bilateral meeting, 30 Sep 2026 (Tier 2, Ministry of Finance newspaper):** `https://thoibaotaichinhvietnam.vn/uy-ban-chung-khoan-nha-nuoc-va-mas-tang-cuong-hop-tac-thuc-day-ket-noi-thi-truong-von-viet-nam-singapore-204626.html` (Confirmed 5 Oct 2026)
+- **Government News — Ministry of Finance: no crypto-asset provider licensed yet, 6 Oct 2026 (Tier 1):** `https://baochinhphu.vn/giao-dich-tai-san-ma-hoa-khong-qua-to-chuc-duoc-cap-phep-co-the-bi-xu-ly-102261006081040169.htm` — quotes khoản 2 Điều 7, Nghị quyết 05/2025/NQ-CP. (Confirmed 12 Oct 2026)
+- **LuatVietnam — Nghị quyết 20/2026/NQ-HĐND Đà Nẵng, metadata page (Tier 2, legal database; second independent source):** `https://luatvietnam.vn/khoa-hoc/nghi-quyet-20-2026-nq-hdnd-da-nang-quy-dinh-tieu-chi-dieu-kien-thu-nghiem-cong-nghe-moi-437498-d2.html` — HĐND thành phố Đà Nẵng, 29 May 2026, signer Nguyễn Đức Dũng; effective date and status are paywalled and not shown. (Confirmed 12 Oct 2026)
+- **Da Nang city portal — evaluation councils, 24 Mar 2026 bulletin (Tier 1):** `https://cttdt.danangportal.gov.vn/vi/web/dng/w/chi-dao-dieu-hanh-noi-bat-cua-ubnd-thanh-pho-chu-tich-ubnd-thanh-pho-ngay-23-3` — Decisions 1013–1017/QĐ-UBND: FIZEN, Money X-Border, GM Services, Dinogo, PayD. The danang.gov.vn host answers 403 to non-browser clients; the cttdt host serves the same page. (Confirmed 12 Oct 2026)
+- **Da Nang city portal — 2026 batch-2 evaluation councils, 29 Apr 2026 bulletin (Tier 1):** `https://cttdt.danangportal.gov.vn/vi/web/dng/w/chi-dao-dieu-hanh-noi-bat-cua-ubnd-chu-tich-va-cac-pho-chu-tich-ubnd-thanh-pho-ngay-28-4` — Quyết định 1867/QĐ-UBND: Umi Pay (with the prediction-market add-on), TORA, VON, G-Flow, Money X-Border, assessed under 55/2024/NQ-HĐND. (Confirmed 12 Oct 2026)
+- **Da Nang city portal — Vietnam IFC Da Nang site opening, 9 Jan 2026 (Tier 1):** `https://cttdt.danangportal.gov.vn/vi/w/khai-truong-trung-tam-tai-chinh-quoc-te-viet-nam-tai-thanh-pho-da-nang` — first membership certificates; Binance, Tether and Bybit as MoU signatories only. (Confirmed 12 Oct 2026)
 - **MOF News — SSC to build supervision rules (Tier 1):** `https://www.mof.gov.vn/webcenter/portal/btcvn/pages_r/l/tin-bo-tai-chinh?dDocName=MOFUCM288593`
 
 ---
