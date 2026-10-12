@@ -42,10 +42,10 @@ jobs:
   # Research never shares a filesystem with packaging. A timed-out CLI may leave
   # children alive until runner teardown; those children cannot alter this job.
   preflight:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           persist-credentials: false
       # `create-pull-request` force-pushes `automation/weekly-skill-refresh`.
@@ -75,13 +75,13 @@ jobs:
 
   crypto:
     needs: preflight
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 45
     permissions:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           persist-credentials: false
       - name: Refresh vietnam-crypto-radar
@@ -242,7 +242,7 @@ jobs:
 
   web3:
     needs: preflight
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     # The leg grew from 5 to 14 to 20+ minutes over three weeks as the roster
     # grew, and timed out on 5 Oct 2026. The per-run cap in the prompt is what
     # bounds it; the headroom here is for a slow day, not for a full sweep.
@@ -251,7 +251,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           persist-credentials: false
       - name: Refresh web3-opportunities
@@ -373,13 +373,13 @@ jobs:
 
   visa:
     needs: preflight
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     permissions:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           persist-credentials: false
       - name: Refresh vietnam-visa-check
@@ -471,37 +471,37 @@ jobs:
   refresh:
     needs: [preflight, crypto, web3, visa]
     if: ${{ always() && !cancelled() && needs.preflight.result == 'success' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           persist-credentials: false
 
       - name: Download completed crypto research
         if: needs.crypto.result == 'success'
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v7
         with:
           name: refresh-data-crypto
           path: ${{ runner.temp }}/refresh-input/crypto
 
       - name: Download completed web3 research
         if: needs.web3.result == 'success'
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v7
         with:
           name: refresh-data-web3
           path: ${{ runner.temp }}/refresh-input/web3
 
       - name: Download completed visa research
         if: needs.visa.result == 'success'
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v7
         with:
           name: refresh-data-visa
           path: ${{ runner.temp }}/refresh-input/visa
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.10"
 
@@ -718,7 +718,7 @@ jobs:
 
       - name: Open pull request
         id: pr
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
           # A PR opened with GITHUB_TOKEN does not trigger workflows, so its
           # checks list stays empty. REFRESH_PAT, when set, makes checks run.
