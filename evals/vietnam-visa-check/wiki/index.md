@@ -7,9 +7,10 @@ separation is the point (see `../../README.md`).
 Each entry names the problem, the root cause, and the fix specifically enough to
 judge relevance without opening the page.
 
-**Current**: `0.4.0`, 2026-08-29. Full 24-case run: **24/24**, `call` and
-`answer` both 1.0 (`runs/iter2.jsonl`). Baseline `0.3.6` was 22/23 on the
-comparable subset.
+**Current**: `0.4.3`, 2026-10-19 (documentation-only correction; not gated —
+see `logs.md`). Last gated version `0.4.0`, 2026-08-29. Full 24-case run:
+**24/24**, `call` and `answer` both 1.0 (`runs/iter2.jsonl`). Baseline `0.3.6`
+was 22/23 on the comparable subset.
 
 **The split is saturated and cannot gate the next edit.** A 100% means this one
 has done its job, not that the skill is finished — see `logs.md` for what a

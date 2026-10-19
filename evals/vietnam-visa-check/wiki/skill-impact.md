@@ -212,3 +212,14 @@ Re-scored under the corrected grader: 24/24 unchanged.
   this one cannot.
 - **E4 (output fields)** has earned nothing measurable across two full runs.
 - **Repeats and models**: one repeat, Sonnet only.
+
+## Documentation correction — `0.4.3`, 2026-10-19 · not gated
+
+**Change**: the Output section's example JSON (Germany, 30 days) re-synced to the
+data corrected in PR #73 — `valid_until` `2028-03-05` → `2028-03-14`, `conditions`
+→ the Resolution 44/NQ-CP string the script now returns, the expiry note's date,
+and `data_as_of` `2026-06-18` → `2026-10-19`. No instruction prose changed.
+**Gate**: none possible — the split is saturated at 24/24 and retired.
+**Verdict**: shipped. Not a behavioural edit; the example had diverged from the
+data after #73 and would otherwise contradict the script's own output.
+`build_visa_cases.py --check` ok.

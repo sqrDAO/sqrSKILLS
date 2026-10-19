@@ -1,6 +1,6 @@
 ---
 name: vietnam-visa-check
-version: 0.4.2
+version: 0.4.3
 description: |
   Check Vietnam visa and entry requirements for any nationality. Use this skill whenever the
   user asks: "can [nationality] enter Vietnam?", "do I need a visa for Vietnam?",
@@ -78,8 +78,8 @@ JSON object:
   "visa_free": {
     "max_stay_days": 45,
     "agreement_type": "UNILATERAL",
-    "valid_until": "2028-03-05",
-    "conditions": "Extended until 2028 per March 2025 announcement"
+    "valid_until": "2028-03-14",
+    "conditions": "Resolution 44/NQ-CP (issued 7 Mar 2025): valid 15 Mar 2025 to 14 Mar 2028. Regardless of purpose."
   },
   "evisa_option": {
     "max_stay_days": 90,
@@ -94,9 +94,9 @@ JSON object:
   "phu_quoc": null,
   "notes": [
     "Passport must be valid for at least 180 days from entry date.",
-    "Visa-free exemption expires 2028-03-05 — verify at evisa.gov.vn for the latest policy."
+    "Visa-free exemption expires 2028-03-14 — verify at https://evisa.gov.vn/ for the latest policy."
   ],
-  "data_as_of": "2026-06-18"
+  "data_as_of": "2026-10-19"
 }
 ```
 
