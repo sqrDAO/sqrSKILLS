@@ -215,8 +215,9 @@ jobs:
             the claim. A dead anchor with `"new": false` was already in
             references/baseline.md; replace it if you can find the document's current
             home. A later step tries this skill's refresh on its own and DROPS
-            THE WHOLE REFRESH if any check fails, so an unfixed failure
-            costs every other change you made this week.
+            THIS SKILL'S WHOLE REFRESH if any check fails (other skills
+            still ship), so an unfixed failure costs every other change you
+            made this week.
 
             Finish by writing `REFRESH_SUMMARY.vietnam-crypto-radar.md` at the
             repo root: a short markdown summary, headed `## vietnam-crypto-radar`,
@@ -339,8 +340,9 @@ jobs:
             the claim. A dead anchor with `"new": false` was already in
             the roster; replace it if you can find the document's current
             home. A later step tries this skill's refresh on its own and DROPS
-            THE WHOLE REFRESH if any check fails, so an unfixed failure
-            costs every other change you made this week.
+            THIS SKILL'S WHOLE REFRESH if any check fails (other skills
+            still ship), so an unfixed failure costs every other change you
+            made this week.
 
             Finish by writing `REFRESH_SUMMARY.web3-opportunities.md` at the
             repo root: a short markdown summary, headed `## web3-opportunities`,
@@ -451,8 +453,9 @@ jobs:
             the claim. A dead anchor with `"new": false` was already in
             the policy file; replace it if you can find the document's current
             home. A later step tries this skill's refresh on its own and DROPS
-            THE WHOLE REFRESH if any check fails, so an unfixed failure
-            costs every other change you made this week.
+            THIS SKILL'S WHOLE REFRESH if any check fails (other skills
+            still ship), so an unfixed failure costs every other change you
+            made this week.
 
             Finish by writing `REFRESH_SUMMARY.vietnam-visa-check.md` at the
             repo root: a short markdown summary, headed `## vietnam-visa-check`,
