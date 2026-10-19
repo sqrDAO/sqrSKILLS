@@ -4,8 +4,8 @@
     "country": "Vietnam",
     "iso_alpha2": "VN",
     "iso_alpha3": "VNM",
-    "last_updated": "2026-09-28",
-    "data_freshness": "Core e-Visa and visa-exemption facts verified through September 2026, including the reduction of Indonesia's ordinary-passport visa-free stay from 30 days to 14 days effective 15 July 2026. Health-declaration, Pre-arrival Information pilot, and Timor-Leste agreement facts re-verified on 28 September 2026. Decree 286/2026/ND-CP was effective 15 September 2026. Future-dated or implementation-specific items should be rechecked against evisa.gov.vn and primary legal sources before legal/compliance use.",
+    "last_updated": "2026-10-19",
+    "data_freshness": "Resolution 44/NQ-CP validity dates (15 Mar 2025 to 14 Mar 2028) re-verified 19 October 2026 against vietnam.travel, replacing a 5 March 2028 end date. Core e-Visa and visa-exemption facts verified through September 2026, including the reduction of Indonesia's ordinary-passport visa-free stay from 30 days to 14 days effective 15 July 2026. Health-declaration, Pre-arrival Information pilot, and Timor-Leste agreement facts re-verified on 28 September 2026. Decree 286/2026/ND-CP was effective 15 September 2026. Future-dated or implementation-specific items should be rechecked against evisa.gov.vn and primary legal sources before legal/compliance use.",
     "sources": [
       "https://evisa.gov.vn/",
       "https://vietnam.travel/things-to-do/new-visa-exemption-policies-effective-15-august-2025",
@@ -16,7 +16,8 @@
       "https://en.wikipedia.org/wiki/Visa_policy_of_Vietnam",
       "https://en.baochinhphu.vn/health-declaration-not-mandatory-for-all-intl-travelers-from-july-1-111260701111332151.htm",
       "https://en.mps.gov.vn/article/immigration-department-launches-pre-arrival-information-system-1778670404",
-      "https://en.baochinhphu.vn/viet-nam-timor-leste-agree-to-deepen-multifaceted-cooperation-111260610113046483.htm"
+      "https://en.baochinhphu.vn/viet-nam-timor-leste-agree-to-deepen-multifaceted-cooperation-111260610113046483.htm",
+      "https://vietnam.travel/things-to-do/viet-nam-waives-visas-citizens-12-countries"
     ],
     "source_registry": {
       "official_evisa_portal": {
@@ -67,6 +68,15 @@
           "From 15 Aug 2023, citizens of all countries and territories can apply for Vietnam e-visas.",
           "Vietnam e-visas are valid up to 90 days and may be multiple-entry.",
           "VNTA listed 13 airports, 16 land gates, and 13 sea gates in its 2023 guide; newer port expansions should be verified at evisa.gov.vn."
+        ]
+      },
+      "vnta_resolution_44": {
+        "url": "https://vietnam.travel/things-to-do/viet-nam-waives-visas-citizens-12-countries",
+        "tier": 1,
+        "verified_facts": [
+          "Resolution 44/NQ-CP was issued on 7 March 2025.",
+          "It grants a 45-day visa exemption from the date of entry to citizens of 12 countries: Germany, France, Italy, Spain, the United Kingdom, Russia, Japan, South Korea, Denmark, Sweden, Norway and Finland.",
+          "The policy is valid from 15 March 2025 to 14 March 2028 and applies regardless of purpose of entry."
         ]
       },
       "vnta_resolution_229": {
@@ -284,9 +294,10 @@
         "tier": "VISA_FREE_45",
         "max_stay_days": 45,
         "agreement_type": "UNILATERAL",
-        "valid_from": "2023-08-15",
-        "valid_until": "2028-03-05",
-        "conditions": "Extended until 2028 per March 2025 announcement"
+        "valid_from": "2025-03-15",
+        "valid_until": "2028-03-14",
+        "conditions": "Resolution 44/NQ-CP (issued 7 Mar 2025): valid 15 Mar 2025 to 14 Mar 2028. Regardless of purpose.",
+        "source_refs": ["vnta_resolution_44"]
       },
       {
         "country": "France",
@@ -294,9 +305,10 @@
         "tier": "VISA_FREE_45",
         "max_stay_days": 45,
         "agreement_type": "UNILATERAL",
-        "valid_from": "2023-08-15",
-        "valid_until": "2028-03-05",
-        "conditions": "Extended until 2028 per March 2025 announcement"
+        "valid_from": "2025-03-15",
+        "valid_until": "2028-03-14",
+        "conditions": "Resolution 44/NQ-CP (issued 7 Mar 2025): valid 15 Mar 2025 to 14 Mar 2028. Regardless of purpose.",
+        "source_refs": ["vnta_resolution_44"]
       },
       {
         "country": "Italy",
@@ -304,9 +316,10 @@
         "tier": "VISA_FREE_45",
         "max_stay_days": 45,
         "agreement_type": "UNILATERAL",
-        "valid_from": "2023-08-15",
-        "valid_until": "2028-03-05",
-        "conditions": "Extended until 2028 per March 2025 announcement"
+        "valid_from": "2025-03-15",
+        "valid_until": "2028-03-14",
+        "conditions": "Resolution 44/NQ-CP (issued 7 Mar 2025): valid 15 Mar 2025 to 14 Mar 2028. Regardless of purpose.",
+        "source_refs": ["vnta_resolution_44"]
       },
       {
         "country": "Spain",
@@ -314,9 +327,10 @@
         "tier": "VISA_FREE_45",
         "max_stay_days": 45,
         "agreement_type": "UNILATERAL",
-        "valid_from": "2023-08-15",
-        "valid_until": "2028-03-05",
-        "conditions": "Extended until 2028 per March 2025 announcement"
+        "valid_from": "2025-03-15",
+        "valid_until": "2028-03-14",
+        "conditions": "Resolution 44/NQ-CP (issued 7 Mar 2025): valid 15 Mar 2025 to 14 Mar 2028. Regardless of purpose.",
+        "source_refs": ["vnta_resolution_44"]
       },
       {
         "country": "United Kingdom",
@@ -324,9 +338,10 @@
         "tier": "VISA_FREE_45",
         "max_stay_days": 45,
         "agreement_type": "UNILATERAL",
-        "valid_from": "2023-08-15",
-        "valid_until": "2028-03-05",
-        "conditions": "Extended until 2028 per March 2025 announcement"
+        "valid_from": "2025-03-15",
+        "valid_until": "2028-03-14",
+        "conditions": "Resolution 44/NQ-CP (issued 7 Mar 2025): valid 15 Mar 2025 to 14 Mar 2028. Regardless of purpose.",
+        "source_refs": ["vnta_resolution_44"]
       },
       {
         "country": "Russia",
@@ -334,9 +349,10 @@
         "tier": "VISA_FREE_45",
         "max_stay_days": 45,
         "agreement_type": "UNILATERAL",
-        "valid_from": "2023-08-15",
-        "valid_until": "2028-03-05",
-        "conditions": "Extended until 2028 per March 2025 announcement"
+        "valid_from": "2025-03-15",
+        "valid_until": "2028-03-14",
+        "conditions": "Resolution 44/NQ-CP (issued 7 Mar 2025): valid 15 Mar 2025 to 14 Mar 2028. Regardless of purpose.",
+        "source_refs": ["vnta_resolution_44"]
       },
       {
         "country": "Japan",
@@ -344,9 +360,10 @@
         "tier": "VISA_FREE_45",
         "max_stay_days": 45,
         "agreement_type": "UNILATERAL",
-        "valid_from": "2023-08-15",
-        "valid_until": "2028-03-05",
-        "conditions": "Extended until 2028 per March 2025 announcement"
+        "valid_from": "2025-03-15",
+        "valid_until": "2028-03-14",
+        "conditions": "Resolution 44/NQ-CP (issued 7 Mar 2025): valid 15 Mar 2025 to 14 Mar 2028. Regardless of purpose.",
+        "source_refs": ["vnta_resolution_44"]
       },
       {
         "country": "South Korea",
@@ -354,9 +371,10 @@
         "tier": "VISA_FREE_45",
         "max_stay_days": 45,
         "agreement_type": "UNILATERAL",
-        "valid_from": "2023-08-15",
-        "valid_until": "2028-03-05",
-        "conditions": "Extended until 2028 per March 2025 announcement"
+        "valid_from": "2025-03-15",
+        "valid_until": "2028-03-14",
+        "conditions": "Resolution 44/NQ-CP (issued 7 Mar 2025): valid 15 Mar 2025 to 14 Mar 2028. Regardless of purpose.",
+        "source_refs": ["vnta_resolution_44"]
       },
       {
         "country": "Denmark",
@@ -364,9 +382,10 @@
         "tier": "VISA_FREE_45",
         "max_stay_days": 45,
         "agreement_type": "UNILATERAL",
-        "valid_from": "2023-08-15",
-        "valid_until": "2028-03-05",
-        "conditions": "Extended until 2028 per March 2025 announcement"
+        "valid_from": "2025-03-15",
+        "valid_until": "2028-03-14",
+        "conditions": "Resolution 44/NQ-CP (issued 7 Mar 2025): valid 15 Mar 2025 to 14 Mar 2028. Regardless of purpose.",
+        "source_refs": ["vnta_resolution_44"]
       },
       {
         "country": "Sweden",
@@ -374,9 +393,10 @@
         "tier": "VISA_FREE_45",
         "max_stay_days": 45,
         "agreement_type": "UNILATERAL",
-        "valid_from": "2023-08-15",
-        "valid_until": "2028-03-05",
-        "conditions": "Extended until 2028 per March 2025 announcement"
+        "valid_from": "2025-03-15",
+        "valid_until": "2028-03-14",
+        "conditions": "Resolution 44/NQ-CP (issued 7 Mar 2025): valid 15 Mar 2025 to 14 Mar 2028. Regardless of purpose.",
+        "source_refs": ["vnta_resolution_44"]
       },
       {
         "country": "Norway",
@@ -384,9 +404,10 @@
         "tier": "VISA_FREE_45",
         "max_stay_days": 45,
         "agreement_type": "UNILATERAL",
-        "valid_from": "2023-08-15",
-        "valid_until": "2028-03-05",
-        "conditions": "Extended until 2028 per March 2025 announcement"
+        "valid_from": "2025-03-15",
+        "valid_until": "2028-03-14",
+        "conditions": "Resolution 44/NQ-CP (issued 7 Mar 2025): valid 15 Mar 2025 to 14 Mar 2028. Regardless of purpose.",
+        "source_refs": ["vnta_resolution_44"]
       },
       {
         "country": "Finland",
@@ -394,9 +415,10 @@
         "tier": "VISA_FREE_45",
         "max_stay_days": 45,
         "agreement_type": "UNILATERAL",
-        "valid_from": "2023-08-15",
-        "valid_until": "2028-03-05",
-        "conditions": "Extended until 2028 per March 2025 announcement"
+        "valid_from": "2025-03-15",
+        "valid_until": "2028-03-14",
+        "conditions": "Resolution 44/NQ-CP (issued 7 Mar 2025): valid 15 Mar 2025 to 14 Mar 2028. Regardless of purpose.",
+        "source_refs": ["vnta_resolution_44"]
       },
       {
         "country": "Belarus",
@@ -842,7 +864,7 @@
     { "date": "2023-08-15", "event": "e-Visa expanded to ALL nationalities; max stay extended from 30 to 90 days; visa-free extended to 45 days for 13 key markets" },
     { "date": "2025-01-15", "event": "Resolution 11/NQ-CP: 45-day conditional exemption for Poland, Czech Republic, Switzerland (tour packages only)" },
     { "date": "2025-01-30", "event": "Vietnam-Belarus bilateral mutual visa exemption effective: 30 days per entry, max 90 days/year for ordinary passport holders" },
-    { "date": "2025-03-05", "event": "Visa-free extensions confirmed until 2028 for Germany, France, Italy, Spain, UK, Russia, Japan, South Korea, Denmark, Sweden, Norway, Finland" },
+    { "date": "2025-03-07", "event": "Resolution 44/NQ-CP issued: 45-day visa-free for Germany, France, Italy, Spain, UK, Russia, Japan, South Korea, Denmark, Sweden, Norway, Finland; valid 15 Mar 2025 to 14 Mar 2028 (replaces Resolution 32/NQ-CP and 128/NQ-CP)" },
     { "date": "2025-08-15", "event": "Resolution 229/NQ-CP: 45-day visa-free for 12 additional European countries (Belgium, Bulgaria, Croatia, Czech Republic, Switzerland, Luxembourg, Hungary, Netherlands, Poland, Romania, Slovakia, Slovenia) until Aug 14, 2028" },
     { "date": "2025-12-02", "event": "Resolution 389/NQ-CP: 41 new international border gates added for e-Visa entry/exit, expanding total approved ports from 42 to 83 (4 airports, 11 land borders, 26 seaports)" },
     { "date": "2026-02-10", "event": "Announcement: UD1 and UD2 visa categories for high-skill professionals and dependents (valid up to 5 years) to launch July 1, 2026" },
