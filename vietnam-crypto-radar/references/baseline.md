@@ -1,8 +1,16 @@
 # Vietnam Crypto Regime — Baseline Snapshot
 
-> **LAST VERIFIED: 12 October 2026** — the date of the last full sweep, and the one
+> **LAST VERIFIED: 19 October 2026** — the date of the last full sweep, and the one
 > the radar diffs against. Everything it reports as "new" is new relative to this date.
 > After confirming real changes in a run, rewrite this file and bump the date.
+> **Verification note, 19 October 2026:** No pilot licence, new decree or circular, issued
+> reporting Circular, DNC-Chain Layer-1 selection or scheme governance instrument was found
+> after 12 Oct 2026. New: Tier-2 coverage of a 16 Oct 2026 Da Nang sandbox seminar reports
+> Basal Pay's trial expanded from 3 to 10 tourism areas, with operator-reported usage and
+> limits (see the Da Nang trials section). No amending decision number was found, so the
+> expansion is REPORTED, not CONFIRMED. Also added: two Tier-2 sources list Công ty TNHH
+> Bybit Technology Vietnam among the Da Nang IFC site's first members (Dec 2025). VON,
+> G-Flow, GM Services, Dinogo and FIZEN remain undecided on the record found.
 > **Verification note, 12 October 2026:** No licence, new decree or circular, DNC-Chain
 > Layer-1 selection or scheme governance instrument was found after 5 Oct 2026. This sweep's
 > changes are recorded in place: the grace-period bullet, the Nghị quyết 20/2026 row, and the
@@ -181,6 +189,31 @@ The city portal's bulletin published 29 Apr 2026 (Tier 1) also lists Umi Pay *as
 "prediction market" add-on, so the element is confirmed at the application stage; whether
 it survived into the approved scope is still unresolved.
 
+**Reported, October 2026 — Basal Pay expansion and first usage figures.** Coverage of a
+16 Oct 2026 seminar in Da Nang (organised by VBA with AlphaTrue Solutions, Tether, PayD and
+Icetea Solution) reports that Basal Pay's trial scope grew "từ 3 điểm ban đầu lên 10 khu vực
+du lịch trọng điểm". Tuổi Trẻ lists them as Da Nang International Airport, central Hải Châu,
+the An Hải–Mỹ Khê–Ngũ Hành Sơn coast, Hội An, Bà Nà Hills and five golf/resort venues.
+Two independent Tier-2 outlets (Nhân Dân; Đại biểu Nhân dân) carry the expansion, but none
+gives the amending decision's number or date. Status: REPORTED — NEEDS_PRIMARY_SOURCE for the
+instrument. Decision 1181's three original sites are unchanged in this file until it is found.
+The same coverage says the city has approved six solutions (Tuổi Trẻ attributes this to Sở
+KH&CN deputy director Lê Sơn Phong). That matches the six recorded here but names only four of
+them, so it does not settle that six is the total: keep treating six as a floor.
+Operator figures, single Tier-2 source (Tuổi Trẻ, 18 Oct 2026), attributed to AlphaTrue's CEO
+and not independently verified: about 10,000 registered accounts and over 15,000
+transactions in the first year, over 100,000 (as written, "đô") converted at the three
+original sites, and self-imposed limits of under 1,000 USDT per transaction and 30,000 USDT
+per account per month. Status: REPORTED / SINGLE-SOURCE. This is the first sourced report of
+user-facing operation for any of the six trials; it covers Basal Pay only. Nothing found
+reports user numbers, launches or results for MIMO, PayD, TORA, Umi Pay or Money X-Border,
+and no trial is reported extended in time or suspended.
+Sở KH&CN says it will advise the city on further models, widening trials to stablecoins,
+tourism finance and cross-border settlement. Status: PROPOSED — no new approval was found.
+The articles cite Nghị quyết 136/2024/QH15 (amended by 259/2025/QH15) and 20/2026/NQ-HĐND as
+the framework in general terms; none ties a specific decision to either local resolution, so
+which one 3809–3812 issued under remains not established.
+
 ### Da Nang blockchain scheme to 2030 (Quyết định 2728/QĐ-UBND) — EFFECTIVE / CONFIRMED
 
 Signed **23 June 2026** and effective on signing, this promulgates the Đề án "Thúc đẩy ứng
@@ -330,6 +363,8 @@ regime, or the municipal trial decisions.
   the second council, so whether it was a resubmission is UNVERIFIED; it was approved on 22 Aug
   2026 (Decision 3812/QĐ-UBND). No approval or rejection of VON, G-Flow, GM Services, Dinogo or
   FIZEN was found.
+  19 Oct 2026: still PENDING (undecided) for all five. The October 2026 seminar coverage names
+  Basal Pay, PayD, Umi Pay and X-Border as licensed and none of the five applicants.
   The 29 Apr councils sat under 55/2024; that predates 20/2026 and does not settle which
   resolution the 22 Aug 2026 approvals cite.
 - Does **Nghị quyết 20/2026/NQ-HĐND** amend, replace or merely detail **55/2024/NQ-HĐND**, and
@@ -351,6 +386,13 @@ regime, or the municipal trial decisions.
   opening, without naming them in the text read. Binance, Tether and Bybit appear there only as
   signatories of the city's cooperation MoUs — not as IFC members. An MoU is not a member
   admission and not a licence.
+  Two independent Tier-2 sources (Dân trí and Tuổi Trẻ, both 22 Dec 2025, checked 19 Oct 2026)
+  list **Công ty TNHH Bybit Technology Vietnam** among the first ten members announced on
+  21 Dec 2025, alongside Vietcombank, Makara Capital, APEX Vietnam IFC Services and DTC Pay;
+  Binance appears only as an MoU signatory. Status: REPORTED — NEEDS_PRIMARY_SOURCE. The city
+  portal's 9 Jan 2026 IFC opening page lists Bybit only as an MoU signatory, so whether a
+  crypto-exchange-affiliated entity holds IFC membership is not confirmed. Neither source describes any digital-asset licence or activity for it, and a
+  membership certificate is not a crypto-asset licence or an operating market.
 
 ---
 
@@ -389,6 +431,8 @@ confirmed on 3 August 2026 and are due for a re-check.
 - **Da Nang controlled-trial regime — Nghị quyết 55/2024/NQ-HĐND (Tier 2, legal database):** `https://thuvienphapluat.vn/van-ban/Linh-vuc-khac/Nghi-quyet-55-2024-NQ-HDND-cap-phep-thu-nghiem-co-kiem-soat-giai-phap-cong-nghe-moi-Da-Nang-637770.aspx` — 13 Dec 2024; corroborates the title and date the Đề án cites. The host answers 403 to non-browser clients, so `check_anchors.py` reports it unverified rather than dead. (Confirmed 4 September 2026)
 - **Startup Da Nang — approved controlled-trial solutions (Tier 2, city startup portal):** `https://startupdanang.vn/danh-sach-cac-giai-phap-duoc-phe-duyet-thuc-hien-thu-nghiem-co-kiem-soat` — lists PayD, TORA, Umi Pay and Money X-Border with operators, durations and the three trial sites, and names Sở KH&CN as supervisor. Carries no decision numbers and no framing resolution, so it corroborates scope, not the instrument. (Confirmed 4 September 2026)
 - **Government legal documents DB — Nghị quyết 222/2025/QH15, the IFC (Tier 1):** `https://vanban.chinhphu.vn/?pageid=27160&docid=214392` (Confirmed 4 September 2026)
+- **Government legal documents DB — Nghị quyết 136/2024/QH15, Da Nang urban government and special mechanisms (Tier 1):** `https://vanban.chinhphu.vn/?pageid=27160&docid=210674` — Quốc hội; "Về tổ chức chính quyền đô thị và thí điểm một số cơ chế, chính sách đặc thù phát triển thành phố Đà Nẵng"; issued 26 Jun 2024, effective 1 Jan 2025, signed Trần Thanh Mẫn. The page carries no amendment note. Not crypto-specific. (Confirmed 19 Oct 2026)
+- **Da Nang city portal — Nghị quyết 259/2025/QH15 announced, 9 Jan 2026 (Tier 1):** `https://cttdt.danangportal.gov.vn/vi/w/nghi-quyet-259-2025-qh15-don-bay-phat-trien-ha-tang-tai-chinh-va-cong-nghe-cao-tai-da-nang` — names it the Quốc hội resolution "sửa đổi, bổ sung một số điều của Nghị quyết số 136/2024/QH15", amending 8 articles. Gives no passage or effective date; the full text was not read. Not crypto-specific. (Confirmed 19 Oct 2026)
 - **Government legal documents DB — Nghị định 323/2025/NĐ-CP, IFC establishment (Tier 1):** `https://vanban.chinhphu.vn/?pageid=27160&docid=216242` (Confirmed 4 September 2026)
 - **Government News — Nghị định 323/2025/NĐ-CP and the Da Nang site's orientation (Tier 1):** `https://baochinhphu.vn/ban-hanh-nghi-dinh-ve-thanh-lap-trung-tam-tai-chinh-quoc-te-tai-viet-nam-102251219181345756.htm` — 19 Dec 2025; carries the "thử nghiệm có kiểm soát cho các mô hình tài chính mới" wording and the digital-asset/digital-payment orientation. Answers 403 to non-browser clients. (Confirmed 4 September 2026)
 - **Government legal documents DB — Nghị định 324/2025/NĐ-CP, IFC financial policy (Tier 1):** `https://vanban.chinhphu.vn/?pageid=27160&docid=216246` (Confirmed 4 September 2026)
@@ -422,6 +466,11 @@ confirmed on 3 August 2026 and are due for a re-check.
 - **Da Nang city portal — evaluation councils, bulletin of 23 Mar directions, published 24 Mar 2026 (Tier 1):** `https://cttdt.danangportal.gov.vn/vi/web/dng/w/chi-dao-dieu-hanh-noi-bat-cua-ubnd-thanh-pho-chu-tich-ubnd-thanh-pho-ngay-23-3` — Decisions 1013–1017/QĐ-UBND: FIZEN, Money X-Border, GM Services, Dinogo, PayD. The danang.gov.vn host answers 403 to non-browser clients; the cttdt host serves the same page. (Confirmed 12 Oct 2026)
 - **Da Nang city portal — 2026 batch-2 evaluation councils, bulletin of 28 Apr directions, published 29 Apr 2026 (Tier 1):** `https://cttdt.danangportal.gov.vn/vi/web/dng/w/chi-dao-dieu-hanh-noi-bat-cua-ubnd-chu-tich-va-cac-pho-chu-tich-ubnd-thanh-pho-ngay-28-4` — Quyết định 1867/QĐ-UBND: Umi Pay (with the prediction-market add-on), TORA, VON, G-Flow, Money X-Border, assessed under 55/2024/NQ-HĐND. (Confirmed 12 Oct 2026)
 - **Da Nang city portal — Vietnam IFC Da Nang site opening, 9 Jan 2026 (Tier 1):** `https://cttdt.danangportal.gov.vn/vi/w/khai-truong-trung-tam-tai-chinh-quoc-te-viet-nam-tai-thanh-pho-da-nang` — first membership certificates; Binance, Tether and Bybit as MoU signatories only. (Confirmed 12 Oct 2026)
+- **Tuổi Trẻ — Basal Pay at 10 sites, operator usage figures and limits (Tier 2):** `https://tuoitre.vn/da-nang-cho-phep-chuyen-tai-san-ma-hoa-usdt-sang-vnd-tai-san-bay-san-golf-khu-nghi-duong-100261018145012822.htm` — 18 Oct 2026; the only source for the usage figures and per-transaction/monthly limits, which it attributes to AlphaTrue's CEO. (Confirmed 19 Oct 2026)
+- **Nhân Dân — Basal Pay expanded from 3 to 10 tourism areas; six sandbox licensees (Tier 2):** `https://nhandan.vn/da-nang-tung-buoc-hinh-thanh-he-sinh-thai-tai-chinh-so-gan-voi-du-lich-co-kha-nang-mo-rong-ben-vung-post996065.html` — 17 Oct 2026; no decision number for the expansion. (Confirmed 19 Oct 2026)
+- **Đại biểu Nhân dân — same seminar, independent corroboration (Tier 2):** `https://daibieunhandan.vn/sandbox-tai-san-ma-hoa-o-da-nang-khong-dung-o-thu-nghiem-phai-tao-gia-tri-thuc-10434234.html` — 16 Oct 2026; "6 giải pháp đã được UBND thành phố phê duyệt" and the 3→10 expansion. (Confirmed 19 Oct 2026)
+- **Dân trí — first ten Da Nang IFC members, 21 Dec 2025 (Tier 2):** `https://dantri.com.vn/kinh-doanh/da-nang-cong-bo-10-thanh-vien-dau-tien-cua-trung-tam-tai-chinh-quoc-te-20251222091925990.htm` — names Bybit Technology Vietnam as a member; Binance as an MoU partner only. (Confirmed 19 Oct 2026)
+- **Tuổi Trẻ — first Da Nang IFC members (Tier 2, independent corroboration):** `https://tuoitre.vn/diem-ten-nhung-ong-lon-gia-nhap-trung-tam-tai-chinh-quoc-te-tai-da-nang-20251222073128439.htm` — 22 Dec 2025; lists Bybit Technology Vietnam among members. (Confirmed 19 Oct 2026)
 - **MOF News — SSC to build supervision rules (Tier 1):** `https://www.mof.gov.vn/webcenter/portal/btcvn/pages_r/l/tin-bo-tai-chinh?dDocName=MOFUCM288593`
 
 ---
