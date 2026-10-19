@@ -1,7 +1,7 @@
 {
   "_meta": {
     "document_type": "structured_web3_opportunity_roster",
-    "last_updated": "2026-10-12",
+    "last_updated": "2026-10-19",
     "data_freshness": "Program existence, type, chain/ecosystem, region, and dilution posture are evergreen and verified through June 2026. TIME-SENSITIVE fields (application deadlines, open/closed cohort status, current prize pool / check size, cadence) are baseline snapshots and MUST be re-verified live before the user applies or acts.",
     "coverage": "Global. Every entry is region-tagged. Southeast Asia / Vietnam-relevant entries carry sea_relevant: true.",
     "schema_version": "1.1.0",
@@ -31,7 +31,7 @@
       "url": "https://a16zcrypto.com/csx/",
       "notes": "No 2026 cohort has been announced. The program remains active, but check the official page for the next cohort window.",
       "sea_relevant": false,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-10-19"
     },
     {
       "id": "alliance-dao",
@@ -61,9 +61,9 @@
       "cadence": "cohort-based",
       "status": "open",
       "url": "https://outlierventures.io/base-camp/",
-      "notes": "Accepting applications for late 2026 and early 2027 cohorts on a rolling basis.",
+      "notes": "Official page checked 2026-10-19: accepting early applications for the 2026 cohort. No cohort dates or application deadline are listed.",
       "sea_relevant": false,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-10-19"
     },
     {
       "id": "tachyon-accelerator",
@@ -79,7 +79,7 @@
       "url": "https://tachyon.xyz/",
       "notes": "Run by Consensys Mesh. Application reviews are paused until Fall 2026.",
       "sea_relevant": false,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-10-19"
     },
     {
       "id": "yzi-labs",
@@ -413,9 +413,9 @@
       "cadence": "continuous",
       "status": "open",
       "url": "https://immunefi.com/",
-      "notes": "Continuous bug bounties are active. The next major time-bound event is the ENS Audit Competition, with a submission deadline of September 14, 2026.",
+      "notes": "Continuous bug bounties are live on the official page (checked 2026-10-19), with no time-bound audit competition shown. The ENS Audit Competition submission deadline of September 14, 2026 has passed.",
       "sea_relevant": false,
-      "last_verified": "2026-08-31"
+      "last_verified": "2026-10-19"
     },
     {
       "id": "optimism-retro-funding",
@@ -445,9 +445,9 @@
       "cadence": "continuous streaming",
       "status": "open",
       "url": "https://www.drips.network/",
-      "notes": "The protocol enables continuous funding. Specific partner programs have deadlines, e.g., Stellar Wave bounty cycles run monthly; Wave 8 concluded Aug 31, 2026. A legacy Drips contract was exploited on July 14, 2026 \u2014 the main platform is operational, but treat legacy contracts with care.",
+      "notes": "The protocol enables continuous funding. Specific partner programs have deadlines, e.g., Stellar Wave bounty cycles run monthly; Wave 8 concluded Aug 31, 2026. The homepage checked 2026-10-19 shows the app live but no current Wave with dates. A legacy Drips contract was exploited on July 14, 2026 \u2014 the main platform is operational, but treat legacy contracts with care.",
       "sea_relevant": false,
-      "last_verified": "2026-08-31"
+      "last_verified": "2026-10-19"
     },
     {
       "id": "ethereum-protocol-fellowship",
@@ -479,7 +479,7 @@
       "url": "https://solana.com/developers",
       "notes": "The Solana Foundation lists no program labelled 'Fellowships' at present \u2014 this entry is kept as a pointer, not an open call. What is live instead: the Solana Developer Bootcamp 2026 (solana.com/developers/bootcamp, source at github.com/solana-foundation/solana-bootcamp-2026), regional bootcamps, and Solana Foundation Grants of roughly $5,000-10,000 that bootcamp graduates can apply for. The Solana School Fall Class, a free 7-week online program, started 31 August 2026, so that cohort is under way rather than recruiting. Ecosystem partners (Superteam, MLH, Encode Club) run their own cohorts.",
       "sea_relevant": true,
-      "last_verified": "2026-08-31"
+      "last_verified": "2026-10-19"
     },
     {
       "id": "ronin-grants",
@@ -543,7 +543,7 @@
       "url": "https://tribex.co/",
       "notes": "The Ignition AI Accelerator and a MedTech innovation program are active. The main Tribe Accelerator takes expressions of interest between cohorts. Check the website for the next general cohort.",
       "sea_relevant": true,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-10-19"
     },
     {
       "id": "sqrdao-programs",
