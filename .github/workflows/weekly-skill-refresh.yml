@@ -94,11 +94,11 @@ jobs:
           # token over OIDC; this job only needs to read the checkout.
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # Unattended run: tools are allow-listed rather than prompted for.
-          # Bash is limited to the two self-check commands the prompt names.
+          # Bash is limited to the three self-check commands the prompt names.
           claude_args: >-
             --model claude-opus-5-5
             --max-turns 60
-            --allowedTools "Read,Edit,Write,Glob,Grep,WebFetch,WebSearch,Bash(python3 -m unittest:*),Bash(python3 scripts/check_anchors.py:*)"
+            --allowedTools "Read,Edit,Write,Glob,Grep,WebFetch,WebSearch,Bash(python3 -m unittest:*),Bash(python3 scripts/check_anchors.py:*),Bash(python3 scripts/validate_skills.py:*)"
           prompt: |
             You are running an unattended WEEKLY refresh of ONE skill in
             this repository: `vietnam-crypto-radar`. Today's date is the
@@ -198,11 +198,15 @@ jobs:
               with a truncation marker or an over-long line is rejected.
 
             Before writing the summary, check your own edit. Running these
-            two commands is allowed even though they live outside
+            three commands is allowed even though they live outside
             `vietnam-crypto-radar/`:
 
                 python3 -m unittest tests.test_vietnam_crypto_radar -v
                 python3 scripts/check_anchors.py --since HEAD --targets baseline
+                python3 scripts/validate_skills.py
+
+            Run each command on its own: no `;`, `|` or `&&` chaining and no
+            `python3 -c`. Anything else is denied and still costs a turn.
 
             A failing test means your edit removed or contradicted a fact an
             earlier correction pinned: restore the wording the test names
@@ -211,7 +215,7 @@ jobs:
             the claim. A dead anchor with `"new": false` was already in
             references/baseline.md; replace it if you can find the document's current
             home. A later step tries this skill's refresh on its own and DROPS
-            THE WHOLE REFRESH if either check fails, so an unfixed failure
+            THE WHOLE REFRESH if any check fails, so an unfixed failure
             costs every other change you made this week.
 
             Finish by writing `REFRESH_SUMMARY.vietnam-crypto-radar.md` at the
@@ -264,11 +268,11 @@ jobs:
           # token over OIDC; this job only needs to read the checkout.
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # Unattended run: tools are allow-listed rather than prompted for.
-          # Bash is limited to the two self-check commands the prompt names.
+          # Bash is limited to the three self-check commands the prompt names.
           claude_args: >-
             --model claude-haiku-5-5
             --max-turns 50
-            --allowedTools "Read,Edit,Write,Glob,Grep,WebFetch,WebSearch,Bash(python3 -m unittest:*),Bash(python3 scripts/check_anchors.py:*)"
+            --allowedTools "Read,Edit,Write,Glob,Grep,WebFetch,WebSearch,Bash(python3 -m unittest:*),Bash(python3 scripts/check_anchors.py:*),Bash(python3 scripts/validate_skills.py:*)"
           prompt: |
             You are running an unattended WEEKLY refresh of ONE skill in
             this repository: `web3-opportunities`. Today's date is the
@@ -318,11 +322,15 @@ jobs:
               with a truncation marker or an over-long line is rejected.
 
             Before writing the summary, check your own edit. Running these
-            two commands is allowed even though they live outside
+            three commands is allowed even though they live outside
             `web3-opportunities/`:
 
                 python3 -m unittest tests.test_web3_opportunities -v
                 python3 scripts/check_anchors.py --since HEAD --targets web3
+                python3 scripts/validate_skills.py
+
+            Run each command on its own: no `;`, `|` or `&&` chaining and no
+            `python3 -c`. Anything else is denied and still costs a turn.
 
             A failing test means your edit removed or contradicted a fact an
             earlier correction pinned: restore the wording the test names
@@ -331,7 +339,7 @@ jobs:
             the claim. A dead anchor with `"new": false` was already in
             the roster; replace it if you can find the document's current
             home. A later step tries this skill's refresh on its own and DROPS
-            THE WHOLE REFRESH if either check fails, so an unfixed failure
+            THE WHOLE REFRESH if any check fails, so an unfixed failure
             costs every other change you made this week.
 
             Finish by writing `REFRESH_SUMMARY.web3-opportunities.md` at the
@@ -392,11 +400,11 @@ jobs:
           # token over OIDC; this job only needs to read the checkout.
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # Unattended run: tools are allow-listed rather than prompted for.
-          # Bash is limited to the two self-check commands the prompt names.
+          # Bash is limited to the three self-check commands the prompt names.
           claude_args: >-
             --model claude-haiku-5-5
-            --max-turns 25
-            --allowedTools "Read,Edit,Write,Glob,Grep,WebFetch,WebSearch,Bash(python3 -m unittest:*),Bash(python3 scripts/check_anchors.py:*)"
+            --max-turns 50
+            --allowedTools "Read,Edit,Write,Glob,Grep,WebFetch,WebSearch,Bash(python3 -m unittest:*),Bash(python3 scripts/check_anchors.py:*),Bash(python3 scripts/validate_skills.py:*)"
           prompt: |
             You are running an unattended WEEKLY refresh of ONE skill in
             this repository: `vietnam-visa-check`. Today's date is the
@@ -426,11 +434,15 @@ jobs:
               with a truncation marker or an over-long line is rejected.
 
             Before writing the summary, check your own edit. Running these
-            two commands is allowed even though they live outside
+            three commands is allowed even though they live outside
             `vietnam-visa-check/`:
 
                 python3 -m unittest tests.test_vietnam_visa_check -v
                 python3 scripts/check_anchors.py --since HEAD --targets visa
+                python3 scripts/validate_skills.py
+
+            Run each command on its own: no `;`, `|` or `&&` chaining and no
+            `python3 -c`. Anything else is denied and still costs a turn.
 
             A failing test means your edit removed or contradicted a fact an
             earlier correction pinned: restore the wording the test names
@@ -439,7 +451,7 @@ jobs:
             the claim. A dead anchor with `"new": false` was already in
             the policy file; replace it if you can find the document's current
             home. A later step tries this skill's refresh on its own and DROPS
-            THE WHOLE REFRESH if either check fails, so an unfixed failure
+            THE WHOLE REFRESH if any check fails, so an unfixed failure
             costs every other change you made this week.
 
             Finish by writing `REFRESH_SUMMARY.vietnam-visa-check.md` at the
