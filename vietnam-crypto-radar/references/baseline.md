@@ -389,8 +389,9 @@ regime, or the municipal trial decisions.
   Two independent Tier-2 sources (Dân trí and Tuổi Trẻ, both 22 Dec 2025, checked 19 Oct 2026)
   list **Công ty TNHH Bybit Technology Vietnam** among the first ten members announced on
   21 Dec 2025, alongside Vietcombank, Makara Capital, APEX Vietnam IFC Services and DTC Pay;
-  Binance appears only as an MoU signatory. So one crypto-exchange-affiliated entity holds IFC
-  membership. Neither source describes any digital-asset licence or activity for it, and a
+  Binance appears only as an MoU signatory. Status: REPORTED — NEEDS_PRIMARY_SOURCE. The city
+  portal's 9 Jan 2026 IFC opening page lists Bybit only as an MoU signatory, so whether a
+  crypto-exchange-affiliated entity holds IFC membership is not confirmed. Neither source describes any digital-asset licence or activity for it, and a
   membership certificate is not a crypto-asset licence or an operating market.
 
 ---
