@@ -289,3 +289,26 @@ apparatus has been wrong more often than the skill has.
 The two-call fix also earns its keep immediately: the adversarial check for
 `vvc-24` now fails on the call as well as the rubric — "no call satisfied
 'Irish'" — where before it passed the call by looking up Australia alone.
+
+## 2026-10-19 — Output example re-synced to Resolution 44/NQ-CP dates, `0.4.3`
+
+PR #73 (`0.4.2`) corrected the bundled data: the 12-country Resolution 44/NQ-CP
+exemption runs 15 Mar 2025 to 14 Mar 2028, not to 2028-03-05. The example JSON in
+`SKILL.md`'s Output section was not touched by that PR, so it still showed
+`valid_until: "2028-03-05"`, the old "Extended until 2028 per March 2025
+announcement" conditions string, the matching expiry note, and
+`data_as_of: "2026-06-18"`.
+
+Regenerated with `query_visa.py --nationality Germany --duration_days 30` and
+replaced only those four values with what the script now prints. No instruction
+prose changed; the example's elisions and field order were kept. PATCH bump
+`0.4.2` → `0.4.3`.
+
+**Not gated.** The split is saturated at 24/24 and retired, so it cannot measure
+this edit. Shipped anyway because it is a documentation correction that makes the
+example agree with the shipped data — leaving it meant the skill's own example
+contradicted the script's output on an expiry date. `build_visa_cases.py --check`
+is ok; no case references the example.
+
+The old string survives in `patterns/p007-exemption-conditions-dropped.md` and in
+`runs/iter0–2.jsonl`; both are historical evidence and stay as recorded.
