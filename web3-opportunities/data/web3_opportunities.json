@@ -1,7 +1,7 @@
 {
   "_meta": {
     "document_type": "structured_web3_opportunity_roster",
-    "last_updated": "2026-10-19",
+    "last_updated": "2026-10-26",
     "data_freshness": "Program existence, type, chain/ecosystem, region, and dilution posture are evergreen and verified through June 2026. TIME-SENSITIVE fields (application deadlines, open/closed cohort status, current prize pool / check size, cadence) are baseline snapshots and MUST be re-verified live before the user applies or acts.",
     "coverage": "Global. Every entry is region-tagged. Southeast Asia / Vietnam-relevant entries carry sea_relevant: true.",
     "schema_version": "1.1.0",
@@ -207,7 +207,7 @@
       "url": "https://esp.ethereum.foundation/",
       "notes": "The ESP has moved away from open intake to a more targeted model with specific RFPs and rolling support. Check the wishlist for current opportunities.",
       "sea_relevant": false,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-10-26"
     },
     {
       "id": "arbitrum-foundation-grants",
@@ -221,9 +221,9 @@
       "cadence": "rolling",
       "status": "closed",
       "url": "https://arbitrum.foundation/grants",
-      "notes": "The main grant program is inactive and marked as 'Program Complete'. A new program is 'Coming Soon'. Specialized grants (Audit, ArbiFuel, Gaming) remain active.",
+      "notes": "Checked 2026-10-26: the main grant program is marked 'Program Complete'. A new program is 'Coming soon' with no opening date. Specialized grants shown as active, with no dates: Stablecoin Growth Program (USDG), Security Program (audit subsidies), Dune Credit Program, ArbiFuel (gas sponsorship), and Alchemy-Arbitrum (up to $500K credits for Orbit rollups). The earlier 'Gaming' grant was not seen on the page.",
       "sea_relevant": false,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-10-26"
     },
     {
       "id": "optimism-grants",
@@ -255,7 +255,7 @@
       "url": "https://github.com/w3f/Grants-Program",
       "notes": "The general Grants Program has been discontinued. Builders are routed to the Polkadot Treasury (OpenGov), Kusama Vision Bounties, and other ecosystem-specific programs.",
       "sea_relevant": false,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-10-26"
     },
     {
       "id": "interchain-foundation-grants",
@@ -303,7 +303,7 @@
       "url": "https://sui.io/programs-funding",
       "notes": "The general developer grant program has been replaced by the Hydropower Accelerator, targeted RFPs, and strategic investments.",
       "sea_relevant": false,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-10-26"
     },
     {
       "id": "filecoin-grants",
@@ -639,7 +639,7 @@
       "url": "https://www.rmit.edu.vn/",
       "notes": "No announcement for a 2026 edition has been found. The dedicated domain has lapsed.",
       "sea_relevant": true,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-10-26"
     },
     {
       "id": "hust-bk-fintech-hackday",
