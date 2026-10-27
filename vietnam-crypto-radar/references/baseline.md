@@ -1,8 +1,17 @@
 # Vietnam Crypto Regime — Baseline Snapshot
 
-> **LAST VERIFIED: 19 October 2026** — the date of the last full sweep, and the one
+> **LAST VERIFIED: 26 October 2026** — the date of the last full sweep, and the one
 > the radar diffs against. Everything it reports as "new" is new relative to this date.
 > After confirming real changes in a run, rewrite this file and bump the date.
+> **Verification note, 26 October 2026:** No pilot licence, new decree or circular, issued
+> reporting Circular, DNC-Chain Layer-1 selection, scheme governance instrument, new Da Nang
+> trial approval, or extension/suspension of an existing trial was found after 19 Oct 2026.
+> New: one shortlisted applicant, CAEX (Việt Nam Thịnh Vượng), announced on 22 Oct 2026 that
+> the Cục An ninh mạng had appraised its level-4 information-security dossier. That is a
+> company claim on a single Tier-2 source, and it is not a licence (see In motion). The
+> effective date of Nghị quyết 20/2026/NQ-HĐND, and whether it repeals 55/2024, are still
+> unread: LuatVietnam's preview is a scanned image that could not be read this run.
+> VON, G-Flow, GM Services, Dinogo and FIZEN are still undecided on the record found.
 > **Verification note, 19 October 2026:** No pilot licence, new decree or circular, issued
 > reporting Circular, DNC-Chain Layer-1 selection or scheme governance instrument was found
 > after 12 Oct 2026. New: Tier-2 coverage of a 16 Oct 2026 Da Nang sandbox seminar reports
@@ -308,6 +317,7 @@ regime, or the municipal trial decisions.
 - **Reporting & disclosure rules:** The Ministry of Finance's public comment period for its **draft Circular on reporting and information disclosure** for the pilot crypto-asset market closed on 26 September 2026. The draft governs reporting duties for licensed VASPs. Status: DRAFT / AWAITING_ISSUANCE.
 - **Da Nang IFC international integration:** On **25 September 2026**, the Da Nang site of Vietnam's IFC officially became a member of the **FC4S (Financial Centres for Sustainability) Network**, a UNDP-coordinated global body for green and sustainable finance. The move signals an intent to align with international standards and access global expertise. Status: ANNOUNCED / CONFIRMED.
 - **Licensing shortlist:** 5 entities are reported to be under final review by the Ministry of Finance, State Bank, and Ministry of Public Security. The list includes: **VIX Crypto Asset Exchange JSC**, **Loc Phat Vietnam Crypto Asset Exchange JSC**, **Vietnam Prosperity Crypto Asset Exchange JSC**, **Techcom Crypto Asset Exchange JSC**, and **Vietnam Digital Assets JSC**. Status: REPORTED, not final approvals.
+  - On 22 Oct 2026, Vietnam Prosperity (CAEX) announced that the Cục An ninh mạng (Ministry of Public Security) had appraised its level-4 information-system security dossier, and called itself "sẵn sàng để được cấp phép". This is a company announcement reported by one Tier-2 outlet (Thanh Niên, 23 Oct 2026). Status: REPORTED / SINGLE-SOURCE. It is not a licence, and the same article confirms none has been issued, so the Resolution 05 six-month clock has still not started.
 - **Digital assets as loan collateral:** Ministry of Finance has proposed allowing SMEs to use digital assets and intellectual property as collateral for bank loans. Status: PROPOSED / NEEDS_PRIMARY_SOURCE.
 - **Supervision framework:** The State Securities Commission (SSC) is actively developing a "System for management and supervision of the crypto-asset trading market" and a "regulatory framework for supervising the crypto-asset market," including staff training with international partners: the SSC ran a "Compliance and Enforcement in the crypto-asset market" programme with Tether and Chainalysis in Hanoi on 21 Jul 2026, with FATF standards, VASP compliance programmes, fund tracing, and illicit P2P networks on the agenda. On 30 Sep 2026 the SSC chair met MAS (Singapore) on depositary-receipt products and asked MAS to share experience on crypto-asset legal frameworks, exchange supervision and AML. Status: IN_PROGRESS / CONFIRMED.
 - **Law on AML (Amended):** ENACTED — passed 24 Aug 2026, effective 1 Dec 2026; number 23/2026/QH16 is SINGLE-SOURCE. See the table above. Watch for the promulgated text on vanban.chinhphu.vn to confirm the number, and for implementing guidance.
@@ -365,6 +375,7 @@ regime, or the municipal trial decisions.
   FIZEN was found.
   19 Oct 2026: still PENDING (undecided) for all five. The October 2026 seminar coverage names
   Basal Pay, PayD, Umi Pay and X-Border as licensed and none of the five applicants.
+  26 Oct 2026: still PENDING (undecided) for all five; no approval or rejection was found.
   The 29 Apr councils sat under 55/2024; that predates 20/2026 and does not settle which
   resolution the 22 Aug 2026 approvals cite.
 - Does **Nghị quyết 20/2026/NQ-HĐND** amend, replace or merely detail **55/2024/NQ-HĐND**, and
@@ -471,6 +482,7 @@ confirmed on 3 August 2026 and are due for a re-check.
 - **Đại biểu Nhân dân — same seminar, independent corroboration (Tier 2):** `https://daibieunhandan.vn/sandbox-tai-san-ma-hoa-o-da-nang-khong-dung-o-thu-nghiem-phai-tao-gia-tri-thuc-10434234.html` — 16 Oct 2026; "6 giải pháp đã được UBND thành phố phê duyệt" and the 3→10 expansion. (Confirmed 19 Oct 2026)
 - **Dân trí — first ten Da Nang IFC members, 21 Dec 2025 (Tier 2):** `https://dantri.com.vn/kinh-doanh/da-nang-cong-bo-10-thanh-vien-dau-tien-cua-trung-tam-tai-chinh-quoc-te-20251222091925990.htm` — names Bybit Technology Vietnam as a member; Binance as an MoU partner only. (Confirmed 19 Oct 2026)
 - **Tuổi Trẻ — first Da Nang IFC members (Tier 2, independent corroboration):** `https://tuoitre.vn/diem-ten-nhung-ong-lon-gia-nhap-trung-tam-tai-chinh-quoc-te-tai-da-nang-20251222073128439.htm` — 22 Dec 2025; lists Bybit Technology Vietnam among members. (Confirmed 19 Oct 2026)
+- **Thanh Niên — CAEX level-4 security appraisal; no exchange licensed yet (Tier 2, single source):** `https://thanhnien.vn/khi-nao-viet-nam-co-san-giao-dich-tai-san-ma-hoa-dau-tien-185261023063623604.htm` — 23 Oct 2026; reports CAEX's own 22 Oct notice, and quotes SSC's Tô Trần Hòa that launch timing depends on the firms' progress. (Confirmed 26 Oct 2026)
 - **MOF News — SSC to build supervision rules (Tier 1):** `https://www.mof.gov.vn/webcenter/portal/btcvn/pages_r/l/tin-bo-tai-chinh?dDocName=MOFUCM288593`
 
 ---
