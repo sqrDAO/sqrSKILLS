@@ -1,6 +1,6 @@
 ---
 name: vietnam-visa-check
-version: 0.4.3
+version: 0.4.4
 description: |
   Check Vietnam visa and entry requirements for any nationality. Use this skill whenever the
   user asks: "can [nationality] enter Vietnam?", "do I need a visa for Vietnam?",

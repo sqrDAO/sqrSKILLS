@@ -1,7 +1,7 @@
 {
   "_meta": {
     "document_type": "structured_web3_opportunity_roster",
-    "last_updated": "2026-10-26",
+    "last_updated": "2026-10-27",
     "data_freshness": "Program existence, type, chain/ecosystem, region, and dilution posture are evergreen and verified through June 2026. TIME-SENSITIVE fields (application deadlines, open/closed cohort status, current prize pool / check size, cadence) are baseline snapshots and MUST be re-verified live before the user applies or acts.",
     "coverage": "Global. Every entry is region-tagged. Southeast Asia / Vietnam-relevant entries carry sea_relevant: true.",
     "schema_version": "1.1.0",
@@ -253,9 +253,9 @@
       "cadence": "discontinued",
       "status": "closed",
       "url": "https://github.com/w3f/Grants-Program",
-      "notes": "The general Grants Program has been discontinued. Builders are routed to the Polkadot Treasury (OpenGov), Kusama Vision Bounties, and other ecosystem-specific programs.",
+      "notes": "The general Grants Program has been discontinued and is not accepting new applications. The README routes builders to the Polkadot and Kusama treasuries, Web3 Foundation / Parity hackathons, third-party ecosystem grant and bounty programs (e.g. Moonbeam, Acala), and Ecosystem Funding Office Hours.",
       "sea_relevant": false,
-      "last_verified": "2026-10-26"
+      "last_verified": "2026-10-27"
     },
     {
       "id": "interchain-foundation-grants",
