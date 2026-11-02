@@ -1,8 +1,16 @@
 # Vietnam Crypto Regime — Baseline Snapshot
 
-> **LAST VERIFIED: 26 October 2026** — the date of the last full sweep, and the one
+> **LAST VERIFIED: 2 November 2026** — the date of the last full sweep, and the one
 > the radar diffs against. Everything it reports as "new" is new relative to this date.
 > After confirming real changes in a run, rewrite this file and bump the date.
+> **Verification note, 2 November 2026:** No pilot licence, new decree or circular, issued
+> reporting Circular, DNC-Chain Layer-1 selection, scheme governance instrument, new Da Nang
+> trial approval, or extension/suspension of an existing trial was found after 26 Oct 2026.
+> VON, G-Flow, GM Services, Dinogo and FIZEN are still undecided on the record found.
+> Nghị quyết 20/2026/NQ-HĐND's effective date and relation to 55/2024 are still unread: the
+> LuatVietnam preview is a scanned image, and VnEconomy and VietTimes state neither.
+> Two refinements: the shortlisted "Loc Phat" applicant now trades as Sacom (SCEX), and
+> VnExpress gives Basal Pay limits that conflict with Tuổi Trẻ's (see the Da Nang section).
 > **Verification note, 26 October 2026:** No pilot licence, new decree or circular, issued
 > reporting Circular, DNC-Chain Layer-1 selection, scheme governance instrument, new Da Nang
 > trial approval, or extension/suspension of an existing trial was found after 19 Oct 2026.
@@ -213,7 +221,13 @@ Operator figures, single Tier-2 source (Tuổi Trẻ, 18 Oct 2026), attributed t
 and not independently verified: about 10,000 registered accounts and over 15,000
 transactions in the first year, over 100,000 (as written, "đô") converted at the three
 original sites, and self-imposed limits of under 1,000 USDT per transaction and 30,000 USDT
-per account per month. Status: REPORTED / SINGLE-SOURCE. This is the first sourced report of
+per account per month. Status: REPORTED / SINGLE-SOURCE.
+The limits are CONFLICTING. VnExpress (19 Oct 2026; Tier 3 per sources.md) gives a combined
+limit after eKYC of 26 million VND (about 1,000 USD) **per day** and 776 million VND (about
+30,000 USD) per month. That is per day, not per transaction. The two agree only on the monthly
+ceiling. VnExpress also lists two software parks and the startup support centre among the ten
+areas, and gives the trial end as 26 Aug 2028. It cites no amending decision either.
+This is the first sourced report of
 user-facing operation for any of the six trials; it covers Basal Pay only. Nothing found
 reports user numbers, launches or results for MIMO, PayD, TORA, Umi Pay or Money X-Border,
 and no trial is reported extended in time or suspended.
@@ -317,6 +331,7 @@ regime, or the municipal trial decisions.
 - **Reporting & disclosure rules:** The Ministry of Finance's public comment period for its **draft Circular on reporting and information disclosure** for the pilot crypto-asset market closed on 26 September 2026. The draft governs reporting duties for licensed VASPs. Status: DRAFT / AWAITING_ISSUANCE.
 - **Da Nang IFC international integration:** On **25 September 2026**, the Da Nang site of Vietnam's IFC officially became a member of the **FC4S (Financial Centres for Sustainability) Network**, a UNDP-coordinated global body for green and sustainable finance. The move signals an intent to align with international standards and access global expertise. Status: ANNOUNCED / CONFIRMED.
 - **Licensing shortlist:** 5 entities are reported to be under final review by the Ministry of Finance, State Bank, and Ministry of Public Security. The list includes: **VIX Crypto Asset Exchange JSC**, **Loc Phat Vietnam Crypto Asset Exchange JSC**, **Vietnam Prosperity Crypto Asset Exchange JSC**, **Techcom Crypto Asset Exchange JSC**, and **Vietnam Digital Assets JSC**. Status: REPORTED, not final approvals.
+  - Loc Phat Vietnam Crypto Asset Exchange JSC (LPEX) has been renamed CTCP Sàn Giao dịch Tài sản Mã hóa Sacom (**SCEX**), reported 5 May 2026 by The Leader. Tiền Phong (4 Sep 2026) lists SCEX in LPEX's place among the five first-round dossiers, and reports its charter capital raised from 360 billion to 5,000 billion VND in August 2026, half the 10,000 billion minimum. Status: CONFIRMED (two independent Tier-2 sources) for the rename; not a licence.
   - On 22 Oct 2026, Vietnam Prosperity (CAEX) announced that the Cục An ninh mạng (Ministry of Public Security) had appraised its level-4 information-system security dossier, and called itself "sẵn sàng để được cấp phép". This is a company announcement reported by one Tier-2 outlet (Thanh Niên, 23 Oct 2026). Status: REPORTED / SINGLE-SOURCE. It is not a licence, and the same article confirms none has been issued, so the Resolution 05 six-month clock has still not started.
 - **Digital assets as loan collateral:** Ministry of Finance has proposed allowing SMEs to use digital assets and intellectual property as collateral for bank loans. Status: PROPOSED / NEEDS_PRIMARY_SOURCE.
 - **Supervision framework:** The State Securities Commission (SSC) is actively developing a "System for management and supervision of the crypto-asset trading market" and a "regulatory framework for supervising the crypto-asset market," including staff training with international partners: the SSC ran a "Compliance and Enforcement in the crypto-asset market" programme with Tether and Chainalysis in Hanoi on 21 Jul 2026, with FATF standards, VASP compliance programmes, fund tracing, and illicit P2P networks on the agenda. On 30 Sep 2026 the SSC chair met MAS (Singapore) on depositary-receipt products and asked MAS to share experience on crypto-asset legal frameworks, exchange supervision and AML. Status: IN_PROGRESS / CONFIRMED.
@@ -376,6 +391,7 @@ regime, or the municipal trial decisions.
   19 Oct 2026: still PENDING (undecided) for all five. The October 2026 seminar coverage names
   Basal Pay, PayD, Umi Pay and X-Border as licensed and none of the five applicants.
   26 Oct 2026: still PENDING (undecided) for all five; no approval or rejection was found.
+  2 Nov 2026: still PENDING (undecided) for all five; no approval or rejection was found.
   The 29 Apr councils sat under 55/2024; that predates 20/2026 and does not settle which
   resolution the 22 Aug 2026 approvals cite.
 - Does **Nghị quyết 20/2026/NQ-HĐND** amend, replace or merely detail **55/2024/NQ-HĐND**, and
@@ -483,6 +499,9 @@ confirmed on 3 August 2026 and are due for a re-check.
 - **Dân trí — first ten Da Nang IFC members, 21 Dec 2025 (Tier 2):** `https://dantri.com.vn/kinh-doanh/da-nang-cong-bo-10-thanh-vien-dau-tien-cua-trung-tam-tai-chinh-quoc-te-20251222091925990.htm` — names Bybit Technology Vietnam as a member; Binance as an MoU partner only. (Confirmed 19 Oct 2026)
 - **Tuổi Trẻ — first Da Nang IFC members (Tier 2, independent corroboration):** `https://tuoitre.vn/diem-ten-nhung-ong-lon-gia-nhap-trung-tam-tai-chinh-quoc-te-tai-da-nang-20251222073128439.htm` — 22 Dec 2025; lists Bybit Technology Vietnam among members. (Confirmed 19 Oct 2026)
 - **Thanh Niên — CAEX level-4 security appraisal; no exchange licensed yet (Tier 2, single source):** `https://thanhnien.vn/khi-nao-viet-nam-co-san-giao-dich-tai-san-ma-hoa-dau-tien-185261023063623604.htm` — 23 Oct 2026; reports CAEX's own 22 Oct notice, and quotes SSC's Tô Trần Hòa that launch timing depends on the firms' progress. (Confirmed 26 Oct 2026)
+- **VnExpress — Basal Pay at 10 areas, per-day and monthly limits (Tier 3 per sources.md):** `https://vnexpress.net/da-nang-thi-diem-trao-doi-bang-tai-san-ma-hoa-tai-nhieu-tuyen-pho-5134374.html` — 19 Oct 2026; the per-day limit conflicts with Tuổi Trẻ's per-transaction figure. (Confirmed 2 Nov 2026)
+- **The Leader — LPEX renamed Sacom (SCEX) (Tier 2):** `https://theleader.vn/san-tai-san-so-sacom-the-chan-loc-phat-d45748.html` — 5 May 2026. (Confirmed 2 Nov 2026)
+- **Tiền Phong — SCEX among the five first-round dossiers, capital 5,000 billion VND; no licence issued (Tier 2):** `https://tienphong.vn/cuoc-dua-san-tai-san-ma-hoa-sau-mot-nam-thi-diem-nguoi-tang-toc-ben-rut-lui-post1873655.tpo` — 4 Sep 2026. (Confirmed 2 Nov 2026)
 - **MOF News — SSC to build supervision rules (Tier 1):** `https://www.mof.gov.vn/webcenter/portal/btcvn/pages_r/l/tin-bo-tai-chinh?dDocName=MOFUCM288593`
 
 ---
