@@ -1,7 +1,7 @@
 {
   "_meta": {
     "document_type": "structured_web3_opportunity_roster",
-    "last_updated": "2026-10-27",
+    "last_updated": "2026-11-02",
     "data_freshness": "Program existence, type, chain/ecosystem, region, and dilution posture are evergreen and verified through June 2026. TIME-SENSITIVE fields (application deadlines, open/closed cohort status, current prize pool / check size, cadence) are baseline snapshots and MUST be re-verified live before the user applies or acts.",
     "coverage": "Global. Every entry is region-tagged. Southeast Asia / Vietnam-relevant entries carry sea_relevant: true.",
     "schema_version": "1.1.0",
@@ -45,9 +45,9 @@
       "cadence": "cohort-based (multiple batches/year)",
       "status": "open",
       "url": "https://alliance.xyz/",
-      "notes": "Applications for cohort ALL19 (starting Jan 11, 2027) have an early deadline of September 23, 2026 and a regular deadline of November 18, 2026.",
+      "notes": "Applications for cohort ALL19 (starting Jan 11, 2027) have an early deadline of September 23, 2026 and a regular deadline of November 18, 2026. Checked 2026-11-02: the early deadline has passed, and the official page still shows 'Apply by November 18'. The page lists the investment as $400k at a $4M post-money SAFE, which does not clearly match the $800k total above; confirm the follow-on terms with the program.",
       "sea_relevant": true,
-      "last_verified": "2026-09-28"
+      "last_verified": "2026-11-02"
     },
     {
       "id": "outlier-ventures-basecamp",
@@ -109,9 +109,9 @@
         "cadence": "cohort-based",
         "status": "closed",
         "url": "https://www.base.org/batches",
-        "notes": "The official Base accelerator for pre-seed teams. Base Batches 004 applications close September 9, 2026 for the 8-week program.",
+        "notes": "The official Base accelerator for pre-seed teams. Checked 2026-11-02: Base Batches 004 applications closed September 10, 2026 (not September 9). The virtual program runs September 29 to November 15, with Demo Day in New York on November 17. Selected teams receive a $100K investment from the Base Ecosystem Fund.",
         "sea_relevant": false,
-        "last_verified": "2026-09-21"
+        "last_verified": "2026-11-02"
     },
     {
       "id": "base-batches",
@@ -141,9 +141,9 @@
       "cadence": "follows Colosseum hackathon seasons",
       "status": "open",
       "url": "https://www.colosseum.com/",
-      "notes": "The 'Eternal' track is a rolling program for teams who don't want to wait for a hackathon. The next major hackathon is the Fall 2026 edition ('Crypto World's Fair'), running from Sep 14 to Oct 12.",
+      "notes": "The 'Eternal' track is a rolling program for teams who don't want to wait for a hackathon. Checked 2026-11-02: the Fall 2026 hackathon ('Crypto World's Fair', Sep 14 to Oct 12) is in judging, with no total prize pool stated on the page. The page says winners can join the accelerator with $250,000 in funding. The page shows no Eternal application dates, so confirm its status with Colosseum.",
       "sea_relevant": true,
-      "last_verified": "2026-09-28"
+      "last_verified": "2026-11-02"
     },
     {
       "id": "draper-university-web3",
