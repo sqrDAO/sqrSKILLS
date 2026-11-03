@@ -1,7 +1,7 @@
 {
   "_meta": {
     "document_type": "structured_web3_opportunity_roster",
-    "last_updated": "2026-11-02",
+    "last_updated": "2026-11-03",
     "data_freshness": "Program existence, type, chain/ecosystem, region, and dilution posture are evergreen and verified through June 2026. TIME-SENSITIVE fields (application deadlines, open/closed cohort status, current prize pool / check size, cadence) are baseline snapshots and MUST be re-verified live before the user applies or acts.",
     "coverage": "Global. Every entry is region-tagged. Southeast Asia / Vietnam-relevant entries carry sea_relevant: true.",
     "schema_version": "1.1.0",
@@ -41,13 +41,13 @@
       "dilution": "dilutive",
       "chains": ["multi-chain", "ethereum", "solana"],
       "regions": ["global", "us", "remote"],
-      "typical_check_or_prize": "$800,000 total investment ($400,000 upon admission + $400,000 follow-on)",
+      "typical_check_or_prize": "$400,000 at a $4M post-money SAFE with a 1:1 token side letter",
       "cadence": "cohort-based (multiple batches/year)",
       "status": "open",
       "url": "https://alliance.xyz/",
-      "notes": "Applications for cohort ALL19 (starting Jan 11, 2027) have an early deadline of September 23, 2026 and a regular deadline of November 18, 2026. Checked 2026-11-02: the early deadline has passed, and the official page still shows 'Apply by November 18'. The page lists the investment as $400k at a $4M post-money SAFE, which does not clearly match the $800k total above; confirm the follow-on terms with the program.",
+      "notes": "Applications for cohort ALL19 (starting Jan 11, 2027) have an early deadline of September 23, 2026 and a regular deadline of November 18, 2026. Checked 2026-11-02: the early deadline has passed, and the official page still shows 'Apply by November 18'. Checked 2026-11-03: the FAQ on alliance.xyz states '$400k in funding to all admitted startups' at a $4M post-money valuation via SAFE with a 1:1 token side letter, paid on admission; no follow-on or $800k total appears on the homepage, /apply or /terms. The earlier '$800k ($400k + $400k follow-on)' figure (added 2026-09-28) is unconfirmed: the site runs an A/B experiment flag named 'follow-on-terms', so some visitors may see different terms. Treat any follow-on as unconfirmed until it appears on the standard page or the program confirms it.",
       "sea_relevant": true,
-      "last_verified": "2026-11-02"
+      "last_verified": "2026-11-03"
     },
     {
       "id": "outlier-ventures-basecamp",
