@@ -1,8 +1,19 @@
 # Vietnam Crypto Regime — Baseline Snapshot
 
-> **LAST VERIFIED: 2 November 2026** — the date of the last full sweep, and the one
+> **LAST VERIFIED: 9 November 2026** — the date of the last full sweep, and the one
 > the radar diffs against. Everything it reports as "new" is new relative to this date.
 > After confirming real changes in a run, rewrite this file and bump the date.
+> **Verification note, 9 November 2026:** The draft reporting Circular has been issued as
+> **Circular 165/2026/TT-BTC**, dated 31 Oct 2026 and effective 18 Dec 2026. It was first
+> reported on 3 Nov 2026, after the last sweep. Two independent Tier-2 outlets carry the number
+> and both dates (Thời báo Tài chính Việt Nam; Tin nhanh chứng khoán), and LuatVietnam agrees.
+> The Tier-1 text was not found: vanban.chinhphu.vn returned no match for the number this run.
+> No pilot licence, new decree, DNC-Chain Layer-1 selection, scheme governance instrument, new
+> Da Nang trial approval, or extension/suspension of an existing trial was found after 2 Nov 2026.
+> VON, G-Flow, GM Services, Dinogo and FIZEN are still undecided on the record found.
+> A search summary again repeated the claim that Nghị quyết 20/2026/NQ-HĐND took effect 10 Jun 2026
+> and replaced 55/2024, citing LuatVietnam. That claim was not adopted: the LuatVietnam preview
+> fetched this run is still a scanned image with no text layer, so it was not read.
 > **Verification note, 2 November 2026:** No pilot licence, new decree or circular, issued
 > reporting Circular, DNC-Chain Layer-1 selection, scheme governance instrument, new Da Nang
 > trial approval, or extension/suspension of an existing trial was found after 26 Oct 2026.
@@ -105,6 +116,7 @@ Six crypto-related trials are confirmed live as of 24 August 2026 — **1181/QĐ
 Treat six as a floor, not a total: the regime covers new technology generally, not only crypto, and the 2026 first-batch approvals have not been enumerated.
 These local trial approvals are not national crypto-asset service-provider or exchange licenses.
 The operating layer now includes accounting rules in **Circular 15/2026/TT-BTC**, crypto-specific tax policy and administration in **Circulars 32 & 41/2026/TT-BTC**, general PIT implementation in **Decree 253/2026/NĐ-CP** and **Circular 87/2026/TT-BTC**, electronic invoicing in **Decree 254/2026/NĐ-CP**, and an administrative-penalty regime in **Decree 284/2026/NĐ-CP**, effective **1 September 2026**.
+Reporting and disclosure duties for the pilot market follow in **Circular 165/2026/TT-BTC** (issued 31 Oct 2026, effective **18 December 2026**; see the table).
 The tax regime is anchored by the **Law on Personal Income Tax (Law 109/2025/QH15)**, effective **1 July 2026**, which formalizes a 0.1% transaction tax on digital assets.
 The statutory basis for crypto-asset services being a conditional business line is the **Law on Investment (Law 143/2025/QH15)**; its Annex IV is REPORTED to take effect **1 July 2026** on Tier-2 publishers and the Da Nang scheme, since the Tier-1 record carries only the law's 1 March 2026 general commencement (see the table).
 As of August 2026, **Resolution 66.17/2026/NQ-CP** designates crypto services as a "conditional business line," **Resolution 66.23/2026/NQ-CP** creates a temporary AML bridge, **Decree 164/2026/NĐ-CP** mandates asset declaration for public officials, including crypto, and **Decree 296/2026/NĐ-CP** adds economy-wide beneficial-ownership disclosure at business registration.
@@ -144,6 +156,7 @@ Crucially, crypto's legal recognition as property does **not** make it a lawful 
 | **Quyết định 21/2026/QĐ-TTg** | Promulgates the Strategic Technology and Strategic Technology Product catalogues; blockchain (chuỗi khối) appears inside Group 1 (digital technology) alongside AI, big data, cloud, edge, and IoT — it is one line item in that group, not a standalone national priority. Replaces Decision 1131/QĐ-TTg. Signed 30 Apr 2026. Policy signal only; creates no crypto-asset obligations. | ENACTED / CONFIRMED | 1 Jul 2026 |
 | **Quyết định số 1624/QĐ-TTg** | Amends Quyết định 1068/QĐ-TTg (22 Aug 2019) approving the Intellectual Property Strategy to 2030. Adds a task to "nghiên cứu, xử lý vấn đề bảo hộ các đối tượng quyền sở hữu trí tuệ mới, phi truyền thống như dữ liệu lớn (big data), tài sản số, công nghệ chuỗi khối (blockchain)" — i.e. digital assets and blockchain named as new, non-traditional IP subject matter to be studied. Signed 21 Aug 2026 by Deputy PM Hồ Quốc Dũng. Policy signal only; creates no direct crypto-asset market obligations. | ENACTED / CONFIRMED | Signed 21 Aug 2026; no separate effective date stated in the anchor |
 | **Decree 284/2026/NĐ-CP** | Administrative violations and penalties for crypto assets and the pilot market. | ENACTED / CONFIRMED | 1 Sep 2026 |
+| **Circular 165/2026/TT-BTC** | Reporting and information disclosure on the pilot crypto-asset market under Resolution 05/2025/NQ-CP. Applies to service providers, issuers, investors and related parties; reports go to the SSC. Reported duties include notice at least 7 days before adding an asset to trading (khoản 2 Điều 7 per LuatVietnam), a daily trading report by 15:00 for the prior day, weekly custody reports, a monthly market report by the 10th, and IT incidents reported within 24 hours. These details come from Tier-2 summaries, not the circular's text. It binds licensed providers, and none is licensed yet. | ENACTED / CONFIRMED (two independent Tier-2; Tier-1 text not found) | Issued 31 Oct 2026; effective 18 Dec 2026 |
 | **Quy định số 212-QĐ/TW (Politburo)** | Party disciplinary rules; replaces Quy định 69-QĐ/TW (2022) and 264-QĐ/TW (2025). **Điều 42 khoản 3 điểm g** names, for the first time, the illicit purchase, collection or exchange of credit-card data, bank accounts, `tài sản mã hóa` and `tài sản số`, penalty **khai trừ** (expulsion). Party discipline, **not** state law: it binds party members only, creates no offence for anyone else, and changes nothing about what is lawful for a citizen or a company. | EFFECTIVE / CONFIRMED (POLITICAL) | Issued 17 Aug 2026; effective on signing |
 | **Law 23/2026/QH16** | Amends the Law on the State Bank, Law on AML, and Law on Credit Institutions. Adds crypto-asset service providers to the AML reporting entities, a new Article 33a listing 15 suspicious-transaction indicators for crypto assets, and Ministry of Finance inspection of AML in the crypto-asset sector. Passage (24 Aug 2026, 473/476 votes) is Tier 1; the Tier-1 report gives neither the number nor the effective date. The 1 Dec 2026 date is on two Tier-2 sources; the number 23/2026/QH16 is SINGLE-SOURCE (LuatVietnam) — an unrelated Nghị quyết 23/2026/QH16 also exists, so do not cite the number without the word "Law". | ENACTED / CONFIRMED (number SINGLE-SOURCE) | 1 Dec 2026 |
 
@@ -328,7 +341,8 @@ regime, or the municipal trial decisions.
 
 - **Pilot acceleration:** **Nghị quyết số 262/NQ-CP** (5 Sep 2026), the resolution of the government's regular August 2026 meeting, assigns the Ministry of Finance at **mục 4.đ** to "[t]riển khai thí điểm thị trường tài sản mã hóa theo Nghị quyết số 05/2025/NQ-CP của Chính phủ, đẩy nhanh tiến độ đưa thị trường thí điểm vào hoạt động". A tasking order, not a new legal regime: it sets no date and licenses nobody. Status: ENACTED / CONFIRMED. The Tier-1 anchor confirms the instrument and its date but does not reproduce mục 4.đ; the clause text is from the Tier-2 full text.
 - **Pilot exchange go-live:** reported target **Q3 2026**, now reinforced by Resolution 262's call for acceleration and a Ministry of Finance statement on 15 Sep 2026 that the first licensed providers are expected to be operational within 2026. Status: EXPECTED / NEEDS_CURRENT_CONFIRMATION.
-- **Reporting & disclosure rules:** The Ministry of Finance's public comment period for its **draft Circular on reporting and information disclosure** for the pilot crypto-asset market closed on 26 September 2026. The draft governs reporting duties for licensed VASPs. Status: DRAFT / AWAITING_ISSUANCE.
+- **Reporting & disclosure rules:** The Ministry of Finance's public comment period for its **draft Circular on reporting and information disclosure** for the pilot crypto-asset market closed on 26 September 2026. The draft governs reporting duties for licensed VASPs. Status as of 2 Nov 2026: DRAFT / AWAITING_ISSUANCE.
+  9 Nov 2026: issued as **Circular 165/2026/TT-BTC** (31 Oct 2026, effective 18 Dec 2026); see the table. Status: ENACTED / CONFIRMED on two independent Tier-2 sources. Watch for the Tier-1 text on vanban.chinhphu.vn or mof.gov.vn, and read it before quoting any article.
 - **Da Nang IFC international integration:** On **25 September 2026**, the Da Nang site of Vietnam's IFC officially became a member of the **FC4S (Financial Centres for Sustainability) Network**, a UNDP-coordinated global body for green and sustainable finance. The move signals an intent to align with international standards and access global expertise. Status: ANNOUNCED / CONFIRMED.
 - **Licensing shortlist:** 5 entities are reported to be under final review by the Ministry of Finance, State Bank, and Ministry of Public Security. The list includes: **VIX Crypto Asset Exchange JSC**, **Loc Phat Vietnam Crypto Asset Exchange JSC**, **Vietnam Prosperity Crypto Asset Exchange JSC**, **Techcom Crypto Asset Exchange JSC**, and **Vietnam Digital Assets JSC**. Status: REPORTED, not final approvals.
   - Loc Phat Vietnam Crypto Asset Exchange JSC (LPEX) has been renamed CTCP Sàn Giao dịch Tài sản Mã hóa Sacom (**SCEX**), reported 5 May 2026 by The Leader. Tiền Phong (4 Sep 2026) lists SCEX in LPEX's place among the five first-round dossiers, and reports its charter capital raised from 360 billion to 5,000 billion VND in August 2026, half the 10,000 billion minimum. Status: CONFIRMED (two independent Tier-2 sources) for the rename; not a licence.
@@ -364,6 +378,7 @@ regime, or the municipal trial decisions.
 - Has the **0.1% PIT withholding** mechanism actually commenced on any platform?
 - Any new implementing decree on **custody / accounting** for crypto assets? (AML is now covered by Law 23/2026/QH16).
 - What is the status of the MOF's **draft Circular on reporting and information disclosure**, and when will it be issued?
+  Issued as Circular 165/2026/TT-BTC (31 Oct 2026, effective 18 Dec 2026). Open: the Tier-1 text, and its signer.
 - What is the status of the SSC's **supervision framework** and when will it be issued?
 - Has Decree 284 been amended, replaced, or accompanied by implementation guidance before/after its 1 Sep 2026 commencement?
 - Any change to the **offshore-exchange** stance (how foreign-platform users are treated/taxed)?
@@ -392,6 +407,7 @@ regime, or the municipal trial decisions.
   Basal Pay, PayD, Umi Pay and X-Border as licensed and none of the five applicants.
   26 Oct 2026: still PENDING (undecided) for all five; no approval or rejection was found.
   2 Nov 2026: still PENDING (undecided) for all five; no approval or rejection was found.
+  9 Nov 2026: still PENDING (undecided) for all five; no approval or rejection was found.
   The 29 Apr councils sat under 55/2024; that predates 20/2026 and does not settle which
   resolution the 22 Aug 2026 approvals cite.
 - Does **Nghị quyết 20/2026/NQ-HĐND** amend, replace or merely detail **55/2024/NQ-HĐND**, and
@@ -502,6 +518,9 @@ confirmed on 3 August 2026 and are due for a re-check.
 - **VnExpress — Basal Pay at 10 areas, per-day and monthly limits (Tier 3 per sources.md):** `https://vnexpress.net/da-nang-thi-diem-trao-doi-bang-tai-san-ma-hoa-tai-nhieu-tuyen-pho-5134374.html` — 19 Oct 2026; the per-day limit conflicts with Tuổi Trẻ's per-transaction figure. (Confirmed 2 Nov 2026)
 - **The Leader — LPEX renamed Sacom (SCEX) (Tier 2):** `https://theleader.vn/san-tai-san-so-sacom-the-chan-loc-phat-d45748.html` — 5 May 2026. (Confirmed 2 Nov 2026)
 - **Tiền Phong — SCEX among the five first-round dossiers, capital 5,000 billion VND; no licence issued (Tier 2):** `https://tienphong.vn/cuoc-dua-san-tai-san-ma-hoa-sau-mot-nam-thi-diem-nguoi-tang-toc-ben-rut-lui-post1873655.tpo` — 4 Sep 2026. (Confirmed 2 Nov 2026)
+- **Thời báo Tài chính Việt Nam — Circular 165/2026/TT-BTC, reporting and disclosure (Tier 2, Ministry of Finance newspaper):** `https://thoibaotaichinhvietnam.vn/huong-dan-che-do-bao-cao-cong-bo-thong-tin-tren-thi-truong-tai-san-ma-hoa-206318.html` — 3 Nov 2026; number and 18 Dec 2026 effect; no signing date or signer. (Confirmed 9 Nov 2026)
+- **Tin nhanh chứng khoán — Circular 165/2026/TT-BTC (Tier 2, independent corroboration):** `https://www.tinnhanhchungkhoan.vn/nhung-quy-dinh-moi-ve-bao-cao-cong-bo-thong-tin-tren-thi-truong-tai-san-ma-hoa-post400750.html` — 4 Nov 2026; issued 31 Oct 2026, effective 18 Dec 2026. (Confirmed 9 Nov 2026)
+- **LuatVietnam — Circular 165/2026/TT-BTC, 7-day listing notice (Tier 2, legal database):** `https://luatvietnam.vn/tin-van-ban-moi/thong-tu-165-2026-tt-btc-tu-18-12-2026-dua-tai-san-ma-hoa-vao-giao-dich-phai-cong-bo-thong-tin-truoc-it-nhat-7-ngay-186-115055-article.html` — 31 Oct 2026 issue, 18 Dec 2026 effect, cites khoản 2 Điều 7. (Confirmed 9 Nov 2026)
 - **MOF News — SSC to build supervision rules (Tier 1):** `https://www.mof.gov.vn/webcenter/portal/btcvn/pages_r/l/tin-bo-tai-chinh?dDocName=MOFUCM288593`
 
 ---
