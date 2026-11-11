@@ -1,7 +1,7 @@
 {
   "_meta": {
     "document_type": "structured_web3_opportunity_roster",
-    "last_updated": "2026-11-03",
+    "last_updated": "2026-11-09",
     "data_freshness": "Program existence, type, chain/ecosystem, region, and dilution posture are evergreen and verified through June 2026. TIME-SENSITIVE fields (application deadlines, open/closed cohort status, current prize pool / check size, cadence) are baseline snapshots and MUST be re-verified live before the user applies or acts.",
     "coverage": "Global. Every entry is region-tagged. Southeast Asia / Vietnam-relevant entries carry sea_relevant: true.",
     "schema_version": "1.1.0",
@@ -333,9 +333,9 @@
       "cadence": "multiple events per year",
       "status": "open",
       "url": "https://ethglobal.com/events",
-      "notes": "Upcoming events: ETHGlobal Mumbai (Nov 5-7, 2026). ETHGlobal Tokyo concluded on Sep 27, 2026.",
+      "notes": "Checked 2026-11-09: ETHGlobal Mumbai (Nov 5-7, 2026) has passed, and the official events page lists only 2027 events: Cannes (Apr 14-16), New York (Jun 14-16), Tokyo (Aug 23-25), and Lisbon (Oct 13-15). It shows no prize pools and does not say whether any event is accepting registrations. ETHGlobal Tokyo 2026 concluded on Sep 27, 2026.",
       "sea_relevant": false,
-      "last_verified": "2026-09-28"
+      "last_verified": "2026-11-09"
     },
     {
       "id": "colosseum-hackathon",
@@ -347,11 +347,11 @@
       "regions": ["global", "remote", "sea"],
       "typical_check_or_prize": "Large prize pools + $250k investment into top teams",
       "cadence": "multiple online hackathons/year",
-      "status": "open",
+      "status": "closed",
       "url": "https://www.colosseum.com/hackathon",
-      "notes": "The next major event is the Fall 2026 hackathon ('Crypto World's Fair'), running from September 14 to October 12.",
+      "notes": "Checked 2026-11-09: the official hackathon page shows the Fall 2026 hackathon ('Crypto World's Fair') in judging, with no total prize pool and only 'Fall 2026' as its date. No next hackathon is listed, so no registration is open. The Fall 2026 hackathon ran from September 14 to October 12.",
       "sea_relevant": true,
-      "last_verified": "2026-09-28"
+      "last_verified": "2026-11-09"
     },
     {
       "id": "dorahacks",
@@ -429,7 +429,7 @@
       "cadence": "round-based",
       "status": "open",
       "url": "https://retrofunding.optimism.io/",
-      "notes": "The program has resumed after a pause and now runs in more frequent, category-specific rounds. Check Optimism Atlas for active rounds.",
+      "notes": "The program has resumed after a pause and now runs in more frequent, category-specific rounds. Check Optimism Atlas for active rounds. Checked 2026-11-09: the retrofunding.optimism.io URL redirects (301) to the optimism.io homepage, which names no active round, so no current round could be confirmed.",
       "sea_relevant": false,
       "last_verified": "2026-09-07"
     },
@@ -651,11 +651,11 @@
       "regions": ["sea"],
       "typical_check_or_prize": "Per-event prizes (student competition)",
       "cadence": "annual",
-      "status": "closed",
+      "status": "open",
       "url": "https://fintech.hust.edu.vn/get-involved/hackday",
-      "notes": "Season 13 concluded on August 28, 2026. UNIHACKFEST 2026 Hà Nội Campus is ongoing.",
+      "notes": "Checked 2026-11-09: Season 15 is labelled ongoing and open for registration. Idea submission runs 12 October to 19 November 2026 (the page uses DD/MM), teams are announced 20 November, and Pitching Day is 30 November 2026. The page gives no separate registration deadline. Season 13 concluded on August 28, 2026.",
       "sea_relevant": true,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-11-09"
     },
     {
       "id": "vietnam-aptos-hackathon",
