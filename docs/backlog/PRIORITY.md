@@ -35,6 +35,11 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Recently shipped
 
+- `web3-unknown-status` — the status test now matches the roster enum, so a refresh
+  can mark an unconfirmed entry `unknown` instead of leaving it `open`;
+  `polkadot-hackathons` and `optimism-retro-funding` set to `unknown`. Corrected on
+  the 2026-11-16 refresh branch; user approved the fix and merge of #80.
+
 - `vietnam-legal-advisor-danang-tax-exemption` — Da Nang tax-exemption
   confirmation reference (Nghi quyet 24/2026/NQ-HĐND): eligibility, conditions,
   dossiers, channels, council, deadlines and signing authority, labelled

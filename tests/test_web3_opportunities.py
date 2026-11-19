@@ -18,7 +18,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 ROSTER = ROOT / "web3-opportunities" / "data" / "web3_opportunities.json"
 
-KNOWN_STATUSES = {"open", "closed", "rolling", "cohort-based"}
+# Matches the roster's own `enums.status`. `unknown` is the honest value when a
+# refresh cannot confirm a status; without it, the 2026-11-16 refresh had to
+# leave two unconfirmed entries `open`.
+KNOWN_STATUSES = {"open", "closed", "rolling", "cohort-based", "unknown"}
 
 
 class RosterConsistencyTest(unittest.TestCase):
@@ -29,9 +32,14 @@ class RosterConsistencyTest(unittest.TestCase):
         self.entries = self.data["opportunities"]
         self.by_id = {e["id"]: e for e in self.entries}
 
+    def test_the_status_vocabulary_matches_the_roster_enum(self):
+        # The test and the roster each carried a status list, and they drifted:
+        # the enum allowed `unknown`, this test did not, so `unknown` was refused.
+        self.assertEqual(set(self.data["enums"]["status"]), KNOWN_STATUSES)
+
     def test_every_status_is_in_the_known_vocabulary(self):
-        # There is no enum in the file and nothing enforces one, so a refresh can
-        # invent a status that every query filter then silently misses.
+        # A refresh can invent a status that every query filter then silently
+        # misses; the enum is pinned against KNOWN_STATUSES above.
         for entry in self.entries:
             self.assertIn(entry["status"], KNOWN_STATUSES, entry["id"])
 
