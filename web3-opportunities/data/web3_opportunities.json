@@ -1,7 +1,7 @@
 {
   "_meta": {
     "document_type": "structured_web3_opportunity_roster",
-    "last_updated": "2026-11-09",
+    "last_updated": "2026-11-16",
     "data_freshness": "Program existence, type, chain/ecosystem, region, and dilution posture are evergreen and verified through June 2026. TIME-SENSITIVE fields (application deadlines, open/closed cohort status, current prize pool / check size, cadence) are baseline snapshots and MUST be re-verified live before the user applies or acts.",
     "coverage": "Global. Every entry is region-tagged. Southeast Asia / Vietnam-relevant entries carry sea_relevant: true.",
     "schema_version": "1.1.0",
@@ -379,11 +379,11 @@
       "regions": ["global", "remote"],
       "typical_check_or_prize": "Per-event prize pools",
       "cadence": "periodic",
-      "status": "open",
+      "status": "unknown",
       "url": "https://polkadot.com/",
-      "notes": "The flagship Polkadot Solidity Hackathon concluded in March 2026. Ecosystem hackathons are now hosted via partners like DoraHacks and Encode Club.",
+      "notes": "The flagship Polkadot Solidity Hackathon concluded in March 2026. Ecosystem hackathons are now hosted via partners like DoraHacks and Encode Club. Checked 2026-11-16: polkadot.com lists no open hackathon, grant or bounty, and a search found no 2026 Polkadot hackathon with open registration, so the 'open' status could not be confirmed. Treat it as unverified.",
       "sea_relevant": false,
-      "last_verified": "2026-08-31"
+      "last_verified": "2026-11-16"
     },
     {
       "id": "gitcoin",
@@ -427,11 +427,11 @@
       "regions": ["global", "remote"],
       "typical_check_or_prize": "OP rewards for proven impact",
       "cadence": "round-based",
-      "status": "open",
+      "status": "unknown",
       "url": "https://retrofunding.optimism.io/",
-      "notes": "The program has resumed after a pause and now runs in more frequent, category-specific rounds. Check Optimism Atlas for active rounds. Checked 2026-11-09: the retrofunding.optimism.io URL redirects (301) to the optimism.io homepage, which names no active round, so no current round could be confirmed.",
+      "notes": "The program has resumed after a pause and now runs in more frequent, category-specific rounds. Check Optimism Atlas for active rounds. Checked 2026-11-09: the retrofunding.optimism.io URL redirects (301) to the optimism.io homepage, which names no active round, so no current round could be confirmed. Checked 2026-11-16: the URL again returned a 301 to optimism.io, and a search found no announced 2026 round, so the 'open' status could not be confirmed. Treat it as unverified and confirm on the Optimism governance forum before applying.",
       "sea_relevant": false,
-      "last_verified": "2026-09-07"
+      "last_verified": "2026-11-16"
     },
     {
       "id": "drips-network",
