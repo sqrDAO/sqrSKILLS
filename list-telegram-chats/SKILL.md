@@ -43,7 +43,7 @@ python3 "$SKILL_DIR/scripts/list_chats.py" --no-names
 Session sources (checked in order):
 1. **Nanobot** — `~/.nanobot/workspace/sessions/telegram_*.jsonl` (configurable via `NANOBOT_SESSIONS_DIR` or `NANOBOT_WORKSPACE`)
 2. **OpenClaw** — `OPENCLAW_STATE_DIR/agents/main/sessions/sessions.json` (default `/twin-data/state`)
-3. **YouAI backend** — `YOUAI_API_URL` + `YOUAI_TWIN_ID`, authenticated with `OPENCLAW_GATEWAY_TOKEN` (fallback when no local sessions exist). If the backend is configured but `OPENCLAW_GATEWAY_TOKEN` is missing, the script prints `{"error": ...}` and exits 1.
+3. **YouAI backend** — `YOUAI_API_URL` + `YOUAI_TWIN_ID`, authenticated with `OPENCLAW_GATEWAY_TOKEN` (fallback when no local sessions exist). If that fallback runs and `OPENCLAW_GATEWAY_TOKEN` is missing or rejected (HTTP 401/403), the script prints `{"error": ...}` and exits 1.
 
 Bot token for name resolution (tried in order):
 - `TELEGRAM_BOT_TOKEN` env var

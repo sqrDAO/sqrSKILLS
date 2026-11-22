@@ -143,6 +143,10 @@ def _groups_from_backend() -> list:
         with urllib.request.urlopen(req, timeout=10) as resp:
             data = json.loads(resp.read())
     except urllib.error.HTTPError as e:
+        if e.code in (401, 403):
+            raise BackendConfigError(
+                f"YouAI backend rejected OPENCLAW_GATEWAY_TOKEN (HTTP {e.code})"
+            ) from None
         print(f"Warning: backend returned HTTP {e.code} for chat list", file=sys.stderr)
         return []
     except Exception as e:
@@ -187,7 +191,9 @@ def _resolve_names(groups: list) -> list:
     return enriched
 
 
-def list_groups(resolve_names: bool = True) -> list:
+def list_groups(resolve_names: bool = True, use_backend: bool = True) -> list:
+    """Known groups from local sessions; the YouAI backend only when they are empty
+    and use_backend is set (it sends OPENCLAW_GATEWAY_TOKEN to YOUAI_API_URL)."""
     nanobot = _groups_from_nanobot_sessions()
     openclaw = _groups_from_openclaw_sessions()
     seen: set = set()
@@ -196,7 +202,7 @@ def list_groups(resolve_names: bool = True) -> list:
         if g["chat_id"] not in seen:
             seen.add(g["chat_id"])
             groups.append(g)
-    if not groups:
+    if not groups and use_backend:
         groups = _groups_from_backend()
     groups = sorted(groups, key=lambda g: g["chat_id"])
     if resolve_names:

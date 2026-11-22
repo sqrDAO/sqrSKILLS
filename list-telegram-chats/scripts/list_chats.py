@@ -169,6 +169,10 @@ def _chats_from_backend() -> dict:
         with urllib.request.urlopen(req, timeout=10) as resp:
             data = json.loads(resp.read())
     except urllib.error.HTTPError as e:
+        if e.code in (401, 403):
+            raise BackendConfigError(
+                f"YouAI backend rejected OPENCLAW_GATEWAY_TOKEN (HTTP {e.code})"
+            ) from None
         print(f"Warning: backend returned HTTP {e.code} for chat list", file=sys.stderr)
         return {"groups": [], "private_chats": []}
     except Exception as e:

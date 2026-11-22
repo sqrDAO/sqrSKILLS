@@ -11,7 +11,9 @@ twin's secret `OPENCLAW_GATEWAY_TOKEN` instead, and fail clearly when it is miss
 ## Files
 - `list-telegram-chats/scripts/list_chats.py` (edited) — bearer = `OPENCLAW_GATEWAY_TOKEN`;
   missing token with the backend configured → JSON error, exit 1.
-- `telegram-send/scripts/list_groups.py` (edited) — same fix (same endpoint, same bug).
+- `telegram-send/scripts/list_groups.py` (edited) — same fix (same endpoint, same bug);
+  `use_backend` flag.
+- `telegram-send/scripts/send.py` (edited) — `--keyword` matches local sessions only.
 - `list-telegram-chats/SKILL.md`, `telegram-send/SKILL.md` (edited) — document the
   variable; PATCH bumps.
 - `README.md`, `AGENTS.md` (edited) — env var tables.
@@ -22,6 +24,8 @@ twin's secret `OPENCLAW_GATEWAY_TOKEN` instead, and fail clearly when it is miss
       never the twin ID.
 - [ ] `YOUAI_API_URL` + `YOUAI_TWIN_ID` set, token unset, no local sessions → stdout is
       `{"error": ...}` naming `OPENCLAW_GATEWAY_TOKEN`, exit status 1.
+- [ ] Backend answers 401/403 → `{"error": ...}`, exit 1 (not a silent empty list).
+- [ ] `send.py --keyword` never calls the backend, so the token can't leave via it.
 - [ ] Backend not configured (no `YOUAI_API_URL`) → unchanged: empty result, exit 0.
 - [ ] NOT: the token is ever printed, logged, or sent to any host but `YOUAI_API_URL`.
 - [ ] NOT: changing the local-session sources or their priority.

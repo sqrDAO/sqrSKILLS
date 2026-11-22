@@ -28,7 +28,7 @@ This skill lets the user instruct the agent to broadcast a message to any Telegr
 
 - `YOUAI_API_URL` — YouAI backend URL (fallback group discovery when no local sessions exist)
 - `YOUAI_TWIN_ID` — Twin ID (required together with `YOUAI_API_URL`)
-- `OPENCLAW_GATEWAY_TOKEN` — the twin's secret token, sent as the backend bearer credential. Required when `YOUAI_API_URL` is set: without it `list_groups.py` prints `{"error": ...}` and exits 1.
+- `OPENCLAW_GATEWAY_TOKEN` — the twin's secret token, sent as the backend bearer credential. Used only when local sessions are empty; if it is missing or rejected, `list_groups.py` prints `{"error": ...}` and exits 1. `send.py --keyword` matches local-session groups only and never calls the backend.
 
 ## Commands
 
@@ -69,7 +69,7 @@ Prints one JSON result on stdout and exits 0 on success, 1 on failure (diagnosti
 python3 "$SKILL_DIR/scripts/send.py" --keyword <substr> "<message>"
 ```
 
-Fetches all known groups, filters by name (case-insensitive substring match), and sends to every match.
+Fetches groups known from local sessions (never the YouAI backend), filters by name (case-insensitive substring match), and sends to every match.
 
 Example:
 

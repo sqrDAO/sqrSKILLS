@@ -146,6 +146,46 @@ class YouAIBackendAuthTests(unittest.TestCase):
                 self.assertIn("OPENCLAW_GATEWAY_TOKEN", json.loads(out.getvalue())["error"])
                 self.assertIn("OPENCLAW_GATEWAY_TOKEN", err.getvalue())
 
+    def test_rejected_token_fails_clearly(self):
+        import urllib.error
+        for module, call in ((CHATS, lambda: CHATS.list_chats(False)),
+                             (GROUPS, lambda: GROUPS.list_groups(False))):
+            with self.subTest(module=module.__name__), tempfile.TemporaryDirectory() as tmp, \
+                    patch.dict(os.environ, {**self.BACKEND_ENV, **self._empty_local(tmp),
+                                            "OPENCLAW_GATEWAY_TOKEN": "stale"}), \
+                    patch("urllib.request.urlopen", side_effect=urllib.error.HTTPError(
+                        "u", 401, "Unauthorized", {}, None)):
+                with self.assertRaisesRegex(module.BackendConfigError, "HTTP 401"):
+                    call()
+
+    def test_missing_token_is_fine_when_local_sessions_exist(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            Path(tmp, "telegram_-9.jsonl").write_text("{}\n", encoding="utf-8")
+            env = {k: v for k, v in os.environ.items() if k != "OPENCLAW_GATEWAY_TOKEN"}
+            env.update(self.BACKEND_ENV, **self._empty_local(tmp))
+            with patch.dict(os.environ, env, clear=True), patch("urllib.request.urlopen") as request:
+                self.assertEqual([-9], [g["chat_id"] for g in CHATS.list_chats(False)["groups"]])
+                self.assertEqual([-9], [g["chat_id"] for g in GROUPS.list_groups(False)])
+            request.assert_not_called()
+
+    def test_send_keyword_never_calls_the_backend(self):
+        """send.py stays runnable without approval in YouAI, so it must never send the
+        gateway token to the env-provided YOUAI_API_URL."""
+        path = "telegram-send/scripts/send.py"
+        with tempfile.TemporaryDirectory() as tmp, \
+                patch.dict(os.environ, {**self.BACKEND_ENV, **self._empty_local(tmp),
+                                        "OPENCLAW_GATEWAY_TOKEN": "gw-secret",
+                                        "TELEGRAM_BOT_TOKEN": "bot"}), \
+                patch("urllib.request.urlopen") as request, \
+                patch.object(sys, "argv", [path, "--keyword", "x", "hi"]), \
+                contextlib.redirect_stdout(io.StringIO()) as out, \
+                self.assertRaises(SystemExit) as exit_:
+            exec(compile((ROOT / path).read_text(), str(ROOT / path), "exec"),
+                 {"__name__": "__main__", "__file__": str(ROOT / path)})
+        self.assertEqual(1, exit_.exception.code)
+        request.assert_not_called()
+        self.assertIn("local sessions", json.loads(out.getvalue())["error"])
+
     def test_unconfigured_backend_is_still_skipped(self):
         with tempfile.TemporaryDirectory() as tmp:
             env = {k: v for k, v in os.environ.items()
