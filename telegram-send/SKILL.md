@@ -1,6 +1,6 @@
 ---
 name: telegram-send
-version: 0.1.3
+version: 0.1.4
 description: |
   Send a message to a Telegram group or channel this agent's Telegram bot can access. Use this skill whenever the user asks to send, post, or broadcast a message to a Telegram group or channel. Trigger phrases: "send a message to [group]", "post to Telegram", "broadcast to [channel]", "message the [group name] Telegram group". Requires TELEGRAM_BOT_TOKEN.
 allowed-tools:
@@ -28,6 +28,7 @@ This skill lets the user instruct the agent to broadcast a message to any Telegr
 
 - `YOUAI_API_URL` — YouAI backend URL (fallback group discovery when no local sessions exist)
 - `YOUAI_TWIN_ID` — Twin ID (required together with `YOUAI_API_URL`)
+- `OPENCLAW_GATEWAY_TOKEN` — the twin's secret token, sent as the backend bearer credential. Required when `YOUAI_API_URL` is set: without it `list_groups.py` prints `{"error": ...}` and exits 1.
 
 ## Commands
 

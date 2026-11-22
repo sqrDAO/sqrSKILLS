@@ -5,7 +5,8 @@ List Telegram group chats this agent is known to be a member of.
 Sources (in priority order):
   1. Nanobot sessions: ~/.nanobot/workspace/sessions/telegram_*.jsonl
   2. OpenClaw sessions.json
-  3. YouAI backend API
+  3. YouAI backend API (YOUAI_API_URL + YOUAI_TWIN_ID, authenticated with
+     OPENCLAW_GATEWAY_TOKEN)
 
 Group names are resolved via the Telegram Bot API (getChat).
 
@@ -110,18 +111,32 @@ def _groups_from_openclaw_sessions() -> list:
     return groups
 
 
+class BackendConfigError(RuntimeError):
+    """The YouAI backend is configured but its credential is missing."""
+
+
 def _groups_from_backend() -> list:
-    """Fallback: query the YouAI backend API for known group chats."""
+    """Fallback: query the YouAI backend API for known group chats.
+
+    Authenticates with the twin's secret gateway token. The twin ID is public and is
+    never accepted as a credential.
+    """
     api_url = os.environ.get("YOUAI_API_URL", "").rstrip("/")
     twin_id = os.environ.get("YOUAI_TWIN_ID", "").strip()
 
     if not api_url or not twin_id:
         return []
+    token = os.environ.get("OPENCLAW_GATEWAY_TOKEN", "").strip()
+    if not token:
+        raise BackendConfigError(
+            "OPENCLAW_GATEWAY_TOKEN is not set; it is required to query the YouAI "
+            "backend (YOUAI_API_URL) for Telegram groups"
+        )
 
     url = f"{api_url}/api/twins/{urllib.parse.quote(twin_id)}/telegram/chats"
     req = urllib.request.Request(
         url,
-        headers={"Authorization": f"Bearer {twin_id}"},
+        headers={"Authorization": f"Bearer {token}"},
         method="GET",
     )
     try:
@@ -193,7 +208,13 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--no-names", action="store_true", help="Skip name resolution via Telegram API")
     args = parser.parse_args()
-    print(json.dumps(list_groups(resolve_names=not args.no_names), ensure_ascii=False))
+    try:
+        groups = list_groups(resolve_names=not args.no_names)
+    except BackendConfigError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        print(json.dumps({"error": str(e)}, ensure_ascii=False))
+        sys.exit(1)
+    print(json.dumps(groups, ensure_ascii=False))
 
 
 if __name__ == "__main__":

@@ -88,6 +88,7 @@ SKILL_DIR=./vietnam-visa-check \
 
 SKILL_DIR=./telegram-send \
   TELEGRAM_BOT_TOKEN=<token> YOUAI_API_URL=<url> YOUAI_TWIN_ID=<id> \
+  OPENCLAW_GATEWAY_TOKEN=<gateway-token> \
   python3 telegram-send/scripts/list_groups.py
 
 WIKI_DIR=./wiki SKILL_DIR=./llm-wiki \
@@ -303,8 +304,8 @@ Required sections are **Goal**, **Files**, **Acceptance**, and **Verify**.
 | Skill | Required Env Vars | Optional Env Vars |
 |-------|-------------------|-------------------|
 | `nearby-places-search` | `GOOGLE_PLACES_API_KEY` | `OPENCLAW_WORKSPACE_DIR` |
-| `telegram-send` | `TELEGRAM_BOT_TOKEN` | `YOUAI_API_URL`, `YOUAI_TWIN_ID`, `NANOBOT_CONFIG`, `NANOBOT_SESSIONS_DIR`, `NANOBOT_WORKSPACE`, `OPENCLAW_STATE_DIR` |
-| `list-telegram-chats` | `TELEGRAM_BOT_TOKEN` for name resolution | `NANOBOT_CONFIG`, `NANOBOT_SESSIONS_DIR`, `NANOBOT_WORKSPACE`, `OPENCLAW_STATE_DIR`, `YOUAI_API_URL`, `YOUAI_TWIN_ID` |
+| `telegram-send` | `TELEGRAM_BOT_TOKEN` | `YOUAI_API_URL`, `YOUAI_TWIN_ID`, `OPENCLAW_GATEWAY_TOKEN`, `NANOBOT_CONFIG`, `NANOBOT_SESSIONS_DIR`, `NANOBOT_WORKSPACE`, `OPENCLAW_STATE_DIR` |
+| `list-telegram-chats` | `TELEGRAM_BOT_TOKEN` for name resolution | `NANOBOT_CONFIG`, `NANOBOT_SESSIONS_DIR`, `NANOBOT_WORKSPACE`, `OPENCLAW_STATE_DIR`, `YOUAI_API_URL`, `YOUAI_TWIN_ID`, `OPENCLAW_GATEWAY_TOKEN` |
 | `telegram-group-summary` | `TELEGRAM_BOT_TOKEN` for Bot API fallback | `OPENCLAW_STATE_DIR` |
 | `llm-wiki` | None | `WIKI_DIR` |
 | `vietnam-visa-check` | None | None |
