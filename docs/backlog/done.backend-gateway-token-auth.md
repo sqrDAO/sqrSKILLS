@@ -7,6 +7,7 @@ with `Authorization: Bearer {YOUAI_TWIN_ID}`. YouAI stopped accepting the public
 ID as a credential (its `legacy-twin-token` work), so the fallback has returned 401 ever
 since and the skills silently list nothing when local sessions are empty. Send the
 twin's secret `OPENCLAW_GATEWAY_TOKEN` instead, and fail clearly when it is missing.
+Issue #82: reject backend redirects so the secret cannot leave the approved endpoint.
 
 ## Files
 - `list-telegram-chats/scripts/list_chats.py` (edited) — bearer = `OPENCLAW_GATEWAY_TOKEN`;
@@ -20,15 +21,17 @@ twin's secret `OPENCLAW_GATEWAY_TOKEN` instead, and fail clearly when it is miss
 - `tests/test_remaining_skills.py` (edited) — header and missing-token regression tests.
 
 ## Acceptance
-- [ ] The backend request carries `Authorization: Bearer <OPENCLAW_GATEWAY_TOKEN>` and
+- [x] The backend request carries `Authorization: Bearer <OPENCLAW_GATEWAY_TOKEN>` and
       never the twin ID.
-- [ ] `YOUAI_API_URL` + `YOUAI_TWIN_ID` set, token unset, no local sessions → stdout is
+- [x] `YOUAI_API_URL` + `YOUAI_TWIN_ID` set, token unset, no local sessions → stdout is
       `{"error": ...}` naming `OPENCLAW_GATEWAY_TOKEN`, exit status 1.
-- [ ] Backend answers 401/403 → `{"error": ...}`, exit 1 (not a silent empty list).
-- [ ] `send.py --keyword` never calls the backend, so the token can't leave via it.
-- [ ] Backend not configured (no `YOUAI_API_URL`) → unchanged: empty result, exit 0.
-- [ ] NOT: the token is ever printed, logged, or sent to any host but `YOUAI_API_URL`.
-- [ ] NOT: changing the local-session sources or their priority.
+- [x] Backend answers 401/403 → `{"error": ...}`, exit 1 (not a silent empty list).
+- [x] Backend redirects are rejected without a second request or logging the token.
+- [x] Regression tests exercise real redirect handling for both scripts.
+- [x] `send.py --keyword` never calls the backend, so the token can't leave via it.
+- [x] Backend not configured (no `YOUAI_API_URL`) → unchanged: empty result, exit 0.
+- [x] NOT: the token is ever printed, logged, or sent to any host but `YOUAI_API_URL`.
+- [x] NOT: changing the local-session sources or their priority.
 
 ## Verify
 - `python3 scripts/validate_skills.py` → passes
@@ -42,3 +45,7 @@ for Telegram twins. The endpoint compares the bearer with the token via `hmac.co
 The destination comes from `YOUAI_API_URL`, which an agent can override per run (OpenClaw's
 exec `env` parameter). Because the scripts now send a secret there, YouAI takes them off its
 no-prompt exec allowlist, so the user approves each run.
+
+Validation: validator and unanchored check pass; 250 tests pass (3 optional
+openpyxl skips). Fresh review found no P0–P2 defects. Staging twin verification
+remains unperformed; user approved completion and merge on 2026-11-23.

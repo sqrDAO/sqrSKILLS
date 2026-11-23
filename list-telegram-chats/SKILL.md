@@ -1,6 +1,6 @@
 ---
 name: list-telegram-chats
-version: 0.1.3
+version: 0.1.4
 description: |
   List Telegram groups and private chats that have interacted with this agent. Use this skill whenever you need to see who has messaged the agent, list active Telegram chats, show connected groups, or view chat history participants. Trigger phrases: "list my Telegram chats", "who has messaged me on Telegram", "show connected groups", "what Telegram groups am I in", "list telegram chats".
 
@@ -54,3 +54,6 @@ Without a token, `name` is omitted from all entries.
 ## Related Skills
 
 - [telegram-send](../telegram-send/SKILL.md) — send a message to one of the discovered chats
+
+Backend redirects are refused with a JSON error and exit status 1 to protect the
+gateway token. Configure `YOUAI_API_URL` with the final endpoint URL.

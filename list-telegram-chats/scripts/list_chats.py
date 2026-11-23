@@ -141,7 +141,14 @@ def _chats_from_openclaw_sessions() -> dict:
 
 
 class BackendConfigError(RuntimeError):
-    """The YouAI backend is configured but its credential is missing."""
+    """The YouAI backend configuration or response is unsafe to use."""
+
+
+class _NoBackendRedirects(urllib.request.HTTPRedirectHandler):
+    """Never forward a gateway credential beyond the configured endpoint."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
 
 
 def _chats_from_backend() -> dict:
@@ -166,9 +173,15 @@ def _chats_from_backend() -> dict:
         url, headers={"Authorization": f"Bearer {token}"}, method="GET"
     )
     try:
-        with urllib.request.urlopen(req, timeout=10) as resp:
+        with urllib.request.build_opener(_NoBackendRedirects()).open(req, timeout=10) as resp:
             data = json.loads(resp.read())
     except urllib.error.HTTPError as e:
+        e.close()
+        if 300 <= e.code < 400:
+            raise BackendConfigError(
+                f"YouAI backend redirect refused (HTTP {e.code}); "
+                "set YOUAI_API_URL to the final endpoint"
+            ) from None
         if e.code in (401, 403):
             raise BackendConfigError(
                 f"YouAI backend rejected OPENCLAW_GATEWAY_TOKEN (HTTP {e.code})"

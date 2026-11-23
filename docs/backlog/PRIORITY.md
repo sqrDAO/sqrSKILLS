@@ -7,19 +7,14 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Open queue
 
-1. `backend-gateway-token-auth` — `list_chats.py` and `list_groups.py` send the
-   public twin ID as the YouAI backend bearer, which YouAI no longer accepts, so the
-   fallback has returned 401 and the skills silently list nothing when local
-   sessions are empty. Send `OPENCLAW_GATEWAY_TOKEN`; fail clearly without it.
-
-2. `crypto-radar-full-text-rule` — an export of the skill authored outside this
+1. `crypto-radar-full-text-rule` — an export of the skill authored outside this
    repo carries SKILL.md hardening that never landed here: the full-text rule,
    Resolution 05's load-bearing articles, and `CONFLICTING`. Three legal errors
    reached a report sent to Da Nang city leadership, all from citing a summary
    instead of opening the provision. Prose only — the export's `baseline.md` is a
    week stale and contradicts its own SKILL.md on the 6-month clause.
 
-3. `confidence-promotion-anchoring` — `check_unanchored.py` judges instrument
+2. `confidence-promotion-anchoring` — `check_unanchored.py` judges instrument
    numbers new to the file, so the 2026-09-07 refresh walked past it twice: it
    promoted a caveat to CONFIRMED by hanging it on an instrument the file already
    knew, and added `212-QĐ/TW`, which the matcher cannot see because Politburo
@@ -27,18 +22,22 @@ from `todo.<slug>.md` to `done.<slug>.md`.
    *promotes*, not only what it introduces. Ranked here as an extension of its
    dependency, not on agreed priority.
 
-4. `superseded-refresh-pr-hazard` — because the repo squash-merges, a refresh PR
+3. `superseded-refresh-pr-hazard` — because the repo squash-merges, a refresh PR
    corrected on a separate branch stays open and reverts those corrections if
    merged. #47 would have undone four fixes and written conflict markers into two
    data files. Structural, so it recurs weekly until the workflow changes.
 
-5. `rubric-lexical-proximity` — `excused_by` discharges a whole check from a
+4. `rubric-lexical-proximity` — `excused_by` discharges a whole check from a
    phrase anywhere in the answer. The negation half of this was fixed on #46;
    this half was deferred because sentence-scoping the excuse costs web3 v1
    iter1 its 1.0 and makes `v2-22` a stable failure. The unit is a section, and
    it differs per check.
 
 ## Recently shipped
+
+- `backend-gateway-token-auth` — use the gateway token for Telegram backend
+  discovery, reject redirects, and keep keyword sends local-only. User approved
+  completion and merge in #81; closes #82.
 
 - `web3-unknown-status` — the status test now matches the roster enum, so a refresh
   can mark an unconfirmed entry `unknown` instead of leaving it `open`;
