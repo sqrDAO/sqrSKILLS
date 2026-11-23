@@ -5,7 +5,8 @@ List Telegram group chats this agent is known to be a member of.
 Sources (in priority order):
   1. Nanobot sessions: ~/.nanobot/workspace/sessions/telegram_*.jsonl
   2. OpenClaw sessions.json
-  3. YouAI backend API
+  3. YouAI backend API (YOUAI_API_URL + YOUAI_TWIN_ID, authenticated with
+     OPENCLAW_GATEWAY_TOKEN)
 
 Group names are resolved via the Telegram Bot API (getChat).
 
@@ -110,24 +111,55 @@ def _groups_from_openclaw_sessions() -> list:
     return groups
 
 
+class BackendConfigError(RuntimeError):
+    """The YouAI backend configuration or response is unsafe to use."""
+
+
+class _NoBackendRedirects(urllib.request.HTTPRedirectHandler):
+    """Never forward a gateway credential beyond the configured endpoint."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
 def _groups_from_backend() -> list:
-    """Fallback: query the YouAI backend API for known group chats."""
+    """Fallback: query the YouAI backend API for known group chats.
+
+    Authenticates with the twin's secret gateway token. The twin ID is public and is
+    never accepted as a credential.
+    """
     api_url = os.environ.get("YOUAI_API_URL", "").rstrip("/")
     twin_id = os.environ.get("YOUAI_TWIN_ID", "").strip()
 
     if not api_url or not twin_id:
         return []
+    token = os.environ.get("OPENCLAW_GATEWAY_TOKEN", "").strip()
+    if not token:
+        raise BackendConfigError(
+            "OPENCLAW_GATEWAY_TOKEN is not set; it is required to query the YouAI "
+            "backend (YOUAI_API_URL) for Telegram groups"
+        )
 
     url = f"{api_url}/api/twins/{urllib.parse.quote(twin_id)}/telegram/chats"
     req = urllib.request.Request(
         url,
-        headers={"Authorization": f"Bearer {twin_id}"},
+        headers={"Authorization": f"Bearer {token}"},
         method="GET",
     )
     try:
-        with urllib.request.urlopen(req, timeout=10) as resp:
+        with urllib.request.build_opener(_NoBackendRedirects()).open(req, timeout=10) as resp:
             data = json.loads(resp.read())
     except urllib.error.HTTPError as e:
+        e.close()
+        if 300 <= e.code < 400:
+            raise BackendConfigError(
+                f"YouAI backend redirect refused (HTTP {e.code}); "
+                "set YOUAI_API_URL to the final endpoint"
+            ) from None
+        if e.code in (401, 403):
+            raise BackendConfigError(
+                f"YouAI backend rejected OPENCLAW_GATEWAY_TOKEN (HTTP {e.code})"
+            ) from None
         print(f"Warning: backend returned HTTP {e.code} for chat list", file=sys.stderr)
         return []
     except Exception as e:
@@ -172,7 +204,9 @@ def _resolve_names(groups: list) -> list:
     return enriched
 
 
-def list_groups(resolve_names: bool = True) -> list:
+def list_groups(resolve_names: bool = True, use_backend: bool = True) -> list:
+    """Known groups from local sessions; the YouAI backend only when they are empty
+    and use_backend is set (it sends OPENCLAW_GATEWAY_TOKEN to YOUAI_API_URL)."""
     nanobot = _groups_from_nanobot_sessions()
     openclaw = _groups_from_openclaw_sessions()
     seen: set = set()
@@ -181,7 +215,7 @@ def list_groups(resolve_names: bool = True) -> list:
         if g["chat_id"] not in seen:
             seen.add(g["chat_id"])
             groups.append(g)
-    if not groups:
+    if not groups and use_backend:
         groups = _groups_from_backend()
     groups = sorted(groups, key=lambda g: g["chat_id"])
     if resolve_names:
@@ -193,7 +227,13 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--no-names", action="store_true", help="Skip name resolution via Telegram API")
     args = parser.parse_args()
-    print(json.dumps(list_groups(resolve_names=not args.no_names), ensure_ascii=False))
+    try:
+        groups = list_groups(resolve_names=not args.no_names)
+    except BackendConfigError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        print(json.dumps({"error": str(e)}, ensure_ascii=False))
+        sys.exit(1)
+    print(json.dumps(groups, ensure_ascii=False))
 
 
 if __name__ == "__main__":

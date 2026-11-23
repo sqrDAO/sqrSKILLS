@@ -35,6 +35,10 @@ from `todo.<slug>.md` to `done.<slug>.md`.
 
 ## Recently shipped
 
+- `backend-gateway-token-auth` — use the gateway token for Telegram backend
+  discovery, reject redirects, and keep keyword sends local-only. User approved
+  completion and merge in #81; closes #82.
+
 - `web3-unknown-status` — the status test now matches the roster enum, so a refresh
   can mark an unconfirmed entry `unknown` instead of leaving it `open`;
   `polkadot-hackathons` and `optimism-retro-funding` set to `unknown`. Corrected on

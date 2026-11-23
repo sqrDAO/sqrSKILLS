@@ -140,12 +140,16 @@ def main():
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         from list_groups import list_groups
 
-        groups = list_groups()
+        # Local sessions only: the backend fallback sends OPENCLAW_GATEWAY_TOKEN to an
+        # env-provided URL, so it stays in list_groups.py, which runtimes can gate.
+        groups = list_groups(use_backend=False)
         keyword_lower = parsed.keyword.lower()
         matches = [g for g in groups if g.get("name") and keyword_lower in g["name"].lower()]
 
         if not matches:
-            print(json.dumps({"ok": False, "error": f"No groups found matching keyword: {parsed.keyword!r}"}))
+            print(json.dumps({"ok": False, "error": (
+                f"No groups found matching keyword: {parsed.keyword!r} in local sessions; "
+                "run list_groups.py and send by chat_id")}))
             sys.exit(1)
 
         failed = False

@@ -97,6 +97,138 @@ class TelegramSendAndListTests(unittest.TestCase):
         self.assertEqual("2026-09-11", result["groups"][0]["last_updated"])
 
 
+
+class YouAIBackendAuthTests(unittest.TestCase):
+    """The backend fallback authenticates with the gateway token, never the public twin ID."""
+
+    BACKEND_ENV = {"YOUAI_API_URL": "https://api.example.test/", "YOUAI_TWIN_ID": "twin-public-id"}
+
+    def _empty_local(self, tmp):
+        return {"NANOBOT_SESSIONS_DIR": tmp, "OPENCLAW_STATE_DIR": tmp}
+
+    def test_bearer_is_gateway_token(self):
+        body = {"chats": [{"chat_id": -5}, {"chat_id": 7}]}
+        for module, call in ((CHATS, lambda: CHATS.list_chats(False)),
+                             (GROUPS, lambda: GROUPS.list_groups(False))):
+            with self.subTest(module=module.__name__), tempfile.TemporaryDirectory() as tmp, \
+                    patch.dict(os.environ, {**self.BACKEND_ENV, **self._empty_local(tmp),
+                                            "OPENCLAW_GATEWAY_TOKEN": "gw-secret"}), \
+                    patch("urllib.request.OpenerDirector.open",
+                          return_value=io.BytesIO(json.dumps(body).encode())) as request:
+                result = call()
+            req = request.call_args.args[0]
+            self.assertEqual("https://api.example.test/api/twins/twin-public-id/telegram/chats", req.full_url)
+            self.assertEqual("Bearer gw-secret", req.get_header("Authorization"))
+            if module is CHATS:
+                self.assertEqual([-5], [c["chat_id"] for c in result["groups"]])
+                self.assertEqual([7], [c["chat_id"] for c in result["private_chats"]])
+            else:
+                self.assertEqual([-5], [g["chat_id"] for g in result])
+
+    def test_backend_redirects_never_send_a_second_request(self):
+        """Use urllib's real opener/redirect chain, replacing only the transport."""
+        import urllib.request
+        import urllib.response
+        from email.message import Message
+
+        for module, call in ((CHATS, CHATS._chats_from_backend),
+                             (GROUPS, GROUPS._groups_from_backend)):
+            for code in (301, 302, 303, 307, 308):
+                for target in ("https://other.example.test/collect",
+                               "http://api.example.test/collect", "/moved"):
+                    with self.subTest(module=module.__name__, code=code, target=target):
+                        headers = Message()
+                        headers["Location"] = target
+                        response = urllib.response.addinfourl(
+                            io.BytesIO(b""), headers,
+                            "https://api.example.test/api/twins/twin-public-id/telegram/chats", code)
+                        response.msg = "Redirect"
+                        with patch.dict(os.environ, {**self.BACKEND_ENV,
+                                                    "OPENCLAW_GATEWAY_TOKEN": "gw-secret"}), \
+                                patch.object(urllib.request.HTTPSHandler, "https_open",
+                                             return_value=response) as https, \
+                                patch.object(urllib.request.HTTPHandler, "http_open") as http, \
+                                contextlib.redirect_stderr(io.StringIO()) as err:
+                            with self.assertRaisesRegex(module.BackendConfigError,
+                                                        "redirect refused") as raised:
+                                call()
+                        https.assert_called_once()
+                        http.assert_not_called()
+                        self.assertEqual("Bearer gw-secret",
+                                         https.call_args.args[0].get_header("Authorization"))
+                        self.assertNotIn("gw-secret", str(raised.exception) + err.getvalue())
+
+    def test_missing_token_fails_clearly(self):
+        for module, path in ((CHATS, "list-telegram-chats/scripts/list_chats.py"),
+                             (GROUPS, "telegram-send/scripts/list_groups.py")):
+            with self.subTest(path=path), tempfile.TemporaryDirectory() as tmp:
+                env = {k: v for k, v in os.environ.items() if k != "OPENCLAW_GATEWAY_TOKEN"}
+                env.update(self.BACKEND_ENV, **self._empty_local(tmp))
+                with patch.dict(os.environ, env, clear=True), \
+                        patch("urllib.request.OpenerDirector.open") as request, \
+                        patch.object(sys, "argv", [path, "--no-names"]), \
+                        contextlib.redirect_stdout(io.StringIO()) as out, \
+                        contextlib.redirect_stderr(io.StringIO()) as err, \
+                        self.assertRaises(SystemExit) as exit_:
+                    if module is CHATS:
+                        exec(compile((ROOT / path).read_text(), path, "exec"), {"__name__": "__main__"})
+                    else:
+                        module.main()
+                self.assertEqual(1, exit_.exception.code)
+                request.assert_not_called()
+                self.assertIn("OPENCLAW_GATEWAY_TOKEN", json.loads(out.getvalue())["error"])
+                self.assertIn("OPENCLAW_GATEWAY_TOKEN", err.getvalue())
+
+    def test_rejected_token_fails_clearly(self):
+        import urllib.error
+        for module, call in ((CHATS, lambda: CHATS.list_chats(False)),
+                             (GROUPS, lambda: GROUPS.list_groups(False))):
+            with self.subTest(module=module.__name__), tempfile.TemporaryDirectory() as tmp, \
+                    patch.dict(os.environ, {**self.BACKEND_ENV, **self._empty_local(tmp),
+                                            "OPENCLAW_GATEWAY_TOKEN": "stale"}), \
+                    patch("urllib.request.OpenerDirector.open", side_effect=urllib.error.HTTPError(
+                        "u", 401, "Unauthorized", {}, None)):
+                with self.assertRaisesRegex(module.BackendConfigError, "HTTP 401"):
+                    call()
+
+    def test_missing_token_is_fine_when_local_sessions_exist(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            Path(tmp, "telegram_-9.jsonl").write_text("{}\n", encoding="utf-8")
+            env = {k: v for k, v in os.environ.items() if k != "OPENCLAW_GATEWAY_TOKEN"}
+            env.update(self.BACKEND_ENV, **self._empty_local(tmp))
+            with patch.dict(os.environ, env, clear=True), patch("urllib.request.OpenerDirector.open") as request:
+                self.assertEqual([-9], [g["chat_id"] for g in CHATS.list_chats(False)["groups"]])
+                self.assertEqual([-9], [g["chat_id"] for g in GROUPS.list_groups(False)])
+            request.assert_not_called()
+
+    def test_send_keyword_never_calls_the_backend(self):
+        """send.py stays runnable without approval in YouAI, so it must never send the
+        gateway token to the env-provided YOUAI_API_URL."""
+        path = "telegram-send/scripts/send.py"
+        with tempfile.TemporaryDirectory() as tmp, \
+                patch.dict(os.environ, {**self.BACKEND_ENV, **self._empty_local(tmp),
+                                        "OPENCLAW_GATEWAY_TOKEN": "gw-secret",
+                                        "TELEGRAM_BOT_TOKEN": "bot"}), \
+                patch("urllib.request.OpenerDirector.open") as request, \
+                patch.object(sys, "argv", [path, "--keyword", "x", "hi"]), \
+                contextlib.redirect_stdout(io.StringIO()) as out, \
+                self.assertRaises(SystemExit) as exit_:
+            exec(compile((ROOT / path).read_text(), str(ROOT / path), "exec"),
+                 {"__name__": "__main__", "__file__": str(ROOT / path)})
+        self.assertEqual(1, exit_.exception.code)
+        request.assert_not_called()
+        self.assertIn("local sessions", json.loads(out.getvalue())["error"])
+
+    def test_unconfigured_backend_is_still_skipped(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            env = {k: v for k, v in os.environ.items()
+                   if k not in ("YOUAI_API_URL", "YOUAI_TWIN_ID", "OPENCLAW_GATEWAY_TOKEN")}
+            env.update(self._empty_local(tmp))
+            with patch.dict(os.environ, env, clear=True), patch("urllib.request.OpenerDirector.open") as request:
+                self.assertEqual({"groups": [], "private_chats": []}, CHATS.list_chats(False))
+                self.assertEqual([], GROUPS.list_groups(False))
+            request.assert_not_called()
+
 class NearbyPlacesTests(unittest.TestCase):
     def test_short_locations_fall_through_to_geocoding(self):
         with tempfile.TemporaryDirectory() as tmp, patch.object(PLACES, "WORKSPACE_DIR", tmp):

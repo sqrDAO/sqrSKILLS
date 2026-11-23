@@ -1,6 +1,6 @@
 ---
 name: telegram-send
-version: 0.1.3
+version: 0.1.5
 description: |
   Send a message to a Telegram group or channel this agent's Telegram bot can access. Use this skill whenever the user asks to send, post, or broadcast a message to a Telegram group or channel. Trigger phrases: "send a message to [group]", "post to Telegram", "broadcast to [channel]", "message the [group name] Telegram group". Requires TELEGRAM_BOT_TOKEN.
 allowed-tools:
@@ -28,6 +28,7 @@ This skill lets the user instruct the agent to broadcast a message to any Telegr
 
 - `YOUAI_API_URL` — YouAI backend URL (fallback group discovery when no local sessions exist)
 - `YOUAI_TWIN_ID` — Twin ID (required together with `YOUAI_API_URL`)
+- `OPENCLAW_GATEWAY_TOKEN` — the twin's secret token, sent as the backend bearer credential. Used only when local sessions are empty; if it is missing or rejected, `list_groups.py` prints `{"error": ...}` and exits 1. `send.py --keyword` matches local-session groups only and never calls the backend.
 
 ## Commands
 
@@ -68,7 +69,7 @@ Prints one JSON result on stdout and exits 0 on success, 1 on failure (diagnosti
 python3 "$SKILL_DIR/scripts/send.py" --keyword <substr> "<message>"
 ```
 
-Fetches all known groups, filters by name (case-insensitive substring match), and sends to every match.
+Fetches groups known from local sessions (never the YouAI backend), filters by name (case-insensitive substring match), and sends to every match.
 
 Example:
 
@@ -101,3 +102,6 @@ Prints one JSON result containing per-group success/error records. Exits 0 if al
 ## Related Skills
 
 - [list-telegram-chats](../list-telegram-chats/SKILL.md) — list all known chats before deciding where to send
+
+Backend redirects are refused with a JSON error and exit status 1 to protect the
+gateway token. Configure `YOUAI_API_URL` with the final endpoint URL.

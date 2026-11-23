@@ -55,8 +55,8 @@ npx skills add sqrdao/sqrSKILLS@skill-evolution
 
 | Skill | Required | Optional |
 |-------|----------|----------|
-| telegram-send | `TELEGRAM_BOT_TOKEN`, `YOUAI_API_URL`, `YOUAI_TWIN_ID` | — |
-| list-telegram-chats | `TELEGRAM_BOT_TOKEN` | `OPENCLAW_STATE_DIR` (reads local session state when set) |
+| telegram-send | `TELEGRAM_BOT_TOKEN`, `YOUAI_API_URL`, `YOUAI_TWIN_ID`, `OPENCLAW_GATEWAY_TOKEN` | — |
+| list-telegram-chats | `TELEGRAM_BOT_TOKEN` | `OPENCLAW_STATE_DIR` (reads local session state when set); `YOUAI_API_URL`, `YOUAI_TWIN_ID`, `OPENCLAW_GATEWAY_TOKEN` (YouAI backend fallback) |
 | nearby-places-search | `GOOGLE_PLACES_API_KEY` | — |
 | llm-wiki | — | `WIKI_DIR` (defaults to `./wiki/`) |
 | vietnam-visa-check | — | — |

@@ -5,7 +5,8 @@ List Telegram chats (groups and private) that have interacted with this agent.
 Sources (in priority order):
   1. Nanobot sessions: ~/.nanobot/workspace/sessions/telegram_*.jsonl
   2. OpenClaw sessions.json
-  3. YouAI backend API
+  3. YouAI backend API (YOUAI_API_URL + YOUAI_TWIN_ID, authenticated with
+     OPENCLAW_GATEWAY_TOKEN)
 
 Usage:
     python3 list_chats.py [--no-names]
@@ -139,20 +140,54 @@ def _chats_from_openclaw_sessions() -> dict:
     }
 
 
+class BackendConfigError(RuntimeError):
+    """The YouAI backend configuration or response is unsafe to use."""
+
+
+class _NoBackendRedirects(urllib.request.HTTPRedirectHandler):
+    """Never forward a gateway credential beyond the configured endpoint."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
 def _chats_from_backend() -> dict:
-    """Fallback: query the YouAI backend API."""
+    """Fallback: query the YouAI backend API.
+
+    Authenticates with the twin's secret gateway token. The twin ID is public and is
+    never accepted as a credential.
+    """
     api_url = os.environ.get("YOUAI_API_URL", "").rstrip("/")
     twin_id = os.environ.get("YOUAI_TWIN_ID", "").strip()
     if not api_url or not twin_id:
         return {"groups": [], "private_chats": []}
+    token = os.environ.get("OPENCLAW_GATEWAY_TOKEN", "").strip()
+    if not token:
+        raise BackendConfigError(
+            "OPENCLAW_GATEWAY_TOKEN is not set; it is required to query the YouAI "
+            "backend (YOUAI_API_URL) for Telegram chats"
+        )
 
     url = f"{api_url}/api/twins/{urllib.parse.quote(twin_id)}/telegram/chats"
     req = urllib.request.Request(
-        url, headers={"Authorization": f"Bearer {twin_id}"}, method="GET"
+        url, headers={"Authorization": f"Bearer {token}"}, method="GET"
     )
     try:
-        with urllib.request.urlopen(req, timeout=10) as resp:
+        with urllib.request.build_opener(_NoBackendRedirects()).open(req, timeout=10) as resp:
             data = json.loads(resp.read())
+    except urllib.error.HTTPError as e:
+        e.close()
+        if 300 <= e.code < 400:
+            raise BackendConfigError(
+                f"YouAI backend redirect refused (HTTP {e.code}); "
+                "set YOUAI_API_URL to the final endpoint"
+            ) from None
+        if e.code in (401, 403):
+            raise BackendConfigError(
+                f"YouAI backend rejected OPENCLAW_GATEWAY_TOKEN (HTTP {e.code})"
+            ) from None
+        print(f"Warning: backend returned HTTP {e.code} for chat list", file=sys.stderr)
+        return {"groups": [], "private_chats": []}
     except Exception as e:
         print(f"Warning: could not reach backend: {e}", file=sys.stderr)
         return {"groups": [], "private_chats": []}
@@ -236,4 +271,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--no-names", action="store_true", help="Skip name resolution via Telegram API")
     args = parser.parse_args()
-    print(json.dumps(list_chats(resolve_names=not args.no_names), indent=2))
+    try:
+        result = list_chats(resolve_names=not args.no_names)
+    except BackendConfigError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        print(json.dumps({"error": str(e)}, indent=2))
+        sys.exit(1)
+    print(json.dumps(result, indent=2))
